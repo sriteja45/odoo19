@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ir_config_parameter_mouser_api_key" model="ir.config_parameter">
+        <field name="key">mouser_theme.mouser_api_key</field>
+        <field name="value">33c78d19-4aae-4cfc-ab76-6f167a6dc5c5</field>
+    </record>
+</odoo>

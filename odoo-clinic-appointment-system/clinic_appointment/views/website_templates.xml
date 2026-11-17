@@ -1,0 +1,2951 @@
+<odoo>
+    
+
+    <!-- ================= MAIN LAYOUT ================= -->
+    <template id="clinic_main_layout" name="Clinic Main Layout">
+        <html>
+            <head>
+                <title>ActiveLife Multispeciality Clinic</title>
+
+                <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.min.css"/>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css"/>
+               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+                <style>
+                    body {
+                        font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+                        background:#f4f6f9;
+                        margin:0;
+                        padding:0;
+                        color:#333;
+                    }
+
+                    /* HEADER */
+                    header {
+                        background:#fff;
+                        box-shadow:0 2px 12px rgba(0,0,0,0.08);
+                        position: sticky;
+                        top:0;
+                        z-index:1000;
+                    }
+
+                    .clinic-header-container {
+                        max-width: 1200px;
+                        margin:auto;
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        padding: 10px 20px;
+                        gap: 20px;
+                        flex-wrap: wrap;
+                    }
+
+                    /* Logo + Clinic Name */
+                    .clinic-logo-container {
+                        display:flex;
+                        align-items:center;
+                        gap:15px;
+                    }
+
+                    .clinic-logo {
+                        max-width: 120px;       /* Allows logo to scale */
+                        max-height: 100px;      /* Keeps header height consistent */
+                        width: auto;             /* Maintain original aspect ratio */
+                        height: auto;
+                        
+                        background:#fff;
+                        padding: 3px;
+                        object-fit: contain;     /* Ensures whole logo fits without cropping */
+                    }
+
+                    .clinic-name {
+                        font-size:1.8rem;
+                        font-weight:700;
+                        color:#00a09d;
+                    }
+
+                    /* NAVIGATION */
+                    nav {
+                        display:flex;
+                        align-items:center;
+                        gap:15px;
+                        flex-wrap: wrap;
+                    }
+
+                    nav a {
+                        text-decoration:none;
+                        font-weight:500;
+                        color:#495057;
+                        padding: 8px 12px;
+                        border-radius:5px;
+                        transition:0.3s;
+                    }
+
+                    nav a:hover {
+                        background:#00a09d;
+                        color:#fff;
+                    }
+
+                    nav a.btn {
+                        background:#00a09d;
+                        color:#fff;
+                        padding:15px 15px;
+                        border-radius:6px;
+                        font-weight:600;
+                        transition:0.3s;
+                    }
+
+                    nav a.btn:hover {
+                        background:#018b88;
+                        color:#fff;
+                    }
+                    /* POPUP BACKGROUND */
+                    /* POPUP BACKGROUND */
+                    .call-popup{
+                        display:none;
+                        position:fixed;
+                        top:0;
+                        left:0;
+                        width:100%;
+                        height:100%;
+                        background:rgba(0,0,0,0.55);
+                        justify-content:center;
+                        align-items:center;
+                        z-index:9999;
+                    }
+
+                    /* POPUP CARD */
+                    .call-popup-card{
+                        background:#fff;
+                        padding:35px;
+                        border-radius:10px;
+                        width:320px;
+                        text-align:center;
+                        box-shadow:0 8px 25px rgba(0,0,0,0.25);
+                        animation:popupFade 0.3s ease;
+                    }
+
+                    /* PHONE ICON */
+                    .call-icon{
+                        width:60px;
+                        height:60px;
+                        background:#00a09d;
+                        color:white;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius:50%;
+                        font-size:24px;
+                        margin:auto;
+                        margin-bottom:15px;
+                    }
+
+                    /* TEXT */
+                    .call-popup-card h4{
+                        margin-bottom:8px;
+                        font-weight:600;
+                    }
+
+                    .call-popup-card p{
+                        font-size:14px;
+                        color:#666;
+                    }
+
+                    /* BUTTON CONTAINER */
+                    .call-buttons{
+                        margin-top:20px;
+                        display:flex;
+                        justify-content:center;
+                        gap:12px;
+                    }
+
+                    /* YES BUTTON */
+                    .call-btn-yes{
+                        background:#08A045;
+                        color:#fff;
+                        border:none;
+                        padding:10px 18px;
+                        border-radius:6px;
+                        cursor:pointer;
+                        font-weight:600;
+                    }
+
+                    .call-btn-yes:hover{
+                        background:#067c35;
+                    }
+
+                    /* CANCEL BUTTON */
+                    .call-btn-no{
+                        background:#ff3b3b;
+                        color:#fff;
+                        border:none;
+                        padding:10px 18px;
+                        border-radius:6px;
+                        cursor:pointer;
+                    }
+
+                    /* ANIMATION */
+                    @keyframes popupFade{
+                        from{
+                            transform:scale(0.9);
+                            opacity:0;
+                        }
+                        to{
+                            transform:scale(1);
+                            opacity:1;
+                        }
+                    }
+                    .clinic-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.clinic-nav a:hover {
+    color: #0aa6a6;
+    background: #f2fefe;
+}
+
+.clinic-nav a.active {
+    background: #0aa6a6;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.dropdown-menu-custom {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle-custom {
+    cursor: pointer;
+}
+
+.dropdown-content-custom {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    min-width: 250px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    padding: 10px 0;
+    z-index: 9999;
+}
+
+.dropdown-content-custom a {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.dropdown-content-custom a:hover {
+    background: #0aa6a6;
+    color: #fff;
+}
+
+.dropdown-menu-custom:hover .dropdown-content-custom {
+    display: block;
+}
+
+                    .container{
+                        max-width:1200px;
+                        margin:auto;
+                        padding:15px;
+                    }
+
+                    .btn-appointment{
+                        padding:12px 24px;   /* equal top-bottom and left-right gap */
+                        font-size:14px;
+                        border-radius:6px;
+                    }
+
+                    .clinic-nav{
+                        display:flex;
+                        align-items:center;
+                        gap:15px;
+                    }
+
+                    .phone-btn{
+                        background:#17a2a0;
+                        color:white;
+                        font-weight:600;
+                        padding:8px 16px;
+                        border-radius:4px;
+                        text-decoration:none;
+                    }
+
+                    .phone-btn i{
+                        margin-right:8px;
+                    }
+
+                    
+                    /* FOOTER */
+                    footer {
+                        background:#00a09d;
+                        color:#fff;
+                        text-align:center;
+                        padding:18px 0;
+                        margin-top:60px;
+                    }
+
+                    /* RESPONSIVE */
+                    @media(max-width:991px){
+                        .clinic-header-container {
+                            flex-direction: column;
+                            gap: 10px;
+                        }
+                        nav {
+                            justify-content:center;
+                            gap:10px;
+                        }
+                    }
+
+                    @media(max-width:576px){
+                        .hero h1 {
+                            font-size:2rem;
+                        }
+                        .hero p {
+                            font-size:1rem;
+                        }
+                    }
+                </style>
+            </head>
+
+            <body>
+<!-- HEADER -->
+
+<header>
+
+    
+
+    <div class="clinic-header-container">
+
+        <!-- Logo + Clinic Name -->
+        <div class="clinic-logo-container">
+            <img src="/clinic_appointment/static/description/ActiveLife Multispeciality Clinic.png" class="clinic-logo"/>
+            <h4 class="clinic-name">ActiveLife Multispeciality Clinic</h4>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="clinic-nav">
+            <a href="/clinic"
+               t-attf-class="#{'active' if request.httprequest.path == '/clinic' else ''}">
+               Home
+            </a>
+
+            <a href="/clinic/doctors"
+               t-attf-class="#{'active' if request.httprequest.path == '/clinic/doctors' else ''}">
+               Doctors
+            </a>
+
+            <div class="dropdown-menu-custom">
+    <a href="/clinic/services"
+       class="dropdown-toggle-custom"
+       t-attf-class="dropdown-toggle-custom #{'active' if request.httprequest.path in ['/clinic/services', '/clinic/lab-tests'] else ''}">
+       Services <i class="fa fa-caret-down"></i>
+    </a>
+
+    <div class="dropdown-content-custom">
+        <a href="/clinic/services"
+           t-attf-class="#{'active' if request.httprequest.path == '/clinic/services' else ''}">
+           Services
+        </a>
+
+        <a href="/clinic/lab-tests"
+           t-attf-class="#{'active' if request.httprequest.path == '/clinic/lab-tests' else ''}">
+           Lab Tests
+        </a>
+    </div>
+</div>
+
+            <a href="/clinic/contact"
+               t-attf-class="#{'active' if request.httprequest.path == '/clinic/contact' else ''}">
+               Contact
+            </a>
+
+            <!-- Book Appointment -->
+           <a href="/clinic/book"
+              t-att-class="'btn btn-appointment active' if request.httprequest.path == '/clinic/book' else 'btn btn-appointment'">
+              Book Appointment
+            </a>
+
+            
+        </nav>
+
+    </div>
+</header>
+
+      
+
+                <!-- PAGE CONTENT -->
+                <div class="container my-5">
+                    <t t-raw="0"/>
+                </div>
+
+                <!-- FOOTER -->
+                <footer>
+                    <p>© 2026 ActiveLife Multispeciality Clinic</p>
+                </footer>
+                 <!-- ================= CHATBOT POPUP ================= -->
+
+            <div id="chatbot_icon"
+                 style="position:fixed; bottom:20px; right:20px;
+                        background:#6B656E; color:white;
+                        width:60px; height:60px;
+                        border-radius:50%;
+                        display:flex; align-items:center;
+                        justify-content:center;
+                        cursor:pointer; font-size:24px;
+                        z-index:9999;">
+                💬
+            </div>
+
+            <div id="chatbot_box"
+                 style="position:fixed; bottom:90px; right:20px;
+                        width:300px; background:white;
+                        border-radius:10px;
+                        box-shadow:0 5px 15px rgba(0,0,0,0.2);
+                        display:none; z-index:9999;">
+
+                <div style="background:#0d6efd; color:white;
+                            padding:10px; border-radius:10px 10px 0 0;">
+                    Clinic Assistant
+                </div>
+
+                <div id="chat_messages"
+                     style="height:250px; overflow-y:auto;
+                            padding:10px; font-size:14px;">
+                </div>
+
+                <div style="display:flex; border-top:1px solid #ddd; align-items:center;">
+
+                        <input type="text" id="chat_input"
+                            style="flex:1; border:none; padding:8px;"
+                            placeholder="Type message..."/>
+
+                        <!-- 🎤 Microphone Button -->
+                        <i class="fa fa-microphone"
+                        id="mic_btn"
+                        style="cursor:pointer; padding:8px; font-size:18px; color:#0d6efd;">
+                        </i>
+
+                        <button id="send_btn"
+                                style="background:#0d6efd; color:white;
+                                    border:none; padding:8px 12px;">
+                            Send
+                        </button>
+
+                    </div>
+                                </div>
+
+            
+            <!-- ================= DOCTOR-PATIENT LIVE CHAT WIDGET (Separate) ================= -->
+            <!-- Only visible when patient has an active appointment -->
+
+           <div id="live-chat-icon" 
+                style="position:fixed; bottom:100px; right:20px;
+                       background:#00a09d; color:white;
+                       width:50px; height:50px;
+                       border-radius:50%;
+                       display:none;
+                       align-items:center;
+                       justify-content:center;
+                       cursor:pointer; font-size:20px;
+                       z-index:9998;">
+               👨‍⚕️
+           </div>
+
+           <div id="live-chat-window"
+                style="position:fixed; bottom:160px; right:20px;
+                       width:320px; height:450px;
+                       background:white;
+                       border-radius:12px;
+                       box-shadow:0 5px 20px rgba(0,0,0,0.2);
+                       display:none;
+                       flex-direction:column;
+                       z-index:9999;
+                       border:1px solid #e0e0e0;">
+
+                <div style="background:#00a09d; color:white; padding:12px; border-radius:12px 12px 0 0; display:flex; justify-content:space-between;">
+                    <span>💬 Chat with Doctor</span>
+                    <button id="close-live-chat" style="background:none; border:none; color:white; cursor:pointer;">✕</button>
+                </div>
+
+                <div id="live-chat-messages" style="flex:1; overflow-y:auto; padding:12px; font-size:14px; background:#f9f9f9;">
+                    <div style="text-align:center; color:#888;">Connect with your doctor here</div>
+                </div>
+
+                <div style="display:flex; border-top:1px solid #ddd; padding:8px;">
+                    <input type="text" id="live-chat-input" placeholder="Type your message..." style="flex:1; padding:8px; border:none; outline:none;"/>
+                    <button id="live-chat-send" style="background:#00a09d; color:white; border:none; padding:8px 15px; border-radius:6px; cursor:pointer;">Send</button>
+                </div>
+           </div>
+
+           <script>
+           (function() {
+                let liveSessionId = null;
+                let livePolling = null;
+                let appointmentId = null;
+
+                function checkActiveAppointment() {
+                    fetch('/clinic/patient/active-appointment')
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.appointment_id) {
+                                appointmentId = data.appointment_id;
+                                document.getElementById('live-chat-icon').style.display = 'flex';
+                                startLiveChatSession();
+                            }
+                        })
+                        .catch(e => console.log('No active appointment'));
+                }
+
+                function startLiveChatSession() {
+                    fetch('/clinic/chat/start', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ appointment_id: appointmentId })
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.session_id) {
+                           liveSessionId = data.session_id;
+                        }
+                    });
+                }
+
+                function loadLiveMessages() {
+                    if (!liveSessionId) return;
+                    fetch(`/clinic/chat/history?session_id=${liveSessionId}`)
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.messages &amp;&amp; data.messages.length) {
+                                const container = document.getElementById('live-chat-messages');
+                                container.innerHTML = '';
+                                data.messages.forEach(msg => {
+                                    const isUser = msg.from_role === 'patient';
+                                    const div = document.createElement('div');
+                                    div.style.cssText = `margin-bottom:10px; text-align:${isUser ? 'right' : 'left'};`;
+                                    div.innerHTML = `<div style="display:inline-block; max-width:80%; padding:8px 12px; border-radius:16px; background:${isUser ? '#00a09d' : '#e0e0e0'}; color:${isUser ? 'white' : 'black'};">${escapeHtml(msg.content)}</div>`;
+                                    container.appendChild(div);
+                                });
+                                container.scrollTop = container.scrollHeight;
+                            }
+                        });
+                }
+
+                function sendLiveMessage() {
+                    const input = document.getElementById('live-chat-input');
+                    const msg = input.value.trim();
+                    if (!msg || !liveSessionId) return;
+                    input.value = '';
+
+                    fetch('/clinic/chat/send', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            session_id: liveSessionId,
+                            message: msg,
+                            from_role: 'patient'
+                        })
+                    }).then(() => loadLiveMessages());
+                }
+
+                function escapeHtml(text) {
+                    const div = document.createElement('div');
+                    div.textContent = text;
+                    return div.innerHTML;
+                }
+
+                document.getElementById('live-chat-icon')?.addEventListener('click', () => {
+                    const win = document.getElementById('live-chat-window');
+                    win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+                    if (win.style.display === 'flex') {
+                        loadLiveMessages();
+                        if (livePolling) clearInterval(livePolling);
+                        livePolling = setInterval(loadLiveMessages, 5000);
+                    } else if (livePolling) {
+                        clearInterval(livePolling);
+                    }
+                });
+
+                document.getElementById('close-live-chat')?.addEventListener('click', () => {
+                    document.getElementById('live-chat-window').style.display = 'none';
+                    if (livePolling) clearInterval(livePolling);
+                });
+
+                document.getElementById('live-chat-send')?.addEventListener('click', sendLiveMessage);
+                document.getElementById('live-chat-input')?.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') sendLiveMessage();
+                });
+
+                document.getElementById('live-chat-input')?.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') sendLiveMessage();
+                });
+
+                checkActiveAppointment();
+            })();
+            </script>                    
+                         <script><![CDATA[
+
+            document.addEventListener("DOMContentLoaded", function () {
+
+                /* ================= DOCTOR FILTER (SAFE) ================= */
+
+                const specializationSelect = document.querySelector("[name='specialization_id']");
+                const doctorSelect = document.getElementById("doctor_select");
+                const availabilityInfo = document.getElementById("availability_info");
+
+                if (specializationSelect && doctorSelect) {
+
+                    for (let option of doctorSelect.options) {
+                        if (option.value !== "") {
+                            option.style.display = "none";
+                        }
+                    }
+
+                    specializationSelect.addEventListener("change", function () {
+
+                        const selectedSpec = this.value;
+
+                        for (let option of doctorSelect.options) {
+
+                            if (option.value === "") continue;
+
+                            option.style.display =
+                                (option.dataset.spec === selectedSpec)
+                                ? "block"
+                                : "none";
+                        }
+
+                        doctorSelect.value = "";
+
+                        if (availabilityInfo) {
+                            availabilityInfo.textContent = "";
+                        }
+
+                    });
+
+                }
+
+
+                /* ================= CHATBOT ================= */
+
+                const icon = document.getElementById("chatbot_icon");
+                const box = document.getElementById("chatbot_box");
+                const sendBtn = document.getElementById("send_btn");
+                const input = document.getElementById("chat_input");
+                const messages = document.getElementById("chat_messages");
+                const micBtn = document.getElementById("mic_btn");
+
+                if (!icon || !box) return;
+
+                /* ---------------- OPEN CLOSE ---------------- */
+
+                icon.onclick = function () {
+
+                    const isOpening = box.style.display === "none" || box.style.display === "";
+
+                    box.style.display = isOpening ? "block" : "none";
+
+                    if (isOpening && messages.innerHTML.trim() === "") {
+                        addMessage("Hello! How can I help you today?", "bot");
+                    }
+                };
+
+
+                /* ---------------- ADD MESSAGE ---------------- */
+
+                function addMessage(text, sender) {
+
+                    const div = document.createElement("div");
+                    div.style.marginBottom = "8px";
+
+                    div.innerHTML =
+                        sender === "user"
+                        ? "<strong>You:</strong> " + text
+                        : "<strong>Bot:</strong> " + text;
+
+                    messages.appendChild(div);
+                    messages.scrollTop = messages.scrollHeight;
+                }
+
+
+                /* ---------------- SEND MESSAGE ---------------- */
+
+                if (sendBtn && input) {
+
+                    sendBtn.onclick = function () {
+
+                        const text = input.value.trim();
+
+                        if (!text) return;
+
+                        addMessage(text, "user");
+                        input.value = "";
+
+                        fetch("/clinic/chat", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                jsonrpc: "2.0",
+                                method: "call",
+                                params: {
+                                    message: text
+                                },
+                                id: 1
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+
+                            if (data.result && data.result.response) {
+                                addMessage(data.result.response, "bot");
+                            } else {
+                                addMessage("No response from server", "bot");
+                            }
+
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            addMessage("Server error occurred", "bot");
+                        });
+
+                    };
+
+                    /* ENTER KEY */
+
+                    input.addEventListener("keypress", function(e){
+                        if(e.key === "Enter"){
+                            sendBtn.click();
+                        }
+                    });
+
+                }
+
+
+                /* ---------------- VOICE INPUT ---------------- */
+
+                const SpeechRecognition =
+                    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+                if (SpeechRecognition && micBtn && input) {
+
+                    const recognition = new SpeechRecognition();
+
+                    recognition.lang = "en-US";
+                    recognition.continuous = false;
+
+                    micBtn.onclick = function () {
+                        recognition.start();
+                    };
+
+                    recognition.onresult = function (event) {
+                        input.value = event.results[0][0].transcript;
+                    };
+
+                }
+
+            });
+
+            ]]></script>
+
+
+            <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+
+            <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                const phoneInput = document.querySelector("#phone");
+
+                if (phoneInput) {
+                    const iti = window.intlTelInput(phoneInput, {
+                        initialCountry: "in",
+                        separateDialCode: true,
+                    });
+
+                    const form = phoneInput.closest("form");
+
+                    form.addEventListener("submit", function () {
+                        document.getElementById("phone_full").value = iti.getNumber();
+                    });
+                }
+
+            });
+            </script>
+            </body>
+        </html>
+    </template>
+
+    <!-- ================= HOME PAGE ================= -->
+    <template id="clinic_homepage" name="Clinic Home Page">
+        <t t-call="clinic_appointment.clinic_main_layout">
+
+            <!-- ================= HERO BANNER ================= -->
+            <section style="
+                background: linear-gradient(rgba(8,45,73,0.75), rgba(8,45,73,0.75)),
+                url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3');
+                background-size: cover;
+                background-position: center;
+                color: white;
+                padding: 150px 0;
+                text-align: center;
+            ">
+                <div class="container">
+                    <h1 style="font-size: 52px; font-weight: 700; letter-spacing:1px;">
+                        Advanced Multi-Specialty Healthcare
+                    </h1>
+
+                    <p style="font-size: 20px; margin-top: 20px; opacity:0.9;">
+                        Delivering Excellence in Clinical Care, Innovation &amp; Patient Safety
+                    </p>
+
+                    <a href="/clinic/book"
+                    style="
+                            margin-top: 35px;
+                            padding: 15px 40px;
+                            background-color: #1D9BF0;
+                            color: white;
+                            font-weight: 600;
+                            border-radius: 40px;
+                            text-decoration: none;
+                            display: inline-block;
+                            font-size:16px;
+                            transition: 0.3s;
+                    ">
+                        Book Your Appointment
+                    </a>
+                </div>
+            </section>
+
+
+            <!-- ================= WHY CHOOSE US ================= -->
+            <section class="py-5" style="background-color:#f4f8fc;">
+                <div class="container text-center">
+
+                    <h2 style="color:#082D49; font-weight:700; margin-bottom:50px;">
+                        Excellence in Clinical Care &amp; Patient Safety
+                    </h2>
+
+                    <div class="row">
+
+                        <!-- Card 1 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm border-0"
+                                style="border-radius:18px; overflow:hidden;">
+                                <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54"
+                                    style="width:100%; height:280px; object-fit:cover;" />
+                                <div class="p-4">
+                                    <h4 style="color:#082D49; font-weight:600;">
+                                        Experienced Medical Specialists
+                                    </h4>
+                                    <p style="color:#5f6f81;">
+                                        Board-certified consultants across multiple
+                                        specialties providing patient-centered,
+                                        evidence-based treatment.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm border-0"
+                                style="border-radius:18px; overflow:hidden;">
+                                <img src="https://images.unsplash.com/photo-1581594549595-35f6edc7b762"
+                                    style="width:100%; height:280px; object-fit:cover;" />
+                                <div class="p-4">
+                                    <h4 style="color:#082D49; font-weight:600;">
+                                        Advanced Diagnostic Infrastructure
+                                    </h4>
+                                    <p style="color:#5f6f81;">
+                                        State-of-the-art imaging, laboratory and
+                                        surgical facilities ensuring precision
+                                        diagnosis and superior outcomes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm border-0"
+                                style="border-radius:18px; overflow:hidden;">
+                                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118"
+                                    style="width:100%; height:280px; object-fit:cover;" />
+                                <div class="p-4">
+                                    <h4 style="color:#082D49; font-weight:600;">
+                                        24/7 Emergency &amp; Critical Care
+                                    </h4>
+                                    <p style="color:#5f6f81;">
+                                        Rapid response emergency units with
+                                        continuous monitoring and comprehensive
+                                        life-support systems.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            
+
+        </t>
+    </template>
+
+    <!-- ================= DOCTORS PAGE ================= -->
+
+    <template id="clinic_doctors_page" name="Doctors Page">
+        <t t-call="clinic_appointment.clinic_main_layout">
+
+            <div class="container my-5">
+
+                <!-- Page Title -->
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="fw-bold"
+                            style="color:#00a09d;font-size:2.5rem;letter-spacing:1px;">
+                            Our Doctors
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Doctors Flex Container -->
+                <div style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 30px;
+                ">
+
+                    <t t-foreach="doctors" t-as="doc">
+
+                        <!-- Doctor Card -->
+                        <div style="
+                            flex: 0 0 300px;
+                            background: #fff;
+                            border-radius: 20px;
+                            border: 1px solid #f0f0f0;
+                            padding: 25px;
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                            transition: 0.3s;
+                        "
+                        onmouseover="this.style.transform='translateY(-5px)'"
+                        onmouseout="this.style.transform='translateY(0px)'"
+                        >
+
+                            <!-- ================= IMAGE SECTION ================= -->
+                            <div style="
+                                width: 110px;
+                                height: 110px;
+                                border-radius: 50%;
+                                overflow: hidden;
+                                background: #f0f5fa;
+                                border: 4px solid #fff;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin-bottom: 15px;
+                            ">
+
+                                
+                                <!-- ✅ Uploaded Image (CORRECT WAY) -->
+                                <t t-if="doc.image">
+                                    <img t-att-src="'/web/image/clinic.employee/%s/image' % doc.id"
+                                        style="width:100%;height:100%;object-fit:cover;"/>
+                                </t>
+
+
+                                <!-- Default Image (from your Python) -->
+                                <t t-else="">
+                                    <img t-att-src="doc.image_url + '?v=1'"
+                                        style="width:100%;height:100%;object-fit:cover;"/>
+                                </t>
+
+                            </div>
+
+                            <!-- Doctor Name -->
+                            <h5 class="fw-bold mb-1"
+                                style="color:#2c3e50;font-size:1.25rem;">
+                                <t t-esc="doc.name"/>
+                            </h5>
+
+                            <!-- Specialization -->
+                            <p class="mb-1"
+                            style="color:#00a09d;font-weight:600;font-size:0.95rem;">
+                                <t t-if="doc.specialization_id">
+                                    <t t-esc="doc.specialization_id.name"/>
+                                </t>
+                                <t t-else="">
+                                    General Physician
+                                </t>
+                            </p>
+
+                            <!-- ================= EXPERIENCE (ADDED) ================= -->
+                            <p class="text-muted m-0" style="font-size:0.9rem;">
+                                <i class="fa fa-briefcase me-1" style="color:#00a09d;"></i>
+                                <t t-if="doc.experience_years">
+                                    <t t-esc="doc.experience_years"/> Years Experience
+                                </t>
+                                <t t-else="">
+                                    Experience Not Specified
+                                </t>
+                            </p>
+
+                        </div>
+
+                    </t>
+
+                </div>
+
+            </div>
+
+        </t>
+    </template>
+   <template id="clinic_services_page" name="Clinic Services Page">
+    <t t-call="clinic_appointment.clinic_main_layout">
+
+        <section class="speciality-section">
+            <div class="speciality-wrapper">
+                <div class="speciality-grid">
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-stethoscope"></i></div>
+                        <h4>Medical Gastroenterology</h4>
+                        <p>Specialized care for stomach, intestines, pancreas, gall bladder, and liver disorders with advanced diagnosis and treatment support.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-user-md"></i></div>
+                        <h4>Surgical Gastroenterology</h4>
+                        <p>Advanced surgical treatment for gastrointestinal conditions provided by experienced specialists using modern techniques and equipment.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-leaf"></i></div>
+                        <h4>Institute of Liver Sciences &amp; Transplant Hepatology</h4>
+                        <p>Comprehensive liver care with expert support for liver disease diagnosis, treatment, and transplant-related services.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-heartbeat"></i></div>
+                        <h4>Cardiology</h4>
+                        <p>Complete heart care including consultation, cardiac diagnosis, preventive services, and treatment for cardiovascular conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-heart"></i></div>
+                        <h4>Cardiothoracic Surgery</h4>
+                        <p>Expert surgical care for heart and chest conditions using advanced technology and experienced surgical teams.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-user-md"></i></div>
+                        <h4>Neurosurgery &amp; Spine Surgery</h4>
+                        <p>Specialized treatment for brain, nerve, and spine disorders with advanced surgical and supportive care options.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-tint"></i></div>
+                        <h4>Nephrology</h4>
+                        <p>Dedicated kidney care services for chronic kidney disease, renal disorders, and urinary tract-related conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-plus-circle"></i></div>
+                        <h4>Pulmonology - Respiratory Care</h4>
+                        <p>Advanced respiratory care for lung diseases, breathing disorders, infections, and long-term pulmonary conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-hospital-o"></i></div>
+                        <h4>Internal Medicine</h4>
+                        <p>Comprehensive adult medical care focused on diagnosis, prevention, and treatment of general and complex illnesses.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Urology &amp; Renal Transplant</h4>
+                        <p>Expert care for urinary tract and kidney-related problems along with renal transplant consultation and management.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-wheelchair"></i></div>
+                        <h4>Orthopedics &amp; Sports Medicine</h4>
+                        <p>Treatment for bone, joint, muscle, ligament, and sports injury conditions with modern orthopedic solutions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Medical Oncology</h4>
+                        <p>Personalized cancer care with expert oncologists, medical treatment plans, and continuous patient support.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-bullseye"></i></div>
+                        <h4>Radiation Oncology</h4>
+                        <p>Precision-based radiation therapy services for cancer management with advanced medical technology.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-user-md"></i></div>
+                        <h4>Surgical Oncology</h4>
+                        <p>Specialized surgical cancer care with advanced procedures and coordinated multidisciplinary treatment.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-headphones"></i></div>
+                        <h4>ENT</h4>
+                        <p>Diagnosis and treatment for ear, nose, throat, head, and neck conditions with expert specialist support.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-camera"></i></div>
+                        <h4>Radiology</h4>
+                        <p>Advanced imaging services including diagnostic scanning and reporting to support accurate medical evaluation.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Liver Transplant &amp; Hepatobiliary Surgery</h4>
+                        <p>Comprehensive surgical and transplant care for liver and hepatobiliary disorders with specialized expertise.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-heartbeat"></i></div>
+                        <h4>Neurology</h4>
+                        <p>Advanced neurological care for disorders affecting the brain, spine, nerves, and muscular system.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-eye"></i></div>
+                        <h4>Ophthalmology</h4>
+                        <p>Complete eye care services including diagnosis, treatment, and vision support for various eye conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-child"></i></div>
+                        <h4>Paediatrics</h4>
+                        <p>Compassionate child healthcare services covering general wellness, diagnosis, treatment, and pediatric support.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-venus"></i></div>
+                        <h4>Gynecology</h4>
+                        <p>Women’s healthcare services for reproductive health, diagnosis, treatment, and preventive wellness support.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-flask"></i></div>
+                        <h4>Clinical Biochemistry &amp; Therapeutic Drug Monitoring</h4>
+                        <p>Laboratory-based diagnostic support for biochemical investigations and therapeutic drug level monitoring.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Department of Endoscopic Anesthesia</h4>
+                        <p>Safe anesthesia support for endoscopic procedures with patient-focused monitoring and expert clinical care.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-plus-square"></i></div>
+                        <h4>Dermatology</h4>
+                        <p>Specialized skin, hair, and nail care with expert consultation, treatment, and long-term management.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-bolt"></i></div>
+                        <h4>Electrophysiology</h4>
+                        <p>Advanced diagnosis and treatment for irregular heart rhythms and electrical conduction disorders.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-flask"></i></div>
+                        <h4>Clinical Microbiology</h4>
+                        <p>Laboratory diagnostics for bacterial, viral, fungal, and infectious diseases with accurate reporting support.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-ambulance"></i></div>
+                        <h4>Emergency Medicine</h4>
+                        <p>24/7 emergency care for urgent medical situations with rapid response and immediate clinical intervention.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Oral &amp; Maxillofacial Surgery</h4>
+                        <p>Specialized surgical services for facial trauma, jaw conditions, oral disorders, and reconstructive procedures.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-wheelchair"></i></div>
+                        <h4>Physiotherapy &amp; Wellness</h4>
+                        <p>Rehabilitation and physical wellness services for injury recovery, mobility improvement, and functional care.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-plus-square"></i></div>
+                        <h4>Critical Care Medicine</h4>
+                        <p>Intensive care support for seriously ill patients with continuous monitoring and advanced life-support systems.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Interventional Radiology</h4>
+                        <p>Minimally invasive image-guided procedures for diagnosis and treatment of various complex medical conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-scissors"></i></div>
+                        <h4>Plastic Reconstructive Surgery</h4>
+                        <p>Reconstructive and aesthetic surgical services for injury correction, restoration, and specialized care needs.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-female"></i></div>
+                        <h4>Breast Health &amp; Gynecology Center</h4>
+                        <p>Dedicated women’s specialty care with focused services for breast health and gynecological wellness.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-user-md"></i></div>
+                        <h4>Psychiatry</h4>
+                        <p>Mental healthcare services for adults, adolescents, and children with professional psychiatric support.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Dental</h4>
+                        <p>Comprehensive dental care including consultation, treatment, oral hygiene support, and preventive services.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-random"></i></div>
+                        <h4>Vascular &amp; Endovascular Surgery</h4>
+                        <p>Advanced care for vascular conditions using surgical and minimally invasive endovascular procedures.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-tint"></i></div>
+                        <h4>Transfusion Medicine - Blood Bank</h4>
+                        <p>Reliable blood bank and transfusion services supporting routine, emergency, and complex patient care needs.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Endocrinology and Diabetology</h4>
+                        <p>Specialized care for hormone-related disorders, diabetes management, and endocrine health conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-male"></i></div>
+                        <h4>Andrology</h4>
+                        <p>Specialized men’s health services for reproductive, hormonal, and related clinical conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-flask"></i></div>
+                        <h4>Pathology</h4>
+                        <p>Accurate pathology and laboratory reporting services supporting diagnosis, disease monitoring, and treatment planning.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-wheelchair"></i></div>
+                        <h4>Rheumatology</h4>
+                        <p>Expert treatment for autoimmune, joint, connective tissue, and inflammatory musculoskeletal disorders.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-child"></i></div>
+                        <h4>Pediatric Surgery</h4>
+                        <p>Specialized surgical services for infants and children with careful, child-focused treatment approaches.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-exchange"></i></div>
+                        <h4>Multiorgan Transplants</h4>
+                        <p>Advanced transplant support for complex organ replacement procedures with multidisciplinary medical expertise.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-medkit"></i></div>
+                        <h4>Infectious Diseases</h4>
+                        <p>Expert diagnosis and treatment of bacterial, viral, fungal, and other infectious disease conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-bed"></i></div>
+                        <h4>Anaesthesia, Peri-Operative Medicine</h4>
+                        <p>Safe anesthesia and peri-operative support for surgical care with expert monitoring and patient management.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-apple"></i></div>
+                        <h4>Centre for Obesity &amp; Metabolic Therapy</h4>
+                        <p>Weight management and metabolic care services focused on long-term health improvement and wellness.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-users"></i></div>
+                        <h4>Geriatric</h4>
+                        <p>Dedicated healthcare services for senior citizens with personalized support for age-related health conditions.</p>
+                    </div>
+
+                    <div class="speciality-card">
+                        <div class="speciality-icon"><i class="fa fa-plus"></i></div>
+                        <h4>Nuclear Medicine</h4>
+                        <p>Advanced nuclear imaging and therapy services supporting diagnosis and treatment across various specialties.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <style>
+            .speciality-section {
+                background: #f5f5f5;
+                padding: 30px 0 45px 0;
+            }
+
+            .speciality-wrapper {
+                width: 98%;
+                margin: 0 auto;
+            }
+
+            .speciality-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+
+            .speciality-card {
+                position: relative;
+                background: #ffffff;
+                border: 1px solid #dddddd;
+                border-radius: 16px;
+                padding: 24px 22px;
+                min-height: 320px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                transition: all 0.35s ease;
+            }
+
+            .speciality-card::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, #0f67b1 0%, #0b4f90 100%);
+                opacity: 0;
+                transition: all 0.35s ease;
+                z-index: 0;
+            }
+
+            .speciality-card::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                opacity: 0;
+                transition: all 0.35s ease;
+                z-index: 1;
+                background-image:
+                    linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0.10)),
+                    linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0.10)),
+                    linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0.10)),
+                    linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0.10)),
+                    linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0.10)),
+                    linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0.10));
+                background-size:
+                    18px 70px,
+                    70px 18px,
+                    16px 60px,
+                    60px 16px,
+                    20px 80px,
+                    80px 20px;
+                background-repeat: no-repeat;
+                background-position:
+                    90px 80px,
+                    64px 106px,
+                    300px 60px,
+                    278px 82px,
+                    360px 180px,
+                    330px 210px;
+            }
+
+            .speciality-card > * {
+                position: relative;
+                z-index: 2;
+            }
+
+            .speciality-icon {
+                font-size: 44px;
+                color: #1d5ea8;
+                margin-bottom: 20px;
+                line-height: 1;
+                transition: all 0.35s ease;
+            }
+
+            .speciality-card h4 {
+                color: #1d5ea8;
+                font-size: 22px;
+                font-weight: 500;
+                line-height: 1.35;
+                margin-bottom: 18px;
+                transition: all 0.35s ease;
+            }
+
+            .speciality-card p {
+                color: #333333;
+                font-size: 15px;
+                line-height: 1.65;
+                margin-bottom: 0;
+                transition: all 0.35s ease;
+            }
+
+            .speciality-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+            }
+
+            .speciality-card:hover::before,
+            .speciality-card:hover::after {
+                opacity: 1;
+            }
+
+            .speciality-card:hover .speciality-icon,
+            .speciality-card:hover h4,
+            .speciality-card:hover p {
+                color: #ffffff;
+            }
+
+            @media (max-width: 991px) {
+                .speciality-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (max-width: 576px) {
+                .speciality-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .speciality-card {
+                    min-height: auto;
+                }
+
+                .speciality-card h4 {
+                    font-size: 20px;
+                }
+            }
+        </style>
+
+    </t>
+</template>
+    <!-- ================= PREMIUM HOSPITAL ABOUT PAGE ================= -->
+    <template id="clinic_about_page" name="Premium Hospital About Page">
+
+        <t t-call="clinic_appointment.clinic_main_layout">
+
+            <!-- ================= HERO BANNER ================= -->
+            <section id="about_hero_section" class="about-hero">
+                <div class="hero-banner">
+                    <img src="/clinic_appointment/static/description/About page.png"
+                        alt="Premium Hospital Banner"
+                        class="hero-img"/>
+
+                    
+                </div>
+            </section>
+
+
+            <!-- ================= MISSION & VISION ================= -->
+            <section id="mission_vision_section" class="mission-section py-5 bg-light">
+                <div class="container">
+                    <div class="row g-4 justify-content-center">
+                        
+                        <div class="col-lg-5 col-md-6">
+                            <div class="mission-card">
+                                <i class="fa fa-bullseye"></i>
+                                <h4>Our Mission</h4>
+                                <p>
+                                    Our mission is to provide high-quality healthcare services that are
+                                    compassionate, ethical, and accessible to all patients. We focus on
+                                    advanced medical technologies and evidence-based treatments to ensure
+                                    the best clinical outcomes.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6">
+                            <div class="vision-card">
+                                <i class="fa fa-eye"></i>
+                                <h4>Our Vision</h4>
+                                <p>
+                                    Our vision is to become a trusted leader in healthcare by continuously
+                                    improving patient experience, introducing innovative treatments,
+                                    and building a healthcare environment based on trust and excellence.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= MODERN HOSPITAL FEATURES ================= -->
+            <section class="hospital-features py-5">
+
+                <div class="container">
+
+                    <div class="text-center mb-5">
+                        <h2 class="feature-title">Why Choose Our Clinic</h2>
+                        <p class="feature-subtitle">
+                            Delivering trusted healthcare with advanced technology and experienced professionals.
+                        </p>
+                    </div>
+
+                    <!-- GRID WRAPPER -->
+                    <div class="features-grid">
+
+                        <div class="modern-card">
+                            <div class="icon-circle">
+                                <i class="fa fa-medkit"></i>
+                            </div>
+                            <h5>Advanced Facilities</h5>
+                            <p>State-of-the-art diagnostic and treatment technologies.</p>
+                        </div>
+
+                        <div class="modern-card">
+                            <div class="icon-circle">
+                                <i class="fa fa-user-md"></i>
+                            </div>
+                            <h5>Expert Doctors</h5>
+                            <p>Highly qualified specialists with years of experience.</p>
+                        </div>
+
+                        <div class="modern-card">
+                            <div class="icon-circle">
+                                <i class="fa fa-ambulance"></i>
+                            </div>
+                            <h5>Emergency Care</h5>
+                            <p>24/7 emergency medical services.</p>
+                        </div>
+
+                        <div class="modern-card">
+                            <div class="icon-circle">
+                                <i class="fa fa-heartbeat"></i>
+                            </div>
+                            <h5>Patient Care</h5>
+                            <p>Personalized treatment with compassion.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= STYLES ================= -->
+            <style>
+
+                /* HERO SECTION */
+
+                .about-hero{
+                    width:100%;
+                    margin-bottom:20px;
+                }
+
+                .hero-container{
+                    position:relative;
+                    width:100%;
+                    height:300px;
+                    overflow:hidden;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                }
+
+                .hero-img{
+                    width:100%;
+                    height:100%;
+                    object-fit:cover;
+                }
+
+                .hero-overlay{
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    width:100%;
+                    height:100%;
+                    background:rgba(0,0,0,0.45);
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                    text-align:center;
+                    color:white;
+                    padding:20px;
+                }
+
+                .hero-overlay h1{
+                    font-size:44px;
+                    font-weight:700;
+                }
+
+                .hero-overlay p{
+                    font-size:18px;
+                    margin-top:10px;
+                }
+
+                /* GRID LAYOUT */
+
+                .features-grid{
+                    display:grid;
+                    grid-template-columns:repeat(4,1fr);
+                    gap:30px;
+                    margin-top:60px; /* Added gap between paragraph and cards */
+                }
+
+
+                /* TABLET */
+
+                @media (max-width:992px){
+                    .features-grid{
+                        grid-template-columns:repeat(2,1fr);
+                    }
+                }
+
+
+                /* MOBILE */
+
+                @media (max-width:576px){
+                    .features-grid{
+                        grid-template-columns:1fr;
+                    }
+                }
+
+
+                /* TITLE */
+
+                .feature-title{
+                    font-size:36px;
+                    font-weight:700;
+                    color:#0B3C5D;
+                }
+
+                .feature-subtitle{
+                    max-width:650px;
+                    margin:auto;
+                    color:#6c757d;
+                }
+
+
+                /* CARD */
+
+                .modern-card{
+                    background:#ffffff;
+                    padding:35px 25px;
+                    border-radius:16px;
+                    text-align:center;
+                    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+                    transition:all 0.35s ease;
+                }
+
+                .modern-card:hover{
+                    transform:translateY(-10px);
+                    box-shadow:0 20px 45px rgba(0,0,0,0.15);
+                }
+
+
+                /* ICON */
+
+                .icon-circle{
+                    width:70px;
+                    height:70px;
+                    margin:auto;
+                    border-radius:50%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:linear-gradient(135deg,#0B3C5D,#2FA4FF);
+                    color:white;
+                    font-size:28px;
+                    margin-bottom:18px;
+                }
+
+                .modern-card:hover .icon-circle{
+                    transform:scale(1.1);
+                }
+
+
+                /* TEXT */
+
+                .modern-card h5{
+                    font-weight:700;
+                    margin-bottom:12px;
+                }
+
+                .modern-card p{
+                    color:#6c757d;
+                    font-size:15px;
+                }
+                
+
+                
+
+            </style>
+
+        </t>
+
+    </template>
+
+    
+    
+
+    <!-- ================= PREMIUM HOSPITAL CONTACT PAGE ================= -->
+    <template id="clinic_contact_page" name="Premium Hospital Contact Page">
+
+        <t t-call="clinic_appointment.clinic_main_layout">
+
+            <!-- ================= HERO EMERGENCY BANNER ================= -->
+            <section class="hero-emergency position-relative">
+                <!-- Banner Image Only -->
+                <img src="/clinic_appointment/static/description/Hero banner.png"
+                    alt="Emergency Banner"
+                    class="img-fluid w-800"
+                    style="height:800px; object-fit:cover;" />
+
+                <!-- Optional overlay content is hidden -->
+                <div class="hero-overlay-content" style="display:none;">
+                    <h1 class="hero-title display-4 fw-bold">
+                        24/7 Emergency &amp; Critical Care
+                    </h1>
+                    <p class="hero-text lead my-3">
+                        Our emergency department operates round the clock with advanced medical technology, experienced doctors, and fully equipped ambulance services.
+                    </p>
+                    <a href="#" class="btn btn-danger btn-lg">
+                        <i class="fa fa-ambulance"></i> Emergency Call
+                    </a>
+                </div>
+            </section>
+
+            <section class="contact-section py-5">
+
+                <div class="container">
+
+                    <!-- Section Header -->
+                    <div class="text-center mb-5">
+                        <h3 class="section-title">Hospital Contact &amp; Patient Care Services</h3>
+                        <p class="section-subtitle">
+                            Our dedicated patient care team is available to assist you with appointments,
+                            consultations, diagnostics, and general healthcare enquiries.
+                        </p>
+                    </div>
+
+                    <!-- Contact Grid -->
+                    <div class="contact-grid">
+
+                        <!-- Address -->
+                        <div class="contact-card card-address">
+                            <div class="contact-icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <h5>Hospital Address</h5>
+                            <p>
+                                Visit our modern multi-specialty hospital for consultations,
+                                diagnostics, and specialized healthcare treatments.
+                            </p>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="contact-card card-phone">
+                            <div class="contact-icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <h5>Appointments &amp; Enquiries</h5>
+                            <p>
+                                Our reception team is available to help schedule doctor
+                                consultations and health checkups.
+                            </p>
+                        </div>
+
+                        <!-- Working Hours -->
+                        <div class="contact-card card-hours">
+                            <div class="contact-icon">
+                                <i class="fa fa-clock-o"></i>
+                            </div>
+                            <h5>Hospital Working Hours</h5>
+                            <p>
+                                Monday – Saturday: 8:00 AM – 8:00 PM<br/>
+                                Emergency Department: Open 24 Hours
+                            </p>
+                        </div>
+
+                        <!-- Emergency -->
+                        <div class="contact-card card-emergency">
+                            <div class="contact-icon">
+                                <i class="fa fa-ambulance"></i>
+                            </div>
+                            <h5>Emergency Services</h5>
+                            <p>
+                                Our emergency department operates 24/7 with trained
+                                medical staff ready for urgent care.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+    
+        <!-- ================= PATIENT ENQUIRY FORM ================= -->
+            <section class="contact-form-section py-5 bg-light">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 col-md-10">
+
+                            <t t-call="clinic_appointment.clinic_enquiry_success_message"/>
+
+                            <div style="flex:1.2; background:white; border-radius:20px; overflow:hidden; box-shadow:0 20px 45px rgba(0,0,0,0.08);">
+
+                                <!-- Header -->
+                                <div style="background:linear-gradient(90deg,#0B3C5D,#1D6FA5); padding:30px;">
+                                    <h2 style="color:white; margin:0; font-size:22px;">
+                                        Patient Enquiry Form
+                                    </h2>
+                                    <p style="color:#cfe6f5; margin-top:8px;">
+                                        Fill in your details and our patient care team will contact you
+                                    </p>
+                                </div>
+
+                                <!-- Form Body -->
+                                <div style="padding:40px;">
+                                    <form action="/clinic/submit_enquiry" method="post">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:25px;">
+
+                                            <!-- Full Name -->
+                                            <div>
+                                                <label style="color:#0B3C5D; font-weight:600; margin-bottom:6px; display:block;">
+                                                    Full Name *
+                                                </label>
+                                                <input type="text" name="name" required="required"
+                                                    style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+                                            </div>
+
+                                            <!-- Email -->
+                                            <div>
+                                                <label style="color:#0B3C5D; font-weight:600; margin-bottom:6px; display:block;">
+                                                    Email Address
+                                                </label>
+                                                <input type="email" name="email"
+                                                    class="form-control"
+                                                    pattern="^[\w\.-]+@[\w\.-]+\.\w+$"
+                                                    title="Enter a valid email address"
+                                                    style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+                                            </div>
+
+                                            <!-- Phone -->
+                                            <div>
+                                                <label style="color:#0B3C5D; font-weight:600; margin-bottom:6px; display:block;">
+                                                    Phone Number
+                                                </label>
+                                                <input type="text" name="phone"
+                                                    class="form-control"
+                                                    pattern="\d{10}" maxlength="10"
+                                                    title="Phone number must be 10 digits"
+                                                    style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+                                            </div>
+
+                                            <!-- Department -->
+                                            <div>
+                                                <label style="color:#0B3C5D; font-weight:600; margin-bottom:6px; display:block;">
+                                                    Department *
+                                                </label>
+                                                <select name="department_id" required="required"
+                                                        style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;">
+                                                    <option value="">Select Department</option>
+
+                                                    <t t-foreach="request.env['clinic.department'].sudo().search([])" t-as="dept">
+                                                        <option t-att-value="dept.id">
+                                                            <t t-esc="dept.name"/>
+                                                        </option>
+                                                    </t>
+
+                                                </select>
+                                            </div>
+
+                                            <!-- Message -->
+                                            <div style="grid-column:1 / -1;">
+                                                <label style="color:#0B3C5D; font-weight:600; margin-bottom:6px; display:block;">
+                                                    Message
+                                                </label>
+                                                <textarea name="message"
+                                                        class="form-control"
+                                                        rows="5"
+                                                        placeholder="Write your message here"
+                                                        required="required"
+                                                        style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"></textarea>
+                                            </div>
+
+                                            <!-- Submit -->
+                                            <div style="grid-column:1 / -1; margin-top:15px;">
+                                                <button type="submit"
+                                                        style="width:100%; background:#17A2B8; color:white; border:none;
+                                                            padding:16px; font-size:17px; font-weight:600;
+                                                            border-radius:12px; cursor:pointer;">
+                                                    Submit Enquiry
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>        
+ 
+
+
+            <!-- ================= GOOGLE MAP ================= -->
+            <section class="map-section py-5">
+                <div class="container">
+                    <iframe
+                        src="https://www.google.com/maps?q=multi+speciality+hospital&amp;output=embed"
+                        width="100%" height="450" style="border:0; border-radius:12px;" loading="lazy">
+                    </iframe>
+                </div>
+            </section>
+            <!-- REMOVE SUCCESS PARAMETER -->
+            <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                const url = new URL(window.location.href);
+
+                if (url.searchParams.get("success")) {
+                    url.searchParams.delete("success");
+                    window.history.replaceState({}, document.title, url.pathname);
+                }
+
+            });
+            setTimeout(function(){
+                const msg = document.querySelector(".alert-success");
+                if(msg){
+                    msg.style.display = "none";
+                }
+            }, 4000);
+            </script>
+
+            
+            
+
+            <!-- ================= STYLES ================= -->
+            <style>
+
+                /* HERO SECTION */
+
+                .about-hero{
+                    width:300%;
+                    margin-bottom:20px;
+                }
+
+                .hero-container{
+                    position:relative;
+                    width:300%;
+                    height:500px;
+                    overflow:hidden;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                }
+
+                .hero-img{
+                    width:300%;
+                    height:500%;
+                    object-fit:cover;
+                }
+
+                .hero-overlay{
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    width:100%;
+                    height:100%;
+                    background:rgba(0,0,0,0.45);
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                    text-align:center;
+                    color:white;
+                    padding:20px;
+                }
+
+                .hero-overlay h1{
+                    font-size:44px;
+                    font-weight:700;
+                }
+
+                .hero-overlay p{
+                    font-size:18px;
+                    margin-top:10px;
+                }
+
+            /* ================= SECTION TITLES ================= */
+
+            .section-title{
+                font-size:34px;
+                font-weight:700;
+                color:#0B3C5D;
+                margin-bottom:10px;
+            }
+
+            .section-subtitle{
+                max-width:650px;
+                margin:auto;
+                font-size:16px;
+                color:#6c757d;
+                line-height:1.7;
+            }
+
+            /* ================= CONTACT CARDS ================= */
+
+            /* SECTION */
+
+            .contact-section{
+                background:#f7fbff;
+            }
+
+
+            /* GRID */
+
+            .contact-grid{
+                display:grid;
+                grid-template-columns:repeat(4,1fr);
+                gap:30px;
+                margin-top:60px;   /* This increases gap between paragraph and cards */
+            }
+
+
+            /* TABLET */
+
+            @media(max-width:992px){
+                .contact-grid{
+                    grid-template-columns:repeat(2,1fr);
+                }
+            }
+
+
+            /* MOBILE */
+
+            @media(max-width:576px){
+                .contact-grid{
+                    grid-template-columns:1fr;
+                }
+            }
+
+
+            /* TITLE */
+
+            .section-title{
+                font-size:34px;
+                font-weight:700;
+                color:#0B3C5D;
+            }
+
+            .section-subtitle{
+                max-width:650px;
+                margin:auto;
+                color:#6c757d;
+            }
+
+
+            /* CARD */
+
+            .contact-card{
+                background:white;
+                padding:35px 25px;
+                border-radius:16px;
+                text-align:center;
+                box-shadow:0 8px 25px rgba(0,0,0,0.08);
+                transition:0.35s;
+                position:relative;
+            }
+
+            .contact-card:hover{
+                transform:translateY(-10px);
+                box-shadow:0 20px 45px rgba(0,0,0,0.15);
+            }
+
+
+            /* ICON */
+
+            .contact-icon{
+                width:70px;
+                height:70px;
+                margin:auto;
+                border-radius:50%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:28px;
+                color:white;
+                margin-bottom:18px;
+            }
+
+
+            /* CARD COLORS */
+
+            .card-address .contact-icon{
+                background:linear-gradient(135deg,#007bff,#4facfe);
+            }
+
+            .card-phone .contact-icon{
+                background:linear-gradient(135deg,#00b09b,#96c93d);
+            }
+
+            .card-hours .contact-icon{
+                background:linear-gradient(135deg,#f7971e,#ffd200);
+            }
+
+            .card-emergency .contact-icon{
+                background:linear-gradient(135deg,#ff416c,#ff4b2b);
+            }
+
+
+            /* TEXT */
+
+            .contact-card h5{
+                font-weight:700;
+                margin-bottom:10px;
+            }
+
+            .contact-card p{
+                color:#6c757d;
+                font-size:15px;
+            }
+
+            /* ================= FORM BOX ================= */
+
+            .form-box{
+                background:#ffffff;
+                padding:45px;
+                border-radius:16px;
+                box-shadow:0 12px 30px rgba(0,0,0,0.08);
+            }
+
+            .form-box .form-label{
+                font-weight:600;
+                color:#0B3C5D;
+                margin-bottom:6px;
+            }
+
+            .form-control{
+                border-radius:8px;
+                padding:10px 12px;
+                border:1px solid #d9e4ec;
+            }
+
+            .form-control:focus{
+                border-color:#1D6FA5;
+                box-shadow:0 0 0 0.15rem rgba(29,111,165,0.25);
+            }
+
+            /* ================= BUTTON ================= */
+
+            .btn-lg{
+                font-weight:600;
+                padding:13px 35px;
+                border-radius:8px;
+            }
+
+            .btn-primary{
+                background:#0B3C5D;
+                border:none;
+            }
+
+            .btn-primary:hover{
+                background:#07283f;
+            }
+
+            /* ================= MAP ================= */
+
+            .map-section iframe{
+                border-radius:14px;
+                box-shadow:0 10px 25px rgba(0,0,0,0.08);
+            }
+
+            /* ================= RESPONSIVE ================= */
+
+            @media (max-width:768px){
+
+            .hero-emergency{
+                height:300px;
+            }
+
+            .section-title{
+                font-size:28px;
+            }
+
+            .form-box{
+                padding:30px;
+            }
+
+            }
+
+            </style>
+
+        </t>
+
+    </template>
+
+    <template id="clinic_enquiry_success_message">
+
+        <t t-if="'success' in request.httprequest.args">
+
+            <div class="alert alert-success text-center mb-4"
+                 style="padding:15px; font-size:16px; border-radius:10px;">
+
+                <i class="fa fa-check-circle"></i>
+                Your enquiry has been submitted successfully.
+                Our hospital team will contact you shortly.
+
+            </div>
+
+        </t>
+
+    </template>
+
+    <!-- ===================================================== -->
+<!-- 2️⃣ BOOKING FORM TEMPLATE -->
+<!-- ===================================================== -->
+
+   <template id="booking_form_template" name="Clinic Booking Form">
+        <t t-call="clinic_appointment.clinic_main_layout">
+
+            <section style="background:#F4F8FB; padding:90px 0; font-family:'Segoe UI', Roboto, sans-serif;">
+                <div style="max-width:1200px; margin:auto; display:flex; gap:50px; align-items:flex-start;">
+
+                    <!-- ================= LEFT SIDE ================= -->
+                    <div style="flex:1;">
+
+                        <h1 style="color:#0B3C5D; font-size:36px; font-weight:700; margin-bottom:20px;">
+                            Advanced Healthcare Services
+                        </h1>
+
+                        <p style="color:#4a5a6a; font-size:16px; line-height:1.8; margin-bottom:20px;">
+                            We are committed to delivering world-class medical care with
+                            modern infrastructure, experienced specialists, and patient-first service.
+                        </p>
+
+                        <div style="background:white; padding:25px; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.06);">
+
+                            <p style="color:#4a5a6a; line-height:1.8; margin-bottom:20px;">
+                                We combine clinical expertise, advanced medical technology, and a
+                                compassionate approach to ensure the highest quality outcomes
+                                for our patients and their families.
+                            </p>
+
+                            <ul style="color:#4a5a6a; line-height:2; padding-left:18px; margin:0;">
+                                <li>✔ Experienced &amp; Certified Doctors</li>
+                                <li>✔ Modern Diagnostic Facilities</li>
+                                <li>✔ 24/7 Emergency Support</li>
+                                <li>✔ Patient-Centered Care</li>
+                                <li>✔ Advanced Medical Technology</li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+                <!-- ================= RIGHT SIDE ================= -->
+                    <div style="flex:1.2; background:white; border-radius:20px; overflow:hidden; box-shadow:0 20px 45px rgba(0,0,0,0.08);">
+
+                        <!-- Header -->
+                        <div style="background:linear-gradient(90deg,#0B3C5D,#1D6FA5); padding:30px;">
+                            <h2 style="color:white; margin:0; font-size:22px;">
+                                Schedule Your Appointment
+                            </h2>
+                            <p style="color:#cfe6f5; margin-top:8px;">
+                                Book your consultation with our healthcare specialists
+                            </p>
+                        </div>
+
+                        <!-- Form Body -->
+                        <div style="padding:40px;">
+
+                            <form action="/clinic/submit" method="post">
+                                <input type="hidden" name="csrf_token"
+                                    t-att-value="request.csrf_token()"/>
+
+                               <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:25px;">
+
+                                    <!-- Full Name -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Full Name *
+                                        </label>
+                                        <input type="text" name="patient_name" required="required"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+                                    </div>
+
+                                    <!-- Birth Date -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Birth Date *
+                                        </label>
+                                        <input type="date" name="birth_date" required="required"
+                                            t-att-max="datetime.date.today()"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+                                    </div>
+
+                                    <!-- Gender -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Gender
+                                        </label>
+                                        <select name="gender"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Email Address
+                                        </label>
+                                        <input type="email" name="email"
+                                            pattern="^[\w\.-]+@[\w\.-]+\.\w+$"
+                                            title="Enter a valid email address"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Phone Number
+                                        </label>
+
+                                        <input id="phone" type="tel" name="phone"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+
+                                        <!-- ✅ ADD THIS LINE -->
+                                        <input type="hidden" name="phone_full" id="phone_full"/>
+
+                                    </div>
+
+                                    <!-- Specialization -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Specialization *
+                                        </label>
+                                        <select name="specialization_id" required="required"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;">
+                                            <option value="">Select Specialization</option>
+                                            <t t-foreach="specializations" t-as="spec">
+                                                <option t-att-value="spec.id">
+                                                    <t t-esc="spec.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <!-- Doctor -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Doctor *
+                                        </label>
+                                        <select name="doctor_id" required="required" id="doctor_select"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;">
+                                            <option value="">Select Doctor</option>
+                                            <t t-foreach="doctors" t-as="doc">
+                                                <option t-att-value="doc.id" t-att-data-spec="doc.specialization_id.id">
+                                                    <t t-esc="doc.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <!-- Appointment Date -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Appointment Date *
+                                        </label>
+                                        <input type="date"
+                                            name="appointment_date"
+                                            id="appointment_date"
+                                            required="required"
+                                            t-att-min="datetime.date.today()"
+                                            onclick="this.showPicker();"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+                                    </div>
+
+                                    <!-- Appointment Time -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; margin-bottom:6px; display:block;">
+                                           Appointment Time *
+                                        </label>
+                                        <select name="slot_id" id="time_slot_select" class="form-control" required="required" 
+                                                style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;">
+                                            <option value="">Select Time Slot</option>
+                                            
+                                        </select>
+                                    </div>
+                                    
+
+                                    <!-- Reason -->
+                                    <div>
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            Reason for Visit
+                                        </label>
+                                        <select name="reason"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;">
+                                            <option value="">Select Reason</option>
+                                            <option value="fever">Fever</option>
+                                            <option value="cold">Cold / Flu</option>
+                                            <option value="cough">Cough</option>
+                                            <option value="headache">Headache</option>
+                                            <option value="body_pain">Body Pain</option>
+                                            <option value="stomach_pain">Stomach Pain</option>
+                                            <option value="back_pain">Back Pain</option>
+                                            <option value="skin_problem">Skin Problem</option>
+                                            <option value="general_checkup">General Checkup</option>
+                                            <option value="baby_checkup">Baby Checkup</option>
+                                            <option value="follow_up">Follow-up Visit</option>
+                                            <option value="injury">Injury / Accident</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                        <!-- Other Reason -->
+                                    <div style="grid-column:1 / -1;">
+                                        <label style="color:#0B3C5D; font-weight:600; display:block; margin-bottom:6px;">
+                                            If Other, please specify
+                                        </label>
+                                        <input type="text" name="other_reason" placeholder="Please specify the reason for your visit"
+                                            style="width:100%; padding:14px; border-radius:10px; border:1px solid #D9E4EC;"/>
+                                    </div>
+
+
+                                    <!-- Submit Button -->
+                                    <div style="grid-column:1 / -1; margin-top:10px;">
+                                        <button type="submit"
+                                            style="width:100%; background:#17A2B8; color:white; border:none;
+                                            padding:16px; font-size:17px; font-weight:600; border-radius:12px; cursor:pointer;">
+                                            Confirm Appointment
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+            <script><![CDATA[
+document.addEventListener("DOMContentLoaded", function () {
+    /* ================= 1. DOCTOR FILTER (Mee existing code) ================= */
+    const specializationSelect = document.querySelector("[name='specialization_id']");
+    const doctorSelect = document.getElementById("doctor_select");
+    const availabilityInfo = document.getElementById("availability_info");
+    const dateInput = document.getElementById("appointment_date");
+    const timeSlotSelect = document.getElementById("time_slot_select");
+
+    // Hide doctors initially
+    for (let option of doctorSelect.options) {
+        if (option.value !== "") {
+            option.style.display = "none";
+        }
+    }
+
+    specializationSelect.addEventListener("change", function () {
+        const selectedSpec = this.value;
+        for (let option of doctorSelect.options) {
+            if (option.value === "") continue;
+            option.style.display = (option.dataset.spec === selectedSpec) ? "block" : "none";
+        }
+        doctorSelect.value = "";
+        availabilityInfo.textContent = "";
+        timeSlotSelect.innerHTML = '<option value="">Select date &amp; doctor first</option>';
+    });
+
+    /* ================= 2. TIME SLOT FETCH LOGIC ================= */
+function fetchTimeSlots() {
+    const doctorId = doctorSelect.value;
+    const appointmentDate = dateInput.value;
+
+    if (doctorId && appointmentDate) {
+        fetch('/get_slots', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                jsonrpc: "2.0",
+                params: { doctor_id: doctorId, date: appointmentDate }
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result) {
+                timeSlotSelect.innerHTML = '<option value="">Select Time Slot</option>';
+                data.result.forEach(slot => {
+                    const option = document.createElement('option');
+                    // Use slot.id for the value and slot.name for the text shown to the user
+                    option.value = slot.id; 
+                    option.textContent = slot.name; 
+                    timeSlotSelect.appendChild(option);
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching slots:', error));
+    }
+}
+
+    // Doctor leda Date change ainappudu slots update avvali
+    doctorSelect.addEventListener("change", fetchTimeSlots);
+    dateInput.addEventListener("change", fetchTimeSlots);
+
+});
+]]></script>
+
+
+
+        </t>
+    </template>
+
+
+    <template id="booking_thank_you_template"
+              name="Booking Thank You Light Blue">
+
+        <t t-call="clinic_appointment.clinic_main_layout">
+
+            <div style="max-width:750px;
+                        margin:60px auto;
+                        padding:45px;
+                        background:#ffffff;
+                        border-radius:12px;
+                        box-shadow:0 8px 30px rgba(0,0,0,0.25);
+                        border:10px solid #d0e8ff;">
+
+                <!-- HEADER -->
+                <div style="text-align:center; margin-bottom:40px;">
+
+                    <div style="font-size:48px; color:green;">
+                        ✔
+                    </div>
+
+                    <h2 style="color:green; margin-top:10px;">
+                        Appointment Confirmed
+                    </h2>
+
+                    <p style="color:#555; font-size:16px;">
+                        Your appointment has been successfully scheduled.
+                    </p>
+
+                </div>
+
+
+                <!-- DETAILS TITLE -->
+                <h3 style="text-align:center;
+                           margin-bottom:35px;
+                           color:#084298;">
+                    Appointment Details
+                </h3>
+
+
+                <!-- Doctor -->
+                <div style="display:flex;
+                            justify-content:space-between;
+                            padding:16px 0;
+                            border-bottom:1px solid #eef5ff;">
+
+                    <span style="color:#6c757d; font-weight:600;">
+                        Doctor
+                    </span>
+
+                    <span style="font-weight:bold; color:#1b1b1b;">
+                        <t t-esc="appointment.doctor_id.name"/>
+                    </span>
+
+                </div>
+
+
+                <!-- Specialization -->
+                <div style="display:flex;
+                            justify-content:space-between;
+                            padding:16px 0;
+                            border-bottom:1px solid #eef5ff;">
+
+                    <span style="color:#6c757d; font-weight:600;">
+                        Specialization
+                    </span>
+
+                    <span style="font-weight:bold; color:#1b1b1b;">
+                        <t t-esc="appointment.specialization_id.name"/>
+                    </span>
+
+                </div>
+
+
+                <!-- Date -->
+                <div style="display:flex;
+                            justify-content:space-between;
+                            padding:16px 0;
+                            border-bottom:1px solid #eef5ff;">
+
+                    <span style="color:#6c757d; font-weight:600;">
+                        Appointment Date
+                    </span>
+
+                    <span style="font-weight:bold; color:#1b1b1b;">
+                        <t t-esc="appointment.appointment_date"/>
+                    </span>
+                </div>
+
+                    <!-- Time -->
+                <div style="display:flex;
+                            justify-content:space-between;
+                            padding:16px 0;
+                            border-bottom:1px solid #eef5ff;">
+
+                    <span style="color:#6c757d; font-weight:600;">
+                        Appointment Time
+                    </span>
+
+                    <span style="font-weight:bold; color:#1b1b1b;">
+                        <t t-esc="appointment.appointment_time"/>
+                    </span>
+
+                </div>
+                
+                <div style="text-align:center; margin-top:45px;">
+
+                    <a href="/clinic/book"
+                       style="background:#0d6efd;
+                              color:white;
+                              padding:11px 28px;
+                              border-radius:6px;
+                              text-decoration:none;
+                              margin-right:12px;">
+                        Book Another Appointment
+                    </a>
+
+                    <a href="/"
+                       style="border:2px solid #0d6efd;
+                              color:#0d6efd;
+                              padding:11px 28px;
+                              border-radius:6px;
+                              text-decoration:none;">
+                        Back to Home
+                    </a>
+
+                </div>
+
+
+                <!-- FOOTER -->
+                <div style="text-align:center;
+                            margin-top:40px;
+                            color:#666;
+                            font-size:14px;">
+
+                    📞 For assistance call:
+                    <span style="color:#0d6efd; font-weight:600;">
+                        +91 9876543210
+                    </span>
+
+                </div>
+
+            </div>
+
+        </t>
+
+    </template>
+    
+    <template id="lab_tests_and_packages_page" name="Clinic Lab Tests &amp; Packages">
+
+        <t t-call="clinic_appointment.clinic_main_layout">
+
+            <div class="container py-5">
+
+                <!-- HEADER -->
+                <h1 class="text-center mb-3">Clinic Lab Tests </h1>
+                <p class="text-center text-muted mb-5">
+                    Explore our comprehensive range of laboratory tests and health packages.
+                </p>
+
+                <!-- ================= HEMATOLOGY ================= -->
+                <div class="mb-5">
+                    <h3 class="lab-category-title">
+                        <i class="fas fa-vials"></i> Hematology
+                    </h3>
+
+                    <div class="row lab-tests-row">
+                        <t t-foreach="[
+                            ('Hemoglobin (Hb)','Checks hemoglobin levels, important for oxygen transport.','fas fa-tint'),
+                            ('Hematocrit (HCT)','Determines proportion of red blood cells in blood.','fas fa-tint'),
+                            ('Red Blood Cell (RBC) Count','Counts red blood cells to assess anemia or other disorders.','fas fa-heart'),
+                            ('White Blood Cell (WBC) Count','Measures immune system function and detects infections.','fas fa-shield-alt'),
+                            ('Platelet Count','Assesses clotting ability of blood.','fas fa-plus-square'),
+                            ('ESR','Detects inflammation in the body.','fas fa-exclamation-triangle'),
+                            ('Peripheral Smear','Examines blood cells under microscope.','fas fa-microscope')
+                        ]" t-as="test">
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                                <div class="lab-card">
+                                    <div class="lab-icon"><i t-att-class="test[2]"/></div>
+                                    <h4><t t-esc="test[0]"/></h4>
+                                    <p style="color:#000000; font-size:15px; font-weight:500;">
+                                        <t t-esc="test[1]"/>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </t>
+                    </div>
+                </div>
+
+                <!-- ================= BIOCHEMISTRY ================= -->
+                <div class="mb-5">
+                    <h3 class="lab-category-title">
+                        <i class="fas fa-flask"></i> Biochemistry
+                    </h3>
+
+                    <div class="row lab-tests-row">
+                        <t t-foreach="[
+                            ('Blood Glucose (Fasting)','Measures glucose level after fasting.','fas fa-syringe'),
+                            ('Blood Glucose (Postprandial)','Measures glucose after meals.','fas fa-syringe'),
+                            ('Random Blood Glucose','Glucose measurement anytime.','fas fa-syringe'),
+                            ('HbA1c','Average blood glucose over 2-3 months.','fas fa-chart-line'),
+                            ('Lipid Profile','Cholesterol and triglycerides assessment.','fas fa-coins'),
+                            ('Electrolytes','Measures electrolyte balance.','fas fa-bolt'),
+                            ('Total Protein','Overall protein level.','fas fa-dna'),
+                            ('Albumin','Maintains fluid balance.','fas fa-droplet'),
+                            ('Globulin','Proteins for immunity.','fas fa-shield-alt')
+                        ]" t-as="test">
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                                <div class="lab-card">
+                                    <div class="lab-icon"><i t-att-class="test[2]"/></div>
+                                    <h4><t t-esc="test[0]"/></h4>
+                                    <p style="color:#000000; font-size:15px; font-weight:500;">
+                                        <t t-esc="test[1]"/>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </t>
+                    </div>
+                </div>
+
+                <!-- ================= LIVER ================= -->
+                <div class="mb-5">
+                    <h3 class="lab-category-title">
+                        <i class="fas fa-notes-medical"></i> Liver
+                    </h3>
+
+                    <div class="row lab-tests-row">
+                        <t t-foreach="[
+                            ('ALT (SGPT)','Liver enzyme indicating injury.','fas fa-prescription-bottle'),
+                            ('AST (SGOT)','May indicate liver or heart damage.','fas fa-prescription-bottle'),
+                            ('ALP','Assesses liver and bone function.','fas fa-capsules'),
+                            ('Bilirubin','Detects liver problems.','fas fa-vial'),
+                            ('GGT','Detects liver issues.','fas fa-vial'),
+                            ('Albumin','Indicates liver function.','fas fa-droplet'),
+                            ('Prothrombin Time','Clotting function test.','fas fa-stopwatch')
+                        ]" t-as="test">
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                                <div class="lab-card">
+                                    <div class="lab-icon"><i t-att-class="test[2]"/></div>
+                                    <h4><t t-esc="test[0]"/></h4>
+                                    <p style="color:#000000; font-size:15px; font-weight:500;">
+                                        <t t-esc="test[1]"/>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </t>
+                    </div>
+                </div>
+
+                <!-- ================= CARDIAC ================= -->
+                <div class="mb-5">
+                    <h3 class="lab-category-title">
+                        <i class="fas fa-heartbeat"></i> Cardiac
+                    </h3>
+
+                    <div class="row lab-tests-row">
+                        <t t-foreach="[
+                            ('Troponin I / T','Heart damage markers.','fas fa-heart'),
+                            ('CK-MB','Detects heart attack.','fas fa-heart'),
+                            ('CPK Total','Muscle/heart enzyme.','fas fa-heart'),
+                            ('BNP','Heart failure risk.','fas fa-heart'),
+                            ('Myoglobin','Early damage marker.','fas fa-heart'),
+                            ('Lipid Profile','Cardiac risk assessment.','fas fa-coins')
+                        ]" t-as="test">
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                                <div class="lab-card">
+                                    <div class="lab-icon"><i t-att-class="test[2]"/></div>
+                                    <h4><t t-esc="test[0]"/></h4>
+                                    <p style="color:#000000; font-size:15px; font-weight:500;">
+                                        <t t-esc="test[1]"/>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </t>
+                    </div>
+                </div>
+
+                <!-- ================= WOMEN HEALTH ================= -->
+                <div class="mb-5">
+                    <h3 class="lab-category-title">
+                        <i class="fas fa-female"></i> Women's Health
+                    </h3>
+
+                    <div class="row lab-tests-row">
+                        <t t-foreach="[
+                            ('Pregnancy Test','Detects pregnancy.','fas fa-baby'),
+                            ('Pap Smear','Cervical cancer screening.','fas fa-venus'),
+                            ('FSH','Hormone test.','fas fa-venus'),
+                            ('LH','Hormone test.','fas fa-venus'),
+                            ('Estrogen','Female hormone.','fas fa-venus'),
+                            ('Progesterone','Female hormone.','fas fa-venus'),
+                            ('Prolactin','Lactation hormone.','fas fa-venus'),
+                            ('Testosterone','Androgen levels.','fas fa-mars')
+                        ]" t-as="test">
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                                <div class="lab-card">
+                                    <div class="lab-icon"><i t-att-class="test[2]"/></div>
+                                    <h4><t t-esc="test[0]"/></h4>
+                                    <p style="color:#000000; font-size:15px; font-weight:500;">
+                                        <t t-esc="test[1]"/>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </t>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- KEEP YOUR SAME STYLES -->
+           
+   <style>
+        .lab-category-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0aa6a6;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .lab-tests-row {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 24px !important;
+        }
+
+        .lab-tests-row > div {
+            width: auto !important;
+            max-width: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .lab-card {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 28px 22px;
+            min-height: 230px;
+            height: 80%;
+            border: 1px solid #e4f3f3;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            transition: 0.3s ease;
+            text-align: center;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 35px rgba(10,166,166,0.22);
+            border-color: #0aa6a6;
+        }
+
+        .lab-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0aa6a6, #17a2b8);
+            color: white;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lab-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0B3C5D;
+            margin-bottom: 12px;
+        }
+
+        .lab-card p {
+            font-size: 14px !important;
+            color: #5f6f7a !important;
+            font-weight: 400 !important;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 992px) {
+            .lab-tests-row {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .lab-tests-row {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        </style>
+        </t>
+
+   </template>
+    
+    
+</odoo>
+

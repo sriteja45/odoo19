@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         1. Invitation email - sent once the waiting period has elapsed
+         ================================================================ -->
+    <record id="mail_template_feedback_invitation" model="mail.template">
+        <field name="name">Feedback Request: Invitation</field>
+        <field name="model_id" ref="model_feedback_request"/>
+        <field name="subject">How was your {{ object.product_id.name }}?</field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+        <field name="auto_delete">True</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto;">
+    <p>Hello <t t-out="object.partner_id.name"/>,</p>
+    <p>Thank you for your recent purchase of <strong><t t-out="object.product_id.name"/></strong>.
+       We would love to hear about your experience!</p>
+
+    <div style="text-align: center; margin: 16px 0;" t-if="object.product_id.image_128">
+        <img t-att-src="image_data_uri(object.product_id.image_128)"
+             alt="Product"
+             style="max-width: 200px; max-height: 200px; border-radius: 6px;"/>
+        <p style="font-weight: bold; margin-top: 8px;"><t t-out="object.product_id.display_name"/></p>
+    </div>
+
+    <p style="text-align: center; font-size: 28px; color: #f5a623;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+    <p style="text-align: center;">
+        <a t-att-href="'%s/feedback/review/%s' % (object.get_base_url(), object.token)"
+           style="background-color:#875A7B;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;">
+            Rate &amp; Review Your Purchase
+        </a>
+    </p>
+    <p>This link will expire on <t t-out="format_date(object.expiry_date)"/>.</p>
+    <p>Thank you,<br/><t t-out="object.company_id.name"/></p>
+</div>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         2. Reminder email - sent to customers who received the invitation
+            but have not submitted a review yet
+         ================================================================ -->
+    <record id="mail_template_feedback_reminder" model="mail.template">
+        <field name="name">Feedback Request: Reminder</field>
+        <field name="model_id" ref="model_feedback_request"/>
+        <field name="subject">Reminder: We'd love your feedback!</field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+        <field name="auto_delete">True</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto;">
+    <p>Hello <t t-out="object.partner_id.name"/>,</p>
+    <p>We noticed you haven't reviewed your purchase yet.</p>
+
+    <div style="text-align: center; margin: 16px 0;" t-if="object.product_id.image_128">
+        <img t-att-src="image_data_uri(object.product_id.image_128)"
+             alt="Product"
+             style="max-width: 160px; max-height: 160px; border-radius: 6px;"/>
+    </div>
+    <p><strong>Product:</strong> <t t-out="object.product_id.display_name"/></p>
+
+    <p style="text-align: center;">
+        <a t-att-href="'%s/feedback/review/%s' % (object.get_base_url(), object.token)"
+           style="background-color:#875A7B;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;">
+            Review Product
+        </a>
+    </p>
+    <p>Your review link expires on <t t-out="format_date(object.expiry_date)"/>.</p>
+    <p>Thank you,<br/><t t-out="object.company_id.name"/></p>
+</div>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         3. Thank-you email - sent immediately after a review is submitted
+         ================================================================ -->
+    <record id="mail_template_feedback_thankyou" model="mail.template">
+        <field name="name">Feedback Request: Thank You</field>
+        <field name="model_id" ref="model_feedback_review"/>
+        <field name="subject">Thank you for your review!</field>
+        <field name="email_to">{{ object.customer_id.email }}</field>
+        <field name="email_from">{{ (object.request_id.company_id.email or user.email) }}</field>
+        <field name="auto_delete">True</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto;">
+    <p>Hello <t t-out="object.customer_id.name"/>,</p>
+    <p>Thank you for reviewing our product.</p>
+
+    <p><strong>Product:</strong> <t t-out="object.product_id.display_name"/></p>
+
+    <p style="text-align: center; font-size: 28px; color: #f5a623;">
+        <t t-set="star_count" t-value="int(round(object.rating or 0))"/>
+        <t t-out="'&#9733;' * star_count + '&#9734;' * (5 - star_count)"/>
+    </p>
+
+    <p>Your feedback helps other customers make better decisions, and helps us keep improving.</p>
+    <p>Thank you,<br/><t t-out="object.request_id.company_id.name"/></p>
+</div>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_config_settings_redis"
+            model="ir.ui.view">
+
+        <field name="name">xevoria.redis.settings</field>
+
+        <field name="model">res.config.settings</field>
+
+        <field name="inherit_id"
+               ref="base_setup.res_config_settings_view_form"/>
+
+        <field name="arch"
+               type="xml">
+
+            <xpath expr="//app[@name='general_settings']"
+                   position="inside">
+
+                <block title="Redis Cache"
+                       name="redis_cache">
+
+                    <setting string="Enable Redis Cache"
+                             help="Master switch for Redis caching.">
+
+                        <field name="redis_cache_enabled"/>
+
+                    </setting>
+                    <setting string="Cache Model"
+                            help="Select the Odoo model for Redis caching.">
+                        <field name="redis_cache_model_ids"
+                               widget="many2many_tags"/>
+                    </setting>
+
+                    <setting string="Enable Website Cache"
+                             help="Enable Redis caching for Website Shop.">
+
+                        <field name="website_cache_enabled"/>
+
+                    </setting>
+
+                    <setting string="Enable POS Cache"
+                             help="Enable Redis caching for Point of Sale.">
+
+                        <field name="pos_cache_enabled"/>
+
+                    </setting>
+
+                </block>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>

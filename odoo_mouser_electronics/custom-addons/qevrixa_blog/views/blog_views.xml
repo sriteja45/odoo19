@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================================================== -->
+    <!-- Tree View -->
+    <!-- ===================================================== -->
+
+    <record id="view_qevrixa_blog_tree" model="ir.ui.view">
+        <field name="name">qevrixa.blog.tree</field>
+        <field name="model">qevrixa.blog</field>
+        <field name="arch" type="xml">
+
+            <list>
+
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="author_id"/>
+
+                <!-- Workflow -->
+                <field name="workflow_state"/>
+
+                <!-- Reviewers -->
+                <field name="reviewer_ids"
+                       widget="many2many_tags"/>
+
+                <field name="featured"/>
+                <field name="likes"/>
+                <field name="comments_count"/>
+                <field name="publish_date"/>
+                <field name="published"/>
+
+            </list>
+
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- Form View -->
+    <!-- ===================================================== -->
+
+    <record id="view_qevrixa_blog_form" model="ir.ui.view">
+        <field name="name">qevrixa.blog.form</field>
+        <field name="model">qevrixa.blog</field>
+
+        <field name="arch" type="xml">
+
+            <form string="Blog">
+
+                <!-- ================================================= -->
+                <!-- HEADER BUTTONS -->
+                <!-- ================================================= -->
+
+                <header>
+
+                    <!-- Blogger -->
+                    <button
+                        name="action_submit_for_review"
+                        string="Submit for Review"
+                        type="object"
+                        class="btn-primary"
+                        invisible="workflow_state not in ['draft', 'changes_required']"
+                    />
+
+                    <!-- Admin -->
+                    <button
+                        name="action_send_for_review"
+                        string="Send for Review"
+                        type="object"
+                        class="btn-primary"
+                        invisible="workflow_state != 'submitted'"
+                    />
+
+                    <!-- Admin -->
+                    <button
+                        name="action_ready_to_publish"
+                        string="Ready to Publish"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="workflow_state not in ['review_completed', 'changes_required']"
+                    />
+
+                    <!-- Admin -->
+                    <button
+                        name="action_publish_blog"
+                        string="Publish"
+                        type="object"
+                        class="btn-primary"
+                        invisible="workflow_state != 'ready_to_publish'"
+                    />
+
+                    <!-- Workflow status -->
+                    <field
+                        name="workflow_state"
+                        widget="statusbar"
+                        statusbar_visible="draft,submitted,under_review,review_completed,ready_to_publish,published"
+                    />
+
+                </header>
+
+
+                <!-- ================================================= -->
+                <!-- SHEET -->
+                <!-- ================================================= -->
+
+                <sheet>
+
+                    <!-- ================================================= -->
+                    <!-- BASIC INFORMATION -->
+                    <!-- ================================================= -->
+
+                    <group>
+
+                        <group>
+
+                            <field name="name"/>
+
+                            <field name="slug"/>
+
+                            <field name="category_id"/>
+
+                            <field name="featured"/>
+
+                        </group>
+
+
+                        <group>
+
+                            <field name="author_id"/>
+
+                            <field name="publish_date"/>
+
+                            <field name="published"/>
+
+                            <field
+                                name="workflow_state"
+                                readonly="1"
+                            />
+
+                        </group>
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- REVIEW MANAGEMENT -->
+                    <!-- ================================================= -->
+
+                    <group string="Review Management">
+
+                        <field
+                            name="reviewer_ids"
+                            widget="many2many_tags"
+                            placeholder="Select reviewers..."
+                        />
+
+                        <field
+                            name="review_summary"
+                            placeholder="Admin review summary..."
+                        />
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- COVER IMAGE -->
+                    <!-- ================================================= -->
+
+                    <group>
+
+                        <field
+                            name="image"
+                            widget="image"
+                        />
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- SHORT DESCRIPTION -->
+                    <!-- ================================================= -->
+
+                    <group>
+
+                        <field name="short_description"/>
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- BLOG CONTENT -->
+                    <!-- ================================================= -->
+
+                    <group>
+
+                        <field name="content"/>
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- STATISTICS -->
+                    <!-- ================================================= -->
+
+                    <group string="Statistics">
+
+                        <field
+                            name="likes"
+                            readonly="1"
+                        />
+
+                        <field
+                            name="comments_count"
+                            readonly="1"
+                        />
+
+                        <field
+                            name="views"
+                            readonly="1"
+                        />
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- REVIEWS -->
+                    <!-- ================================================= -->
+
+                    <notebook>
+
+                        <page
+                            string="Reviews"
+                            name="reviews"
+                        >
+
+                            <field name="review_ids">
+
+                                <list
+                                    editable="bottom"
+                                    create="0"
+                                    delete="0"
+                                >
+
+                                    <field name="reviewer_id"/>
+
+                                    <field name="status"/>
+
+                                    <field name="comments"/>
+
+                                    <field name="reviewed_date"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+
+        </field>
+
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- ACTION -->
+    <!-- ===================================================== -->
+
+    <record id="action_qevrixa_blog" model="ir.actions.act_window">
+
+        <field name="name">Blog Posts</field>
+
+        <field name="res_model">qevrixa.blog</field>
+
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- MENU -->
+    <!-- ===================================================== -->
+
+    <menuitem
+        id="menu_qevrixa_blog_root"
+        name="Blogs"
+        sequence="50"
+    />
+
+    <menuitem
+        id="menu_qevrixa_blog"
+        name="Blog Posts"
+        parent="menu_qevrixa_blog_root"
+        action="action_qevrixa_blog"
+        sequence="1"
+    />
+
+</odoo>

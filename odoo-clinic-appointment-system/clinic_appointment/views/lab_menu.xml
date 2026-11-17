@@ -1,0 +1,21 @@
+<odoo>
+
+    
+
+    <menuitem id="menu_lab_root"
+              name="Lab"
+              parent="clinic_root_menu"
+              groups="clinic_appointment.group_clinic_lab"
+              sequence="10"/>
+
+    <menuitem id="menu_lab_tests"
+              name="Lab Requests"
+              parent="menu_lab_root"
+              action="action_lab_requests_grouped"/>
+
+    <menuitem id="menu_lab_test_templates"
+            name="Lab Test Master"
+            parent="menu_lab_root"
+            action="action_lab_test_templates"/>
+
+</odoo>

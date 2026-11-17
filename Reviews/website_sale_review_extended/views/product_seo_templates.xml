@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Phase 5, point 23: "migrate existing rating_avg/rating_count usages
+        to the new weighted field where displayed".
+
+        We do NOT touch rating.mixin's own compute methods - that would
+        silently change rating_avg everywhere it's used internally
+        (backend list/kanban "Average Rating" column, sort-by-rating on
+        the shop's /shop listing search, any other module's own logic,
+        exports, ...), which is exactly the kind of side effect this
+        module's whole design tries to avoid (see rating_rating.py /
+        product_template.py docstrings: "extend, never replace").
+
+        Instead we extend the two storefront templates that actually
+        PRINT the average to a shopper and swap only the two `t-set`
+        values they feed into portal_rating.rating_widget_stars_static.
+        Everything else about those templates (markup, classes, the
+        stars widget itself) is untouched.
+
+        Anchors used below (`t-set="rating_avg"` inside
+        website_sale.product_title / website_sale.products_item) are
+        stable, non-generated ids from the website_sale 19.0 templates
+        this module was built against - see README "Known constraints"
+        for the same caveat already given for the Phase 1/3 chatter
+        xpaths: if a future point release renames them, these two
+        `position="attributes"` xpaths are the only things to check.
+    -->
+
+    <!-- Product page: title block's "★★★★☆ (12 reviews)" link -->
+    <template id="product_rating_weighted_display_page"
+              inherit_id="website_sale.product_title"
+              name="Weighted Rating (Product Page)">
+        <xpath expr="//t[@t-set='rating_avg']" position="attributes">
+            <attribute name="t-value">product.sudo().rating_weighted_avg</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='rating_count']" position="attributes">
+            <attribute name="t-value">(trans_text_plural if product.sudo().rating_weighted_count > 1 else trans_text_singular) % product.sudo().rating_weighted_count</attribute>
+        </xpath>
+    </template>
+
+    <!-- Shop grid / category listing: same stars widget on each product tile -->
+    <template id="product_rating_weighted_display_tile"
+              inherit_id="website_sale.products_item"
+              name="Weighted Rating (Shop Grid Tile)">
+        <xpath expr="//t[@t-set='rating_avg']" position="attributes">
+            <attribute name="t-value">product.sudo().rating_weighted_avg</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='rating_count']" position="attributes">
+            <attribute name="t-value">product.sudo().rating_weighted_count</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        Phase 5, point 21: Review / AggregateRating JSON-LD.
+
+        Anchored on the product's description block, which is always
+        present (and always active) in website_sale.product, unlike the
+        "Discussion and Rating" section itself (website_sale's own
+        `product_comment` snippet, active="False" by default - a shop
+        may not even have it enabled, but should still get rich results
+        once it has reviews at all, e.g. imported/seeded ones).
+
+        get_review_jsonld() returns a pre-escaped markupsafe.Markup (or
+        an empty one) - see product_template.py for why plain `t-out`
+        escaping would corrupt the JSON.
+    -->
+    <template id="product_review_jsonld" inherit_id="website_sale.product" name="Review/AggregateRating JSON-LD">
+        <xpath expr="//div[@t-field='product.website_description']" position="before">
+            <t t-set="wsre_review_jsonld" t-value="product.sudo().get_review_jsonld()"/>
+            <script t-if="wsre_review_jsonld" type="application/ld+json" t-out="wsre_review_jsonld"/>
+        </xpath>
+    </template>
+</odoo>

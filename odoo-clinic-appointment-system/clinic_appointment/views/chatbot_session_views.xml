@@ -1,0 +1,21 @@
+<odoo>
+
+    <record id="view_chat_session_tree" model="ir.ui.view">
+        <field name="name">chat.session.tree</field>
+        <field name="model">clinic.chatbot.session</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_chat_sessions" model="ir.actions.act_window">
+        <field name="name">Chat Sessions</field>
+        <field name="res_model">clinic.chatbot.session</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

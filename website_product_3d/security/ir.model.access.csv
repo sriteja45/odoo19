@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_3d_model_user,product.3d.model.read.internal,model_product_3d_model,base.group_user,1,0,0,0
+access_product_3d_model_manager,product.3d.model.manage,model_product_3d_model,sales_team.group_sale_manager,1,1,1,1
+access_product_3d_model_public,product.3d.model.public,model_product_3d_model,base.group_public,1,0,0,0
+access_product_3d_model_portal,product.3d.model.portal,model_product_3d_model,base.group_portal,1,0,0,0
+access_product_360_frame_user,product.360.frame.read.internal,model_product_360_frame,base.group_user,1,0,0,0
+access_product_360_frame_manager,product.360.frame.manage,model_product_360_frame,sales_team.group_sale_manager,1,1,1,1
+access_product_360_frame_public,product.360.frame.public,model_product_360_frame,base.group_public,1,0,0,0
+access_product_360_frame_portal,product.360.frame.portal,model_product_360_frame,base.group_portal,1,0,0,0

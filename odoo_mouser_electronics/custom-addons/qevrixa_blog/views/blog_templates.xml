@@ -1,0 +1,1946 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- BLOG LISTING PAGE                                         -->
+    <!-- ========================================================= -->
+
+    <template
+        id="blog_list_template"
+        name="Qevrixa Blog List"
+    >
+
+        <t t-call="website.layout">
+
+            <!-- ================================================= -->
+            <!-- BLOG CUSTOM STYLES                                -->
+            <!-- ================================================= -->
+
+            <style>
+
+                /* =====================================================
+                   BLOG SEARCH BAR
+                   ===================================================== */
+
+                .blog-search-wrapper.blog-search-plain {
+                    width: 500px !important;
+                    max-width: 500px !important;
+                    margin: 24px auto 24px !important;
+                    padding: 0 !important;
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+
+                .blog-search-form {
+                    display: flex !important;
+
+                    width: 500px !important;
+                    max-width: 500px !important;
+
+                    margin: 0 auto !important;
+                    padding: 0 !important;
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+
+                .blog-search-input {
+                    flex: 1 1 auto !important;
+
+                    width: auto !important;
+                    height: 46px !important;
+                    min-height: 46px !important;
+
+                    padding: 0 16px !important;
+
+                    border: 1px solid #d9d9d9 !important;
+                    border-right: 0 !important;
+
+                    border-radius: 7px 0 0 7px !important;
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    color: #222222 !important;
+                    font-size: 14px !important;
+                    font-weight: 400 !important;
+
+                    outline: none !important;
+                    box-shadow: none !important;
+
+                    appearance: none !important;
+                    -webkit-appearance: none !important;
+                    -moz-appearance: none !important;
+
+                    filter: none !important;
+                }
+
+                .blog-search-input[type="search"] {
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+                    box-shadow: none !important;
+                }
+
+                .blog-search-input:focus,
+                .blog-search-input:focus-visible {
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    border-color: #cfcfcf !important;
+
+                    outline: none !important;
+                    box-shadow: none !important;
+                }
+
+                .blog-search-input:hover {
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+                    box-shadow: none !important;
+                }
+
+                .blog-search-input:active {
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+                }
+
+                .blog-search-input:-webkit-autofill,
+                .blog-search-input:-webkit-autofill:hover,
+                .blog-search-input:-webkit-autofill:focus,
+                .blog-search-input:-webkit-autofill:active {
+
+                    -webkit-box-shadow:
+                        0 0 0 1000px #ffffff inset !important;
+
+                    box-shadow:
+                        0 0 0 1000px #ffffff inset !important;
+
+                    -webkit-text-fill-color: #222222 !important;
+
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+                }
+
+                .blog-search-input::placeholder {
+                    color: #888888 !important;
+                    opacity: 1 !important;
+                }
+
+
+                /* =====================================================
+                   SEARCH BUTTON
+                   ===================================================== */
+
+                .blog-search-button {
+
+                    flex: 0 0 50px !important;
+
+                    width: 50px !important;
+                    height: 46px !important;
+                    min-height: 46px !important;
+
+                    padding: 0 !important;
+
+                    border: 1px solid #d9d9d9 !important;
+                    border-radius: 0 7px 7px 0 !important;
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    color: #222222 !important;
+
+                    box-shadow: none !important;
+
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+
+                    cursor: pointer !important;
+
+                    outline: none !important;
+
+                    appearance: none !important;
+                    -webkit-appearance: none !important;
+                }
+
+                .blog-search-button:hover,
+                .blog-search-button:focus,
+                .blog-search-button:focus-visible,
+                .blog-search-button:active {
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    color: #222222 !important;
+
+                    border-color: #d9d9d9 !important;
+
+                    box-shadow: none !important;
+                    outline: none !important;
+                }
+
+                .blog-search-button i {
+                    color: #222222 !important;
+                    font-size: 15px !important;
+                }
+
+
+                /* =====================================================
+                   BLOG FILTERS
+                   ===================================================== */
+
+                .blog-filters-wrapper.blog-filters-compact {
+
+                    width: 100% !important;
+                    max-width: 100% !important;
+
+                    display: flex !important;
+
+                    flex-direction: row !important;
+
+                    justify-content: center !important;
+                    align-items: flex-end !important;
+
+                    gap: 18px !important;
+
+                    margin-top: 0 !important;
+                    margin-bottom: 20px !important;
+
+                    padding: 0 !important;
+                }
+
+                .blog-filter-form {
+                    width: 170px !important;
+                    max-width: 170px !important;
+
+                    flex: 0 0 170px !important;
+
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .blog-category-form,
+                .blog-sort-form {
+
+                    width: 170px !important;
+                    max-width: 170px !important;
+
+                    flex: 0 0 170px !important;
+
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .blog-filter-item.blog-filter-compact-item {
+
+                    width: 170px !important;
+                    max-width: 170px !important;
+
+                    min-width: 170px !important;
+
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .blog-filter-label {
+
+                    display: block !important;
+
+                    margin: 0 0 4px 0 !important;
+                    padding: 0 !important;
+
+                    font-size: 12px !important;
+                    line-height: 16px !important;
+
+                    font-weight: 600 !important;
+
+                    color: #333333 !important;
+                }
+
+
+                /* =====================================================
+                   CATEGORY DROPDOWN
+                   ===================================================== */
+
+                .blog-category-dropdown-wrapper {
+
+                    position: relative !important;
+
+                    width: 170px !important;
+                    max-width: 170px !important;
+
+                    flex: 0 0 170px !important;
+
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .blog-category-select {
+
+                    width: 170px !important;
+                    max-width: 170px !important;
+
+                    height: 36px !important;
+                    min-height: 36px !important;
+
+                    padding: 0 30px 0 32px !important;
+
+                    border: 1px solid #d9d9d9 !important;
+                    border-radius: 6px !important;
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    color: #333333 !important;
+
+                    font-size: 12.5px !important;
+                    font-weight: 400 !important;
+
+                    outline: none !important;
+                    box-shadow: none !important;
+
+                    cursor: pointer !important;
+
+                    appearance: none !important;
+                    -webkit-appearance: none !important;
+                    -moz-appearance: none !important;
+                }
+
+                .blog-category-select:hover,
+                .blog-category-select:focus,
+                .blog-category-select:focus-visible,
+                .blog-category-select:active {
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    border-color: #cfcfcf !important;
+
+                    box-shadow: none !important;
+                    outline: none !important;
+                }
+
+                .blog-category-icon {
+
+                    position: absolute !important;
+
+                    left: 10px !important;
+                    top: 50% !important;
+
+                    transform: translateY(-50%) !important;
+
+                    z-index: 2 !important;
+
+                    color: #666666 !important;
+
+                    font-size: 12px !important;
+
+                    pointer-events: none !important;
+                }
+
+
+                /* =====================================================
+                   SORT DROPDOWN
+                   ===================================================== */
+
+                .blog-sort-dropdown-wrapper {
+
+                    position: relative !important;
+
+                    width: 170px !important;
+                    max-width: 170px !important;
+
+                    flex: 0 0 170px !important;
+
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .blog-sort-select {
+
+                    width: 170px !important;
+                    max-width: 170px !important;
+
+                    height: 36px !important;
+                    min-height: 36px !important;
+
+                    padding: 0 30px 0 32px !important;
+
+                    border: 1px solid #d9d9d9 !important;
+                    border-radius: 6px !important;
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    color: #333333 !important;
+
+                    font-size: 12.5px !important;
+                    font-weight: 400 !important;
+
+                    outline: none !important;
+                    box-shadow: none !important;
+
+                    cursor: pointer !important;
+
+                    appearance: none !important;
+                    -webkit-appearance: none !important;
+                    -moz-appearance: none !important;
+                }
+
+                .blog-sort-select:hover,
+                .blog-sort-select:focus,
+                .blog-sort-select:focus-visible,
+                .blog-sort-select:active {
+
+                    background: #ffffff !important;
+                    background-color: #ffffff !important;
+                    background-image: none !important;
+
+                    border-color: #cfcfcf !important;
+
+                    box-shadow: none !important;
+                    outline: none !important;
+                }
+
+                .blog-sort-icon {
+
+                    position: absolute !important;
+
+                    left: 10px !important;
+                    top: 50% !important;
+
+                    transform: translateY(-50%) !important;
+
+                    z-index: 2 !important;
+
+                    color: #666666 !important;
+
+                    font-size: 12px !important;
+
+                    pointer-events: none !important;
+                }
+
+
+                /* =====================================================
+                   COUNT / SORT AREA
+                   ===================================================== */
+
+                .blog-count-wrapper.blog-count-compact {
+
+                    width: 100% !important;
+
+                    display: flex !important;
+
+                    justify-content: space-between !important;
+                    align-items: center !important;
+
+                    margin-top: 10px !important;
+                    margin-bottom: 20px !important;
+                }
+
+
+                /* =====================================================
+                   BLOG CARD BOTTOM ROW
+                   ===================================================== */
+
+                .blog-card-stats {
+
+                    display: flex !important;
+                    align-items: center !important;
+
+                    flex: 1 1 auto !important;
+
+                    min-width: 0 !important;
+
+                    margin: 0 !important;
+                    padding: 10px 0 !important;
+
+                    border-top: 1px solid #e5e5e5 !important;
+                    border-bottom: 1px solid #e5e5e5 !important;
+
+                    gap: 0 !important;
+
+                    white-space: nowrap !important;
+                }
+
+                .blog-card-stats .blog-stat-item {
+
+                    display: inline-flex !important;
+
+                    align-items: center !important;
+
+                    margin-right: 16px !important;
+
+                    padding: 0 !important;
+
+                    color: #444444 !important;
+
+                    font-size: 14px !important;
+
+                    line-height: 20px !important;
+
+                    white-space: nowrap !important;
+                }
+
+                .blog-card-stats .blog-stat-item:last-child {
+
+                    margin-right: 0 !important;
+                }
+
+                .blog-card-stats .blog-stat-item i {
+
+                    margin-right: 4px !important;
+
+                    font-size: 13px !important;
+
+                    color: #444444 !important;
+                }
+
+
+                /* =====================================================
+                   READ MORE + STATISTICS SAME LINE
+                   ===================================================== */
+
+                .blog-card-footer {
+
+                    display: flex !important;
+
+                    flex-direction: row !important;
+
+                    align-items: center !important;
+
+                    justify-content: space-between !important;
+
+                    width: 100% !important;
+
+                    margin: 0 !important;
+
+                    padding: 0 !important;
+
+                    border: none !important;
+
+                    background: transparent !important;
+                }
+
+
+                /* =====================================================
+                   READ MORE BUTTON
+                   ===================================================== */
+
+                .blog-card-footer .blog-btn {
+
+                    flex: 0 0 auto !important;
+
+                    display: inline-flex !important;
+
+                    align-items: center !important;
+
+                    justify-content: center !important;
+
+                    white-space: nowrap !important;
+
+                    margin: 0 0 0 14px !important;
+
+                    padding: 10px 16px !important;
+
+                    min-height: 42px !important;
+
+                    border-radius: 9px !important;
+
+                    background: #51517f !important;
+
+                    color: #ffffff !important;
+
+                    text-decoration: none !important;
+
+                    font-size: 15px !important;
+
+                    font-weight: 600 !important;
+
+                    line-height: 20px !important;
+
+                    border: none !important;
+
+                    box-shadow: none !important;
+                }
+
+                .blog-card-footer .blog-btn:hover {
+
+                    background: #45456f !important;
+
+                    color: #ffffff !important;
+
+                    text-decoration: none !important;
+                }
+
+
+                /* =====================================================
+                   IMPORTANT:
+                   REMOVE OLD FOOTER SEPARATOR / EXTRA SPACE
+                   ===================================================== */
+
+                .blog-card-body .blog-card-footer {
+
+                    border-top: none !important;
+
+                    border-bottom: none !important;
+
+                    box-shadow: none !important;
+
+                    margin-top: 0 !important;
+
+                    margin-bottom: 0 !important;
+                }
+
+
+                /* =====================================================
+                   MOBILE CARD BOTTOM ROW
+                   ===================================================== */
+
+                @media (max-width: 767px) {
+
+                    .blog-card-footer {
+
+                        flex-wrap: nowrap !important;
+
+                        align-items: center !important;
+                    }
+
+                    .blog-card-stats {
+
+                        overflow-x: auto !important;
+
+                        flex: 1 1 auto !important;
+
+                        padding: 8px 0 !important;
+                    }
+
+                    .blog-card-stats .blog-stat-item {
+
+                        margin-right: 10px !important;
+
+                        font-size: 12px !important;
+                    }
+
+                    .blog-card-footer .blog-btn {
+
+                        margin-left: 8px !important;
+
+                        padding: 8px 12px !important;
+
+                        min-height: 38px !important;
+
+                        font-size: 13px !important;
+
+                        flex-shrink: 0 !important;
+                    }
+
+                }
+
+            </style>
+
+
+            <!-- ================================================= -->
+            <!-- BLOG THEME ROOT                                   -->
+            <!-- ================================================= -->
+
+            <div
+                class="o_cc o_cc1 blog-page-wrapper blog-theme-page blog-theme-listing"
+            >
+
+                <div class="container mt-5 mb-5 blog-container">
+
+
+                    <!-- ================================================= -->
+                    <!-- PAGE HEADER                                       -->
+                    <!-- ================================================= -->
+
+                    <div class="blog-header-wrapper">
+
+                        <div class="blog-header-content">
+
+                            <h1 class="blog-page-title">
+                                Qevrixa Electronics Blog
+                            </h1>
+
+                            <p class="blog-page-subtitle">
+                                Latest insights, guides and updates from the world of electronics.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- BLOG SEARCH                                       -->
+                    <!-- ================================================= -->
+
+                    <div
+                        class="blog-search-wrapper blog-search-plain"
+                    >
+
+                        <form
+                            action="/blog"
+                            method="get"
+                            class="blog-search-form"
+                        >
+
+                            <input
+                                type="search"
+                                name="search"
+                                class="blog-search-input"
+                                t-att-value="search or ''"
+                                placeholder="Search electronics blogs..."
+                                aria-label="Search electronics blogs"
+                            />
+
+                            <input
+                                type="hidden"
+                                name="category_id"
+                                t-if="request.params.get('category_id')"
+                                t-att-value="request.params.get('category_id')"
+                            />
+
+                            <input
+                                type="hidden"
+                                name="sort"
+                                t-att-value="sort or 'newest'"
+                            />
+
+                            <button
+                                type="submit"
+                                class="blog-search-button"
+                                aria-label="Search"
+                            >
+
+                                <i
+                                    class="fa fa-search"
+                                    aria-hidden="true"
+                                />
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- BLOG FILTERS                                     -->
+                    <!-- ================================================= -->
+
+                    <div
+                        class="blog-filters-wrapper blog-filters-compact"
+                    >
+
+                        <!-- CATEGORY -->
+
+                        <form
+                            action="/blog"
+                            method="get"
+                            class="blog-category-form blog-filter-form blog-filter-compact-form"
+                        >
+
+                            <input
+                                t-if="search"
+                                type="hidden"
+                                name="search"
+                                t-att-value="search"
+                            />
+
+                            <input
+                                type="hidden"
+                                name="sort"
+                                t-att-value="sort or 'newest'"
+                            />
+
+                            <div
+                                class="blog-filter-item blog-filter-compact-item"
+                            >
+
+                                <label
+                                    class="blog-filter-label"
+                                    for="blog-category-select"
+                                >
+                                    Category
+                                </label>
+
+                                <div
+                                    class="blog-category-dropdown-wrapper"
+                                >
+
+                                    <i
+                                        class="fa fa-th-large blog-category-icon"
+                                        aria-hidden="true"
+                                    />
+
+                                    <select
+                                        id="blog-category-select"
+                                        name="category_id"
+                                        class="blog-category-select"
+                                        onchange="this.form.submit()"
+                                    >
+
+                                        <option
+                                            value=""
+                                            t-att-selected="
+                                                'selected'
+                                                if not request.params.get('category_id')
+                                                else None
+                                            "
+                                        >
+                                            All Categories
+                                        </option>
+
+                                        <t
+                                            t-foreach="categories"
+                                            t-as="category"
+                                        >
+
+                                            <option
+                                                t-att-value="category.id"
+                                                t-att-selected="
+                                                    'selected'
+                                                    if request.params.get('category_id')
+                                                    and int(request.params.get('category_id')) == category.id
+                                                    else None
+                                                "
+                                            >
+
+                                                <t t-esc="category.name"/>
+
+                                            </option>
+
+                                        </t>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+
+
+                        <!-- SORT -->
+
+                        <form
+                            action="/blog"
+                            method="get"
+                            class="blog-sort-form blog-filter-form blog-filter-compact-form"
+                        >
+
+                            <input
+                                t-if="search"
+                                type="hidden"
+                                name="search"
+                                t-att-value="search"
+                            />
+
+                            <input
+                                t-if="request.params.get('category_id')"
+                                type="hidden"
+                                name="category_id"
+                                t-att-value="request.params.get('category_id')"
+                            />
+
+                            <div
+                                class="blog-filter-item blog-filter-compact-item"
+                            >
+
+                                <label
+                                    class="blog-filter-label"
+                                    for="blog-sort-select"
+                                >
+                                    Sort By
+                                </label>
+
+                                <div
+                                    class="blog-sort-dropdown-wrapper"
+                                >
+
+                                    <i
+                                        class="fa fa-sort-amount-desc blog-sort-icon"
+                                        aria-hidden="true"
+                                    />
+
+                                    <select
+                                        id="blog-sort-select"
+                                        name="sort"
+                                        class="blog-sort-select"
+                                        onchange="this.form.submit()"
+                                    >
+
+                                        <option
+                                            value="newest"
+                                            t-att-selected="
+                                                'selected'
+                                                if sort == 'newest'
+                                                else None
+                                            "
+                                        >
+                                            Latest
+                                        </option>
+
+                                        <option
+                                            value="most_viewed"
+                                            t-att-selected="
+                                                'selected'
+                                                if sort == 'most_viewed'
+                                                else None
+                                            "
+                                        >
+                                            Most Viewed
+                                        </option>
+
+                                        <option
+                                            value="most_liked"
+                                            t-att-selected="
+                                                'selected'
+                                                if sort == 'most_liked'
+                                                else None
+                                            "
+                                        >
+                                            Most Liked
+                                        </option>
+
+                                        <option
+                                            value="most_commented"
+                                            t-att-selected="
+                                                'selected'
+                                                if sort == 'most_commented'
+                                                else None
+                                            "
+                                        >
+                                            Most Commented
+                                        </option>
+
+                                        <option
+                                            value="az"
+                                            t-att-selected="
+                                                'selected'
+                                                if sort == 'az'
+                                                else None
+                                            "
+                                        >
+                                            A → Z
+                                        </option>
+
+                                        <option
+                                            value="za"
+                                            t-att-selected="
+                                                'selected'
+                                                if sort == 'za'
+                                                else None
+                                            "
+                                        >
+                                            Z → A
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- BLOG COUNT / CURRENT SORT                         -->
+                    <!-- ================================================= -->
+
+                    <div class="blog-count-wrapper blog-count-compact">
+
+                        <div class="blog-count-text">
+
+                            <span>
+
+                                Showing
+
+                                <strong class="blog-count-number">
+                                    <t t-esc="blog_count"/>
+                                </strong>
+
+                                Blog(s)
+
+                            </span>
+
+                        </div>
+
+                        <div class="blog-current-sort">
+
+                            <i
+                                class="fa fa-clock-o me-1"
+                                aria-hidden="true"
+                            />
+
+                            <span class="blog-current-sort-text">
+
+                                <t t-if="sort == 'newest'">
+                                    Latest Blogs
+                                </t>
+
+                                <t t-elif="sort == 'most_viewed'">
+                                    Most Viewed Blogs
+                                </t>
+
+                                <t t-elif="sort == 'most_liked'">
+                                    Most Liked Blogs
+                                </t>
+
+                                <t t-elif="sort == 'most_commented'">
+                                    Most Commented Blogs
+                                </t>
+
+                                <t t-elif="sort == 'az'">
+                                    Blogs A → Z
+                                </t>
+
+                                <t t-elif="sort == 'za'">
+                                    Blogs Z → A
+                                </t>
+
+                                <t t-else="">
+                                    Latest Blogs
+                                </t>
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- SECTION TITLE                                     -->
+                    <!-- ================================================= -->
+
+                    <div class="blog-section-header">
+
+                        <div class="blog-section-title-wrapper">
+
+                            <h2 class="blog-section-title">
+
+                                <t t-if="sort == 'newest'">
+                                    Latest Blogs
+                                </t>
+
+                                <t t-elif="sort == 'most_viewed'">
+                                    Most Viewed Blogs
+                                </t>
+
+                                <t t-elif="sort == 'most_liked'">
+                                    Most Liked Blogs
+                                </t>
+
+                                <t t-elif="sort == 'most_commented'">
+                                    Most Commented Blogs
+                                </t>
+
+                                <t t-elif="sort == 'az'">
+                                    Blogs A → Z
+                                </t>
+
+                                <t t-elif="sort == 'za'">
+                                    Blogs Z → A
+                                </t>
+
+                                <t t-else="">
+                                    Latest Blogs
+                                </t>
+
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- BLOG LIST                                        -->
+                    <!-- ================================================= -->
+
+                    <div class="blog-list-container">
+
+                        <div class="row blog-row">
+
+                            <t
+                                t-foreach="blogs"
+                                t-as="blog"
+                            >
+
+                                <div
+                                    class="col-xl-4 col-lg-4 col-md-6 mb-4 d-flex blog-card-column"
+                                >
+
+                                    <article
+                                        class="blog-card blog-theme-card card w-100"
+                                    >
+
+                                        <!-- IMAGE -->
+
+                                        <div class="blog-image-wrapper">
+
+                                            <t t-if="blog.image">
+
+                                                <img
+                                                    t-att-src="'/web/image/qevrixa.blog/%s/image' % blog.id"
+                                                    class="card-img-top blog-image"
+                                                    alt="Blog image"
+                                                    loading="lazy"
+                                                />
+
+                                            </t>
+
+                                            <t t-else="">
+
+                                                <div class="blog-image-placeholder">
+
+                                                    <i
+                                                        class="fa fa-file-image-o"
+                                                        aria-hidden="true"
+                                                    />
+
+                                                </div>
+
+                                            </t>
+
+                                        </div>
+
+
+                                        <!-- CARD BODY -->
+
+                                        <div class="card-body blog-card-body">
+
+                                            <!-- CATEGORY -->
+
+                                            <t t-if="blog.category_id">
+
+                                                <div class="blog-category-wrapper">
+
+                                                    <span class="blog-category">
+
+                                                        <t
+                                                            t-esc="blog.category_id.name"
+                                                        />
+
+                                                    </span>
+
+                                                </div>
+
+                                            </t>
+
+
+                                            <!-- TITLE -->
+
+                                            <h4 class="blog-title">
+
+                                                <t
+                                                    t-esc="blog.name"
+                                                />
+
+                                            </h4>
+
+
+                                            <!-- DESCRIPTION -->
+
+                                            <p class="blog-short-description">
+
+                                                <t
+                                                    t-esc="blog.short_description"
+                                                />
+
+                                            </p>
+
+
+                                            <!-- ================================================= -->
+                                            <!-- STATISTICS + READ MORE SAME LINE              -->
+                                            <!-- ================================================= -->
+
+                                            <div class="blog-card-footer">
+
+                                                <!-- LEFT SIDE STATISTICS -->
+
+                                                <div class="blog-card-stats">
+
+                                                    <!-- VIEWS -->
+
+                                                    <span
+                                                        t-if="'views' in blog._fields"
+                                                        class="blog-stat-item"
+                                                    >
+
+                                                        <i
+                                                            class="fa fa-eye"
+                                                            aria-hidden="true"
+                                                        />
+
+                                                        <span>
+                                                            <t
+                                                                t-esc="blog.views"
+                                                            />
+                                                        </span>
+
+                                                    </span>
+
+
+                                                    <!-- LIKES -->
+
+                                                    <span
+                                                        t-if="'likes' in blog._fields"
+                                                        class="blog-stat-item"
+                                                    >
+
+                                                        <i
+                                                            class="fa fa-thumbs-up"
+                                                            aria-hidden="true"
+                                                        />
+
+                                                        <span>
+                                                            <t
+                                                                t-esc="blog.likes"
+                                                            />
+                                                        </span>
+
+                                                    </span>
+
+
+                                                    <!-- DISLIKES -->
+
+                                                    <span
+                                                        t-if="'dislikes' in blog._fields"
+                                                        class="blog-stat-item"
+                                                    >
+
+                                                        <i
+                                                            class="fa fa-thumbs-down"
+                                                            aria-hidden="true"
+                                                        />
+
+                                                        <span>
+                                                            <t
+                                                                t-esc="blog.dislikes"
+                                                            />
+                                                        </span>
+
+                                                    </span>
+
+
+                                                    <!-- COMMENTS -->
+
+                                                    <span
+                                                        t-if="'comments_count' in blog._fields"
+                                                        class="blog-stat-item"
+                                                    >
+
+                                                        <i
+                                                            class="fa fa-comment"
+                                                            aria-hidden="true"
+                                                        />
+
+                                                        <span>
+                                                            <t
+                                                                t-esc="blog.comments_count"
+                                                            />
+                                                        </span>
+
+                                                    </span>
+
+                                                </div>
+
+
+                                                <!-- RIGHT SIDE READ MORE -->
+
+                                                <a
+                                                    t-att-href="'/blog/%s' % blog.slug"
+                                                    class="blog-btn"
+                                                >
+
+                                                    <span>
+                                                        Read More
+                                                    </span>
+
+                                                    <i
+                                                        class="fa fa-arrow-right ms-2"
+                                                        aria-hidden="true"
+                                                    />
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                    </article>
+
+                                </div>
+
+                            </t>
+
+
+                            <!-- ================================================= -->
+                            <!-- NO BLOGS                                        -->
+                            <!-- ================================================= -->
+
+                            <t t-if="not blogs">
+
+                                <div class="col-12">
+
+                                    <div
+                                        class="text-center py-5 blog-no-results"
+                                    >
+
+                                        <div class="blog-no-results-icon">
+
+                                            <i
+                                                class="fa fa-file-text-o"
+                                                aria-hidden="true"
+                                            />
+
+                                        </div>
+
+                                        <h4>
+                                            No Blogs Found
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            No blogs match your selected filters.
+                                        </p>
+
+                                        <a
+                                            href="/blog"
+                                            class="blog-btn"
+                                        >
+
+                                            <span>
+                                                View All Blogs
+                                            </span>
+
+                                            <i
+                                                class="fa fa-arrow-right ms-2"
+                                                aria-hidden="true"
+                                            />
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </t>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- PAGINATION                                       -->
+                    <!-- ================================================= -->
+
+                    <t t-if="total_pages > 1">
+
+                        <nav
+                            class="blog-pagination"
+                            aria-label="Blog pagination"
+                        >
+
+                            <!-- PREVIOUS -->
+
+                            <a
+                                t-if="page > 1"
+                                t-att-href="'/blog?page=%s&amp;search=%s&amp;sort=%s%s' % (
+                                    page - 1,
+                                    search or '',
+                                    sort,
+                                    ('&amp;category_id=%s' % request.params.get('category_id'))
+                                    if request.params.get('category_id')
+                                    else ''
+                                )"
+                                class="blog-page-btn blog-page-prev"
+                            >
+
+                                <i
+                                    class="fa fa-angle-left me-1"
+                                    aria-hidden="true"
+                                />
+
+                                Previous
+
+                            </a>
+
+
+                            <!-- PAGE NUMBERS -->
+
+                            <div class="blog-page-numbers">
+
+                                <t
+                                    t-foreach="range(1, total_pages + 1)"
+                                    t-as="p"
+                                >
+
+                                    <a
+                                        t-att-href="'/blog?page=%s&amp;search=%s&amp;sort=%s%s' % (
+                                            p,
+                                            search or '',
+                                            sort,
+                                            ('&amp;category_id=%s' % request.params.get('category_id'))
+                                            if request.params.get('category_id')
+                                            else ''
+                                        )"
+                                        t-att-class="
+                                            'blog-page-btn active'
+                                            if p == page
+                                            else 'blog-page-btn'
+                                        "
+                                    >
+
+                                        <t t-esc="p"/>
+
+                                    </a>
+
+                                </t>
+
+                            </div>
+
+
+                            <!-- NEXT -->
+
+                            <a
+                                t-if="page &lt; total_pages"
+                                t-att-href="'/blog?page=%s&amp;search=%s&amp;sort=%s%s' % (
+                                    page + 1,
+                                    search or '',
+                                    sort,
+                                    ('&amp;category_id=%s' % request.params.get('category_id'))
+                                    if request.params.get('category_id')
+                                    else ''
+                                )"
+                                class="blog-page-btn blog-page-next"
+                            >
+
+                                Next
+
+                                <i
+                                    class="fa fa-angle-right ms-1"
+                                    aria-hidden="true"
+                                />
+
+                            </a>
+
+                        </nav>
+
+                    </t>
+
+                </div>
+
+            </div>
+
+        </t>
+
+    </template>
+
+
+    <!-- ========================================================= -->
+    <!-- BLOG DETAIL PAGE                                          -->
+    <!-- ========================================================= -->
+
+    <template
+        id="blog_detail_template"
+        name="Qevrixa Blog Detail"
+    >
+
+        <t t-call="website.layout">
+
+            <div
+                class="o_cc o_cc1 blog-page-wrapper blog-theme-page blog-theme-detail"
+            >
+
+                <div class="container mt-5 mb-5 blog-container">
+
+                    <div class="row g-4 blog-detail-row">
+
+                        <!-- ================================================= -->
+                        <!-- MAIN BLOG CONTENT                                -->
+                        <!-- ================================================= -->
+
+                        <div class="col-lg-8">
+
+                            <article
+                                class="blog-detail blog-theme-detail-card"
+                            >
+
+                                <!-- BLOG IMAGE -->
+
+                                <div class="blog-detail-image-wrapper">
+
+                                    <t t-if="blog.image">
+
+                                        <img
+                                            t-att-src="'/web/image/qevrixa.blog/%s/image' % blog.id"
+                                            class="img-fluid shadow mb-4 blog-image blog-detail-image"
+                                            alt="Blog image"
+                                        />
+
+                                    </t>
+
+                                    <t t-else="">
+
+                                        <div
+                                            class="blog-detail-image-placeholder"
+                                        >
+
+                                            <i
+                                                class="fa fa-file-image-o"
+                                                aria-hidden="true"
+                                            />
+
+                                        </div>
+
+                                    </t>
+
+                                </div>
+
+
+                                <!-- CATEGORY -->
+
+                                <div class="blog-detail-category">
+
+                                    <t t-if="blog.category_id">
+
+                                        <span class="blog-category">
+
+                                            <t
+                                                t-esc="blog.category_id.name"
+                                            />
+
+                                        </span>
+
+                                    </t>
+
+                                </div>
+
+
+                                <!-- TITLE -->
+
+                                <h1 class="blog-detail-title">
+
+                                    <t
+                                        t-esc="blog.name"
+                                    />
+
+                                </h1>
+
+
+                                <!-- META -->
+
+                                <div class="blog-detail-meta">
+
+                                    <span class="blog-meta-item">
+
+                                        <strong>
+                                            Author :
+                                        </strong>
+
+                                        <span>
+
+                                            <t
+                                                t-if="blog.author_id"
+                                                t-esc="blog.author_id.name"
+                                            />
+
+                                            <t t-else="">
+                                                -
+                                            </t>
+
+                                        </span>
+
+                                    </span>
+
+
+                                    <span class="blog-meta-separator">
+                                        |
+                                    </span>
+
+
+                                    <span class="blog-meta-item">
+
+                                        <strong>
+                                            Date :
+                                        </strong>
+
+                                        <span>
+
+                                            <t
+                                                t-esc="blog.publish_date"
+                                            />
+
+                                        </span>
+
+                                    </span>
+
+
+                                    <span class="blog-meta-separator">
+                                        |
+                                    </span>
+
+
+                                    <span class="blog-meta-item">
+
+                                        <i
+                                            class="fa fa-eye"
+                                            aria-hidden="true"
+                                        />
+
+                                        <span>
+
+                                            <t
+                                                t-esc="blog.views"
+                                            />
+
+                                            Views
+
+                                        </span>
+
+                                    </span>
+
+
+                                    <span class="blog-meta-separator">
+                                        |
+                                    </span>
+
+
+                                    <span class="blog-meta-item">
+
+                                        <i
+                                            class="fa fa-clock-o"
+                                            aria-hidden="true"
+                                        />
+
+                                        <span>
+
+                                            <t
+                                                t-esc="blog.read_time"
+                                            />
+
+                                            min read
+
+                                        </span>
+
+                                    </span>
+
+                                </div>
+
+
+                                <!-- ================================================= -->
+                                <!-- LIKE / DISLIKE / COMMENTS                      -->
+                                <!-- ================================================= -->
+
+                                <div class="blog-reaction-wrapper">
+
+                                    <div class="blog-reaction-left">
+
+                                        <!-- LIKE -->
+
+                                        <a
+                                            t-att-href="'/blog/like/%s' % blog.id"
+                                            class="blog-reaction-btn blog-like-btn"
+                                            aria-label="Like blog"
+                                        >
+
+                                            <i
+                                                class="fa fa-heart"
+                                                aria-hidden="true"
+                                            />
+
+                                            <span
+                                                class="blog-reaction-count"
+                                            >
+
+                                                <t
+                                                    t-esc="blog.likes"
+                                                />
+
+                                            </span>
+
+                                            <span
+                                                class="blog-reaction-label"
+                                            >
+                                                Likes
+                                            </span>
+
+                                        </a>
+
+
+                                        <!-- DISLIKE -->
+
+                                        <a
+                                            t-att-href="'/blog/dislike/%s' % blog.id"
+                                            class="blog-reaction-btn blog-dislike-btn"
+                                            aria-label="Dislike blog"
+                                        >
+
+                                            <i
+                                                class="fa fa-thumbs-down"
+                                                aria-hidden="true"
+                                            />
+
+                                            <span
+                                                class="blog-reaction-count"
+                                            >
+
+                                                <t
+                                                    t-esc="blog.dislikes"
+                                                />
+
+                                            </span>
+
+                                            <span
+                                                class="blog-reaction-label"
+                                            >
+                                                Dislike
+                                            </span>
+
+                                        </a>
+
+                                    </div>
+
+
+                                    <!-- COMMENTS -->
+
+                                    <div class="blog-comments-wrapper">
+
+                                        <a
+                                            href="#comments"
+                                            class="blog-comments-btn"
+                                            aria-label="View comments"
+                                        >
+
+                                            <i
+                                                class="fa fa-comments"
+                                                aria-hidden="true"
+                                            />
+
+                                            <span
+                                                class="blog-reaction-count"
+                                            >
+
+                                                <t
+                                                    t-esc="blog.comments_count"
+                                                />
+
+                                            </span>
+
+                                            <span
+                                                class="blog-reaction-label"
+                                            >
+                                                Comments
+                                            </span>
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- BLOG CONTENT -->
+
+                                <div class="blog-detail-content">
+
+                                    <t
+                                        t-raw="blog.content"
+                                    />
+
+                                </div>
+
+
+                                <!-- COMMENTS ANCHOR -->
+
+                                <div
+                                    id="comments"
+                                    class="blog-comments-section"
+                                >
+                                </div>
+
+
+                                <!-- BACK BUTTON -->
+
+                                <div class="blog-back-wrapper mt-5">
+
+                                    <a
+                                        href="/blog"
+                                        class="btn btn-secondary blog-back-btn"
+                                    >
+
+                                        <i
+                                            class="fa fa-arrow-left me-2"
+                                            aria-hidden="true"
+                                        />
+
+                                        Back to Blogs
+
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- RELATED BLOGS                                    -->
+                        <!-- ================================================= -->
+
+                        <div class="col-lg-4">
+
+                            <aside
+                                class="related-blog-box blog-theme-related"
+                            >
+
+                                <h4 class="related-blog-title">
+                                    Related Blogs
+                                </h4>
+
+
+                                <t t-if="related_blogs">
+
+                                    <div class="related-blog-list">
+
+                                        <t
+                                            t-foreach="related_blogs"
+                                            t-as="related"
+                                        >
+
+                                            <a
+                                                t-att-href="'/blog/%s' % related.slug"
+                                                class="related-blog-item"
+                                            >
+
+                                                <!-- RELATED IMAGE -->
+
+                                                <div
+                                                    class="related-blog-image-wrapper"
+                                                >
+
+                                                    <t t-if="related.image">
+
+                                                        <img
+                                                            t-att-src="'/web/image/qevrixa.blog/%s/image' % related.id"
+                                                            alt="Related blog"
+                                                            loading="lazy"
+                                                        />
+
+                                                    </t>
+
+                                                    <t t-else="">
+
+                                                        <div
+                                                            class="related-blog-image-placeholder"
+                                                        >
+
+                                                            <i
+                                                                class="fa fa-file-image-o"
+                                                                aria-hidden="true"
+                                                            />
+
+                                                        </div>
+
+                                                    </t>
+
+                                                </div>
+
+
+                                                <!-- RELATED CONTENT -->
+
+                                                <div
+                                                    class="related-blog-content"
+                                                >
+
+                                                    <h6>
+
+                                                        <t
+                                                            t-esc="related.name"
+                                                        />
+
+                                                    </h6>
+
+                                                    <small>
+
+                                                        <t
+                                                            t-if="related.category_id"
+                                                            t-esc="related.category_id.name"
+                                                        />
+
+                                                    </small>
+
+                                                </div>
+
+                                            </a>
+
+                                        </t>
+
+                                    </div>
+
+                                </t>
+
+
+                                <!-- NO RELATED BLOGS -->
+
+                                <t t-else="">
+
+                                    <div class="blog-no-related">
+
+                                        <i
+                                            class="fa fa-file-text-o"
+                                            aria-hidden="true"
+                                        />
+
+                                        <p class="text-muted">
+
+                                            No related blogs available.
+
+                                        </p>
+
+                                    </div>
+
+                                </t>
+
+                            </aside>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </t>
+
+    </template>
+
+</odoo>

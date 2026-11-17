@@ -1,0 +1,117 @@
+<odoo>
+    <record id="view_xevoria_product_translation_poc_tree" model="ir.ui.view">
+        <field name="name">xevoria.product.translation.poc.list</field>
+        <field name="model">xevoria.product.translation.poc</field>
+        <field name="arch" type="xml">
+            <list string="Product Translation POC">
+                <field name="product_tmpl_id"/>
+                <field name="lang_id"/>
+                <field name="translated_name"/>
+                <field name="applied"/>
+                <field name="review_state"/>
+                <field name="native_sync_status"/>
+                <field name="reviewed_by"/>
+                <field name="published_at"/>
+                <field name="last_applied_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_xevoria_product_translation_poc_form" model="ir.ui.view">
+        <field name="name">xevoria.product.translation.poc.form</field>
+        <field name="model">xevoria.product.translation.poc</field>
+        <field name="arch" type="xml">
+            <form string="Product Translation POC">
+                <header>
+                    <button name="action_approve_translation" type="object" string="Approve" class="btn-primary" invisible="review_state not in ('generated', 'pending_review', 'rejected')"/>
+                    <button name="action_publish_translation" type="object" string="Publish" class="btn-primary" invisible="review_state not in ('approved', 'published')"/>
+                    <button name="action_reject_translation" type="object" string="Reject" invisible="review_state not in ('generated', 'pending_review', 'approved')"/>
+                    <button name="action_reset_to_review" type="object" string="Back to Review" invisible="review_state not in ('approved', 'rejected')"/>
+                    <button name="action_apply_translation" type="object" string="Apply Translation" class="btn-secondary" invisible="review_state not in ('approved', 'published')"/>
+                    <button name="action_sync_native_translation" type="object" string="Sync Native Fields" class="btn-secondary" invisible="review_state not in ('approved', 'published')"/>
+                    <button name="action_preview_translation" type="object" string="Preview in Language"/>
+                    <field name="review_state" widget="statusbar" statusbar_visible="draft,generated,pending_review,approved,published"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="lang_id"/>
+                            <field name="lang_code" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="review_state" readonly="1"/>
+                            <field name="applied" readonly="1"/>
+                            <field name="native_sync_status" readonly="1"/>
+                            <field name="generated_at" readonly="1"/>
+                            <field name="reviewed_at" readonly="1"/>
+                            <field name="reviewed_by" readonly="1"/>
+                            <field name="published_at" readonly="1"/>
+                            <field name="last_applied_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Translated Content">
+                            <group>
+                                <field name="translated_name"/>
+                                <field name="translated_description_sale"/>
+                                <field name="translated_website_description" widget="html"/>
+                            </group>
+                        </page>
+                        <page string="Review">
+                            <group>
+                                <field name="reviewer_note" placeholder="Reviewer feedback, correction notes, or rejection reason..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_xevoria_product_translation_poc_search" model="ir.ui.view">
+        <field name="name">xevoria.product.translation.poc.search</field>
+        <field name="model">xevoria.product.translation.poc</field>
+        <field name="arch" type="xml">
+            <search string="Product Translations">
+                <filter name="pending_review" string="Pending Review" domain="[('review_state','=','pending_review')]"/>
+                <filter name="approved" string="Approved" domain="[('review_state','=','approved')]"/>
+                <filter name="published" string="Published" domain="[('review_state','=','published')]"/>
+                <filter name="rejected" string="Rejected" domain="[('review_state','=','rejected')]"/>
+                <field name="product_tmpl_id"/>
+                <field name="lang_id"/>
+                <field name="review_state"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_xevoria_product_translation_poc" model="ir.actions.act_window">
+        <field name="name">Product Translation POC</field>
+        <field name="res_model">xevoria.product.translation.poc</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_xevoria_product_translation_review" model="ir.actions.act_window">
+        <field name="name">Translation Review</field>
+        <field name="res_model">xevoria.product.translation.poc</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_pending_review': 1}</field>
+    </record>
+
+    <menuitem id="menu_xevoria_translation_poc_root"
+              name="Translation POC"
+              parent="website.menu_website_configuration"
+              sequence="90"/>
+
+    <menuitem id="menu_xevoria_product_translation_poc"
+              name="Product Translations"
+              parent="menu_xevoria_translation_poc_root"
+              action="action_xevoria_product_translation_poc"
+              sequence="10"/>
+
+    <menuitem id="menu_xevoria_product_translation_review"
+              name="Translation Review"
+              parent="menu_xevoria_translation_poc_root"
+              action="action_xevoria_product_translation_review"
+              sequence="15"/>
+</odoo>

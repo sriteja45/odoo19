@@ -1,0 +1,1232 @@
+:root {
+    --xevoria-primary: #0d6efd;
+    --xevoria-dark: #0f172a;
+    --xevoria-secondary: #2f9bb3;
+    --xevoria-accent: #00c8ff;
+    --xevoria-light: #f8fafc;
+}
+
+#products_grid .card-title, #products_grid .card-title a, #products_grid h6, #products_grid h6 a, #products_grid .o_wsale_product_information a, #products_grid .oe_product_cart a, #products_grid .text-primary {
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+#products_grid .card-title a:hover, #products_grid h6 a:hover, #products_grid .o_wsale_product_information a:hover, #products_grid .oe_product_cart a:hover {
+    color: #000000 !important;
+}
+
+#products_grid p, #products_grid .text-muted, #products_grid .product_description, #products_grid .o_wsale_product_information p, #products_grid .oe_product_cart p {
+    color: #000000 !important;
+}
+
+#products_grid .oe_currency_value, #products_grid .product_price, #products_grid .oe_price {
+    color: #000000 !important;
+    font-weight: 600;
+}
+
+#products_grid .oe_product_cart {
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    padding: 8px !important;
+    overflow: hidden !important;
+}
+
+#products_grid .oe_product_cart:hover {
+    border-color: #0c7a86 !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08) !important;
+}
+
+#products_grid article, #products_grid .oe_product, #products_grid .o_wsale_product_grid_wrapper, #products_grid .card {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+#products_grid article:hover, #products_grid .oe_product:hover, #products_grid .oe_product_cart:hover, #products_grid .o_wsale_product_grid_wrapper:hover, #products_grid .card:hover {
+    border-color: #0c7a86 !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08) !important;
+}
+
+#products_grid img {
+    border-radius: 6px !important;
+    max-height: 140px !important;
+    object-fit: contain !important;
+    width: auto !important;
+}
+
+#products_grid .o_wsale_product_information, #products_grid .card-body {
+    padding: 6px !important;
+}
+
+#products_grid h6, #products_grid .card-title {
+    margin-bottom: 4px !important;
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+}
+
+#products_grid p, #products_grid .text-muted {
+    margin-bottom: 4px !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#products_grid .oe_currency_value, #products_grid .product_price {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+html, body, #wrap, main {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+    max-width: 100vw;
+}
+
+#top, header, .o_header_standard, .o_main_navbar {
+    z-index: 9999;
+    position: relative;
+}
+
+.hero-banner-section {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    margin-top: 0 !important;
+}
+
+#xevoriaCarousel, #xevoriaCarousel .carousel-inner, #xevoriaCarousel .carousel-item {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#xevoriaCarousel, .hero-banner-section {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+#xevoriaCarousel .carousel-item img, .hero-banner-section img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+}
+
+.oe_website_sale, .o_wsale_products_main_row {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    min-height: auto !important;
+}
+
+.o_wsale_products_header {
+    background: linear-gradient(180deg, #0c3c95 0%, #0a2d74 100%) !important;
+    padding: 1.5rem 1.3rem !important;
+    border-radius: 1rem !important;
+    margin-bottom: 1.25rem !important;
+    color: #ffffff !important;
+    display: none !important;
+}
+
+.o_wsale_products_header .products_header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+}
+
+.o_wsale_products_header h1, .o_wsale_products_header h2, .o_wsale_products_header .o_wsale_shop_title {
+    color: #ffffff !important;
+    margin: 0 !important;
+}
+
+.o_wsale_products_header .o_wsale_products_header_search_form_container {
+    display: none !important;
+}
+
+.xevoria_sidebar_shop_header {
+    background: #0c3c95;
+    border-radius: 1rem;
+    padding: 1.25rem 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.xevoria_sidebar_shop_title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffffff !important;
+}
+
+.xevoria_sidebar_shop_controls .dropdown-toggle, .xevoria_sidebar_shop_controls .dropdown-toggle span, .xevoria_sidebar_shop_controls .dropdown-toggle i, .xevoria_sidebar_shop_controls .btn.dropdown-toggle, .xevoria_sidebar_shop_controls .btn.dropdown-toggle span, .xevoria_sidebar_shop_controls .btn.dropdown-toggle i {
+    color: #ffffff !important;
+}
+
+.xevoria_sidebar_shop_controls .o_sortby_dropdown, .xevoria_sidebar_shop_controls .o_pricelist_dropdown {
+    width: 100%;
+}
+
+.xevoria_sidebar_shop_controls .dropdown-menu {
+    min-width: 100%;
+}
+
+#o_wsale_products_header, #o_wsale_products_header * {
+    display: none !important;
+}
+
+.o_wsale_products_grid_table_wrapper, #products_grid {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+#xevoriaCarousel .carousel-item {
+    height: auto !important;
+}
+
+#xevoriaCarousel .carousel-item img {
+    width: 100%;
+    height: auto !important;
+    display: block;
+    object-fit: unset !important;
+}
+
+.hero-carousel {
+    aspect-ratio: auto !important;
+}
+
+.hero-carousel img {
+    object-fit: unset !important;
+}
+
+@media (max-width: 991px) {
+    #xevoriaCarousel .carousel-item {
+        height: 350px;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        width: 12%;
+    }
+}
+
+header .container, .o_main_navbar .container, .navbar .container {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.navbar-brand, .o_header_logo {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+header, .o_main_navbar, .o_header_standard {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.o_main_navbar {
+    background: #2cc6d3 !important;
+}
+
+header, .o_main_navbar, .navbar {
+    background-color: #0c7a86 !important;
+}
+
+.o_main_navbar .container-fluid {
+    background-color: #0c7a86 !important;
+}
+
+.navbar-nav .nav-link, .navbar a {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.navbar-brand {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+.xevoria-navbar {
+    background: linear-gradient(90deg, #0c7c86, #0f8b8d);
+    min-height: 74px;
+    padding: 10px 0;
+}
+
+.xevoria-navbar .nav-link, .xevoria-navbar a, .xevoria-navbar span {
+    color: #fff !important;
+}
+
+.xevoria-navbar .form-control {
+    border-radius: 6px;
+}
+
+.xevoria-navbar .navbar-brand {
+    margin-right: 15px;
+    padding: 0;
+}
+
+.xevoria-navbar .dropdown-menu {
+    background-color: #0f172a !important;
+    /* same as header */
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 6px 0;
+}
+
+.xevoria-navbar .dropdown-item {
+    color: #ffffff !important;
+}
+
+.xevoria-navbar .dropdown-item:hover {
+    background-color: rgba(255,255,255,0.08) !important;
+    color: #fbbf24 !important;
+}
+
+.xevoria-navbar .dropdown-toggle::after {
+    color: white;
+}
+
+section h1, section h2 {
+    font-weight: 700;
+    color: var(--xevoria-dark);
+    margin-bottom: 20px;
+}
+
+section p {
+    color: #666;
+}
+
+.services-section {
+    padding: 90px 0;
+    background: #f8fafc;
+}
+
+.services-section .card {
+    border: none;
+    border-radius: 18px;
+    transition: 0.3s;
+    overflow: hidden;
+    height: 100%;
+}
+
+.services-section .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.services-section .card-body {
+    padding: 40px 30px;
+}
+
+.services-section h4 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.header-icon, .header-icon a {
+    color: #ffffff !important;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header-icon i, .fa-heart, .fa-shopping-cart, .fa-user-circle {
+    font-size: 18px;
+}
+
+.header-icon:hover, .header-icon a:hover {
+    color: #ffc107 !important;
+}
+
+.about-section {
+    padding: 100px 0;
+}
+
+.about-section img {
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.product-card {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: 0.3s;
+    background: white;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.product-card img {
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-card .card-body {
+    padding: 20px;
+}
+
+.product-card h5 {
+    font-size: 16px;
+    min-height: 50px;
+}
+
+.product-price {
+    color: var(--xevoria-primary);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.btn-primary {
+    background: var(--xevoria-primary);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.contact-section {
+    background: var(--xevoria-light);
+    padding: 100px 0;
+}
+
+.contact-card {
+    background: white;
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.contact-card input, .contact-card textarea {
+    border-radius: 10px;
+    padding: 12px;
+}
+
+footer#bottom, #bottom, .xevoria-footer {
+    width: 100% !important;
+    background: #0c7a86 !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    padding: 40px 0 20px !important;
+}
+
+.xevoria-footer .container {
+    max-width: 1320px !important;
+}
+
+.xevoria-footer h5, .xevoria-footer p, .xevoria-footer a, .xevoria-footer li, .xevoria-footer span, .xevoria-footer div {
+    color: #ffffff !important;
+    letter-spacing: 0.4px;
+}
+
+.xevoria-footer h5 {
+    letter-spacing: 0.6px;
+    margin-bottom: 14px;
+}
+
+.xevoria-footer a {
+    text-decoration: none;
+}
+
+.xevoria-footer a:hover {
+    color: #d8f7ff !important;
+}
+
+.xevoria-footer .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.25) !important;
+    margin-top: 25px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.xevoria-logo {
+    height: auto;
+    width: 140px;
+    transition: 0.3s;
+    object-fit: contain;
+    display: block;
+}
+
+.xevoria-logo:hover {
+    transform: scale(1.03);
+}
+
+.navbar-nav {
+    gap: 8px !important;
+    align-items: center !important;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+    transition: all 0.25s ease;
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 10px !important;
+}
+
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+    color: #ffd54f !important;
+}
+
+.xevoria-search input {
+    width: 260px;
+    border-radius: 30px;
+    border: none;
+    padding: 10px 18px;
+    box-shadow: none;
+    height: 42px !important;
+}
+
+.xevoria-search button {
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+}
+
+.fa-heart, .fa-shopping-cart, .fa-user {
+    font-size: 18px;
+}
+
+.o_wsale_my_wish {
+    background: #ffffff !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+.o_wsale_my_cart {
+    background: #ffffff !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+.o_wsale_my_wish i {
+    color: #e53935 !important;
+    font-size: 26px !important;
+}
+
+.o_wsale_my_cart i {
+    color: #0d6efd !important;
+    font-size: 26px !important;
+}
+
+.my_wish_quantity, .my_cart_quantity, .o_wsale_my_wish_quantity, .o_wsale_my_cart_quantity {
+    position: absolute !important;
+    top: -8px !important;
+    right: -8px !important;
+    width: 22px !important;
+    height: 22px !important;
+    background: #ffc107 !important;
+    color: #000 !important;
+    border-radius: 50% !important;
+    border: 2px solid #fff !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+.btn-warning {
+    border-radius: 999px;
+    font-weight: 700;
+    padding: 10px 22px;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 991px) {
+    .xevoria-search {
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    .xevoria-search input {
+        width: 100%;
+    }
+
+    .navbar-nav {
+        gap: 8px;
+        margin: 15px 0;
+    }
+}
+
+.card, .product-card, .btn, img {
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    #xevoriaCarousel img {
+        height: 300px;
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .services-section, .about-section, .contact-section {
+        padding: 50px 0;
+    }
+
+    .semicon-desc {
+        white-space: pre-line;
+        font-size: 15px;
+        color: #222;
+    }
+}
+
+.xevoria-currency-item {
+    margin: 0 14px 0 10px;
+    flex: 0 0 auto;
+}
+
+.xevoria-currency-nav, .xevoria-currency-form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.xevoria-currency-select {
+    width: auto;
+    min-width: 100px;
+    height: 42px;
+    padding: 0.35rem 1.9rem 0.35rem 0.75rem;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,.4)!important;
+    background-color: transparent;
+    color: white !important;
+    font-weight: 600;
+    line-height: 1;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    background: transparent !important;
+}
+
+.xevoria-currency-select:hover {
+    border-color: rgba(0, 200, 255, 0.65);
+    background-color: rgba(15, 28, 52, 0.96);
+}
+
+.xevoria-currency-select:focus {
+    border-color: var(--xevoria-accent);
+    box-shadow: 0 0 0 0.16rem rgba(0, 200, 255, 0.22);
+}
+
+.xevoria-currency-select option {
+    color: #111827;
+    background: #ffffff;
+}
+
+@media (max-width: 991.98px) {
+    .xevoria-currency-item {
+        width: 100%;
+        margin: 10px 0;
+        justify-content: flex-start;
+    }
+
+    .xevoria-currency-select {
+        min-width: 128px;
+        background-color: #ffffff;
+        color: #0f172a;
+        border-color: rgba(15, 23, 42, 0.18);
+        box-shadow: none;
+    }
+}
+
+.xevoria-locale-nav select {
+    min-width: 92px;
+    max-width: 130px;
+    font-size: 0.875rem;
+}
+
+.xevoria-locale-item {
+    z-index: 10;
+}
+
+@media (max-width: 991.98px) {
+    .xevoria-locale-item {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.xevoria-locale-item, .xevoria-currency-form {
+    margin: 0;
+}
+
+.xevoria-locale-nav {
+    display: inline-flex;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .xevoria-locale-item {
+        margin-top: 0.5rem;
+    }
+
+    .xevoria-currency-select {
+        min-width: 92px;
+    }
+}
+
+.service-card:hover, .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.12) !important;
+}
+
+.about-gallery img {
+    transition: 0.3s;
+}
+
+.about-gallery img:hover {
+    transform: translateY(-5px);
+}
+
+.service-card {
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.12);
+}
+
+.xevoria-second-menu {
+    width: 100%;
+    max-width: 100vw !important;
+    background: #0056c9 !important;
+    /* same header teal */
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap;
+    gap: 30px !important;
+    padding: 6px 20px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    min-height: 52px !important;
+}
+
+.xevoria-second-menu .xevoria-second-item {
+    flex: 0 0 auto;
+}
+
+.xevoria-second-item {
+    background: transparent !important;
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+}
+
+.xevoria-second-item:hover {
+    background: #ffb000 !important;
+    color: #000 !important;
+    transform: translateY(-2px);
+}
+
+.o_wsale_products_searchbar_form, .o_wsale_products_searchbar, .js_attributes_search, .o_wsale_search {
+    display: none !important;
+}
+
+.o_wsale_products_header h1, .o_wsale_products_header h2, h2.page-title {
+    text-align: left !important;
+    width: auto !important;
+    margin: 0 !important;
+    color: #ffffff !important;
+}
+
+#products_grid, .o_wsale_products_grid, .o_wsale_products_grid_table_wrapper {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.o_wsale_products_grid .row, #products_grid .row {
+    justify-content: center !important;
+}
+
+.shop-toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 4% !important;
+    padding: 8px 15px !important;
+}
+
+.dropdown-toggle, .dropdown-toggle span, .dropdown-toggle i, .btn.dropdown-toggle, .btn.dropdown-toggle span, .btn.dropdown-toggle i {
+    color: #ffffff !important;
+}
+
+.dropdown-toggle::after {
+    color: #ffffff !important;
+}
+
+.shop-toolbar h2, h1, h2.page-title, .o_wsale_products_header h2 {
+    font-size: 32px !important;
+    margin-bottom: 0 !important;
+}
+
+#o_wsale_sortby, #o_wsale_sortby *, .o_wsale_sortby_dropdown, .o_wsale_sortby_dropdown * {
+    color: #ffffff !important;
+}
+
+.xevoria_native_filter_addon {
+    position: absolute;
+    left: 75px;
+    top: 360px;
+    width: 230px;
+    z-index: 1;
+}
+
+.xevoria_filter_section {
+    margin-bottom: 24px;
+}
+
+.xevoria_filter_section h6 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.xevoria_filter_section ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.xevoria_filter_section li {
+    margin-bottom: 8px;
+}
+
+.xevoria_filter_section a {
+    color: #5c2d4f;
+    text-decoration: none;
+}
+
+.xevoria_vendor_scroll {
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.o_wsale_categories_top, .o_wsale_products_categories_top, #products_grid_before .o_wsale_categories_top, .o_wsale_filmstip_wrapper {
+    display: none !important;
+}
+
+.o_wsale_categories_top, .o_wsale_products_categories_top, .o_wsale_filmstrip_wrapper, .o_wsale_filmstip_wrapper, #products_grid_before .o_wsale_categories_top, #products_grid_before .o_wsale_filmstrip_wrapper {
+    display: none !important;
+}
+
+.o_wsale_products_header, #products_grid_before {
+    overflow: hidden !important;
+}
+
+.o_wsale_price_range_option input, .o_wsale_price_range input, .js_price_filter input {
+    width: 100px !important;
+    font-size: 14px !important;
+    padding: 6px !important;
+}
+
+#products_grid_before {
+    min-width: 260px !important;
+    padding-right: 25px !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+#products_grid {
+    padding-left: 10px !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.o_wsale_products_header .breadcrumb, .o_wsale_products_header nav, .o_wsale_products_header .o_wsale_breadcrumb {
+    display: none !important;
+}
+
+.xevoria_filter_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.xevoria-arrow {
+    transition: transform 0.3s ease;
+    font-size: 12px;
+}
+
+.xevoria-arrow.rotate {
+    transform: rotate(180deg);
+}
+
+.btn-warning, .search-btn, .o_wsale_products_searchbar_form button {
+    background: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+section h1 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #111827 !important;
+    font-size: 48px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.xevoria-search-form {
+    max-width: 550px;
+    display: flex;
+    align-items: center;
+}
+
+.xevoria-search-box {
+    position: relative;
+    flex: 1;
+}
+
+.xevoria-search-input {
+    height: 48px;
+    padding-right: 55px !important;
+    border-radius: 6px;
+}
+
+.xevoria-image-upload {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 20px;
+}
+
+.xevoria-search-btn {
+    width: 64px;
+    height: 48px;
+    margin-left: 10px;
+    border-radius: 28px;
+}
+
+.oe_website_sale .shop-toolbar, .oe_website_sale [class*="products_header"], .oe_website_sale [class*="wsale_products_header"] {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: 25px !important;
+}
+
+.oe_website_sale .shop-toolbar h1, .oe_website_sale .shop-toolbar h2, .oe_website_sale [class*="products_header"] h1, .oe_website_sale [class*="products_header"] h2 {
+    font-size: 24px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.o_main_navbar .container-fluid, .navbar .container, header .container {
+    background: #0d47a1 !important;
+}
+
+.navbar a, .navbar .nav-link, .xevoria-second-item {
+    color: #ffffff !important;
+}
+
+.xevoria-search-btn, .search-btn, .btn-warning {
+    background: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #000 !important;
+    border: none !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+}
+
+.xevoria-navbar, .o_main_navbar, header, .navbar {
+    background: #0b4fa8 !important;
+}
+
+.xevoria-logo, .navbar-brand img, .o_header_logo img {
+    height: 45px !important;
+    width: auto !important;
+    max-width: 150px !important;
+    object-fit: contain !important;
+}
+
+.navbar {
+    min-height: 70px !important;
+    padding: 8px 0 !important;
+}
+
+.o_wsale_my_wish, .o_wsale_my_cart {
+    height: 42px !important;
+    width: 42px !important;
+    background: white !important;
+    border-radius: 12px !important;
+}
+
+.xevoria-navbar .xevoria-logo {
+    max-height: 55px;
+}
+
+.modal-header {
+    background: #147d8a !important;
+}
+
+.modal-header .modal-title {
+    color: #ffffff !important;
+}
+
+.modal-header .btn-close, .modal-header .close {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    filter: brightness(0) invert(1) !important;
+}
+
+.modal-body img {
+    margin-left: -15px !important;
+}
+
+CONFIGURE POPUP IMAGE ALIGNMENT /* Product image box move right */ .modal-body .o_product_image, .modal-body .product_image, .modal-body img {
+    margin-left: 15px !important;
+}
+
+.modal-body .row > div:first-child {
+    padding-left: 15px !important;
+}
+
+.modal-body .product-detail, .modal-body .oe_product_details {
+    padding-left: 10px !important;
+}
+
+.xevoria-search-box .xevoria-image-upload, .xevoria-search-box .fa-camera, .xevoria-search-box i.fa-camera, .xevoria-search-box button i.fa-camera {
+    display: none !important;
+}
+
+#cart_total .btn-primary, .o_cart_summary .btn-primary, a.btn-primary[href*="/shop/checkout"], button.btn-primary {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+#cart_total .btn-primary:hover, .o_cart_summary .btn-primary:hover, a.btn-primary[href*="/shop/checkout"]:hover, button.btn-primary:hover {
+    background-color: #ffb000 !important;
+    border-color: #ffb000 !important;
+    color: #ffffff !important;
+}
+
+#o_wsale_cta_wrapper .btn-primary, button[name="o_payment_submit_button"], a.btn-primary, .o_wsale_payment_form .btn-primary {
+    background-color: #FFC107 !important;
+    border-color: #FFC107 !important;
+    color: #ffffff !important;
+}
+
+#o_wsale_cta_wrapper .btn-primary:hover, button[name="o_payment_submit_button"]:hover, a.btn-primary:hover, .o_wsale_payment_form .btn-primary:hover {
+    background-color: #E0A800 !important;
+    border-color: #E0A800 !important;
+}
+
+header, .o_header_standard, .o_main_navbar, .navbar, .xevoria-navbar {
+    background: #0d47a1 !important;
+}
+
+header, .o_main_navbar, .o_header_standard, .xevoria-navbar, .navbar {
+    background: linear-gradient(90deg,#003b9b,#003087) !important;
+    height: 72px !important;
+    padding: 8px 18px !important;
+    min-height: 72px !important;
+}
+
+header .container, .navbar .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    background: transparent !important;
+}
+
+.o_main_navbar .container-fluid, .xevoria-navbar .container-fluid {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    background: transparent !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background: white !important;
+    color: #003b9b !important;
+}
+
+.xevoria-search input, input[name="search"] {
+    height: 42px !important;
+    border-radius: 12px !important;
+    background: #ffc107 !important;
+    color: #000000 !important;
+    caret-color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+.xevoria-search input::placeholder,
+.xevoria-search-input::placeholder,
+input[name="search"]::placeholder {
+    color: #4a4a4a !important;
+    -webkit-text-fill-color: #4a4a4a !important;
+}
+
+.hero-banner-section, #xevoriaCarousel {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#xevoriaCarousel img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+#wrap, main {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+@media (max-width:991px) {
+    header, .o_main_navbar, .navbar {
+        height: auto !important;
+    }
+
+    .xevoria-second-menu {
+        gap: 10px !important;
+        overflow: auto !important;
+    }
+}
+
+.oe_website_sale .o_wsale_products_main_row {
+    align-items: flex-start !important;
+}
+
+#products_grid_before .xevoria_sidebar_shop_header {
+    margin-top: 0 !important;
+}
+
+.o_main_navbar .dropdown-toggle:hover, .o_main_navbar .dropdown-toggle:focus, .o_main_navbar .dropdown-toggle:active, .navbar .dropdown-toggle:hover, .navbar .dropdown-toggle:focus, .navbar .dropdown-toggle:active, header .dropdown-toggle:hover, header .dropdown-toggle:focus, header .dropdown-toggle:active {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+.o_main_navbar .dropdown-toggle:hover *, .navbar .dropdown-toggle:hover *, header .dropdown-toggle:hover * {
+    color: #ffffff !important;
+}
+
+#o_wsale_container {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+}
+
+/* =========================
+   FIX: Header content overflow (Administrator getting clipped)
+========================= */
+.xevoria-navbar .container-fluid {
+    flex-wrap: nowrap;
+    padding-top: 6px !important;
+}
+
+.xevoria-navbar .d-flex.gap-2 {
+    gap: 6px !important;
+    flex-shrink: 0;
+}
+
+.xevoria-navbar .btn.rounded-pill {
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap;
+}
+
+.xevoria-navbar .btn.rounded-pill i {
+    margin-right: 4px !important;
+}
+
+.xevoria-search-form {
+    flex: 0 0 230px !important;
+    min-width: 180px;
+}
+
+.xevoria-search-input {
+    font-size: 0.85rem !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+.xevoria-navbar > .container-fluid > .d-flex.align-items-center.gap-3 {
+    flex-shrink: 0;
+    gap: 10px !important;
+}
+
+/* =========================
+   FINAL FIX: Search box text visibility (highest specificity, must stay LAST in file)
+========================= */
+input.xevoria-search-input[name="search"],
+.xevoria-search-box input.xevoria-search-input {
+    background-color: #ffc107 !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    caret-color: #000000 !important;
+    opacity: 1 !important;
+}
+
+input.xevoria-search-input[name="search"]::placeholder {
+    color: #4a4a4a !important;
+    -webkit-text-fill-color: #4a4a4a !important;
+    opacity: 1 !important;
+}
+
+.xevoria-navbar .d-flex.align-items-center.gap-2 {
+    gap: 4px !important;
+    flex-shrink: 0;
+}

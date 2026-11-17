@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mouser_semiconductors_category_page" name="Mouser Semiconductors Category Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage semiconductors-page">
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right">
+                            <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                        </div>
+                    </div>
+                </section>
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home"><img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Mouser Electronics" style="height:60px;width:auto;"/></a>
+                        <div class="search-area">
+                            <div class="search-box"><button type="button">All <i class="fa fa-angle-down"></i></button><input placeholder="Part No. / Keyword"/><a class="search-btn" href="#"><i class="fa fa-search"></i></a></div>
+                            <label><input type="checkbox"/> In Stock</label><label><input type="checkbox"/> RoHS</label>
+                        </div>
+                    </div>
+                </section>
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row">
+                        <nav><a href="/mouser-home" class="active">Products <i class="fa fa-angle-down" style="margin-left:8px;"></i></a><a href="/manufacturers">Manufacturers</a><a href="/services-tools">Services &amp; Tools</a><a href="#">Technical Resources</a><a href="#">Help</a></nav>
+                        <div class="nav-actions"><a href="#">Account &amp; Orders <i class="fa fa-angle-down" style="margin-left:8px;"></i></a><a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a></div>
+                    </div>
+                </section>
+
+                <main class="semicat-main">
+                    <div class="semicat-breadcrumb"><a href="/electronic-components">All Products</a><span>›</span><b>Semiconductors</b><button class="semicat-share"><i class="fa fa-share-alt"></i> Share</button></div>
+                    <hr/>
+                    <section class="semicat-intro">
+                        <h1>Semiconductors</h1>
+                        <div class="semicat-intro-row">
+                            <img src="/mouser_theme/static/img/189044646.webp" alt="Semiconductors"/>
+                            <p><b>Semiconductors</b> are in stock with same-day shipping at Mouser from industry leading manufacturers. Mouser is an authorized distributor for many semiconductor manufacturers including Analog Devices, AMD, Infineon, Intel, Microchip, Micron, NXP, onsemi, Renesas, STMicroelectronics, Texas Instruments &amp; many more.<br/><a href="#">More...</a><br/><br/>Please view our large selection of semiconductors below.</p>
+                        </div>
+                    </section>
+                    <section class="semicat-tabs"><a class="active"><i class="fa fa-cubes"></i> Products (6,60,893)</a><a><i class="fa fa-picture-o"></i> Images</a><a><i class="fa fa-star"></i> Newest Products</a></section>
+                    <section class="semicat-list">
+                        <div class="view-options"><h3>Types of Semiconductors</h3><label><input type="radio" checked="checked"/> List</label><label><input type="radio"/> Images</label></div>
+                        <div class="semicat-group"><h2>Discrete Semiconductors <span>(2,33,506)</span></h2><div class="semicat-links"><a>Diodes &amp; Rectifiers (1,77,803)</a><a>Thyristors (6,994)</a><a>Discrete &amp; Power Modules (5,132)</a><a>Transistors (43,577)</a></div></div>
+                        <div class="semicat-group"><h2>Embedded Processors &amp; Controllers <span>(75,542)</span></h2><div class="semicat-links three"><a>CPLD - Complex Programmable Logic Devices (511)</a><a>FPGA - Configuration Memory (26)</a><a>Processors - Application Specialised (809)</a><a>CPU - Central Processing Units (1,087)</a><a>FPGA - Field Programmable Gate Array (12,325)</a><a>RF System on a Chip - SoC (1,749)</a><a>Digital Signal Processors &amp; Controllers - DSP, DSC (3,990)</a><a>Microcontrollers - MCU (52,639)</a><a>SPLD - Simple Programmable Logic Devices (80)</a><a>EEPLD - Electronically Erasable Programmable Logic Devices (58)</a><a>Microprocessors - MPU (2,158)</a><a>Systems on a Chip - SoC (110)</a></div></div>
+                        <div class="semicat-group"><h2>Integrated Circuits - ICs <span>(3,67,972)</span></h2><div class="semicat-links three"><a>Active Filter (438)</a><a>Digital Potentiometer ICs (2,064)</a><a>Optocouplers/Photocouplers (11,121)</a><a>Amplifier ICs (21,060)</a><a>Driver ICs (4,926)</a><a>Power Management ICs (1,11,013)</a><a>Audio ICs (3,187)</a><a>Embedded Processors &amp; Controllers (75,542)</a><a>Programmable Logic ICs (13,000)</a><a>Chipsets (54)</a><a>Equialisers (293)</a><a>Security ICs / Authentication ICs (443)</a><a>Clock &amp; Timer ICs (6,177)</a><a>Interface ICs (17,442)</a><a>Switch ICs (9,706)</a><a>Communication &amp; Networking ICs (1,758)</a><a>Logic ICs (19,390)</a><a>Wireless &amp; RF Integrated Circuits (15,556)</a><a>Counter ICs (484)</a><a>Memory ICs (35,815)</a><a>Data Converter ICs (17,979)</a><a>Multimedia ICs (524)</a></div></div>
+                        <div class="semicat-group"><h2>Memory ICs <span>(36,015)</span></h2><div class="semicat-links three"><a>DRAM (2,712)</a><a>Managed NAND (51)</a><a>NAND Flash (697)</a><a>EEPROM (5,254)</a><a>Memory Controllers (32)</a><a>NOR Flash (6,585)</a><a>eMMC (191)</a><a>Memory IC Development Tools (139)</a><a>NVRAM (277)</a><a>EPROM (80)</a><a>Memory Modules &amp; Memory Cards (3,088)</a><a>SRAM (11,740)</a><a>FIFO (139)</a><a>MRAM (653)</a><a>Storage (3,848)</a><a>F-RAM (406)</a><a>Multichip Packages (23)</a><a>Universal Flash Storage - UFS (100)</a></div></div>
+                        <div class="semicat-group"><h2>Wireless &amp; RF Semiconductors <span>(20,799)</span></h2><div class="semicat-links three"><a>PIN Diodes (603)</a><a>RF Isolators (1,367)</a><a>Wireless &amp; RF Integrated Circuits (15,556)</a><a>RF Circulators (2,354)</a><a>Transistors RF (919)</a></div></div>
+                    </section>
+                    <section class="semicat-results"><h2>Results: 6,60,893</h2><div class="semicat-filter"><div><b>Search within results</b><div class="small-search"><input placeholder="Part No. / Keyword"/><button><i class="fa fa-search"></i></button></div><label><input type="checkbox"/> In Stock</label><label><input type="checkbox"/> Active</label><label><input type="checkbox"/> RoHS Compliant</label><label><input type="checkbox"/> Normally Stocked</label><label><input type="checkbox"/> New Products</label></div><div><b>Filter by</b><div class="filter-row"><select><option>All Manufacturers</option></select><button>Apply</button></div></div></div></section>
+                </main>
+
+                <section class="newsletter"><h3>Get the Latest News</h3><div><input placeholder="Enter your Email"/><button>Subscribe</button></div></section>
+                <footer class="mouser-footer"><div class="mouser-shell footer-grid"><div><h4>CUSTOMER SERVICE OFFICE</h4><p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p><p><i class="fa fa-envelope"></i> <a href="mailto:bangalore@mouser.com">bangalore@mouser.com</a></p><p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p><div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div></div><div><h4>COMPANY</h4><a href="/about-tti">About Us</a><a href="#">Newsroom</a><a href="#">Careers @ Mouser</a><a href="/quality">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social<br/>Responsibility</a></div><div><h4>RESOURCES</h4><a href="#">Blog</a><a href="/new">Newest Products</a><a href="/manufacturers">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a></div><div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a></div><div><h4>CONNECT WITH US</h4><p class="socials"><i class="fa fa-facebook-square"></i> <i class="fa fa-instagram"></i> 𝕏 <i class="fa fa-rss-square"></i> <i class="fa fa-youtube-play"></i> <i class="fa fa-linkedin-square"></i> <i class="fa fa-envelope-square"></i> blog</p></div></div><div class="mouser-shell footer-bottom"><a href="/privacypolicy/">Privacy Centre</a> | Terms and Conditions | Corporate Information | <a href="/accessibility/">Accessibility</a> | Sitemap<br/><br/><b>Copyright ©2026 Mouser Electronics, Inc.</b><br/>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</div></footer>
+                <a href="#" class="live-chat"><i class="fa fa-comment"></i> Live Chat</a>
+            </div>
+        </t>
+    </template>
+</odoo>

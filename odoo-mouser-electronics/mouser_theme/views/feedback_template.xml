@@ -1,0 +1,21 @@
+<odoo>
+<template id="mouser_feedback_page" name="Web Accessibility Help">
+<t t-call="website.layout">
+<xpath expr="//header" position="replace"><header/></xpath>
+<xpath expr="//footer" position="replace"><footer/></xpath>
+<div id="wrap" class="mouser-feedback-page">
+<section class="feedback-blue-head"><div class="feedback-logo-wrap"><img src="/mouser_theme/static/src/img/mouser_logo.png" style="height:75px"/></div></section>
+<main class="feedback-main"><div class="feedback-content">
+<div class="feedback-left">
+<h1>Web Accessibility Help</h1>
+<form class="feedback-form" action="/feedback/thanks" method="post">
+<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+<div class="feedback-field"><label>Your feedback</label><textarea name="feedback"></textarea></div>
+<div class="feedback-field"><label>Email Address</label><input type="email" name="email"/></div>
+<p class="privacy-note">If you would like to find out more about how Mouser handles your personal data, please refer to our Privacy Centre for more information. This survey is protected by reCAPTCHA: <a href="#">Privacy</a> &amp; <a href="#">Terms</a>.</p>
+<button type="submit" class="feedback-submit">Submit</button>
+</form></div>
+<aside class="feedback-right"><label>Language</label><select><option>English (United Kingdom)</option><option>Čeština</option><option>Deutsch</option><option>English</option><option>Español</option><option>Español (América Latina)</option><option>Français</option><option>Italiano</option><option>Latviešu</option><option>Lietuvių</option><option>Nederlands</option><option>Polski</option><option>Português</option><option>Svenska</option><option>Tagalog</option><option>Tiếng Việt</option><option>Türkçe</option><option>Русский</option><option>ภาษาไทย</option><option>한국어</option><option>日本語</option><option>简体中文</option><option>繁體中文</option></select></aside>
+</div></main></div></t></template>
+<template id="mouser_feedback_thanks_page" name="Thank You"><t t-call="website.layout"><div id="wrap"><h2 style="padding:50px">Thank you for your feedback.</h2></div></t></template>
+</odoo>

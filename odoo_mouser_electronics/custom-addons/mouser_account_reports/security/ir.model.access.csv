@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_profit_loss,access_profit_loss,model_mouser_profit_loss,,1,1,1,1
+access_balance_sheet,access_balance_sheet,model_mouser_balance_sheet,,1,1,1,1
+access_executive_summary,access_executive_summary,model_mouser_executive_summary,,1,1,1,1

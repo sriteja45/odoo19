@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_feedback_review_pivot" model="ir.ui.view">
+        <field name="name">feedback.review.pivot</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <pivot string="Reviews Analysis" sample="1">
+                <field name="product_id" type="row"/>
+                <field name="review_date" interval="month" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_feedback_review_pivot_monthly" model="ir.ui.view">
+        <field name="name">feedback.review.pivot.monthly</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <pivot string="Monthly Review Report" sample="1">
+                <field name="review_date" interval="month" type="row"/>
+                <field name="status" type="col"/>
+            </pivot>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Step 33: show the translated Sales / Quotation Description in the
+        SAME bottom product description place used by website_sale.
+
+        No separate "Quotation Description" block is added.  We replace the
+        native product_full_description area, because that is the visible bottom
+        place in the product page where the user expects this text.
+    -->
+    <template id="xevoria_product_description_sale_language_context"
+              inherit_id="website_sale.product"
+              name="Xevoria: translated sales description in native product description area">
+
+        <xpath expr="//div[@id='product_full_description']" position="replace">
+            <t t-set="xevoria_lang" t-value="request.env.context.get('lang')"/>
+            <t t-set="xevoria_product_tmpl_id"
+               t-value="product.product_tmpl_id.id if product._name == 'product.product' else product.id"/>
+            <t t-set="xevoria_translation"
+               t-value="request.env['xevoria.product.translation.poc'].sudo().search([('product_tmpl_id', '=', xevoria_product_tmpl_id), ('lang_code', '=', xevoria_lang)], limit=1) if xevoria_lang else False"/>
+            <t t-set="xevoria_sale_description"
+               t-value="xevoria_translation.translated_description_sale if xevoria_translation and xevoria_translation.translated_description_sale else product.with_context(lang=xevoria_lang).description_sale"/>
+            <div id="product_full_description"
+                 class="oe_structure oe_empty mt16"
+                 t-if="xevoria_sale_description">
+                <p class="mb-0" t-esc="xevoria_sale_description"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

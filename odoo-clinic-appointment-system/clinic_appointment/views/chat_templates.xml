@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="patient_chat_template" name="Patient Chat Interface">
+    <t t-call="website.layout">
+        <t t-set="no_header" t-value="True"/>
+        <t t-set="no_footer" t-value="True"/>
+
+        <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body { font-family: 'Segoe UI', sans-serif; background: #eaf4f2; }
+
+            /* ── Page wrapper ── */
+            #pc-wrap {
+                min-height: 100vh;
+                display: flex; align-items: center; justify-content: center;
+                padding: 30px 16px;
+            }
+
+            /* ── Card ── */
+            #pc-card {
+                width: 100%; max-width: 480px;
+                background: white; border-radius: 20px;
+                box-shadow: 0 8px 40px rgba(15,110,86,0.15);
+                overflow: hidden;
+            }
+
+            /* ══════════════════════════════════════
+               STEP 1 HEADER  — with decorative circles
+               like Image 3 reference
+            ══════════════════════════════════════ */
+            #pc-header {
+                background: #0F6E56;
+                padding: 28px 28px 26px;
+                position: relative;
+                overflow: hidden;
+            }
+            /* Large decorative circle — top right */
+            #pc-header::before {
+                content: '';
+                position: absolute;
+                top: -40px; right: -40px;
+                width: 180px; height: 180px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.08);
+                pointer-events: none;
+            }
+            /* Smaller decorative circle — bottom left */
+            #pc-header::after {
+                content: '';
+                position: absolute;
+                bottom: -30px; left: 20px;
+                width: 100px; height: 100px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.06);
+                pointer-events: none;
+            }
+            #pc-header-row {
+                display: flex; align-items: center; gap: 14px;
+                position: relative; z-index: 1;
+            }
+            #pc-header-icon {
+                width: 52px; height: 52px; border-radius: 14px;
+                background: rgba(255,255,255,0.18);
+                display: flex; align-items: center; justify-content: center;
+                font-size: 26px; flex-shrink: 0;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            }
+            #pc-header h2 {
+                font-size: 20px; font-weight: 700;
+                color: #fff; margin-bottom: 4px;
+            }
+            #pc-header p {
+                font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.4;
+            }
+
+            /* ── Form body ── */
+            #pc-form-body { padding: 24px 28px 28px; }
+
+            .pc-field { margin-bottom: 17px; }
+            .pc-label {
+                display: block; font-size: 11px; font-weight: 700;
+                color: #444441; text-transform: uppercase;
+                letter-spacing: 0.06em; margin-bottom: 6px;
+            }
+            .pc-required { color: #E24B4A; }
+            .pc-input-wrap { position: relative; }
+            .pc-input-icon {
+                position: absolute; left: 12px; top: 50%;
+                transform: translateY(-50%);
+                font-size: 15px; color: #888780; pointer-events: none; line-height: 1;
+            }
+            .pc-input {
+                width: 100%; padding: 10px 14px 10px 36px;
+                border: 1px solid #D3D1C7; border-radius: 9px;
+                font-size: 14px; font-family: inherit; color: #2C2C2A;
+                background: #F9F9F7; outline: none;
+                transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+                -webkit-appearance: none; appearance: none;
+            }
+            .pc-input:focus {
+                border-color: #0F6E56; background: #fff;
+                box-shadow: 0 0 0 3px rgba(15,110,86,0.11);
+            }
+            select.pc-input {
+                cursor: pointer;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23888780' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+                background-repeat: no-repeat; background-position: right 13px center;
+                padding-right: 34px;
+            }
+            select.pc-input:disabled { opacity: 0.55; cursor: not-allowed; }
+
+            /* ── Start button ── */
+            #pc-start-btn {
+                width: 100%; padding: 13px;
+                background: #0F6E56; color: #fff;
+                border: none; border-radius: 10px;
+                font-size: 15px; font-weight: 700; cursor: pointer;
+                font-family: inherit;
+                transition: background 0.2s, transform 0.1s;
+                margin-top: 6px;
+            }
+            #pc-start-btn:hover:not(:disabled) { background: #085041; }
+            #pc-start-btn:active { transform: scale(0.98); }
+            #pc-start-btn:disabled { background: #B4B2A9; cursor: not-allowed; transform: none; }
+
+            /* Inline validation error — placed BELOW button so it doesn't
+               push fields around and confuse the user */
+            #pc-form-error {
+                display: none;
+                background: #FCEBEB; border: 1px solid #F09595;
+                color: #A32D2D; border-radius: 8px;
+                padding: 9px 13px; font-size: 13px;
+                margin-top: 12px; line-height: 1.5;
+            }
+
+            /* Privacy note */
+            .pc-privacy {
+                text-align: center; font-size: 12px;
+                color: #888780; margin-top: 12px;
+            }
+
+            /* ══════════════════════════════════════
+               STEP 2: CHAT WINDOW
+            ══════════════════════════════════════ */
+            #pc-chat-header {
+                background: #0F6E56;
+                padding: 14px 16px;
+                display: flex; align-items: center; gap: 11px;
+                position: relative; overflow: hidden;
+            }
+            #pc-chat-header::before {
+                content: '';
+                position: absolute; top: -20px; right: -20px;
+                width: 100px; height: 100px; border-radius: 50%;
+                background: rgba(255,255,255,0.08); pointer-events: none;
+            }
+            #pc-chat-avatar {
+                width: 40px; height: 40px; border-radius: 50%;
+                background: rgba(255,255,255,0.2);
+                display: flex; align-items: center; justify-content: center;
+                font-size: 15px; font-weight: 700; color: #E1F5EE; flex-shrink: 0;
+                position: relative; z-index: 1;
+            }
+            .pc-chat-header-text { position: relative; z-index: 1; flex: 1; }
+            .pc-chat-title { font-weight: 700; font-size: 15px; color: #E1F5EE; }
+            .pc-chat-sub {
+                font-size: 11px; color: #9FE1CB;
+                display: flex; align-items: center; gap: 5px; margin-top: 2px;
+            }
+            .pc-dot {
+                display: inline-block; width: 7px; height: 7px;
+                border-radius: 50%; background: #5DCAA5; flex-shrink: 0;
+            }
+
+            /* Messages area */
+            #pc-messages {
+                height: 340px; overflow-y: auto;
+                padding: 14px 16px; background: #F4F6F5;
+                display: flex; flex-direction: column; gap: 9px;
+            }
+            #pc-messages::-webkit-scrollbar { width: 4px; }
+            #pc-messages::-webkit-scrollbar-thumb { background: #C4C2BA; border-radius: 4px; }
+
+            /* Status bar */
+            #pc-status {
+                text-align: center; font-size: 12px; font-weight: 500;
+                padding: 7px 14px;
+                background: #FFF8E1; color: #856404;
+                border-top: 1px solid #FDEEBA;
+                transition: background 0.3s, color 0.3s;
+            }
+            #pc-status.pc-connected {
+                background: #E1F5EE; color: #0F6E56;
+                border-top-color: #9FE1CB;
+            }
+
+            /* Input row */
+            #pc-input-row {
+                display: flex; gap: 8px; padding: 11px 14px;
+                border-top: 1px solid #E8E6E0; background: #fff;
+                align-items: center;
+            }
+            #pc-msg-input {
+                flex: 1; padding: 9px 15px;
+                border: 1px solid #D3D1C7; border-radius: 99px;
+                font-size: 14px; outline: none; font-family: inherit;
+                background: #F9F9F7; color: #2C2C2A;
+                transition: border-color 0.2s;
+            }
+            #pc-msg-input:focus { border-color: #0F6E56; background: #fff; }
+            #pc-msg-input:disabled { background: #F1EFE8; color: #888780; }
+            #pc-send-btn {
+                width: 38px; height: 38px; border-radius: 50%;
+                background: #0F6E56; color: #fff; border: none;
+                cursor: pointer; font-size: 16px; flex-shrink: 0;
+                display: flex; align-items: center; justify-content: center;
+                transition: background 0.2s, transform 0.1s;
+            }
+            #pc-send-btn:hover:not(:disabled) { background: #085041; }
+            #pc-send-btn:active { transform: scale(0.95); }
+            #pc-send-btn:disabled { background: #B4B2A9; cursor: not-allowed; }
+
+            /* Bubble styles */
+            .pc-bubble-wrap { display: flex; gap: 7px; align-items: flex-end; }
+            .pc-bubble-wrap.pc-right { flex-direction: row-reverse; }
+            .pc-mini-av {
+                width: 26px; height: 26px; border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 10px; font-weight: 700; flex-shrink: 0;
+            }
+            .pc-av-doctor  { background: #B5D4F4; color: #185FA5; }
+            .pc-av-patient { background: #5DCAA5; color: #085041; }
+            .pc-bubble {
+                max-width: 74%; padding: 9px 13px; border-radius: 16px;
+                font-size: 14px; line-height: 1.5;
+            }
+            .pc-bubble.patient {
+                background: #0F6E56; color: #fff;
+                border-bottom-right-radius: 3px;
+            }
+            .pc-bubble.doctor {
+                background: #fff; color: #2C2C2A;
+                border: 1px solid #D3D1C7;
+                border-bottom-left-radius: 3px;
+            }
+            .pc-bubble.system {
+                align-self: center; max-width: 90%;
+                background: #fff; color: #5F5E5A;
+                border: 1px solid #D3D1C7;
+                border-radius: 99px; font-size: 12px;
+                text-align: center; padding: 5px 14px;
+            }
+            .pc-bubble-name { font-size: 10px; font-weight: 700; margin-bottom: 3px; opacity: 0.65; }
+            .pc-time { font-size: 10px; margin-top: 4px; opacity: 0.55; text-align: right; }
+            .pc-bubble.patient .pc-time { color: rgba(255,255,255,0.7); }
+            .pc-bubble.system  .pc-time { display: none; }
+        </style>
+
+        <div id="pc-wrap">
+            <div id="pc-card">
+
+                <!-- ════════════════════════════════════════
+                     STEP 1 — Patient intake form
+                ════════════════════════════════════════ -->
+                <div id="pc-step1">
+
+                    <div id="pc-header">
+                        <div id="pc-header-row">
+                            <div id="pc-header-icon">🩺</div>
+                            <div>
+                                <h2>Live Doctor Consultation</h2>
+                                <p>Connect with a specialist in real-time. Fill in your details to begin.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="pc-form-body">
+
+                        <!-- Full Name -->
+                        <div class="pc-field">
+                            <label class="pc-label">
+                                Full Name <span class="pc-required">*</span>
+                            </label>
+                            <div class="pc-input-wrap">
+                                <span class="pc-input-icon">👤</span>
+                                <input class="pc-input" type="text" id="pc-name"
+                                       placeholder="Your full name" autocomplete="name"/>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="pc-field">
+                            <label class="pc-label">
+                                Phone Number <span class="pc-required">*</span>
+                            </label>
+                            <div class="pc-input-wrap">
+                                <span class="pc-input-icon">📞</span>
+                                <input class="pc-input" type="tel" id="pc-phone"
+                                       placeholder="10-digit mobile number" autocomplete="tel"/>
+                            </div>
+                        </div>
+
+                        <!-- Specialization -->
+                        <div class="pc-field">
+                            <label class="pc-label">
+                                Specialization <span class="pc-required">*</span>
+                            </label>
+                            <div class="pc-input-wrap">
+                                <span class="pc-input-icon">🏥</span>
+                                <select class="pc-input" id="pc-spec">
+                                    <option value="">— Select a specialization —</option>
+                                    <t t-if="specializations">
+                                        <t t-foreach="specializations" t-as="s">
+                                            <option t-att-value="s.name"><t t-esc="s.name"/></option>
+                                        </t>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+
+                   
+                        <div class="pc-field">
+                            <label class="pc-label">Preferred Time Slot</label>
+                            <div class="pc-input-wrap">
+                                <span class="pc-input-icon" id="pc-slot-icon">🕐</span>
+                                <select class="pc-input" id="pc-slot" disabled="disabled">
+                                    <option value="">— Select specialization first —</option>
+                                </select>
+                            </div>
+                           
+                            <p id="pc-slot-loading"
+                               style="display:none; font-size:12px; color:#888780; margin-top:5px;">
+                                ⏳ Loading available slots…
+                            </p>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button id="pc-start-btn">Start Consultation →</button>
+
+                        <div id="pc-form-error"></div>
+
+                        <p class="pc-privacy">🔒 Your information is private and secure</p>
+                    </div>
+                </div>
+
+                <!-- ════════════════════════════════════════
+                     STEP 2 — Live chat window
+                ════════════════════════════════════════ -->
+                <div id="pc-step2" style="display:none;">
+
+                    <!-- Doctor header with matching decorative circle -->
+                    <div id="pc-chat-header">
+                        <div id="pc-chat-avatar">Dr</div>
+                        <div class="pc-chat-header-text">
+                            <div class="pc-chat-title" id="pc-doctor-title">Finding your doctor…</div>
+                            <div class="pc-chat-sub">
+                                <span class="pc-dot"></span>
+                                <span id="pc-chat-sub">Connecting</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Messages -->
+                    <div id="pc-messages"></div>
+
+                    <!-- Status banner -->
+                    <div id="pc-status">⏳ Waiting for a doctor to accept your request…</div>
+
+                    <!-- Input -->
+                    <div id="pc-input-row">
+                        <input type="text" id="pc-msg-input" placeholder="Type a message…"/>
+                        <button id="pc-send-btn" title="Send">➤</button>
+                    </div>
+
+                </div>
+
+            </div><!-- /#pc-card -->
+        </div><!-- /#pc-wrap -->
+
+        <script type="text/javascript">
+        (function () {
+            'use strict';
+
+            /* ── State ─────────────────────────────────────────────────────── */
+            var sessionUuid  = null;
+            var lastMsgId    = 0;   /* FIX: initialised from server on session reuse */
+            var pollTimer    = null;
+            var patientName  = '';
+            var patientPhone = '';
+            var patientSpec  = '';
+            var patientSlot  = '';
+
+            /* ── Utility ────────────────────────────────────────────────────── */
+            function esc(t) {
+                var d = document.createElement('div');
+                d.textContent = String(t || '');
+                return d.innerHTML;
+            }
+            function nowStr() {
+                return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+            function post(url, payload) {
+                return fetch(url, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    body: JSON.stringify(payload || {}),
+                })
+                .then(function (r) {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                });
+            }
+
+            /* ── Form error — shown BELOW the button ────────────────────────── */
+            function showFormError(msg) {
+                var el = document.getElementById('pc-form-error');
+                if (!el) return;
+                el.textContent = '⚠ ' + msg;
+                el.style.display = 'block';
+            }
+            function clearFormError() {
+                var el = document.getElementById('pc-form-error');
+                if (el) { el.style.display = 'none'; el.textContent = ''; }
+            }
+
+            /* ── Bubble renderer ─────────────────────────────────────────────── */
+            function addBubble(type, senderName, text) {
+                var box = document.getElementById('pc-messages');
+                if (!box) return;
+                var wrap = document.createElement('div');
+
+                if (type === 'system') {
+                    wrap.className = 'pc-bubble-wrap';
+                    wrap.innerHTML = '<div class="pc-bubble system">' + esc(text) + '</div>';
+                } else if (type === 'patient') {
+                    wrap.className = 'pc-bubble-wrap pc-right';
+                    var initP = (patientName || 'P')[0].toUpperCase();
+                    wrap.innerHTML =
+                        '<div class="pc-bubble patient">' +
+                            esc(text) +
+                            '<div class="pc-time">' + nowStr() + ' · Sent</div>' +
+                        '</div>' +
+                        '<div class="pc-mini-av pc-av-patient">' + esc(initP) + '</div>';
+                } else {
+                    wrap.className = 'pc-bubble-wrap';
+                    var clean = (senderName || 'Doctor').replace(/^Dr\.?\s*/i, '');
+                    var initD = clean.substring(0, 2).toUpperCase();
+                    wrap.innerHTML =
+                        '<div class="pc-mini-av pc-av-doctor">' + esc(initD) + '</div>' +
+                        '<div class="pc-bubble doctor">' +
+                            '<div class="pc-bubble-name">Dr. ' + esc(clean) + '</div>' +
+                            esc(text) +
+                            '<div class="pc-time">' + nowStr() + '</div>' +
+                        '</div>';
+                }
+                box.appendChild(wrap);
+                box.scrollTop = box.scrollHeight;
+            }
+
+            /* ── Update doctor header + status bar ───────────────────────────── */
+            function setConnected(doctorName) {
+                var status = document.getElementById('pc-status');
+                var title  = document.getElementById('pc-doctor-title');
+                var sub    = document.getElementById('pc-chat-sub');
+                var avatar = document.getElementById('pc-chat-avatar');
+                var clean  = (doctorName || '').replace(/^Dr\.?\s*/i, '');
+                var initials = clean.substring(0, 2).toUpperCase() || 'Dr';
+                if (avatar) avatar.textContent = initials;
+                if (title)  title.textContent  = 'Dr. ' + clean;
+                if (sub)    sub.textContent    = 'Online';
+                if (status) {
+                    status.textContent = '🟢 Dr. ' + clean + ' has joined your consultation';
+                    status.className   = 'pc-connected';
+                }
+            }
+
+            /* ── Dynamic slot fetch ──────────────────────────────────────────── */
+            function fetchSlots(spec) {
+                var slotSel = document.getElementById('pc-slot');
+                var loading = document.getElementById('pc-slot-loading');
+
+                /* Reset to safe defaults */
+                slotSel.innerHTML = '<option value="">— Any available time —</option>';
+                slotSel.disabled  = true;
+                if (loading) loading.style.display = 'none';
+
+                if (!spec) {
+                    slotSel.innerHTML = '<option value="">— Select specialization first —</option>';
+                    return;
+                }
+
+                if (loading) loading.style.display = 'block';
+
+                post('/get_chat_slots', { specialization: spec })
+                .then(function (data) {
+                    if (loading) loading.style.display = 'none';
+                    var result = (data &amp;&amp; data.result) || {};
+                    var slots  = result.slots || [];
+
+                    /* If no slots — silently leave "Any available time" selected.
+                       Do NOT show an error since time slot is optional. */
+                    if (slots.length > 0) {
+                        slots.forEach(function (s) {
+                            var opt = document.createElement('option');
+                            opt.value       = s.name;
+                            opt.textContent = s.name;
+                            slotSel.appendChild(opt);
+                        });
+                    }
+                    slotSel.disabled = false;
+                })
+                .catch(function (err) {
+                    /* On any error — silently enable with "Any available time" */
+                    if (loading) loading.style.display = 'none';
+                    slotSel.disabled = false;
+                    console.warn('[PatientChat] Slot fetch failed (non-critical):', err);
+                });
+            }
+
+            /* ── Polling ────────────────────────────────────────────────────── */
+            function pollMessages() {
+                if (!sessionUuid) return;
+                post('/clinic/patient/chat/poll', {
+                    session_id: sessionUuid,
+                    last_id:    lastMsgId,
+                })
+                .then(function (data) {
+                    var res  = (data &amp;&amp; data.result) || {};
+                    var msgs = res.messages || [];
+
+                    msgs.forEach(function (m) {
+                        addBubble(m.sender, m.sender_name, m.message);
+                        if (m.id > lastMsgId) lastMsgId = m.id;
+                    });
+
+                    if (res.doctor_assigned &amp;&amp; res.doctor_name) {
+                        setConnected(res.doctor_name);
+                    }
+                    if (res.status === 'ended' || res.status === 'closed') {
+                        clearInterval(pollTimer); pollTimer = null;
+                        addBubble('system', '', '🏁 Consultation has ended. Thank you!');
+                        document.getElementById('pc-send-btn').disabled = true;
+                        document.getElementById('pc-msg-input').disabled = true;
+                        document.getElementById('pc-msg-input').placeholder = 'Consultation ended.';
+                    }
+                })
+                .catch(function (e) { console.error('[PatientChat] Poll error:', e); });
+            }
+
+            function startPolling() {
+                if (pollTimer) clearInterval(pollTimer);
+                pollMessages();
+                pollTimer = setInterval(pollMessages, 3000);
+            }
+
+            /* ── Start chat ──────────────────────────────────────────────────── */
+            function doStart() {
+                var btn = document.getElementById('pc-start-btn');
+                clearFormError();
+
+                patientName  = ((document.getElementById('pc-name')  || {}).value || '').trim();
+                patientPhone = ((document.getElementById('pc-phone') || {}).value || '').trim();
+                patientSpec  = ((document.getElementById('pc-spec')  || {}).value || '').trim();
+                patientSlot  = ((document.getElementById('pc-slot')  || {}).value || '').trim();
+
+                /* Validation: shown BELOW button, never blocks filled fields visually */
+                if (!patientName) {
+                    showFormError('Please enter your full name.');
+                    return;
+                }
+                if (!patientPhone) {
+                    showFormError('Please enter your phone number.');
+                    return;
+                }
+                if (patientPhone.replace(/\D/g, '').length !== 10) {
+                    showFormError('Please enter a valid 10-digit phone number.');
+                    return;
+                }
+                if (!patientSpec) {
+                    showFormError('Please select a specialization.');
+                    return;
+                }
+
+                btn.disabled     = true;
+                btn.textContent  = '⏳ Connecting…';
+
+                post('/clinic/patient/chat/start', {
+                    patient_name:   patientName,
+                    patient_phone:  patientPhone,
+                    specialization: patientSpec,
+                    preferred_slot: patientSlot,
+                })
+                .then(function (data) {
+                    var res = (data &amp;&amp; data.result) || {};
+
+                    if (res.error) {
+                        showFormError(res.error);
+                        btn.disabled    = false;
+                        btn.textContent = 'Start Consultation →';
+                        return;
+                    }
+
+                    sessionUuid = res.session_id;
+
+                    /*
+                     * FIX — PREVIOUS MESSAGES BUG:
+                     * If the server reused an existing session (same phone number),
+                     * it returns last_message_id = the highest existing message ID.
+                     * We set lastMsgId to that value so polling only fetches NEW
+                     * messages written AFTER this consultation started.
+                     * Fresh sessions return last_message_id = 0 (or the greeting ID).
+                     */
+                    lastMsgId = res.last_message_id || 0;
+
+                    /* Switch to chat view */
+                    document.getElementById('pc-step1').style.display = 'none';
+                    document.getElementById('pc-step2').style.display = 'block';
+
+                    /*
+                     * FIX — DUPLICATE MESSAGE:
+                     * Show ONLY res.greeting which already contains the slot note.
+                     * We do NOT add a second slot bubble here.
+                     */
+                    if (res.greeting) {
+                        addBubble('system', '', res.greeting);
+                    }
+
+                    if (res.doctor_assigned &amp;&amp; res.doctor_name) {
+                        setConnected(res.doctor_name);
+                    }
+
+                    startPolling();
+                })
+                .catch(function (e) {
+                    console.error('[PatientChat] Start error:', e);
+                    showFormError('Connection error — please try again.');
+                    btn.disabled    = false;
+                    btn.textContent = 'Start Consultation →';
+                });
+            }
+
+            /* ── Send message ─────────────────────────────────────────────────── */
+            function doSend() {
+                var input = document.getElementById('pc-msg-input');
+                var msg   = input ? input.value.trim() : '';
+                if (!msg || !sessionUuid) return;
+
+                addBubble('patient', patientName, msg);
+                input.value = '';
+
+                post('/clinic/patient/chat/send', {
+                    session_id:   sessionUuid,
+                    message:      msg,
+                    patient_name: patientName,
+                })
+                .then(function (data) {
+                    var res = (data &amp;&amp; data.result) || {};
+                    if (res.error) { addBubble('system', '', '⚠ ' + res.error); return; }
+                    if (res.doctor_assigned &amp;&amp; res.doctor_name) setConnected(res.doctor_name);
+                    if (res.status === 'ended' || res.status === 'closed') {
+                        clearInterval(pollTimer);
+                        addBubble('system', '', '🏁 Consultation has ended.');
+                        document.getElementById('pc-send-btn').disabled = true;
+                        document.getElementById('pc-msg-input').disabled = true;
+                    }
+                })
+                .catch(function () {
+                    addBubble('system', '', '⚠ Network error. Please try again.');
+                });
+            }
+
+            /* ── Wire DOM events ─────────────────────────────────────────────── */
+            function init() {
+                var startBtn = document.getElementById('pc-start-btn');
+                var sendBtn  = document.getElementById('pc-send-btn');
+                var specSel  = document.getElementById('pc-spec');
+                var msgInput = document.getElementById('pc-msg-input');
+
+                if (startBtn) startBtn.addEventListener('click', doStart);
+                if (sendBtn)  sendBtn.addEventListener('click', doSend);
+                if (msgInput) {
+                    msgInput.addEventListener('keypress', function (e) {
+                        if (e.key === 'Enter') doSend();
+                    });
+                }
+                if (specSel) {
+                    specSel.addEventListener('change', function () {
+                        fetchSlots(this.value);
+                    });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+        </script>
+    </t>
+</template>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     DOCTOR CHAT LIST TEMPLATE
+════════════════════════════════════════════════════════════ -->
+<template id="doctor_chat_list_template" name="Doctor Chat List">
+    <html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Doctor Chat Dashboard</title>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+        <script type="text/javascript"
+                src="/clinic_appointment/static/src/js/doctor_chat.js"/>
+        <style>
+            body { background:#f0f4f2; font-family:'Segoe UI',sans-serif; }
+            .chat-header {
+                background: #0F6E56;
+                color: white; border-radius: 0; padding: 16px 24px;
+            }
+            .waiting-row { border-left: 4px solid #ffc107; }
+            .active-row  { border-left: 4px solid #0F6E56; }
+        </style>
+    </head>
+    <body>
+    <div class="container mt-4 mb-5">
+        <div class="card shadow-sm" style="border-radius:12px; overflow:hidden;">
+            <div class="chat-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">👨‍⚕️ Doctor Chat Dashboard</h4>
+                <div class="d-flex gap-2 align-items-center">
+                    <span id="doctorStatus"><span style="color:#ffd;">⏳ Checking…</span></span>
+                    <button id="goOnlineBtn"  class="btn btn-success btn-sm ms-2" style="display:none;">🟢 Go Online</button>
+                    <button id="goOfflineBtn" class="btn btn-danger  btn-sm ms-2" style="display:none;">🔴 Go Offline</button>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <h5 class="mb-3">⏳ Waiting Patients</h5>
+                <div id="waiting-list-container">
+                    <t t-if="waiting_sessions">
+                        <t t-foreach="waiting_sessions" t-as="session">
+                            <div class="alert alert-warning waiting-row d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <strong><t t-esc="session.patient_name or 'Unknown'"/></strong>
+                                    <span class="text-muted ms-2">—</span>
+                                    <span class="ms-1"><t t-esc="session.specialization or 'General'"/></span>
+                                </div>
+                                <button class="btn btn-success btn-sm"
+                                        t-att-onclick="'window.acceptChat(' + str(session.id) + ')'">
+                                    ✅ Accept Chat
+                                </button>
+                            </div>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <div class="alert alert-secondary">No patients waiting.</div>
+                    </t>
+                </div>
+
+                <h5 class="mt-4 mb-3">💬 Active Chats</h5>
+                <t t-if="active_sessions">
+                    <t t-foreach="active_sessions" t-as="session">
+                        <div class="alert alert-info active-row d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <strong><t t-esc="session.patient_name or 'Unknown'"/></strong>
+                                <span class="badge bg-success ms-2">Active</span>
+                                <t t-if="session.specialization">
+                                    <span class="text-muted ms-2" style="font-size:13px;">
+                                        — <t t-esc="session.specialization"/>
+                                    </span>
+                                </t>
+                            </div>
+                            <button class="btn btn-primary btn-sm open-chat-btn"
+                                    t-att-data-id="session.id"
+                                    t-att-data-uuid="session.session_id"
+                                    t-att-data-patient="session.patient_name or ''">
+                                💬 Open Chat
+                            </button>
+                        </div>
+                    </t>
+                </t>
+                <t t-else="">
+                    <div class="alert alert-secondary">No active chats.</div>
+                </t>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"/>
+    </body>
+    </html>
+</template>
+
+</odoo>

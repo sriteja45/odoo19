@@ -1,0 +1,1 @@
+Bend Labs images updated from Mouser original product/manufacturer image URLs. Named files are used by templates; numeric aliases are included in static/img for reference.

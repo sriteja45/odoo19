@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_feedback_resend_email_wizard_form" model="ir.ui.view">
+        <field name="name">feedback.resend.email.wizard.form</field>
+        <field name="model">feedback.resend.email.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Resend Feedback Email">
+                <p>
+                    Resend the invitation or reminder email for the selected feedback request(s),
+                    bypassing the normal waiting-period/status checks. Requests that have already
+                    been submitted or cancelled are skipped automatically.
+                </p>
+                <group>
+                    <field name="request_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    <field name="email_type" widget="radio"/>
+                    <field name="reset_retry_count"/>
+                </group>
+                <footer>
+                    <button name="action_resend" type="object" string="Resend" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_feedback_resend_email_wizard" model="ir.actions.act_window">
+        <field name="name">Resend Email</field>
+        <field name="res_model">feedback.resend.email.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_feedback_request"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="group_ids" eval="[(4, ref('customer_feedback.group_feedback_manager'))]"/>
+    </record>
+</odoo>

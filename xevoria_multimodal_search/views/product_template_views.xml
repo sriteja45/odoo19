@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_inherit_multimodal" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.multimodal</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Stat button in button box -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_generate_multimodal_embeddings"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-bolt"
+                        help="Generate EmbeddingGemma 2 text, image, and video embeddings for this product">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">EmbeddingGemma</span>
+                        <span class="o_stat_value">Index</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <!-- Dedicated Product Video section inside General Information / Sales tab -->
+            <xpath expr="//page[@name='general_information']//group" position="after">
+                <group string="EmbeddingGemma 2 Multimodal Video (URL or Upload)" name="xevoria_multimodal_video_group">
+                    <group>
+                        <field name="multimodal_video_url" widget="url" placeholder="https://example.com/product-demo.mp4 or YouTube URL"/>
+                        <field name="is_multimodal_indexed" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="multimodal_video_file" filename="multimodal_video_filename"/>
+                        <field name="multimodal_video_filename" invisible="1"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Server Action on Product Template (Available in Action menu on Form and List views) -->
+    <record id="action_index_pgvector_server" model="ir.actions.server">
+        <field name="name">Index with EmbeddingGemma 2</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_generate_multimodal_embeddings()
+        </field>
+    </record>
+</odoo>

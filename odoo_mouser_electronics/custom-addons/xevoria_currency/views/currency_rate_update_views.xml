@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ==========================
+         Tree View
+    =========================== -->
+    <record id="view_currency_rate_update_tree" model="ir.ui.view">
+        <field name="name">currency.rate.update.tree</field>
+        <field name="model">currency.rate.update</field>
+        <field name="arch" type="xml">
+            <list string="Currency Rate Updates">
+                <field name="name"/>
+                <field name="last_update"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ==========================
+         Form View
+    =========================== -->
+    <record id="view_currency_rate_update_form" model="ir.ui.view">
+        <field name="name">currency.rate.update.form</field>
+        <field name="model">currency.rate.update</field>
+        <field name="arch" type="xml">
+            <form string="Currency Rate Update">
+
+                <header>
+                    <button
+                        name="action_update_rates"
+                        type="object"
+                        string="Update Currency Rates"
+                        class="btn-primary"/>
+                </header>
+
+                <sheet>
+
+                    <group>
+
+                        <field name="name" readonly="1"/>
+
+                        <field name="last_update" readonly="1"/>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- ==========================
+         Action
+    =========================== -->
+    <record id="action_currency_rate_update" model="ir.actions.act_window">
+        <field name="name">Currency Rate Update</field>
+        <field name="res_model">currency.rate.update</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>
+                Click <b>Update Currency Rates</b> to fetch the latest
+                exchange rates from the Exchange Rate API.
+            </p>
+        </field>
+    </record>
+
+    <!-- ==========================
+         Menu
+    =========================== -->
+
+    <menuitem
+        id="menu_currency_rate_root"
+        name="Currency Rate Update"
+        parent="account.menu_finance_configuration"
+        sequence="100"/>
+
+    <menuitem
+        id="menu_currency_rate_update"
+        name="Currency Rate Update"
+        parent="menu_currency_rate_root"
+        action="action_currency_rate_update"
+        sequence="1"/>
+
+</odoo>

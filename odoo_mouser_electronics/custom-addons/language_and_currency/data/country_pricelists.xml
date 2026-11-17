@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="pricelist_india" model="product.pricelist">
+            <field name="name">India Price List</field>
+            <field name="currency_id" ref="base.INR"/>
+
+        </record>
+
+        <record id="pricelist_usa" model="product.pricelist">
+            <field name="name">USA Price List</field>
+            <field name="currency_id" ref="base.USD"/>
+        </record> 
+
+        <record id="pricelist_china" model="product.pricelist">
+            <field name="name">China Price List</field>
+            <field name="currency_id" ref="base.CNY"/>
+        </record>
+
+        <record id="pricelist_europe" model="product.pricelist">
+            <field name="name">Europe Price List</field>
+            <field name="currency_id" ref="base.EUR"/>
+        </record>
+
+        <record id="pricelist_uk" model="product.pricelist">
+            <field name="name">UK Price List</field>
+            <field name="currency_id" ref="base.GBP"/>
+        </record>
+
+        <record id="pricelist_russia" model="product.pricelist">
+            <field name="name">Russia Price List</field>
+            <field name="currency_id" ref="base.RUB"/>
+        </record>
+    </data>
+</odoo>

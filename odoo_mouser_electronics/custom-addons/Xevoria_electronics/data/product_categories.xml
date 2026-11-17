@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ROOT -->
+        <record id="cat_electronics" model="product.category">
+            <field name="name">Electronics</field>
+        </record>
+
+        <!-- MAIN CATEGORIES -->
+        <record id="cat_laptops" model="product.category">
+            <field name="name">Laptops</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <record id="cat_mobiles" model="product.category">
+            <field name="name">Mobiles</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <record id="cat_accessories" model="product.category">
+            <field name="name">Accessories</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <record id="cat_home_appliances" model="product.category">
+            <field name="name">Home Appliances</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <record id="cat_tablets" model="product.category">
+            <field name="name">Tablets</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <record id="cat_printers" model="product.category">
+            <field name="name">Printers</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <record id="cat_audio" model="product.category">
+            <field name="name">Audio</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <record id="cat_wearables" model="product.category">
+            <field name="name">Wearables</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <!-- SUB CATEGORIES -->
+        <record id="cat_semiconductors" model="product.category">
+            <field name="name">Semiconductors</field>
+            <field name="parent_id" ref="cat_electronics"/>
+        </record>
+
+        <record id="cat_smartphones" model="product.category">
+            <field name="name">Smartphones</field>
+            <field name="parent_id" ref="cat_mobiles"/>
+        </record>
+
+        <record id="cat_monitors" model="product.category">
+            <field name="name">Monitors</field>
+            <field name="parent_id" ref="cat_laptops"/>
+        </record>
+
+        
+
+    </data>
+</odoo>

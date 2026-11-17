@@ -1,0 +1,59 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: odoo-restore
+
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+
+      imagePullSecrets:
+        - name: ghcr-secret
+
+      containers:
+        - name: restore
+          image: ghcr.io/dealwallet1/odoo-restore-mouser:latest
+
+          env:
+            - name: DB_HOST
+              value: mouser-postgres-service.mouserelectronicspostgres.svc.cluster.local
+
+            - name: DB_USER
+              value: mouser
+
+            - name: DB_PASSWORD
+              value: "tsss@2026@mouser"
+
+            - name: DB_NAME
+              value: mouser1_db
+
+            - name: R2_BUCKET
+              value: mouser-odoo-backups
+
+            - name: R2_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: r2-secret
+                  key: access-key
+
+            - name: R2_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: r2-secret
+                  key: secret-key
+
+            - name: R2_ACCOUNT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: r2-secret
+                  key: account-id
+
+          volumeMounts:
+            - name: odoo-storage
+              mountPath: /var/lib/odoo
+
+      volumes:
+        - name: odoo-storage
+          persistentVolumeClaim:
+            claimName: odoo-mouser-electronics-pvc

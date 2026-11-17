@@ -1,0 +1,131 @@
+<odoo>
+    <record id="view_clinic_appointment_report_form" model="ir.ui.view">
+        <field name="name">clinic.appointment.report.form</field>
+        <field name="model">clinic.appointment.report</field>
+        <field name="arch" type="xml">
+
+            <form string="Appointment Reports" create="false" edit="false">
+
+                <button string="View Summary" class="btn btn-primary" icon="fa-bar-chart"/>
+                <button string="Export to Excel" class="btn btn-success" icon="fa-file-excel-o"/>
+                <button string="Print Report" class="btn btn-secondary" icon="fa-print"/>
+                
+                <sheet>
+
+                    <!-- Title -->
+                    <div class="oe_title">
+                        <h1>Appointment Reports</h1>
+                        <p class="text-muted">
+                            Generate, analyze, and export appointment reports with ease.
+                        </p>
+                    </div>
+
+                    <!-- Filters -->
+                    <group>
+                        <group string="Report Configuration">
+                            <field name="report_type" string="Report Period" widget="radio"/>
+                        </group>
+
+                        <group string="Date Range">
+                            <field name="date_from" string="From Date"/>
+                            <field name="date_to" string="To Date"/>
+                        </group>
+                    </group>
+
+                    <!-- Optional Filter -->
+                    <group string="Additional Filters">
+                        <field name="doctor_id" string="Doctor (Optional Filter)"/>
+                    </group>
+
+                </sheet>
+
+                <!-- Footer Buttons -->
+                <footer>
+
+                    <button name="action_view_analysis"
+                            type="object"
+                            string="View Analysis"
+                            class="btn btn-primary"
+                            icon="fa-bar-chart"/>
+
+                    <button name="action_download_excel"
+                            type="object"
+                            string="Export to Excel"
+                            class="btn btn-success"/>
+
+                    <button name="action_print_pdf"
+                            type="object"
+                            string="Print Report"
+                            class="btn btn-secondary"/>
+
+                    <button string="Close"
+                            class="btn btn-light"
+                            special="cancel"/>
+
+                </footer>
+
+            </form>
+
+        </field>
+    </record>
+    <record id="view_clinic_appointment_graph_fix" model="ir.ui.view">
+        <field name="name">clinic.appointment.graph.fix</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <graph string="Appointment Analysis" type="bar">
+
+                <!-- ✅ GROUPING -->
+                <field name="doctor_id" type="row"/>
+                <field name="appointment_date" type="col"/>
+
+                <!-- ✅ FORCE COUNT -->
+                <field name="id" type="measure"/>
+
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_clinic_appointment_pivot_fix" model="ir.ui.view">
+        <field name="name">clinic.appointment.pivot.fix</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <pivot string="Appointment Analysis">
+
+                <field name="doctor_id" type="row"/>
+                <field name="appointment_date" type="col"/>
+
+                <!-- ✅ ONLY COUNT -->
+                <field name="id" type="measure"/>
+
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_clinic_appointment_report" model="ir.actions.act_window">
+        <field name="name">Appointment Report</field>
+        <field name="res_model">clinic.appointment.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field> <!-- popup -->
+    </record>
+
+    <!-- <menuitem id="menu_appointment_report"
+          name="Reports"
+          parent="clinic_root_menu"
+          sequence="50"/> -->
+    
+          
+    <menuitem id="menu_appointment_report"
+            name="Reports"
+            parent="clinic_root_menu"
+            sequence="50"/>
+
+    <menuitem id="menu_appointment_report_wizard"
+            name="Appointment Report"
+            parent="menu_appointment_report"
+            action="action_clinic_appointment_report"/>
+
+    
+
+
+
+</odoo>

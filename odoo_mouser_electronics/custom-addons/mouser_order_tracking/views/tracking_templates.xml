@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="track_order_page" name="Track Order">
+
+        <t t-call="website.layout">
+
+            <div class="container mt-4 mb-5">
+
+                <!-- Breadcrumb -->
+
+                <nav aria-label="breadcrumb">
+
+                    <ol class="breadcrumb">
+
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>
+
+                        <li class="breadcrumb-item">
+                            <a href="/my/orders">
+                                My Orders
+                            </a>
+                        </li>
+
+                        <li class="breadcrumb-item active">
+                            <t t-esc="order.name"/>
+                        </li>
+
+                    </ol>
+
+                </nav>
+
+                <!-- ================================= -->
+                <!-- Order Summary -->
+                <!-- ================================= -->
+<div class="col-lg-4">
+
+    <div class="order-summary-card">
+
+        <h3>Order Summary</h3>
+
+        <hr/>
+
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span>
+                <span t-esc="order.amount_untaxed"
+                      t-options="{'widget':'monetary','display_currency':order.currency_id}"/>
+            </span>
+        </div>
+
+        <div class="summary-row">
+            <span>Tax</span>
+            <span>
+                <span t-esc="order.amount_tax"
+                      t-options="{'widget':'monetary','display_currency':order.currency_id}"/>
+            </span>
+        </div>
+
+        <hr/>
+
+        <div class="summary-total">
+            <span>Total</span>
+            <span>
+                <span t-esc="order.amount_total"
+                      t-options="{'widget':'monetary','display_currency':order.currency_id}"/>
+            </span>
+        </div>
+
+        <a t-att-href="'/my/orders/%s/track' % order.id"
+           class="btn btn-warning summary-btn d-block mb-3">
+            View Order
+        </a>
+
+        <t t-if="order.state != 'cancel'">
+
+    <a t-att-href="'/my/orders/%s/cancel' % order.id"
+       class="btn btn-danger summary-btn">
+        Cancel Order
+    </a>
+
+</t>
+
+<t t-else="">
+
+    <button class="btn btn-secondary summary-btn" disabled="disabled">
+        Order Cancelled
+    </button>
+
+</t>
+
+        <t t-if="not order.return_requested">
+
+    <a t-att-href="'/my/orders/%s/return' % order.id"
+       class="btn btn-outline-dark summary-btn">
+        Return Order
+    </a>
+
+</t>
+
+<t t-else="">
+
+    <button class="btn btn-success summary-btn" disabled="disabled">
+        Return Requested
+    </button>
+
+</t>
+
+    </div>
+
+</div>
+
+            
+                                            
+
+                                <!-- ================================= -->
+                <!-- DELIVERY PROGRESS -->
+                <!-- ================================= -->
+
+                <div class="card shadow-sm mb-4">
+
+                    <div class="card-header bg-light">
+
+                        <h4 class="mb-0">
+                            Delivery Progress
+                        </h4>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row text-center align-items-center">
+
+                            <!-- Order Confirmed -->
+
+                            <div class="col">
+
+                                <i class="fa fa-shopping-cart fa-3x text-success"></i>
+
+                                <h6 class="mt-2">
+                                    Order Confirmed
+                                </h6>
+
+                                <small class="text-muted">
+
+                                    <t t-if="order.confirmed_date">
+                                        <t t-esc="order.confirmed_date.strftime('%d %b %I:%M %p')"/>
+                                    </t>
+
+                                </small>
+
+                            </div>
+
+                            <div class="col-auto">
+
+                                <i class="fa fa-arrow-right text-secondary"></i>
+
+                            </div>
+
+                            <!-- Packed -->
+
+                            <div class="col">
+
+                                <i t-att-class="'fa fa-box fa-3x %s' % ('text-success' if order.shipment_status in ['packed','shipped','out_for_delivery','delivered'] else 'text-secondary')"></i>
+
+                                <h6 class="mt-2">
+                                    Packed
+                                </h6>
+
+                                <small class="text-muted">
+
+                                    <t t-if="order.packed_date">
+                                        <t t-esc="order.packed_date.strftime('%d %b %I:%M %p')"/>
+                                    </t>
+
+                                </small>
+
+                            </div>
+
+                            <div class="col-auto">
+
+                                <i class="fa fa-arrow-right text-secondary"></i>
+
+                            </div>
+
+                            <!-- Shipped -->
+
+                            <div class="col">
+
+                                <i t-att-class="'fa fa-truck fa-3x %s' % ('text-success' if order.shipment_status in ['shipped','out_for_delivery','delivered'] else 'text-secondary')"></i>
+
+                                <h6 class="mt-2">
+                                    Shipped
+                                </h6>
+
+                                <small class="text-muted">
+
+                                    <t t-if="order.shipped_date">
+                                        <t t-esc="order.shipped_date.strftime('%d %b %I:%M %p')"/>
+                                    </t>
+
+                                </small>
+
+                            </div>
+
+                            <div class="col-auto">
+
+                                <i class="fa fa-arrow-right text-secondary"></i>
+
+                            </div>
+
+                            <!-- Out For Delivery -->
+
+                            <div class="col">
+
+                                <i t-att-class="'fa fa-shipping-fast fa-3x %s' % ('text-success' if order.shipment_status in ['out_for_delivery','delivered'] else 'text-secondary')"></i>
+
+                                <h6 class="mt-2">
+                                    Out For Delivery
+                                </h6>
+
+                                <small class="text-muted">
+
+                                    <t t-if="order.out_delivery_date">
+                                        <t t-esc="order.out_delivery_date.strftime('%d %b %I:%M %p')"/>
+                                    </t>
+
+                                </small>
+
+                            </div>
+
+                            <div class="col-auto">
+
+                                <i class="fa fa-arrow-right text-secondary"></i>
+
+                            </div>
+
+                            <!-- Delivered -->
+
+                            <div class="col">
+
+                                <i t-att-class="'fa fa-check-circle fa-3x %s' % ('text-success' if order.shipment_status == 'delivered' else 'text-secondary')"></i>
+
+                                <h6 class="mt-2">
+                                    Delivered
+                                </h6>
+
+                                <small class="text-muted">
+
+                                    <t t-if="order.delivered_date">
+                                        <t t-esc="order.delivered_date.strftime('%d %b %I:%M %p')"/>
+                                    </t>
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                                <!-- ================================= -->
+                <!-- TRACKING TIMELINE -->
+                <!-- ================================= -->
+
+                <div class="card shadow-sm mb-4">
+
+                    <div class="card-header bg-light">
+
+                        <h4 class="mb-0">
+                            Tracking Timeline
+                        </h4>
+
+                    </div>
+
+                    <div class="card-body p-0">
+
+                        <ul class="list-group list-group-flush">
+
+                            <!-- Confirmed -->
+
+                            <li class="list-group-item d-flex">
+
+                                <div class="me-3">
+
+                                    <i class="fa fa-check-circle fa-2x text-success"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Order Confirmed</strong>
+
+                                    <br/>
+
+                                    <small class="text-muted">
+
+                                        <t t-if="order.confirmed_date">
+
+                                            <t t-esc="order.confirmed_date.strftime('%d %b %Y %I:%M %p')"/>
+
+                                        </t>
+
+                                        <t t-else="">
+                                            Waiting...
+                                        </t>
+
+                                    </small>
+
+                                </div>
+
+                            </li>
+
+                            <!-- Packed -->
+
+                            <li class="list-group-item d-flex">
+
+                                <div class="me-3">
+
+                                    <i t-att-class="'fa fa-box fa-2x %s' % ('text-success' if order.packed_date else 'text-secondary')"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Packed</strong>
+
+                                    <br/>
+
+                                    <small class="text-muted">
+
+                                        <t t-if="order.packed_date">
+
+                                            <t t-esc="order.packed_date.strftime('%d %b %Y %I:%M %p')"/>
+
+                                        </t>
+
+                                        <t t-else="">
+                                            Waiting...
+                                        </t>
+
+                                    </small>
+
+                                </div>
+
+                            </li>
+
+                            <!-- Shipped -->
+
+                            <li class="list-group-item d-flex">
+
+                                <div class="me-3">
+
+                                    <i t-att-class="'fa fa-truck fa-2x %s' % ('text-success' if order.shipped_date else 'text-secondary')"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Shipped</strong>
+
+                                    <br/>
+
+                                    <small class="text-muted">
+
+                                        <t t-if="order.shipped_date">
+
+                                            <t t-esc="order.shipped_date.strftime('%d %b %Y %I:%M %p')"/>
+
+                                        </t>
+
+                                        <t t-else="">
+                                            Waiting...
+                                        </t>
+
+                                    </small>
+
+                                </div>
+
+                            </li>
+
+                            <!-- Out For Delivery -->
+
+                            <li class="list-group-item d-flex">
+
+                                <div class="me-3">
+
+                                    <i t-att-class="'fa fa-shipping-fast fa-2x %s' % ('text-success' if order.out_delivery_date else 'text-secondary')"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Out For Delivery</strong>
+
+                                    <br/>
+
+                                    <small class="text-muted">
+
+                                        <t t-if="order.out_delivery_date">
+
+                                            <t t-esc="order.out_delivery_date.strftime('%d %b %Y %I:%M %p')"/>
+
+                                        </t>
+
+                                        <t t-else="">
+                                            Waiting...
+                                        </t>
+
+                                    </small>
+
+                                </div>
+
+                            </li>
+
+                            <!-- Delivered -->
+
+                            <li class="list-group-item d-flex">
+
+                                <div class="me-3">
+
+                                    <i t-att-class="'fa fa-check-circle fa-2x %s' % ('text-success' if order.delivered_date else 'text-secondary')"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>Delivered</strong>
+
+                                    <br/>
+
+                                    <small class="text-muted">
+
+                                        <t t-if="order.delivered_date">
+
+                                            <t t-esc="order.delivered_date.strftime('%d %b %Y %I:%M %p')"/>
+
+                                        </t>
+
+                                        <t t-else="">
+                                            Waiting...
+                                        </t>
+
+                                    </small>
+
+                                </div>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+                                <!-- ================================= -->
+                <!-- LIVE LOCATION CARD -->
+                <!-- ================================= -->
+
+                <div class="card shadow-sm mb-4">
+
+                    <div class="card-header bg-primary text-white">
+
+                        <h4 class="mb-0">
+                            <i class="fa fa-map-marker"></i>
+                            Live Shipment Location
+                        </h4>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row align-items-center">
+
+                            <div class="col-md-3 text-center">
+
+                                <i class="fa fa-map-marker fa-5x text-danger"></i>
+
+                            </div>
+
+                            <div class="col-md-9">
+
+                                <h5 class="text-muted">
+                                    Current Location
+                                </h5>
+
+                                <h3 class="text-primary">
+
+                                    <t t-esc="order.current_location"/>
+
+                                </h3>
+
+                                <hr/>
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <strong>Courier</strong>
+
+                                        <br/>
+
+                                        <t t-esc="order.courier_name"/>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <strong>Tracking Number</strong>
+
+                                        <br/>
+
+                                        <t t-esc="order.tracking_number"/>
+
+                                    </div>
+
+                                </div>
+
+                                <hr/>
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <strong>Updated</strong>
+
+                                        <br/>
+
+                                        Today 2:15 PM
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <strong>Expected Delivery</strong>
+
+                                        <br/>
+
+                                        <t t-if="order.estimated_delivery">
+
+                                            <t t-esc="order.estimated_delivery.strftime('%d %b %Y %I:%M %p')"/>
+
+                                        </t>
+
+                                        <t t-else="">
+
+                                            Today Before 6 PM
+
+                                        </t>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================================= -->
+                <!-- ORDER ITEMS -->
+                <!-- ================================= -->
+
+                <div class="card shadow-sm mb-4">
+
+                    <div class="card-header bg-light">
+
+                        <h4 class="mb-0">
+
+                            Order Items
+
+                        </h4>
+
+                    </div>
+
+                    <div class="card-body p-0">
+
+                        <table class="table table-hover mb-0">
+
+                            <thead class="table-light">
+
+                                <tr>
+
+                                    <th>Image</th>
+
+                                    <th>Product</th>
+
+                                    <th>SKU</th>
+
+                                    <th>Qty</th>
+
+                                    <th>Unit Price</th>
+
+                                    <th>Total</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <t t-foreach="order.order_line" t-as="line">
+
+                                    <tr>
+
+                                        <td width="90">
+
+                                            <img
+                                                t-if="line.product_id.image_128"
+                                                t-att-src="'/web/image/product.product/%s/image_128' % line.product_id.id"
+                                                class="img-thumbnail"
+                                                style="width:70px;height:70px;"/>
+
+                                        </td>
+
+                                        <td>
+
+                                            <strong>
+
+                                                <t t-esc="line.product_id.name"/>
+
+                                            </strong>
+
+                                        </td>
+
+                                        <td>
+
+                                            <t t-esc="line.product_id.default_code or '-'"/>
+
+                                        </td>
+
+                                        <td>
+
+                                            <t t-esc="line.product_uom_qty"/>
+
+                                        </td>
+
+                                        <td>
+
+                                            <span
+                                                t-esc="line.price_unit"
+                                                t-options="{
+                                                'widget':'monetary',
+                                                'display_currency':order.currency_id
+                                                }"/>
+
+                                        </td>
+
+                                        <td>
+
+                                            <span
+                                                t-esc="line.price_subtotal"
+                                                t-options="{
+                                                'widget':'monetary',
+                                                'display_currency':order.currency_id
+                                                }"/>
+
+                                        </td>
+
+                                    </tr>
+
+                                </t>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+                                <!-- ================================= -->
+                <!-- PRICE SUMMARY -->
+                <!-- ================================= -->
+
+                <div class="card shadow-sm mb-4">
+
+                    <div class="card-header bg-light">
+
+                        <h4 class="mb-0">
+                            <i class="fa fa-money-bill"></i>
+                            Price Summary
+                        </h4>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <table class="table">
+
+                            <tr>
+                                <td>Subtotal</td>
+
+                                <td class="text-end">
+
+                                    <span
+                                        t-esc="order.amount_untaxed"
+                                        t-options="{
+                                            'widget':'monetary',
+                                            'display_currency':order.currency_id
+                                        }"/>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Tax</td>
+
+                                <td class="text-end">
+
+                                    <span
+                                        t-esc="order.amount_tax"
+                                        t-options="{
+                                            'widget':'monetary',
+                                            'display_currency':order.currency_id
+                                        }"/>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Shipping</td>
+
+                                <td class="text-end">
+
+                                    FREE
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Discount</td>
+
+                                <td class="text-end">
+
+                                    ₹0.00
+
+                                </td>
+
+                            </tr>
+
+                            <tr class="table-success">
+
+                                <th>Grand Total</th>
+
+                                <th class="text-end">
+
+                                    <span
+                                        t-esc="order.amount_total"
+                                        t-options="{
+                                            'widget':'monetary',
+                                            'display_currency':order.currency_id
+                                        }"/>
+
+                                </th>
+
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                </div>
+                <!-- ================================= -->
+<!-- CUSTOMER ACTIONS -->
+<!-- ================================= -->
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-light">
+
+        <h4 class="mb-0">
+            Customer Actions
+        </h4>
+
+    </div>
+
+    <div class="card-body text-center">
+
+        <a
+            t-att-href="'/report/pdf/sale.report_saleorder/%s' % order.id"
+            class="btn btn-primary me-2">
+
+            <i class="fa fa-download"></i>
+            Download Invoice
+
+        </a>
+
+        <a
+            href="https://www.bluedart.com/"
+            target="_blank"
+            class="btn btn-warning me-2">
+
+            <i class="fa fa-truck"></i>
+            Track Courier
+
+        </a>
+
+        <a
+            href="/contactus"
+            class="btn btn-success me-2">
+
+            <i class="fa fa-headset"></i>
+            Need Help
+
+        </a>
+
+        <a
+            href="/my/orders"
+            class="btn btn-info">
+
+            <i class="fa fa-history"></i>
+            Purchase History
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- Close Main Container -->
+</div>
+
+</t>
+
+</template>
+
+</odoo>
+
+
+                

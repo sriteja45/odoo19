@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- 1. My Orders Portal List Template -->
+    <template id="my_orders_page" name="My Orders">
+        <t t-call="website.layout">
+            <div class="container mt-4 mb-5">
+                <h2 class="mb-4 fw-bold text-dark">My Orders</h2>
+
+                <div class="card shadow-sm border-0 rounded-3">
+                    <div class="card-body p-0">
+
+                        <table class="table table-hover mb-0 align-middle">
+
+                            <thead class="table-dark text-white">
+                                <tr>
+                                    <th class="ps-4 py-3">Order</th>
+                                    <th class="py-3">Date</th>
+                                    <th class="py-3">Status</th>
+                                    <th class="py-3">Total</th>
+                                    <th class="py-3">Tracking</th>
+                                    <th class="pe-4 py-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <t t-if="orders">
+
+                                    <t t-foreach="orders" t-as="order">
+
+                                        <tr>
+
+                                            <td class="ps-4 fw-bold text-primary">
+                                                <span t-field="order.name"/>
+                                            </td>
+
+                                            <td>
+                                                <span t-field="order.date_order"
+                                                      t-options="{'widget': 'date'}"/>
+                                            </td>
+
+                                            <td>
+                                                <span class="badge bg-success text-capitalize px-3 py-2 rounded-pill">
+                                                    <span t-field="order.shipment_status"/>
+                                                </span>
+                                            </td>
+
+                                            <td class="fw-bold">
+                                                <span t-field="order.amount_total"
+                                                      t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                            </td>
+
+                                            <td class="text-muted small">
+                                                <span t-esc="order.tracking_number or '-'"/>
+                                            </td>
+
+                                            <td class="pe-4 text-center">
+                                                <a t-attf-href="/my/orders/#{order.id}"
+                                                   class="btn btn-warning btn-sm fw-bold me-2 text-white">
+                                                    Details
+                                                </a>
+
+                                                <a t-attf-href="/my/orders/#{order.id}/track"
+                                                   class="btn btn-success btn-sm fw-bold">
+                                                    Track
+                                                </a>
+                                            </td>
+
+                                        </tr>
+
+                                    </t>
+
+                                </t>
+
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-5 text-muted">
+                                            <h4>No orders found.</h4>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- 2. Clean Dashboard Order Details View -->
+    <template id="order_details_page" name="Order Details">
+
+        <t t-call="website.layout">
+
+            <div class="container mt-4 mb-5"
+                 style="background-color:#f8f9fa; max-width:1140px; padding:20px; border-radius:8px;">
+
+                <!-- Breadcrumb -->
+                <div class="mb-4 small text-muted">
+                    <a href="/my/orders"
+                       class="text-decoration-none fw-bold"
+                       style="color:#6c757d;">
+                        My Orders
+                    </a>
+
+                    <span class="mx-2">/</span>
+
+                    <span class="text-dark fw-bold"
+                          t-esc="order.name"/>
+                </div>
+
+                <!-- CARD 1 -->
+                <div class="card shadow-sm border-0 rounded-3 p-4 mb-4"
+                     style="background:#ffffff;">
+
+                    <div class="row align-items-start">
+
+                        <div class="col-md-4">
+
+                            <span class="text-muted uppercase small fw-bold d-block mb-1">
+                                Order
+                            </span>
+
+                            <h2 class="fw-bold mb-2"
+                                style="color:#232f3e;"
+                                t-esc="order.name"/>
+
+                            <div class="small text-muted mb-1">
+                                <strong>Order Date :</strong>
+
+                                <span t-field="order.date_order"
+                                      t-options="{'widget':'datetime'}"/>
+                            </div>
+
+                            <div class="small text-muted">
+                                <strong>Payment :</strong>
+                                Credit Card
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <span class="text-muted uppercase small fw-bold d-block mb-1">
+                                Shipping Address
+                            </span>
+
+                            <strong class="text-dark d-block mb-1"
+                                    t-esc="order.partner_id.name"/>
+
+                            <span class="text-muted small"
+                                  t-field="order.partner_id"
+                                  t-options="{'widget':'contact','fields':['address'],'no_marker':True}"/>
+
+                        </div>
+
+                        <div class="col-md-4 text-md-end">
+
+                            <span class="text-muted uppercase small fw-bold d-block mb-1">
+                                Order Total
+                            </span>
+
+                            <h2 class="fw-bold mb-2"
+                                style="color:#232f3e;"
+                                t-field="order.amount_total"
+                                t-options="{'widget':'monetary','display_currency':order.currency_id}"/>
+
+                            <span class="badge bg-success px-3 py-2 text-capitalize rounded"
+                                  t-field="order.shipment_status"/>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD 2 -->
+
+                <div class="card shadow-sm border-0 rounded-3 p-4 mb-4"
+                     style="background:#ffffff;">
+
+                    <h5 class="fw-bold mb-4"
+                        style="color:#232f3e;">
+                        Order Items
+                    </h5>
+
+                    <div class="table-responsive">
+
+                        <table class="table align-middle"
+                               style="border-collapse:separate; border-spacing:0 10px;">
+
+                            <thead class="text-muted small uppercase"
+                                   style="border-bottom:1px solid #dee2e6;">
+
+                                <tr>
+                                    <th class="py-2" style="width:50%;">Product</th>
+                                    <th class="py-2">SKU</th>
+                                    <th class="py-2 text-center">Qty</th>
+                                    <th class="py-2 text-end">Unit Price</th>
+                                    <th class="py-2 text-end">Total</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <t t-foreach="order.order_line" t-as="line">
+
+                                    <tr t-if="not line.display_type"
+                                        style="background:#f8f9fa;">
+
+                                        <td class="py-3 ps-3 rounded-start"
+                                            style="border-left:1px solid #e9ecef;border-top:1px solid #e9ecef;border-bottom:1px solid #e9ecef;">
+
+                                            <div class="d-flex align-items-center">
+
+                                                <div class="me-3 bg-white border rounded p-1 d-flex align-items-center justify-content-center"
+                                                     style="width:70px;height:70px;flex-shrink:0;">
+
+                                                    <img t-if="line.product_id.image_128"
+                                                         t-attf-src="/web/image/product.product/#{line.product_id.id}/image_128"
+                                                         class="img-fluid rounded"
+                                                         style="max-height:60px;object-fit:contain;"/>
+
+                                                    <img t-else=""
+                                                         src="/web/static/src/img/placeholder.png"
+                                                         class="img-fluid rounded"
+                                                         style="max-height:60px;object-fit:contain;"/>
+
+                                                </div>
+
+                                                <span class="fw-bold text-dark"
+                                                      t-field="line.product_id.name"/>
+
+                                            </div>
+
+                                        </td>
+
+                                        <td class="py-3"
+                                            style="border-top:1px solid #e9ecef;border-bottom:1px solid #e9ecef;">
+
+                                            <span class="text-muted"
+                                                  t-esc="line.product_id.default_code or '-'"/>
+
+                                        </td>
+
+                                        <td class="py-3 text-center fw-bold text-secondary"
+                                            style="border-top:1px solid #e9ecef;border-bottom:1px solid #e9ecef;">
+
+                                            <span t-esc="line.product_uom_qty"/>
+
+                                        </td>
+
+                                        <td class="py-3 text-end"
+                                            style="border-top:1px solid #e9ecef;border-bottom:1px solid #e9ecef;">
+
+                                            <span t-field="line.price_unit"
+                                                  t-options="{'widget':'monetary','display_currency':order.currency_id}"/>
+
+                                        </td>
+
+                                        <td class="py-3 text-end pe-3 fw-bold rounded-end"
+                                            style="color:#232f3e;border-right:1px solid #e9ecef;border-top:1px solid #e9ecef;border-bottom:1px solid #e9ecef;">
+
+                                            <span t-field="line.price_subtotal"
+                                                  t-options="{'widget':'monetary','display_currency':order.currency_id}"/>
+
+                                        </td>
+
+                                    </tr>
+
+                                </t>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <!-- ROW 3: SPLIT BOTTOM INFRASTRUCTURE INFO BLOCKS -->
+
+            </div>
+
+        </t>
+
+    </template>
+
+</odoo>

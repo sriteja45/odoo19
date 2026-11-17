@@ -1,0 +1,104 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/dealwallet1/odoo_mouser_electronics
+  tag: 8552e86
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+nameOverride: "odoo-mouser-electronics-qa"
+fullnameOverride: "odoo-mouser-electronics-qa"
+
+serviceAccount:
+  create: false
+  name: ""
+
+service:
+  type: ClusterIP
+  port: 8069
+
+containerPort: 8069
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+  host: qa-mouser.dealwallet.com
+  path: /
+  pathType: Prefix
+  tls:
+    enabled: true
+
+persistence:
+  enabled: true
+  storageClass: local-path
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+  mountPath: /var/lib/odoo
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "1Gi"
+  limits:
+    cpu: "2"
+    memory: "4Gi"
+
+health:
+  path: /web/login
+
+odoo:
+  port: 8069
+  dbHost: "mouser-postgres-service.mouserelectronicspostgres.svc.cluster.local"
+  dbPort: "5432"
+  dbUser: "mouser"
+  dbPassword: "tsss@2026@mouser"
+  dbName: "testing_qa_mouser_db"
+  adminPassword: "mouseradmin@123"
+
+  SERPAPI_KEY: "91324dea703f67e895db6e1238db02edfc99a4b27dcc3c2a7bdeb6b71bea7fa0"
+  GROQ_API_KEY: "REPLACE_WITH_GROQ_API_KEY"
+
+  addonsPath: /mnt/custom-addons
+  workers: "0"
+  maxCronThreads: "1"
+  proxyMode: "True"
+
+  redisHost: "redis.dealwallet.com"
+  redisPort: "6379"
+  redisPassword: "redis123321"
+  redisDb: "1"
+
+  aiApiUrl: "https://agnoxevera.dev1.dpdns.org/mouser/text_search"
+  authToken: "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJwYXNzd29yZCI6ImFkbWluIiwibWFpbCI6ImFkbWluIn0."
+  fastApiChatUrl: "https://agnoxevera.dev1.dpdns.org/agent/chat"
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+backup:
+  enabled: true
+  schedule: "0 */12 * * *"
+
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+
+  persistence:
+    claimName: odoo-mouser-electronics-qa-pvc
+
+  postgres:
+    host: mouser-postgres-service.mouserelectronicspostgres.svc.cluster.local
+    database: testing_qa_mouser_db
+    user: mouser
+    password: "tsss@2026@mouser"
+
+  r2:
+    bucket: mouser-odoo-backups

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_qevrixa_blog_root"
+        name="Qevrixa Blog"
+        sequence="50"/>
+
+    <menuitem
+        id="menu_qevrixa_blog_posts"
+        name="Blog Posts"
+        parent="menu_qevrixa_blog_root"
+        action="action_qevrixa_blog"/>
+
+</odoo>

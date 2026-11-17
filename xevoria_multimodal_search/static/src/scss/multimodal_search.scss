@@ -1,0 +1,60 @@
+/* Multimodal Visual Search Styles (EmbeddingGemma 2) - Pure CSS (No sassc required) */
+
+.xevoria-multimodal-card {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.xevoria-ai-badge {
+    background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+}
+
+.xevoria-dropzone {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    background-color: #f8fafc;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.xevoria-dropzone:hover,
+.xevoria-dropzone.dragover {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+.xevoria-product-match-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.xevoria-product-match-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.xevoria-trigger-btn {
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    font-size: 1rem;
+}
+
+.xevoria-trigger-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

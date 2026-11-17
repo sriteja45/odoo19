@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_dashboard_graph" model="ir.ui.view">
+        <field name="name">dashboard.graph</field>
+        <field name="model">clinic.dashboard.graph</field>
+        <field name="arch" type="xml">
+            <graph string="Appointment Trends" type="bar">
+                <field name="month"/>
+                <field name="count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_dashboard_graph" model="ir.actions.act_window">
+        <field name="name">Appointment Trends</field>
+        <field name="res_model">clinic.dashboard.graph</field>
+        <field name="view_mode">graph</field>
+    </record>
+</odoo>

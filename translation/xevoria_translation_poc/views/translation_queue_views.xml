@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_xevoria_translation_queue_tree" model="ir.ui.view">
+        <field name="name">xevoria.translation.queue.list</field>
+        <field name="model">xevoria.translation.queue</field>
+        <field name="arch" type="xml">
+            <list string="Translation Queue">
+                <header>
+                    <button name="action_process_queue" type="object" string="Process Selected" class="btn-primary"/>
+                    <button name="action_retry" type="object" string="Retry Selected Failed"/>
+                    <button name="action_retry_all_failed" type="object" string="Retry All Failed"/>
+                    <button name="action_cancel" type="object" string="Cancel Selected"/>
+                    <button name="action_cancel_all_pending" type="object" string="Cancel All Pending"/>
+                </header>
+                <field name="priority"/>
+                <field name="product_tmpl_id"/>
+                <field name="lang_id"/>
+                <field name="state"/>
+                <field name="attempts"/>
+                <field name="created_from"/>
+                <field name="sync_native_fields"/>
+                <field name="only_missing_translations"/>
+                <field name="cache_hit"/>
+                <field name="next_retry_at"/>
+                <field name="provider_used"/>
+                <field name="completed_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_xevoria_translation_queue_form" model="ir.ui.view">
+        <field name="name">xevoria.translation.queue.form</field>
+        <field name="model">xevoria.translation.queue</field>
+        <field name="arch" type="xml">
+            <form string="Translation Queue Job">
+                <header>
+                    <button name="action_process_queue" type="object" string="Process Queue" class="btn-primary" invisible="state not in ('pending', 'failed')"/>
+                    <button name="action_retry" type="object" string="Retry" invisible="state != 'failed'"/>
+                    <button name="action_retry_all_failed" type="object" string="Retry All Failed"/>
+                    <button name="action_cancel" type="object" string="Cancel Selected"/>
+                    <button name="action_cancel_all_pending" type="object" string="Cancel All Pending"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state in ('done', 'cancelled')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,running,done,failed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="lang_id"/>
+                            <field name="source_lang"/>
+                            <field name="created_from"/>
+                        </group>
+                        <group>
+                            <field name="priority"/>
+                            <field name="attempts"/>
+                            <field name="max_attempts"/>
+                            <field name="sync_native_fields"/>
+                            <field name="only_missing_translations"/>
+                            <field name="generated_translation_id" readonly="1"/>
+                            <field name="cache_hit" readonly="1"/>
+                            <field name="provider_used" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Change Detection">
+                        <field name="source_hash" readonly="1"/>
+                        <field name="skipped_reason" readonly="1"/>
+                    </group>
+                    <group string="Dates">
+                        <field name="started_at" readonly="1"/>
+                        <field name="next_retry_at" readonly="1"/>
+                        <field name="completed_at" readonly="1"/>
+                    </group>
+                    <group string="Last Error" invisible="not last_error">
+                        <field name="last_error" readonly="1" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Processing Logs">
+                            <field name="log_ids" readonly="1">
+                                <list>
+                                    <field name="create_date"/>
+                                    <field name="level"/>
+                                    <field name="action"/>
+                                    <field name="attempts"/>
+                                    <field name="provider"/>
+                                    <field name="message"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_xevoria_translation_queue" model="ir.actions.act_window">
+        <field name="name">Translation Queue</field>
+        <field name="res_model">xevoria.translation.queue</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_pending': 1}</field>
+    </record>
+
+    <record id="view_xevoria_translation_queue_search" model="ir.ui.view">
+        <field name="name">xevoria.translation.queue.search</field>
+        <field name="model">xevoria.translation.queue</field>
+        <field name="arch" type="xml">
+            <search string="Translation Queue">
+                <filter name="pending" string="Pending" domain="[('state','=','pending')]"/>
+                <filter name="failed" string="Failed" domain="[('state','=','failed')]"/>
+                <filter name="waiting_retry" string="Waiting Retry" domain="[('state','=','pending'),('next_retry_at','!=',False)]"/>
+                <filter name="done" string="Done" domain="[('state','=','done')]"/>
+                <filter name="cancelled" string="Cancelled" domain="[('state','=','cancelled')]"/>
+                <filter name="cache_hit" string="Cache Hit / Skipped" domain="[('cache_hit','=',True)]"/>
+                <field name="product_tmpl_id"/>
+                <field name="lang_id"/>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="menu_xevoria_translation_root" name="Xevoria Translation" sequence="60"/>
+    <menuitem id="menu_xevoria_translation_queue" name="Translation Queue" parent="menu_xevoria_translation_root" action="action_xevoria_translation_queue" sequence="10"/>
+
+    <record id="view_xevoria_translation_log_tree" model="ir.ui.view">
+        <field name="name">xevoria.translation.log.list</field>
+        <field name="model">xevoria.translation.log</field>
+        <field name="arch" type="xml">
+            <list string="Translation Logs" create="0" edit="0">
+                <field name="create_date"/>
+                <field name="level"/>
+                <field name="action"/>
+                <field name="product_tmpl_id"/>
+                <field name="lang_id"/>
+                <field name="provider"/>
+                <field name="attempts"/>
+                <field name="message"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_xevoria_translation_log_form" model="ir.ui.view">
+        <field name="name">xevoria.translation.log.form</field>
+        <field name="model">xevoria.translation.log</field>
+        <field name="arch" type="xml">
+            <form string="Translation Log" create="0" edit="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="level"/>
+                            <field name="action"/>
+                            <field name="queue_id"/>
+                            <field name="provider"/>
+                        </group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="lang_id"/>
+                            <field name="attempts"/>
+                            <field name="exception_type"/>
+                        </group>
+                    </group>
+                    <group string="Message">
+                        <field name="message" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_xevoria_translation_log_search" model="ir.ui.view">
+        <field name="name">xevoria.translation.log.search</field>
+        <field name="model">xevoria.translation.log</field>
+        <field name="arch" type="xml">
+            <search string="Translation Logs">
+                <filter name="errors" string="Errors" domain="[('level','=','error')]"/>
+                <filter name="warnings" string="Warnings" domain="[('level','=','warning')]"/>
+                <filter name="success" string="Success" domain="[('action','=','success')]"/>
+                <field name="product_tmpl_id"/>
+                <field name="lang_id"/>
+                <field name="action"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_xevoria_translation_log" model="ir.actions.act_window">
+        <field name="name">Translation Logs</field>
+        <field name="res_model">xevoria.translation.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_errors': 1}</field>
+    </record>
+
+    <menuitem id="menu_xevoria_translation_logs" name="Translation Logs" parent="menu_xevoria_translation_root" action="action_xevoria_translation_log" sequence="20"/>
+
+</odoo>

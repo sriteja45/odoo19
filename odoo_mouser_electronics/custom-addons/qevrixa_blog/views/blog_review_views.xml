@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================================================== -->
+    <!-- REVIEW LIST -->
+    <!-- ===================================================== -->
+
+    <record id="view_qevrixa_blog_review_tree" model="ir.ui.view">
+        <field name="name">qevrixa.blog.review.tree</field>
+        <field name="model">qevrixa.blog.review</field>
+
+        <field name="arch" type="xml">
+            <list>
+
+                <field name="blog_id"/>
+                <field name="reviewer_id"/>
+                <field name="status"/>
+                <field name="reviewed_date"/>
+
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- REVIEW FORM -->
+    <!-- ===================================================== -->
+
+    <record id="view_qevrixa_blog_review_form" model="ir.ui.view">
+        <field name="name">qevrixa.blog.review.form</field>
+        <field name="model">qevrixa.blog.review</field>
+
+        <field name="arch" type="xml">
+
+            <form string="Blog Review">
+
+                <!-- ================================================= -->
+                <!-- REVIEW ACTIONS -->
+                <!-- ================================================= -->
+
+                <header>
+
+                    <button
+                        name="action_approve"
+                        string="Approve"
+                        type="object"
+                        class="btn-primary"
+                        invisible="status != 'pending'"
+                    />
+
+                    <button
+                        name="action_request_changes"
+                        string="Request Changes"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="status != 'pending'"
+                    />
+
+                    <field
+                        name="status"
+                        widget="statusbar"
+                        statusbar_visible="pending,approved,changes_required"
+                    />
+
+                </header>
+
+
+                <!-- ================================================= -->
+                <!-- REVIEW INFORMATION -->
+                <!-- ================================================= -->
+
+                <sheet>
+
+                    <group>
+
+                        <group>
+
+                            <field
+                                name="blog_id"
+                                readonly="1"
+                            />
+
+                            <field
+                                name="reviewer_id"
+                                readonly="1"
+                            />
+
+                        </group>
+
+                        <group>
+
+                            <field
+                                name="status"
+                                readonly="1"
+                            />
+
+                            <field
+                                name="reviewed_date"
+                                readonly="1"
+                            />
+
+                        </group>
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- REVIEW COMMENTS -->
+                    <!-- ================================================= -->
+
+                    <group string="Review Comments">
+
+                        <field
+                            name="comments"
+                            placeholder="Enter your review comments..."
+                            readonly="status != 'pending'"
+                        />
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- MY BLOG REVIEWS ACTION -->
+    <!-- ===================================================== -->
+
+    <record id="action_qevrixa_blog_reviews" model="ir.actions.act_window">
+
+        <field name="name">My Blog Reviews</field>
+
+        <field name="res_model">qevrixa.blog.review</field>
+
+        <field name="view_mode">list,form</field>
+
+        <field name="domain">
+            [('reviewer_id', '=', uid)]
+        </field>
+
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- REVIEW MENU -->
+    <!-- ===================================================== -->
+
+    <menuitem
+        id="menu_qevrixa_blog_reviews"
+        name="My Blog Reviews"
+        parent="menu_qevrixa_blog_root"
+        action="action_qevrixa_blog_reviews"
+        sequence="2"
+    />
+
+</odoo>

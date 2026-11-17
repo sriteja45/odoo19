@@ -1,0 +1,16 @@
+<odoo>
+<data>
+
+<menuitem id="reception_dashboard_root"
+          name="Reception Dashboard"
+          groups="clinic_appointment.group_clinic_receptionist"/>
+
+<menuitem id="reception_appointments"
+          name="Manage Appointments"
+          parent="reception_dashboard_root"
+          action="action_clinic_appointment"
+          groups="clinic_appointment.group_clinic_receptionist"/>
+
+</data>
+</odoo>
+

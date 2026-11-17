@@ -1,0 +1,43 @@
+<odoo>
+
+    <!-- Doctor Appointment Action -->
+    <record id="action_doctor_appointments" model="ir.actions.act_window">
+        <field name="name">My Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    
+
+    <record id="action_doctor_completed_lab_tests" model="ir.actions.act_window">
+    <field name="name">Completed Lab Reports</field>
+    <field name="res_model">clinic.lab.test</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[
+        ('is_template', '=', False),
+        ('status', '=', 'completed'),
+        ('doctor_user_id', '=', uid)
+    ]</field>
+    <field name="search_view_id" ref="clinic_appointment.view_lab_test_search"/>
+</record>
+
+<menuitem
+    id="menu_doctor_completed_lab_tests"
+    name="Completed Lab Reports"
+    parent="clinic_root_menu"
+    action="action_doctor_completed_lab_tests"
+    groups="clinic_appointment.group_clinic_doctor"
+    sequence="20"
+/>
+    
+
+    <!-- Doctor Menu -->
+    <menuitem
+        id="menu_doctor_appointments"
+        name="My Appointments"
+        parent="clinic_root_menu"
+        action="action_doctor_appointments"
+        groups="clinic_appointment.group_clinic_doctor"
+        sequence="10"
+    />
+
+</odoo>

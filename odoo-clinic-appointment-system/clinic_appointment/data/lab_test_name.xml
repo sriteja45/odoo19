@@ -1,0 +1,1070 @@
+<odoo>
+
+    <!-- CBC -->
+    <record id="lab_test_cbc" model="clinic.lab.test">
+        <field name="name">Complete Blood Count (CBC)</field>
+        <field name="category">hematology</field>
+        <field name="price">300</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Hemoglobin -->
+    <record id="lab_test_hemoglobin" model="clinic.lab.test">
+        <field name="name">Hemoglobin (Hb)</field>
+        <field name="category">hematology</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- PCV -->
+    <record id="lab_test_pcv" model="clinic.lab.test">
+        <field name="name">Packed Cell Volume (PCV)</field>
+        <field name="category">hematology</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- TLC -->
+    <record id="lab_test_tlc" model="clinic.lab.test">
+        <field name="name">Total Leukocyte Count (TLC)</field>
+        <field name="category">hematology</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- DC -->
+    <record id="lab_test_dc" model="clinic.lab.test">
+        <field name="name">Differential Count (DC)</field>
+        <field name="category">hematology</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Platelet Count -->
+    <record id="lab_test_platelet" model="clinic.lab.test">
+        <field name="name">Platelet Count</field>
+        <field name="category">hematology</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ESR -->
+    <record id="lab_test_esr" model="clinic.lab.test">
+        <field name="name">ESR</field>
+        <field name="category">hematology</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Peripheral Smear -->
+    <record id="lab_test_peripheral_smear" model="clinic.lab.test">
+        <field name="name">Peripheral Smear</field>
+        <field name="category">hematology</field>
+        <field name="price">250</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Reticulocyte Count -->
+    <record id="lab_test_reticulocyte" model="clinic.lab.test">
+        <field name="name">Reticulocyte Count</field>
+        <field name="category">hematology</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Bleeding Time -->
+    <record id="lab_test_bt" model="clinic.lab.test">
+        <field name="name">Bleeding Time (BT)</field>
+        <field name="category">hematology</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Clotting Time -->
+    <record id="lab_test_ct" model="clinic.lab.test">
+        <field name="name">Clotting Time (CT)</field>
+        <field name="category">hematology</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Blood Sugar Fasting -->
+    <record id="lab_test_bs_fasting" model="clinic.lab.test">
+        <field name="name">Blood Sugar (Fasting)</field>
+        <field name="category">biochemistry</field>
+        <field name="price">100</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Blood Sugar PP -->
+    <record id="lab_test_bs_pp" model="clinic.lab.test">
+        <field name="name">Blood Sugar (Postprandial)</field>
+        <field name="category">biochemistry</field>
+        <field name="price">100</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- RBS -->
+    <record id="lab_test_rbs" model="clinic.lab.test">
+        <field name="name">Random Blood Sugar (RBS)</field>
+        <field name="category">biochemistry</field>
+        <field name="price">100</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- HbA1c -->
+    <record id="lab_test_hba1c" model="clinic.lab.test">
+        <field name="name">HbA1c</field>
+        <field name="category">biochemistry</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Blood Urea -->
+    <record id="lab_test_urea" model="clinic.lab.test">
+        <field name="name">Blood Urea</field>
+        <field name="category">biochemistry</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Serum Creatinine -->
+    <record id="lab_test_creatinine" model="clinic.lab.test">
+        <field name="name">Serum Creatinine</field>
+        <field name="category">biochemistry</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Uric Acid -->
+    <record id="lab_test_uric_acid" model="clinic.lab.test">
+        <field name="name">Uric Acid</field>
+        <field name="category">biochemistry</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Calcium -->
+    <record id="lab_test_calcium" model="clinic.lab.test">
+        <field name="name">Calcium</field>
+        <field name="category">biochemistry</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Phosphorus -->
+    <record id="lab_test_phosphorus" model="clinic.lab.test">
+        <field name="name">Phosphorus</field>
+        <field name="category">biochemistry</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Magnesium -->
+    <record id="lab_test_magnesium" model="clinic.lab.test">
+        <field name="name">Magnesium</field>
+        <field name="category">biochemistry</field>
+        <field name="price">250</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Electrolytes -->
+    <record id="lab_test_electrolytes" model="clinic.lab.test">
+        <field name="name">Serum Electrolytes (Na, K, Cl)</field>
+        <field name="category">biochemistry</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Total Protein -->
+    <record id="lab_test_total_protein" model="clinic.lab.test">
+        <field name="name">Total Protein</field>
+        <field name="category">biochemistry</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Albumin -->
+    <record id="lab_test_albumin" model="clinic.lab.test">
+        <field name="name">Albumin</field>
+        <field name="category">biochemistry</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Globulin -->
+    <record id="lab_test_globulin" model="clinic.lab.test">
+        <field name="name">Globulin</field>
+        <field name="category">biochemistry</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- LFT -->
+    <record id="lab_test_lft" model="clinic.lab.test">
+        <field name="name">Liver Function Test (LFT)</field>
+        <field name="code">LFT001</field>
+        <field name="category">liver</field>
+        <field name="price">600</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Total Bilirubin -->
+    <record id="lab_test_total_bilirubin" model="clinic.lab.test">
+        <field name="name">Total Bilirubin</field>
+        <field name="code">LFT002</field>
+        <field name="category">liver</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Direct Bilirubin -->
+    <record id="lab_test_direct_bilirubin" model="clinic.lab.test">
+        <field name="name">Direct Bilirubin (Conjugated Bilirubin)</field>
+        <field name="code">LFT003</field>
+        <field name="category">liver</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Indirect Bilirubin -->
+    <record id="lab_test_indirect_bilirubin" model="clinic.lab.test">
+        <field name="name">Indirect Bilirubin (Unconjugated Bilirubin)</field>
+        <field name="code">LFT004</field>
+        <field name="category">liver</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- SGOT -->
+    <record id="lab_test_sgot" model="clinic.lab.test">
+        <field name="name">SGOT (AST – Aspartate Aminotransferase)</field>
+        <field name="code">LFT005</field>
+        <field name="category">liver</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- SGPT -->
+    <record id="lab_test_sgpt" model="clinic.lab.test">
+        <field name="name">SGPT (ALT – Alanine Aminotransferase)</field>
+        <field name="code">LFT006</field>
+        <field name="category">liver</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ALP -->
+    <record id="lab_test_alp" model="clinic.lab.test">
+        <field name="name">ALP (Alkaline Phosphatase)</field>
+        <field name="code">LFT007</field>
+        <field name="category">liver</field>
+        <field name="price">250</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- GGT -->
+    <record id="lab_test_ggt" model="clinic.lab.test">
+        <field name="name">GGT (Gamma-Glutamyl Transferase)</field>
+        <field name="code">LFT008</field>
+        <field name="category">liver</field>
+        <field name="price">300</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Lipid Profile -->
+    <record id="lab_test_lipid_profile" model="clinic.lab.test">
+        <field name="name">Lipid Profile</field>
+        <field name="code">CAR001</field>
+        <field name="category">cardiac</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Total Cholesterol -->
+    <record id="lab_test_total_cholesterol" model="clinic.lab.test">
+        <field name="name">Total Cholesterol</field>
+        <field name="code">CAR002</field>
+        <field name="category">cardiac</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Triglycerides -->
+    <record id="lab_test_triglycerides" model="clinic.lab.test">
+        <field name="name">Triglycerides</field>
+        <field name="code">CAR003</field>
+        <field name="category">cardiac</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- HDL -->
+    <record id="lab_test_hdl" model="clinic.lab.test">
+        <field name="name">HDL (High-Density Lipoprotein)</field>
+        <field name="code">CAR004</field>
+        <field name="category">cardiac</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- LDL -->
+    <record id="lab_test_ldl" model="clinic.lab.test">
+        <field name="name">LDL (Low-Density Lipoprotein)</field>
+        <field name="code">CAR005</field>
+        <field name="category">cardiac</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- VLDL -->
+    <record id="lab_test_vldl" model="clinic.lab.test">
+        <field name="name">VLDL (Very Low-Density Lipoprotein)</field>
+        <field name="code">CAR006</field>
+        <field name="category">cardiac</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Troponin I -->
+    <record id="lab_test_troponin_i" model="clinic.lab.test">
+        <field name="name">Troponin I (Cardiac Troponin I)</field>
+        <field name="code">CAR007</field>
+        <field name="category">cardiac</field>
+        <field name="price">900</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Troponin T -->
+    <record id="lab_test_troponin_t" model="clinic.lab.test">
+        <field name="name">Troponin T (Cardiac Troponin T)</field>
+        <field name="code">CAR008</field>
+        <field name="category">cardiac</field>
+        <field name="price">900</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- CK-MB -->
+    <record id="lab_test_ck_mb" model="clinic.lab.test">
+        <field name="name">CK-MB (Creatine Kinase-MB)</field>
+        <field name="code">CAR009</field>
+        <field name="category">cardiac</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- CPK Total -->
+    <record id="lab_test_cpk_total" model="clinic.lab.test">
+        <field name="name">CPK Total (Creatine Phosphokinase Total)</field>
+        <field name="code">CAR010</field>
+        <field name="category">cardiac</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- T3 -->
+    <record id="lab_test_t3" model="clinic.lab.test">
+        <field name="name">T3 (Triiodothyronine)</field>
+        <field name="code">THY001</field>
+        <field name="category">thyroid</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- T4 -->
+    <record id="lab_test_t4" model="clinic.lab.test">
+        <field name="name">T4 (Thyroxine)</field>
+        <field name="code">THY002</field>
+        <field name="category">thyroid</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- TSH -->
+    <record id="lab_test_tsh" model="clinic.lab.test">
+        <field name="name">TSH (Thyroid Stimulating Hormone)</field>
+        <field name="code">THY003</field>
+        <field name="category">thyroid</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Free T3 -->
+    <record id="lab_test_free_t3" model="clinic.lab.test">
+        <field name="name">Free T3 (Free Triiodothyronine)</field>
+        <field name="code">THY004</field>
+        <field name="category">thyroid</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Free T4 -->
+    <record id="lab_test_free_t4" model="clinic.lab.test">
+        <field name="name">Free T4 (Free Thyroxine)</field>
+        <field name="code">THY005</field>
+        <field name="category">thyroid</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Prolactin -->
+    <record id="lab_test_prolactin" model="clinic.lab.test">
+        <field name="name">Prolactin</field>
+        <field name="code">THY006</field>
+        <field name="category">thyroid</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Testosterone -->
+    <record id="lab_test_testosterone" model="clinic.lab.test">
+        <field name="name">Testosterone</field>
+        <field name="code">THY007</field>
+        <field name="category">thyroid</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Estrogen -->
+    <record id="lab_test_estrogen" model="clinic.lab.test">
+        <field name="name">Estrogen (Estradiol - E2)</field>
+        <field name="code">THY008</field>
+        <field name="category">thyroid</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Progesterone -->
+    <record id="lab_test_progesterone" model="clinic.lab.test">
+        <field name="name">Progesterone</field>
+        <field name="code">THY009</field>
+        <field name="category">thyroid</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- LH -->
+    <record id="lab_test_lh" model="clinic.lab.test">
+        <field name="name">LH (Luteinizing Hormone)</field>
+        <field name="code">THY010</field>
+        <field name="category">thyroid</field>
+        <field name="price">600</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- FSH -->
+    <record id="lab_test_fsh" model="clinic.lab.test">
+        <field name="name">FSH (Follicle Stimulating Hormone)</field>
+        <field name="code">THY011</field>
+        <field name="category">thyroid</field>
+        <field name="price">600</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Cortisol -->
+    <record id="lab_test_cortisol" model="clinic.lab.test">
+        <field name="name">Cortisol</field>
+        <field name="code">THY012</field>
+        <field name="category">thyroid</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Dengue NS1 -->
+    <record id="lab_test_dengue_ns1" model="clinic.lab.test">
+        <field name="name">Dengue NS1 (Dengue NS1 Antigen Test)</field>
+        <field name="code">SER001</field>
+        <field name="category">serology</field>
+        <field name="price">800</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Dengue IgG/IgM -->
+    <record id="lab_test_dengue_igg_igm" model="clinic.lab.test">
+        <field name="name">Dengue IgG / IgM (Dengue Antibody Test)</field>
+        <field name="code">SER002</field>
+        <field name="category">serology</field>
+        <field name="price">900</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Malaria -->
+    <record id="lab_test_malaria" model="clinic.lab.test">
+        <field name="name">Malaria (Malarial Parasite Test)</field>
+        <field name="code">SER003</field>
+        <field name="category">serology</field>
+        <field name="price">350</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Widal -->
+    <record id="lab_test_widal" model="clinic.lab.test">
+        <field name="name">Widal (Typhoid Test - Widal Test)</field>
+        <field name="code">SER004</field>
+        <field name="category">serology</field>
+        <field name="price">250</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- COVID RT-PCR -->
+    <record id="lab_test_covid_rt_pcr" model="clinic.lab.test">
+        <field name="name">COVID RT-PCR (SARS-CoV-2 RT-PCR Test)</field>
+        <field name="code">SER005</field>
+        <field name="category">serology</field>
+        <field name="price">800</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- HIV -->
+    <record id="lab_test_hiv" model="clinic.lab.test">
+        <field name="name">HIV (Human Immunodeficiency Virus Test)</field>
+        <field name="code">SER006</field>
+        <field name="category">serology</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- HBsAg -->
+    <record id="lab_test_hbsag" model="clinic.lab.test">
+        <field name="name">HBsAg (Hepatitis B Surface Antigen)</field>
+        <field name="code">SER007</field>
+        <field name="category">serology</field>
+        <field name="price">300</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- HCV -->
+    <record id="lab_test_hcv" model="clinic.lab.test">
+        <field name="name">HCV (Hepatitis C Virus Antibody)</field>
+        <field name="code">SER008</field>
+        <field name="category">serology</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- VDRL -->
+    <record id="lab_test_vdrl" model="clinic.lab.test">
+        <field name="name">VDRL (Venereal Disease Research Laboratory Test - Syphilis)</field>
+        <field name="code">SER009</field>
+        <field name="category">serology</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- CRP -->
+    <record id="lab_test_crp" model="clinic.lab.test">
+        <field name="name">CRP (C-Reactive Protein)</field>
+        <field name="code">SER010</field>
+        <field name="category">serology</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- Procalcitonin -->
+    <record id="lab_test_procalcitonin" model="clinic.lab.test">
+        <field name="name">Procalcitonin</field>
+        <field name="code">SER011</field>
+        <field name="category">serology</field>
+        <field name="price">1500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= MICROBIOLOGY ================= -->
+
+    <record id="lab_test_blood_culture" model="clinic.lab.test">
+        <field name="name">Blood Culture</field>
+        <field name="code">MIC001</field>
+        <field name="category">microbiology</field>
+        <field name="price">1200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_urine_culture" model="clinic.lab.test">
+        <field name="name">Urine Culture</field>
+        <field name="code">MIC002</field>
+        <field name="category">microbiology</field>
+        <field name="price">800</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_sputum_culture" model="clinic.lab.test">
+        <field name="name">Sputum Culture</field>
+        <field name="code">MIC003</field>
+        <field name="category">microbiology</field>
+        <field name="price">800</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_throat_swab" model="clinic.lab.test">
+        <field name="name">Throat Swab Culture</field>
+        <field name="code">MIC004</field>
+        <field name="category">microbiology</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_stool_culture_micro" model="clinic.lab.test">
+        <field name="name">Stool Culture</field>
+        <field name="code">MIC005</field>
+        <field name="category">microbiology</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_cs" model="clinic.lab.test">
+        <field name="name">Culture &amp; Sensitivity (C/S Test)</field>
+        <field name="code">MIC006</field>
+        <field name="category">microbiology</field>
+        <field name="price">1000</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= URINE TESTS ================= -->
+
+    <record id="lab_test_urine_routine" model="clinic.lab.test">
+        <field name="name">Urine Routine Examination</field>
+        <field name="code">URI001</field>
+        <field name="category">urine</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_urine_microscopy" model="clinic.lab.test">
+        <field name="name">Urine Microscopy Examination</field>
+        <field name="code">URI002</field>
+        <field name="category">urine</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_urine_protein" model="clinic.lab.test">
+        <field name="name">Urine Protein Test</field>
+        <field name="code">URI003</field>
+        <field name="category">urine</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_urine_sugar" model="clinic.lab.test">
+        <field name="name">Urine Sugar Test</field>
+        <field name="code">URI004</field>
+        <field name="category">urine</field>
+        <field name="price">100</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_urine_ketones" model="clinic.lab.test">
+        <field name="name">Urine Ketones Test</field>
+        <field name="code">URI005</field>
+        <field name="category">urine</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_microalbumin" model="clinic.lab.test">
+        <field name="name">Urine Microalbumin Test</field>
+        <field name="code">URI006</field>
+        <field name="category">urine</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_urine_24hr_protein" model="clinic.lab.test">
+        <field name="name">24-Hour Urine Protein Test</field>
+        <field name="code">URI007</field>
+        <field name="category">urine</field>
+        <field name="price">600</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= STOOL TESTS ================= -->
+
+    <record id="lab_test_stool_routine" model="clinic.lab.test">
+        <field name="name">Stool Routine Examination</field>
+        <field name="code">STL001</field>
+        <field name="category">stool</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_stool_occult" model="clinic.lab.test">
+        <field name="name">Stool Occult Blood Test</field>
+        <field name="code">STL002</field>
+        <field name="category">stool</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_stool_culture" model="clinic.lab.test">
+        <field name="name">Stool Culture</field>
+        <field name="code">STL003</field>
+        <field name="category">stool</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_stool_ova" model="clinic.lab.test">
+        <field name="name">Stool Ova &amp; Parasite Examination</field>
+        <field name="code">STL004</field>
+        <field name="category">stool</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= KIDNEY FUNCTION ================= -->
+
+    <record id="lab_test_kft" model="clinic.lab.test">
+        <field name="name">Kidney Function Test (KFT)</field>
+        <field name="code">KFT001</field>
+        <field name="category">kidney</field>
+        <field name="price">650</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_bun" model="clinic.lab.test">
+        <field name="name">Blood Urea Nitrogen (BUN)</field>
+        <field name="code">KFT002</field>
+        <field name="category">kidney</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_creatinine_clearance" model="clinic.lab.test">
+        <field name="name">Creatinine Clearance Test</field>
+        <field name="code">KFT003</field>
+        <field name="category">kidney</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_electrolyte_panel" model="clinic.lab.test">
+        <field name="name">Serum Electrolyte Panel</field>
+        <field name="code">KFT004</field>
+        <field name="category">kidney</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= SPECIAL TESTS ================= -->
+
+    <record id="lab_test_vitamin_d" model="clinic.lab.test">
+        <field name="name">Vitamin D (25-Hydroxy Vitamin D Test)</field>
+        <field name="code">SPC001</field>
+        <field name="category">special</field>
+        <field name="price">1200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_vitamin_b12" model="clinic.lab.test">
+        <field name="name">Vitamin B12 (Cobalamin Test)</field>
+        <field name="code">SPC002</field>
+        <field name="category">special</field>
+        <field name="price">800</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_iron" model="clinic.lab.test">
+        <field name="name">Iron (Serum Iron Test)</field>
+        <field name="code">SPC003</field>
+        <field name="category">special</field>
+        <field name="price">300</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_tibc" model="clinic.lab.test">
+        <field name="name">TIBC (Total Iron Binding Capacity)</field>
+        <field name="code">SPC004</field>
+        <field name="category">special</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ferritin" model="clinic.lab.test">
+        <field name="name">Ferritin (Serum Ferritin Test)</field>
+        <field name="code">SPC005</field>
+        <field name="category">special</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ldh" model="clinic.lab.test">
+        <field name="name">LDH (Lactate Dehydrogenase)</field>
+        <field name="code">SPC006</field>
+        <field name="category">special</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_amylase" model="clinic.lab.test">
+        <field name="name">Amylase (Serum Amylase)</field>
+        <field name="code">SPC007</field>
+        <field name="category">special</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_lipase" model="clinic.lab.test">
+        <field name="name">Lipase (Serum Lipase)</field>
+        <field name="code">SPC008</field>
+        <field name="category">special</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= COAGULATION ================= -->
+
+    <record id="lab_test_pt" model="clinic.lab.test">
+        <field name="name">PT (Prothrombin Time)</field>
+        <field name="code">COG001</field>
+        <field name="category">coagulation</field>
+        <field name="price">300</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_inr" model="clinic.lab.test">
+        <field name="name">INR (International Normalized Ratio)</field>
+        <field name="code">COG002</field>
+        <field name="category">coagulation</field>
+        <field name="price">200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_aptt" model="clinic.lab.test">
+        <field name="name">aPTT (Activated Partial Thromboplastin Time)</field>
+        <field name="code">COG003</field>
+        <field name="category">coagulation</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ddimer" model="clinic.lab.test">
+        <field name="name">D-Dimer (D-Dimer Test)</field>
+        <field name="code">COG004</field>
+        <field name="category">coagulation</field>
+        <field name="price">1200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= WOMEN / PREGNANCY ================= -->
+
+    <record id="lab_test_pregnancy" model="clinic.lab.test">
+        <field name="name">Pregnancy Test (Urine Pregnancy Test)</field>
+        <field name="code">WMN001</field>
+        <field name="category">women</field>
+        <field name="price">150</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_betahcg" model="clinic.lab.test">
+        <field name="name">Beta hCG (Human Chorionic Gonadotropin Test)</field>
+        <field name="code">WMN002</field>
+        <field name="category">women</field>
+        <field name="price">600</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_papsmear" model="clinic.lab.test">
+        <field name="name">Pap Smear (Papanicolaou Test)</field>
+        <field name="code">WMN003</field>
+        <field name="category">women</field>
+        <field name="price">800</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_amh" model="clinic.lab.test">
+        <field name="name">AMH (Anti-Müllerian Hormone Test)</field>
+        <field name="code">WMN004</field>
+        <field name="category">women</field>
+        <field name="price">1500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= PEDIATRICS ================= -->
+
+    <record id="lab_test_neonatal_bilirubin" model="clinic.lab.test">
+        <field name="name">Neonatal Bilirubin (Total Bilirubin for Newborn)</field>
+        <field name="code">PED001</field>
+        <field name="category">pediatrics</field>
+        <field name="price">300</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_g6pd" model="clinic.lab.test">
+        <field name="name">G6PD (Glucose-6-Phosphate Dehydrogenase Test)</field>
+        <field name="code">PED002</field>
+        <field name="category">pediatrics</field>
+        <field name="price">600</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_newborn_screening" model="clinic.lab.test">
+        <field name="name">Newborn Screening Panel</field>
+        <field name="code">PED003</field>
+        <field name="category">pediatrics</field>
+        <field name="price">1500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= BONE / ORTHO ================= -->
+
+    <record id="lab_test_bone_profile" model="clinic.lab.test">
+        <field name="name">Bone Profile (Calcium, Phosphorus, ALP Panel)</field>
+        <field name="code">ORT001</field>
+        <field name="category">orthopedic</field>
+        <field name="price">800</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ra_factor" model="clinic.lab.test">
+        <field name="name">RA Factor (Rheumatoid Factor Test)</field>
+        <field name="code">ORT002</field>
+        <field name="category">orthopedic</field>
+        <field name="price">400</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_anti_ccp" model="clinic.lab.test">
+        <field name="name">Anti-CCP (Anti-Cyclic Citrullinated Peptide Antibody)</field>
+        <field name="code">ORT003</field>
+        <field name="category">orthopedic</field>
+        <field name="price">1200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= AUTOIMMUNE ================= -->
+
+    <record id="lab_test_ana" model="clinic.lab.test">
+        <field name="name">ANA (Antinuclear Antibody Test)</field>
+        <field name="code">AUT001</field>
+        <field name="category">autoimmune</field>
+        <field name="price">800</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_anti_dsdna" model="clinic.lab.test">
+        <field name="name">Anti-dsDNA (Anti–Double Stranded DNA Antibody Test)</field>
+        <field name="code">AUT002</field>
+        <field name="category">autoimmune</field>
+        <field name="price">1200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= RESPIRATORY ================= -->
+
+    <record id="lab_test_abg" model="clinic.lab.test">
+        <field name="name">ABG (Arterial Blood Gas Analysis)</field>
+        <field name="code">RSP001</field>
+        <field name="category">respiratory</field>
+        <field name="price">1000</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_sputum_afb" model="clinic.lab.test">
+        <field name="name">Sputum AFB (Acid-Fast Bacilli Test for Tuberculosis)</field>
+        <field name="code">RSP002</field>
+        <field name="category">respiratory</field>
+        <field name="price">300</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= ONCOLOGY ================= -->
+
+    <record id="lab_test_psa" model="clinic.lab.test">
+        <field name="name">PSA (Prostate-Specific Antigen)</field>
+        <field name="code">ONC001</field>
+        <field name="category">oncology</field>
+        <field name="price">700</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ca125" model="clinic.lab.test">
+        <field name="name">CA-125 (Cancer Antigen 125)</field>
+        <field name="code">ONC002</field>
+        <field name="category">oncology</field>
+        <field name="price">1200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ca199" model="clinic.lab.test">
+        <field name="name">CA 19-9 (Carbohydrate Antigen 19-9)</field>
+        <field name="code">ONC003</field>
+        <field name="category">oncology</field>
+        <field name="price">1500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_cea" model="clinic.lab.test">
+        <field name="name">CEA (Carcinoembryonic Antigen)</field>
+        <field name="code">ONC004</field>
+        <field name="category">oncology</field>
+        <field name="price">1000</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_afp" model="clinic.lab.test">
+        <field name="name">AFP (Alpha-Fetoprotein)</field>
+        <field name="code">ONC005</field>
+        <field name="category">oncology</field>
+        <field name="price">1200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <!-- ================= IMAGING ================= -->
+
+    <record id="lab_test_xray_chest" model="clinic.lab.test">
+        <field name="name">X-Ray Chest (Chest Radiography)</field>
+        <field name="code">IMG001</field>
+        <field name="category">imaging</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ultrasound" model="clinic.lab.test">
+        <field name="name">Ultrasound (Ultrasonography)</field>
+        <field name="code">IMG002</field>
+        <field name="category">imaging</field>
+        <field name="price">1200</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ct_scan" model="clinic.lab.test">
+        <field name="name">CT Scan (Computed Tomography Scan)</field>
+        <field name="code">IMG003</field>
+        <field name="category">imaging</field>
+        <field name="price">4000</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_mri" model="clinic.lab.test">
+        <field name="name">MRI (Magnetic Resonance Imaging)</field>
+        <field name="code">IMG004</field>
+        <field name="category">imaging</field>
+        <field name="price">7000</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_ecg" model="clinic.lab.test">
+        <field name="name">ECG (Electrocardiogram)</field>
+        <field name="code">IMG005</field>
+        <field name="category">imaging</field>
+        <field name="price">500</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_2d_echo" model="clinic.lab.test">
+        <field name="name">2D Echo (2D Echocardiography)</field>
+        <field name="code">IMG006</field>
+        <field name="category">imaging</field>
+        <field name="price">2000</field>
+        <field name="is_template">True</field>
+    </record>
+
+    <record id="lab_test_mammography" model="clinic.lab.test">
+        <field name="name">Mammography (Breast Imaging X-Ray)</field>
+        <field name="code">IMG007</field>
+        <field name="category">imaging</field>
+        <field name="price">2500</field>
+        <field name="is_template">True</field>
+    </record>
+
+</odoo>

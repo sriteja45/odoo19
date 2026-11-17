@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- We inherit website_sale's OWN settings view (not the base one), and
+         insert into the SAME "website_payment_block" (labelled "eCommerce")
+         that website_sale itself uses for its shop settings. This keeps our
+         three new toggles physically grouped with the rest of the eCommerce
+         configuration instead of creating a separate settings page. -->
+    <record id="res_config_settings_view_form_reviews" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.reviews</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="website_payment_block" position="inside">
+                <setting id="review_moderation_setting"
+                         string="Review Moderation"
+                         help="Choose whether new customer reviews appear immediately or need approval first"
+                         documentation="/applications/websites/ecommerce.html">
+                    <field name="review_auto_approve"/>
+                    <div class="text-muted" invisible="review_auto_approve">
+                        New reviews will be hidden until a shop manager approves them
+                        under Website ‣ eCommerce ‣ Reviews to Moderate.
+                    </div>
+                </setting>
+                <setting id="review_auto_request_setting"
+                         string="Review Requests"
+                         help="Automatically email customers after delivery, asking them to review their purchase">
+                    <field name="review_auto_request_enabled"/>
+                    <div class="content-group" invisible="not review_auto_request_enabled">
+                        <div class="mt8">
+                            <label for="review_request_delay_days" string="Send after"/>
+                            <field name="review_request_delay_days" class="oe_inline"/>
+                            <span>days from order date, once the product has been delivered</span>
+                        </div>
+                    </div>
+                </setting>
+                <setting id="review_spam_setting"
+                         string="Review Anti-Spam"
+                         help="Rate-limit review submissions and flag duplicate text for moderation">
+                    <div class="content-group">
+                        <div class="mt8">
+                            <label for="review_spam_rate_limit_count" string="Block after"/>
+                            <field name="review_spam_rate_limit_count" class="oe_inline"/>
+                            <span>reviews from the same customer/IP within</span>
+                            <field name="review_spam_rate_limit_window_minutes" class="oe_inline"/>
+                            <span>minutes</span>
+                        </div>
+                        <div class="mt8">
+                            <field name="review_spam_duplicate_check_enabled"/>
+                            <label for="review_spam_duplicate_check_enabled"/>
+                        </div>
+                    </div>
+                </setting>
+            </block>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- LIST VIEW -->
+
+    <record id="view_combo_offer_list"
+            model="ir.ui.view">
+
+        <field name="name">combo.offer.list</field>
+
+        <field name="model">combo.offer</field>
+
+        <field name="arch" type="xml">
+
+            <list>
+
+                <field name="name"/>
+
+                <field name="offer_type"/>
+
+                <field name="minimum_qty"/>
+
+                <field name="discount"/>
+
+                <field name="combo_price"/>
+
+                <field name="final_price"/>
+
+                <field name="active"/>
+
+            </list>
+
+        </field>
+
+    </record>
+
+
+    <!-- FORM VIEW -->
+
+    <record id="view_combo_offer_form"
+            model="ir.ui.view">
+
+        <field name="name">combo.offer.form</field>
+
+        <field name="model">combo.offer</field>
+
+        <field name="arch" type="xml">
+
+            <form>
+
+                <sheet>
+
+                    <group>
+
+                        <field name="name"/>
+
+                        <field name="product_ids"
+                               widget="many2many_tags"/>
+
+                        <field name="offer_type"/>
+
+                        <field name="minimum_qty"/>
+
+                        <field name="discount"/>
+
+                        <field name="combo_price"
+                               invisible="offer_type != 'combo'"/>
+
+                        <field name="final_price"
+                               readonly="1"
+                               invisible="offer_type != 'combo'"/>
+
+                        <field name="active"/>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+
+    </record>
+
+
+    <!-- ACTION -->
+
+    <record id="action_combo_offer"
+            model="ir.actions.act_window">
+
+        <field name="name">Combo Offers</field>
+
+        <field name="res_model">combo.offer</field>
+
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+
+    <!-- ROOT MENU -->
+
+    <menuitem
+        id="menu_combo_offer_root"
+        name="Combo Offers"
+        sequence="10"/>
+
+
+    <!-- SUB MENU -->
+
+    <menuitem
+        id="menu_combo_offer"
+        parent="menu_combo_offer_root"
+        action="action_combo_offer"
+        sequence="1"/>
+
+</odoo>

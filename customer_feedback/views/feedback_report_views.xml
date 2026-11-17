@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_top_rated_list" model="ir.ui.view">
+        <field name="name">product.template.top.rated.list</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <list string="Top Rated Products" create="0" edit="0" delete="0"
+                  default_order="rating_avg desc, rating_count desc">
+                <field name="name"/>
+                <field name="rating_avg" widget="float" string="Average Rating"/>
+                <field name="rating_count" string="Review Count"/>
+                
+            </list>
+        </field>
+    </record>
+
+    <record id="view_product_template_lowest_rated_list" model="ir.ui.view">
+        <field name="name">product.template.lowest.rated.list</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <list string="Lowest Rated Products" create="0" edit="0" delete="0"
+                  default_order="rating_avg asc, rating_count desc">
+                <field name="name"/>
+                <field name="rating_avg" widget="float" string="Average Rating"/>
+                <field name="rating_count" string="Review Count"/>
+                
+            </list>
+        </field>
+    </record>
+
+    <record id="action_feedback_top_rated_products" model="ir.actions.act_window">
+        <field name="name">Top Rated Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_product_template_top_rated_list"/>
+        <field name="domain">[('rating_count', '&gt;', 0)]</field>
+        <field name="search_view_id" ref="product.product_template_search_view"/>
+    </record>
+
+    <record id="action_feedback_lowest_rated_products" model="ir.actions.act_window">
+        <field name="name">Lowest Rated Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_product_template_lowest_rated_list"/>
+        <field name="domain">[('rating_count', '&gt;', 0)]</field>
+        <field name="search_view_id" ref="product.product_template_search_view"/>
+    </record>
+
+    <!-- Monthly Review Report: pivot grouped by month (rows) / status (columns) -->
+    <record id="action_feedback_monthly_review_report" model="ir.actions.act_window">
+        <field name="name">Monthly Reviews</field>
+        <field name="res_model">feedback.review</field>
+        <field name="view_mode">pivot,graph,list</field>
+    </record>
+    <record id="action_feedback_monthly_review_report_pivot" model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_feedback_review_pivot_monthly"/>
+        <field name="act_window_id" ref="action_feedback_monthly_review_report"/>
+    </record>
+
+    <!-- Product Ratings entry point: pick products, then Print > Product Ratings Report for the PDF -->
+    <record id="action_feedback_product_ratings_report" model="ir.actions.act_window">
+        <field name="name">Product Ratings</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_product_template_top_rated_list"/>
+        <field name="domain">[('rating_count', '&gt;', 0)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No rated products yet.
+            </p>
+            <p>
+                Select one or more products and use Print &gt; Product Ratings Report
+                to generate a PDF summary.
+            </p>
+        </field>
+    </record>
+</odoo>

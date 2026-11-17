@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="automation_expo_2026_page" name="Automation Expo 2026 Mumbai - Mouser Electronics">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage automation-expo-page">
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right"><a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span></div>
+                    </div>
+                </section>
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home"><img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Mouser Electronics" style="height:60px; width:auto;"/></a>
+                        <div class="search-area"><div class="search-box"><button>All <i class="fa fa-angle-down"></i></button><input placeholder="Part No. / Keyword"/><a class="search-btn" href="#"><i class="fa fa-search"></i></a></div><label><input type="checkbox"/> In Stock</label><label><input type="checkbox"/> RoHS</label></div>
+                    </div>
+                </section>
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row"><nav><a href="/mouser-home">Products <i class="fa fa-angle-down"></i></a><a href="/manufacturer/">Manufacturers</a><a href="/services-tools">Services &amp; Tools</a><a href="/mouser-home#resources">Technical Resources</a><a href="#">Help</a></nav><div class="nav-actions"><a href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a><a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a></div></div>
+                </section>
+
+                <section class="automation-hero" aria-label="Automation Expo 2026">
+                    <div class="automation-hero-overlay">
+                        <div class="automation-logo-mark"><span class="auto-v">V</span><span>AUTOMATION<br/>EXPO2026</span><sup>®</sup></div>
+                    </div>
+                </section>
+
+                <section class="automation-info-band">
+                    <div class="automation-info-item"><i class="fa fa-calendar-o"></i><span>July 22-25</span></div>
+                    <div class="automation-info-item"><i class="fa fa-map-marker"></i><span>Bombay Exhibition Centre, Mumbai, India</span></div>
+                    <div class="automation-info-item"><i class="fa fa-comment-o"></i><span>Booth C-07 | Hall 3</span></div>
+                </section>
+
+                <main class="automation-content">
+                    <h1>Experience Innovation at Automation Expo 2026</h1>
+                    <p>Visit Mouser’s booth to explore advanced industrial automation, robotics, and smart technologies. See live, application-focused demos showcasing solutions for smarter factories, precision motion, and connected systems.</p>
+                    <p>Join our “Spin the Wheel” activity for a chance to win exciting goodies.</p>
+                    <h2>Why attend:</h2>
+                    <ul>
+                        <li>See Innovation in Action – Live demos of automation and robotics</li>
+                        <li>Explore Industry 4.0 – Solutions for smart factories and connectivity</li>
+                        <li>Connect with Experts – Get insights on your design challenges</li>
+                        <li>Access 1,000+ Manufacturers – Discover leading technologies</li>
+                        <li>Accelerate Development – Improve efficiency and speed to market</li>
+                    </ul>
+                    <p>Discover how Mouser can best support your next automation engineering needs at Automation Expo 2026.</p>
+                    <a class="automation-register" href="https://www.viablesoft.co/AutomationExpo2026VD/registrationpage.aspx?rid=MUM" target="_blank" rel="noopener">Register Now</a>
+                </main>
+
+                <t t-call="mouser_theme.mouser_common_footer"/>
+                <div class="live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t
+        t-name="qevrixa_blog.BlogAdminChat"
+        owl="1"
+    >
+
+        <div
+            id="qevrixa-blog-admin-chat"
+            class="qevrixa-blog-admin-chat"
+        >
+
+            <!-- =====================================================
+                 CHAT BUTTON
+                 ===================================================== -->
+
+            <button
+                type="button"
+                id="blog-chat-button"
+                class="qevrixa-blog-chat-button"
+                title="AI Blog Assistant"
+            >
+                💬
+            </button>
+
+
+            <!-- =====================================================
+                 CHAT WINDOW
+                 ===================================================== -->
+
+            <div
+                id="blog-chat-window"
+                class="qevrixa-blog-chat-window"
+                style="display: none;"
+            >
+
+                <!-- HEADER -->
+
+                <div
+                    class="qevrixa-blog-chat-header"
+                >
+
+                    <span>
+                        AI Blog Assistant
+                    </span>
+
+                    <button
+                        type="button"
+                        id="close-blog-chat"
+                        class="qevrixa-blog-chat-close"
+                        title="Close"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <!-- CHAT BODY -->
+
+                <div
+                    id="blog-chat-body"
+                    class="qevrixa-blog-chat-body"
+                >
+
+                    <div
+                        class="blog-chat-bot-message"
+                    >
+
+                        <div
+                            class="blog-chat-message-content"
+                        >
+                            👋 Hi! Ask me anything about blogs.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div
+                    class="qevrixa-blog-chat-footer"
+                >
+
+                    <input
+                        type="text"
+                        id="blog-question"
+                        class="blog-chat-input"
+                        placeholder="Ask anything about blogs..."
+                        autocomplete="off"
+                    />
+
+                    <button
+                        type="button"
+                        id="send-blog-question"
+                        class="blog-chat-send"
+                    >
+                        Send
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </t>
+
+</templates>

@@ -1,0 +1,9 @@
+<odoo>
+    <menuitem id="menu_clinic_chatbot_root"
+              name="Clinic Chatbot"/>
+
+    <menuitem id="menu_chat_sessions"
+              name="Chat Sessions"
+              parent="menu_clinic_chatbot_root"
+              action="action_chat_sessions"/>
+</odoo>

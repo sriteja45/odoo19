@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="xevoria_translation_cache_list_view" model="ir.ui.view">
+        <field name="name">xevoria.translation.cache.list</field>
+        <field name="model">xevoria.translation.cache</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="source_model"/>
+                <field name="source_field"/>
+                <field name="lang"/>
+                <field name="source_text"/>
+                <field name="translated_text"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="xevoria_translation_cache_form_view" model="ir.ui.view">
+        <field name="name">xevoria.translation.cache.form</field>
+        <field name="model">xevoria.translation.cache</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="source_model"/>
+                        <field name="source_id"/>
+                        <field name="source_field"/>
+                        <field name="lang"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="source_text"/>
+                        <field name="translated_text"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="xevoria_translation_cache_action" model="ir.actions.act_window">
+        <field name="name">Generic Translation Cache</field>
+        <field name="res_model">xevoria.translation.cache</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

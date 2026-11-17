@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_xevoria_multimodal_embedding_tree" model="ir.ui.view">
+        <field name="name">xevoria.multimodal.embedding.tree</field>
+        <field name="model">xevoria.multimodal.embedding</field>
+        <field name="arch" type="xml">
+            <list string="Multimodal Vector Embeddings (EmbeddingGemma 2)" create="false">
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="media_type" widget="badge" 
+                       decoration-info="media_type == 'image'"
+                       decoration-success="media_type == 'text'"
+                       decoration-warning="media_type == 'video'"/>
+                <field name="video_url" optional="show"/>
+                <field name="dimension"/>
+                <field name="create_date" string="Indexed Date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_xevoria_multimodal_embedding_form" model="ir.ui.view">
+        <field name="name">xevoria.multimodal.embedding.form</field>
+        <field name="model">xevoria.multimodal.embedding</field>
+        <field name="arch" type="xml">
+            <form string="EmbeddingGemma 2 Vector Embedding">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Media Title"/></h1>
+                    </div>
+                    <group>
+                        <group string="Media &amp; Target">
+                            <field name="product_tmpl_id"/>
+                            <field name="media_type"/>
+                            <field name="video_url" widget="url" invisible="media_type != 'video'"/>
+                            <field name="attachment_id"/>
+                        </group>
+                        <group string="Vector Specifications">
+                            <field name="dimension"/>
+                            <field name="create_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Task Document / Text Prefix">
+                            <field name="description" placeholder="title: ... | text: ..."/>
+                        </page>
+                        <page string="EmbeddingGemma 2 Vector (JSON)">
+                            <field name="embedding_json" widget="text" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_xevoria_multimodal_embedding_search" model="ir.ui.view">
+        <field name="name">xevoria.multimodal.embedding.search</field>
+        <field name="model">xevoria.multimodal.embedding</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <filter name="filter_images" string="Images" domain="[('media_type', '=', 'image')]"/>
+                <filter name="filter_text" string="Text / Specs" domain="[('media_type', '=', 'text')]"/>
+                <filter name="filter_video" string="Videos" domain="[('media_type', '=', 'video')]"/>
+                <group name="group_by">
+                    <filter name="group_by_media_type" string="Media Type" context="{'group_by': 'media_type'}"/>
+                    <filter name="group_by_product" string="Product" context="{'group_by': 'product_tmpl_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_xevoria_multimodal_embedding" model="ir.actions.act_window">
+        <field name="name">Multimodal Vector Index</field>
+        <field name="res_model">xevoria.multimodal.embedding</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_xevoria_multimodal_embedding_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Multimodal Vector Embeddings Found
+            </p>
+            <p>
+                Open any product form and click <b>EmbeddingGemma Index</b> to automatically embed text specifications, images, and videos into the 768-d vector space.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item under Website Configuration -->
+    <menuitem id="menu_xevoria_multimodal_embedding"
+              name="Multimodal Vectors"
+              parent="website.menu_website_global_configuration"
+              action="action_xevoria_multimodal_embedding"
+              sequence="90"/>
+</odoo>

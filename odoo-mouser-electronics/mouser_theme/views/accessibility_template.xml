@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="accessibility_statement_page" name="Mouser Accessibility Statement">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage mouser-accessibility-page">
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right">
+                            <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home"><img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Mouser Electronics" style="height:60px; width:auto;"/></a>
+                        <div class="search-area">
+                            <div class="search-box"><button>All <i class="fa fa-angle-down"></i></button><input placeholder="Part No. / Keyword"/><a class="search-btn" href="#"><i class="fa fa-search"></i></a></div>
+                            <label><input type="checkbox"/> In Stock</label><label><input type="checkbox"/> RoHS</label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row">
+                        <nav><a href="/mouser-home">Products</a><a href="/manufacturer/">Manufacturers</a><a href="/services-tools">Services &amp; Tools</a><a href="/mouser-home#resources">Technical Resources</a><a href="#">Help</a></nav>
+                        <div class="nav-actions"><a href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a><a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a></div>
+                    </div>
+                </section>
+
+                <section class="accessibility-hero"><h1>Accessibility Statement</h1></section>
+
+                <main class="accessibility-main">
+                    <section class="accessibility-content mouser-shell">
+                        <p>At Mouser Electronics, Inc., we believe that access to technology is a fundamental enabler of innovation. As a global distributor serving engineers, educators, and makers around the world, we are committed to ensuring that our digital platforms empower all users—regardless of ability—to explore, design, and build the technologies of tomorrow.</p>
+                        <p>We are actively enhancing the accessibility and usability of our websites and mobile applications in substantial compliance with the Web Content Accessibility Guidelines (WCAG) 2.2, Level AA and other applicable legislation.</p>
+                        <p>We view accessibility as a responsibility—one we fulfill by integrating inclusive design into our digital landscape. This involves applying accessible design principles to enhance navigation and readability, enabling compatibility with screen readers, keyboard navigation, and various assistive technologies, and consistently assessing and updating our website through both manual and automated accessibility evaluation tools, along with user feedback. Additionally, our website developers have been trained in web accessibility and universal design techniques.</p>
+                        <p>Our efforts are ongoing. If you encounter any barriers while using our website, we welcome your feedback and encourage you to contact us using the <a href="/feedback">Accessibility Feedback form <i class="fa fa-external-link"></i></a>. We will work with you provide assistance accessing the information, item, or transaction you seek through an alternate means that is accessible for you and consistent with applicable law (for example, by means of telephone support).</p>
+                        <p>While we have no control over third parties, we strongly encourage them to provide accessible, user-friendly digital content.</p>
+
+                        <h2>Our accessibility commitment</h2>
+                        <p>Since 2019, Mouser has implemented a comprehensive accessibility program that includes the following:</p>
+                        <ul>
+                            <li><strong>Dedicated Accessibility team:</strong> Our efforts are guided by accessibility leaders certified by the International Association of Accessibility Professionals (IAAP).</li>
+                            <li><strong>Staff Training:</strong> We provide role-specific training across departments to embed inclusive design principles into everyday workflows.</li>
+                            <li><strong>Third-Party Audits:</strong> Independent experts conduct regular third-party audits to evaluate and improve the accessibility of our digital platforms.</li>
+                            <li><strong>User Testing:</strong> We involve people with disabilities in usability testing to ensure our solutions are accessible and effective in real-world scenarios.</li>
+                            <li><strong>Development Integration:</strong> We integrate accessibility tools and checks directly into our software development lifecycle to proactively identify and address potential barriers.</li>
+                        </ul>
+                        <p>While the standards may change or evolve over time, we currently strive to meet the <strong>Web Content Accessibility Guidelines (WCAG) 2.2, Level AA</strong> standards.</p>
+                        <p>This accessibility statement applies to the Mouser websites and mobile app.</p>
+                    </section>
+
+                    <section class="accessibility-band">
+                        <div class="mouser-shell accessibility-content">
+                            <h2>Feedback and contact information</h2>
+                            <p>We welcome your feedback on the accessibility of Mouser Electronics. Please let us know if you encounter accessibility barriers:</p>
+                            <p><a href="/feedback">Accessibility Feedback Form <i class="fa fa-external-link"></i></a></p>
+                            <p><strong>Postal Address:</strong><br/>1000 North Main Street<br/>Mansfield, TX 76063<br/>USA</p>
+                        </div>
+                    </section>
+
+                    <section class="accessibility-content mouser-shell">
+                        <h2>Conformance Status</h2>
+                        <p>Mouser Electronics is partially conformant with WCAG 2.2, Level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard.</p>
+                        <hr/>
+                        <h2>Preparation of this accessibility statement</h2>
+                        <p>This statement was prepared on <strong>28 June 2025</strong> and will be updated regularly.</p>
+                        <h2>Verification methods</h2>
+                        <ul>
+                            <li>Third-party audit November 2024</li>
+                            <li>User testing with people with disabilities January 2025</li>
+                            <li>Updated testing with Deque axe tools since February 2025</li>
+                            <li>Manual testing with keyboard and screen readers</li>
+                        </ul>
+                        <h2>Tested combinations</h2>
+                        <ul>
+                            <li>Chrome + NVDA 2024.3 on Windows 11</li>
+                            <li>Firefox + NVDA 2024.3 on Windows 11</li>
+                            <li>Voiceover + Safari on OSX 15.4</li>
+                        </ul>
+                        <h2>Tools used</h2>
+                        <ul>
+                            <li>Deque Axe</li>
+                            <li>WebAIM WAVE</li>
+                            <li>Color Contrast Analyser</li>
+                            <li>Web Developer Toolbar</li>
+                            <li>Usablenet AQA</li>
+                        </ul>
+                    </section>
+
+                    <section class="accessibility-band pages-tested-band">
+                        <div class="mouser-shell accessibility-content">
+                            <h2>Pages tested</h2>
+                            <p>A representative sample of 19 pages was tested, including the homepage, product pages, search, cart, checkout, login, registration and help center pages.</p>
+                            <ol>
+                                <li>Homepage</li><li>Manufacturers</li><li>Supplier landing page.</li><li>Product microsite</li><li>Technical Resources</li><li>Newest Products</li><li>Search by category</li><li>Search by keyword</li><li>Product detail page</li><li>Quote request</li><li>Basket</li><li>Checkout pages</li><li>Login</li><li>Registration</li><li>My Account</li><li>Help Centre</li><li>Locations</li><li>Accessibility</li><li>Privacy Centre</li>
+                            </ol>
+                        </div>
+                    </section>
+                </main>
+
+                <section class="newsletter"><h3>Get the Latest News</h3><div><input placeholder="Enter your Email"/><button>Subscribe</button></div></section>
+                <footer class="mouser-footer original-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div><h4>CUSTOMER SERVICE OFFICE</h4><p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p><p><i class="fa fa-envelope"></i> bangalore@mouser.com</p><p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p><div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div></div>
+                        <div><h4>COMPANY</h4><a>About Us</a><a>Newsroom</a><a>Careers @ Mouser</a><a>Quality</a><a>Environmental</a><a>Corporate Social<br/>Responsibility</a></div>
+                        <div><h4>RESOURCES</h4><a>Blog</a><a>Newest Products</a><a>New Manufacturers</a><a>Applications</a><a>Services &amp; Tools</a></div>
+                        <div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a>Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a>Browser Support</a><a>Cookie Policy</a></div>
+                        <div><h4>CONNECT WITH US</h4><div class="socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i><span class="blog-icon">blog</span></div></div>
+                    </div>
+                    <div class="mouser-shell footer-bottom-original">
+                        <div class="footer-links"><a href="/privacypolicy/">Privacy Centre</a><span>|</span><a>Terms and Conditions</a><span>|</span><a>Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a>Sitemap</a></div>
+                        <div class="footer-bottom-row"><div class="copyright-text"><p><b>Copyright ©2026 Mouser Electronics, Inc.</b></p><p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p></div><div class="cert-strip"><a href="/ecia/" class="footer-cert-link ecia-member-link" title="ECIA Authorised"><img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/></a><img src="/mouser_theme/static/img/logo-nfsb_small.webp" alt="Customer Service"/><img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/><img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO 14001"/><img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B"/><img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/><img src="/mouser_theme/static/img/trust-guard-secure.png" alt="Trust Guard Secure"/></div></div>
+                    </div>
+                </footer>
+                <a class="live-chat" href="#"><i class="fa fa-comment"></i> Live Chat</a>
+            </div>
+        </t>
+    </template>
+</odoo>

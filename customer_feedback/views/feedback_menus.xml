@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_feedback_root" name="Feedback" sequence="60" web_icon="customer_feedback,static/description/icon.png"/>
+
+    <menuitem id="menu_feedback_dashboard" name="Dashboard" parent="menu_feedback_root"
+              action="action_feedback_dashboard" sequence="5"/>
+
+    <menuitem id="menu_feedback_reviews" name="Reviews" parent="menu_feedback_root"
+              action="action_feedback_review" sequence="10"/>
+
+    <menuitem id="menu_feedback_moderation" name="Moderation Dashboard" parent="menu_feedback_root"
+              action="action_feedback_review_moderation" sequence="20"/>
+
+    <menuitem id="menu_feedback_requests" name="Feedback Requests" parent="menu_feedback_root"
+              action="action_feedback_request" sequence="30"/>
+
+    <menuitem id="menu_feedback_reports" name="Reports" parent="menu_feedback_root" sequence="40"/>
+
+    <menuitem id="menu_feedback_report_product_ratings" name="Product Ratings" parent="menu_feedback_reports"
+              action="action_feedback_product_ratings_report" sequence="10"/>
+
+    <menuitem id="menu_feedback_report_monthly" name="Monthly Reviews" parent="menu_feedback_reports"
+              action="action_feedback_monthly_review_report" sequence="20"/>
+
+    <menuitem id="menu_feedback_report_top_rated" name="Top Rated Products" parent="menu_feedback_reports"
+              action="action_feedback_top_rated_products" sequence="30"/>
+
+    <menuitem id="menu_feedback_report_lowest_rated" name="Lowest Rated Products" parent="menu_feedback_reports"
+              action="action_feedback_lowest_rated_products" sequence="40"/>
+
+    <menuitem id="menu_feedback_report_export" name="Export Reports (PDF/Excel)" parent="menu_feedback_reports"
+              action="action_feedback_report_wizard" sequence="50"/>
+</odoo>

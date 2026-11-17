@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_feedback" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.feedback</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Customer Feedback" name="customer_feedback">
+                    <block title="Feedback Requests">
+                        <setting string="Waiting Period (days)"
+                                 help="Days to wait after delivery before sending the review invitation">
+                            <field name="feedback_waiting_days"/>
+                        </setting>
+                        <setting string="Link Expiry (days)"
+                                 help="Days before the review link expires">
+                            <field name="feedback_expiry_days"/>
+                        </setting>
+                        <setting string="Reminder Delay (days)"
+                                 help="Days to wait after the invitation before sending a reminder, if no review was submitted">
+                            <field name="feedback_reminder_days"/>
+                        </setting>
+                    </block>
+                    <block title="Email Delivery">
+                        <setting string="Max Email Retries"
+                                 help="Number of times a failed invitation/reminder email will be retried before the administrator is notified">
+                            <field name="feedback_max_email_retries"/>
+                        </setting>
+                        <setting string="Admin Notification Email"
+                                 help="Where to send an alert when an email fails after all retries. Defaults to the company email if left empty">
+                            <field name="feedback_admin_notification_email"/>
+                        </setting>
+                    </block>
+                    <block title="Reviews">
+                        <setting string="Review Moderation"
+                                 help="Reviews require admin approval before publishing">
+                            <field name="feedback_moderation_enabled"/>
+                        </setting>
+                        <setting string="Product Rating Ownership"
+                                 help="Shared (default): existing native Odoo product ratings and approved verified reviews both contribute to star averages. Exclusive: only this module's approved verified reviews count; unowned native ratings are excluded from aggregates. Exclusive changes existing Odoo rating behaviour and must only be enabled with explicit business approval.">
+                            <field name="feedback_rating_ownership" widget="radio"/>
+                        </setting>
+                        <setting string="Customer Name Display"
+                                 help="How customer names appear next to reviews on the public website. Administrators always see the real name in the backend">
+                            <field name="feedback_customer_name_display" widget="radio"/>
+                        </setting>
+                        <setting string="Allow Customers to Edit Reviews"
+                                 help="Let customers update their rating and text from the review link or portal after submitting">
+                            <field name="feedback_allow_review_edit"/>
+                        </setting>
+                        <setting string="Minimum Review Length">
+                            <field name="feedback_review_min_length"/>
+                        </setting>
+                        <setting string="Maximum Review Length">
+                            <field name="feedback_review_max_length"/>
+                        </setting>
+                    </block>
+                    <block title="Review Photos &amp; Videos">
+                        <setting string="Allow Review Photos &amp; Videos"
+                                 help="Customers can attach images and short videos when submitting a review. Files are stored as ir.attachment (local filestore by default; S3 or other object storage works when configured on the Odoo instance).">
+                            <field name="feedback_media_enabled"/>
+                        </setting>
+                        <setting string="Max Images per Review"
+                                 help="Maximum number of image files allowed on a single review">
+                            <field name="feedback_media_max_images"/>
+                        </setting>
+                        <setting string="Max Videos per Review"
+                                 help="Maximum number of video files allowed on a single review">
+                            <field name="feedback_media_max_videos"/>
+                        </setting>
+                        <setting string="Max File Size (MB)"
+                                 help="Maximum size of each uploaded file in megabytes">
+                            <field name="feedback_media_max_size_mb"/>
+                        </setting>
+                        <setting string="Separate Media Moderation"
+                                 help="When enabled, each photo/video has its own pending/approved/rejected status. When disabled, media is published or hidden together with the parent review.">
+                            <field name="feedback_media_moderation_separate"/>
+                        </setting>
+                    </block>
+                    <block title="Website Display">
+                        <setting string="Show Reviews on Product Pages"
+                                 help="Global switch (default ON): auto-inject the Customer Reviews block on every product page. Turn OFF to stop auto-injection; you can still drop the Customer Reviews snippet on selected pages via the Website Builder. On any page you can also use the snippet option &quot;Hide entire block on frontend&quot; for a per-page hide without removing the block.">
+                            <field name="feedback_show_on_product_page"/>
+                        </setting>
+                    </block>
+
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

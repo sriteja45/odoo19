@@ -1,0 +1,157 @@
+<odoo>
+
+    <record id="view_clinic_patient_kanban" model="ir.ui.view">
+        <field name="name">clinic.patient.kanban</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+
+            <kanban class="o_kanban_view">
+
+                <!-- ✅ LOAD ALL FIELDS -->
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="phone"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="appointment_count"/>
+                <field name="image_1920"/>
+                <field name="image_url"/>
+
+                <templates>
+
+                    <!-- ✅ REQUIRED ROOT TEMPLATE -->
+                    <t t-name="card">
+
+                        <!-- CARD -->
+                        <div class="oe_kanban_global_click o_kanban_record"
+                            style="
+                                background:#ffffff;
+                                border:1px solid #cfe2ff;
+                                border-radius:14px;
+                                padding:16px;
+                                text-align:center;
+                            ">
+
+                            <!-- IMAGE -->
+                            <div>
+
+                                <!-- ✅ USER IMAGE (SAFE CHECK) -->
+                                <img t-if="record.image_1920 and record.image_1920.raw_value"
+                                    t-att-src="'/web/image/clinic.patient/' + record.id.raw_value + '/image_1920'"
+                                    t-att-alt="record.name.value or 'Patient'"
+                                    style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid #dee2e6;"/>
+
+                                <!-- ✅ DEFAULT IMAGE (SAFE CHECK) -->
+                                <img t-if="(!record.image_1920 or !record.image_1920.raw_value) and (record.image_url and record.image_url.raw_value)"
+                                    t-att-src="record.image_url.raw_value"
+                                    t-att-alt="record.name.value or 'Patient'"
+                                    style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid #dee2e6;"/>
+
+                            </div>
+
+                            <!-- NAME -->
+                            <div style="margin-top:10px;">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                            </div>
+
+                            <!-- GENDER -->
+                            <div style="margin-top:5px;">
+                                <span t-if="record.gender and record.gender.raw_value == 'male'"
+                                    style="background:#e3f2fd;color:#0d6efd;padding:3px 10px;border-radius:10px;">
+                                    Male
+                                </span>
+
+                                <span t-if="record.gender and record.gender.raw_value == 'female'"
+                                    style="background:#fde2e2;color:#dc3545;padding:3px 10px;border-radius:10px;">
+                                    Female
+                                </span>
+                            </div>
+
+                            <!-- DETAILS -->
+                            <div style="margin-top:10px;font-size:13px;text-align:left;">
+                                <div><b>ID:</b> <field name="patient_id"/></div>
+                                <div><b>Age:</b> <field name="age"/></div>
+                                <div><b>Phone:</b> <field name="phone"/></div>
+                                <div><b>Appointments:</b> <field name="appointment_count"/></div>
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </templates>
+
+            </kanban>
+
+        </field>
+    </record>
+    <record id="view_clinic_patient_list" model="ir.ui.view">
+        <field name="name">clinic.patient.list</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <list string="Patients">
+                <field name="patient_id"/>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="gender"/>
+                <field name="birth_date"/>
+                <field name="age"/>
+                <field name="appointment_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_clinic_patient_form" model="ir.ui.view">
+        <field name="name">clinic.patient.form</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="image_1920" widget="image" class="oe_avatar"/>
+                            <field name="patient_id" readonly="1"/>
+                            <field name="name"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="gender"/>
+                            <field name="birth_date"/>
+                            <field name="age" readonly="1"/>
+                            <field name="appointment_count" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Appointments">
+                        <field name="appointment_ids" readonly="1">
+                            <list>
+                                <field name="appointment_id"/>
+                                <field name="appointment_date"/>
+                                <field name="doctor_id"/>
+                                <field name="appointment_time"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_clinic_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">clinic.patient</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <menuitem id="menu_clinic_patients"
+              name="Patients"
+              parent="clinic_root_menu"
+              action="action_clinic_patient"
+              groups="base.group_system,clinic_appointment.group_clinic_receptionist,clinic_appointment.group_clinic_doctor,clinic_appointment.group_clinic_nurse"
+              sequence="6"/>
+</odoo>

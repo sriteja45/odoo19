@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: odoo-mouser-electronics-qa
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/dealwallet1/odoo_mouser_electronics.git
+    targetRevision: mouser-qa
+    path: helm/odoo-chart
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: odoo-qa
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true

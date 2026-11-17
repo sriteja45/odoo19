@@ -1,0 +1,46 @@
+name: Build Restore Image
+
+on:
+  push:
+    branches:
+      - main
+      - mouser-qa
+
+concurrency:
+  group: restore-image
+  cancel-in-progress: false
+
+jobs:
+  build-restore:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: balaai105
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Restore Files
+        run: |
+          ls -la restore/
+          cat restore/Dockerfile
+
+      - name: Build and Push Restore Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./restore
+          file: ./restore/Dockerfile
+          push: true
+          no-cache: true
+          tags: |
+            ghcr.io/dealwallet1/odoo-restore-mouser:latest
+            ghcr.io/dealwallet1/odoo-restore-mouser:${{ github.sha }}

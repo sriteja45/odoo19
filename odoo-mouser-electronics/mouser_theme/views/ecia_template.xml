@@ -1,0 +1,53 @@
+<odoo>
+    <template id="ecia_authorised_page" name="ECIA Authorised Distributors">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage ecia-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <section class="ecia-hero">
+                    <h1>Authorised Distributors</h1>
+                </section>
+
+                <main class="ecia-content">
+                    <section class="ecia-text-block">
+                        <p>Counterfeit parts have no part in our industry. These parts cause problems from production shutdown to product failure. The best way to receive genuine parts is to purchase them directly through authorised sources.</p>
+                        <p>When you purchase through Mouser Electronics you can be assured that:</p>
+                        <ul>
+                            <li>The products have been obtained directly from the manufacturers or from their authorised channels</li>
+                            <li>The product has been handled and stored in accordance with industry quality standards.</li>
+                            <li>Full access to our manufacturers' full range of up-to-date technical and product information, as well as comprehensive technical support</li>
+                        </ul>
+                        <p>We encourage all our customers to establish internal controls to make sure that parts are purchased through authorised distributors.</p>
+                        <p>As a member of ECIA (Electronic Components Industry Association), Mouser Electronics is dedicated to providing factory-warranted, first-quality, genuine components – adhering to the highest standards in customer service.</p>
+                        <p>The mission of ECIA is to promote and improve the business environment for the authorised sale of electronic components. Dedicated to the enhancement of the distributor-manufacturer relationship, this association represents companies involved in the distribution of electronic components and parts, computer and computer peripheral components, and test, measurement, and control equipment and their manufacturers.</p>
+                    </section>
+                </main>
+
+                <section class="ecia-card-area">
+                    <div class="ecia-card-grid">
+                        <a class="ecia-info-card" href="/pdfDocs/Authorization_Letter.pdf"><img src="/mouser_theme/static/img/pdf-icon-large.png" alt="PDF"/><span>Mouser's Authorised<br/>Distributor Certificate<br/>(PDF)</span></a>
+                        <a class="ecia-info-card" href="https://www.ecianow.org/" target="_blank"><img class="ecia-member-card-logo" src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/><span>Electronic Components<br/>Industry Association</span></a>
+                        <a class="ecia-info-card" href="#"><img src="/mouser_theme/static/img/caap-logo.png" alt="CAAP"/><span>Counterfeit Avoidance<br/>Accreditation Program<br/>Distributor</span></a>
+                        <a class="ecia-info-card" href="#"><img src="/mouser_theme/static/img/iesa-logo-large.png" alt="IESA"/><span>India Electronics &amp;<br/>Semiconductor<br/>Association</span></a>
+                        <a class="ecia-info-card" href="#"><img src="/mouser_theme/static/img/elcina-logo.png" alt="ELCINA"/><span>Electronic Industries<br/>Association of India</span></a>
+                        <a class="ecia-info-card" href="/pdfDocs/Authorization_Letter.pdf"><img src="/mouser_theme/static/img/pdf-icon-large.png" alt="PDF"/><span>Mouser's Letter to<br/>Senate Regarding<br/>Counterfeit Parts (PDF)</span></a>
+                        <a class="ecia-info-card" href="/ecia-video/"><img src="/mouser_theme/static/img/video-icon-large.png" alt="Video"/><span>Watch a video of the US<br/>Senate hearing on the<br/>investigation into<br/>counterfeit electronic<br/>parts in the Department<br/>of Defense.</span></a>
+                    </div>
+                </section>
+
+                <section class="trustedparts-band">
+                    <div class="trustedparts-inner">
+                        <div>
+                            <p>If you can't find it on Mouser.com, the only other place you should<br/>look is <strong>TrustedParts.com</strong></p>
+                            <a href="https://www.trustedparts.com/" class="trustedparts-btn">Visit TrustedParts</a>
+                        </div>
+                        <a href="/ecia/" class="trustedparts-ecia-link" title="ECIA Member"><img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/></a>
+                    </div>
+                </section>
+
+                <t t-call="mouser_theme.mouser_common_footer"/>
+                <div class="live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+</odoo>

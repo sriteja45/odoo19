@@ -1,0 +1,44 @@
+name: Build Backup Image
+
+on:
+  push:
+    branches:
+      - main
+      - mouser-qa
+
+concurrency:
+  group: backup-image-build
+  cancel-in-progress: false
+
+jobs:
+  build-backup:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: balaai105
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show Dockerfile
+        run: cat backup/Dockerfile
+
+      - name: Build and Push Backup Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backup
+          file: ./backup/Dockerfile
+          push: true
+          no-cache: true
+          tags: |
+            ghcr.io/dealwallet1/odoo-backup-mouser:latest
+            ghcr.io/dealwallet1/odoo-backup-mouser:${{ github.sha }}

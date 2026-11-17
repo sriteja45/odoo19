@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="shop_add_default_sidebar_filters"
+              inherit_id="website_sale.products"
+              name="Add Categories Brands To Default Sidebar">
+
+        <xpath expr="//div[contains(@class,'o_wsale_products_main_row')]"
+               position="before">
+
+            <div id="xevoria_custom_filters" style="display:none;">
+
+                <!-- Categories -->
+                <div class="xevoria_filter_section">
+                    <h6 class="xevoria_filter_title">
+                        <span>Categories</span>
+                        <span class="xevoria-arrow">
+                            <i class="fa fa-chevron-down"></i>
+                        </span>
+                    </h6>
+
+                    <ul class="list-unstyled">
+                        <li class="xevoria_filter_item">
+                            <label class="xevoria_filter_link">
+                                <input type="checkbox"
+                                       class="form-check-input xevoria_filter_checkbox"
+                                       data-url="/shop"/>
+                                <span>All Categories</span>
+                            </label>
+                        </li>
+
+                        <t t-foreach="request.env['product.public.category'].sudo().search([])"
+                           t-as="cat">
+                            <li class="xevoria_filter_item">
+                                <label class="xevoria_filter_link">
+                                    <input type="checkbox"
+                                           class="form-check-input xevoria_filter_checkbox"
+                                           t-att-data-url="'/shop/category/%s' % cat.id"/>
+                                    <span t-esc="cat.name"/>
+                                </label>
+                            </li>
+                        </t>
+                    </ul>
+                </div>
+
+                <!-- Brands -->
+                <div class="xevoria_filter_section">
+                    <h6 class="xevoria_filter_title">
+                        <span>Brands</span>
+                        <span class="xevoria-arrow">
+                            <i class="fa fa-chevron-down"></i>
+                        </span>
+                    </h6>
+
+                    <ul class="list-unstyled xevoria_vendor_scroll">
+                        <t t-foreach="request.env['res.partner'].sudo().search([('supplier_rank', '>', 0)])"
+                           t-as="brand">
+
+                            <li class="xevoria_filter_item">
+                                <label class="xevoria_filter_link">
+                                    <input type="checkbox"
+                                           class="form-check-input xevoria_filter_checkbox"
+                                           t-att-data-url="'/shop?search=%s' % brand.name"/>
+
+                                    <span>
+                                        <t t-esc="brand.name"/>
+                                        (
+                                        <t t-esc="request.env['product.template'].sudo().search_count([
+                                            ('seller_ids.partner_id', '=', brand.id),
+                                            ('website_published', '=', True)
+                                        ])"/>
+                                        )
+                                    </span>
+                                </label>
+                            </li>
+
+                        </t>
+                    </ul>
+                </div>
+
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const customFilters = document.getElementById("xevoria_custom_filters");
+                    if (!customFilters) return;
+
+                    const sidebar = Array.from(document.querySelectorAll("div")).find(function (el) {
+                        const text = el.innerText || "";
+                        return text.includes("Tags") &amp;&amp;
+                               !text.includes("All products");
+                    });
+
+                    if (sidebar &amp;&amp; !sidebar.contains(customFilters)) {
+                        customFilters.style.display = "block";
+                        sidebar.appendChild(customFilters);
+                    }
+
+                    document.querySelectorAll(".xevoria_filter_checkbox").forEach(function (checkbox) {
+                        const url = checkbox.getAttribute("data-url");
+                        if (!url) return;
+
+                        const currentPath = window.location.pathname + window.location.search;
+
+                        if (currentPath === url || window.location.href.includes(url)) {
+                            checkbox.checked = true;
+                        }
+
+                        checkbox.addEventListener("click", function (ev) {
+                            ev.stopPropagation();
+                            window.location.href = url;
+                        });
+                    });
+
+                    document.querySelectorAll(".xevoria_filter_link").forEach(function (label) {
+                        label.addEventListener("click", function () {
+                            const checkbox = label.querySelector(".xevoria_filter_checkbox");
+                            if (!checkbox) return;
+
+                            const url = checkbox.getAttribute("data-url");
+                            if (url) {
+                                window.location.href = url;
+                            }
+                        });
+                    });
+
+                    document.querySelectorAll(".xevoria_filter_title").forEach(function (title) {
+                        title.style.cursor = "pointer";
+
+                        title.addEventListener("click", function () {
+                            const section = title.closest(".xevoria_filter_section");
+                            if (!section) return;
+
+                            const list = section.querySelector("ul");
+                            const arrow = title.querySelector(".xevoria-arrow");
+
+                            if (!list) return;
+
+                            if (list.style.display === "none") {
+                                list.style.display = "block";
+                                if (arrow) {
+                                    arrow.classList.remove("rotate");
+                                }
+                            } else {
+                                list.style.display = "none";
+                                if (arrow) {
+                                    arrow.classList.add("rotate");
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
+
+        </xpath>
+
+    </template>
+
+    <template id="shop_add_sidebar_shop_header"
+              inherit_id="website_sale.products"
+              name="Add Sidebar Shop Header">
+
+        <xpath expr="//aside[@id='products_grid_before']/*[1]" position="before">
+            <div class="xevoria_sidebar_shop_header mb-4">
+                <h2 class="xevoria_sidebar_shop_title mb-3">All products</h2>
+                <div class="xevoria_sidebar_shop_controls d-flex flex-column gap-3">
+                    <t t-call="website_sale.pricelist_list"/>
+                    <t t-call="website_sale.sort"/>
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+
+</odoo>

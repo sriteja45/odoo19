@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_feedback_form" model="ir.ui.view">
+        <field name="name">sale.order.feedback.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_feedback_requests"
+                        icon="fa-star" invisible="feedback_request_count == 0">
+                    <field name="feedback_request_count" widget="statinfo" string="Feedback"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

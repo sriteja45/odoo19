@@ -1,0 +1,75 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "odoo-mouser-electronics.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: {{ include "odoo-mouser-electronics.fullname" . }}
+
+  strategy:
+    canary:
+      steps:
+        - setWeight: 100
+
+  template:
+    metadata:
+      labels:
+        app: {{ include "odoo-mouser-electronics.fullname" . }}
+
+    spec:
+      imagePullSecrets:
+{{- toYaml .Values.imagePullSecrets | nindent 8 }}
+
+      containers:
+        - name: odoo-mouser-electronics
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - containerPort: 8069
+              protocol: TCP
+
+          envFrom:
+            - secretRef:
+                name: {{ include "odoo-mouser-electronics.fullname" . }}-secret
+
+          volumeMounts:
+            - name: odoo-mouser-electronics-data
+              mountPath: /var/lib/odoo
+
+          startupProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 60
+            failureThreshold: 30
+            periodSeconds: 10
+            timeoutSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 120
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 6
+
+          livenessProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 180
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 5
+
+      volumes:
+        - name: odoo-mouser-electronics-data
+          persistentVolumeClaim:
+            claimName: {{ include "odoo-mouser-electronics.fullname" . }}-pvc

@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mouser_newest_products" name="Newest Products at Mouser">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage mouser-newest-page">
+
+                <!-- Top line -->
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right">
+                            <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Header -->
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home">
+                            <img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Logo" style="height:60px; width:auto;"/>
+                        </a>
+                        <div class="search-area">
+                            <div class="mh-search-wrap">
+                                <div class="search-box">
+                                    <button id="mh-search-filter-btn" type="button" aria-haspopup="true" aria-expanded="false">All <i class="fa fa-angle-down"></i></button>
+                                    <input id="mh-search-input" placeholder="Part No. / Keyword"/>
+                                    <a class="search-btn" href="#"><i class="fa fa-search"></i></a>
+                                </div>
+                            </div>
+                            <label><input type="checkbox"/> In Stock</label>
+                            <label><input type="checkbox"/> RoHS</label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Blue nav -->
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row">
+                        <nav>
+                            <a href="/mouser-home">Products</a>
+                            <a href="/manufacturer/">Manufacturers</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                            <a href="#resources">Technical Resources</a>
+                            <a href="#">Help</a>
+                        </nav>
+                        <div class="nav-actions">
+                            <div class="mh-account-wrap">
+                                <a class="mh-account-btn" href="#" id="mouserAccountBtn">
+                                    Account &amp; Orders <i class="fa fa-angle-down"></i>
+                                </a>
+                                <div class="mh-account-dropdown" id="mouserAccountDropdown">
+                                    <a class="mh-login-btn" href="/services-tools/login">Log In</a>
+                                    <p class="mh-new-cust">New customer? <a href="/MyAccount/Create">Start here</a></p>
+                                    <a class="mh-order-hist" href="/account/orders">Order History</a>
+                                </div>
+                            </div>
+                            <div class="mh-cart-wrap">
+                                <a class="cart mh-cart-btn" href="#" id="mouserCartBtn">
+                                    <i class="fa fa-shopping-cart"></i><span class="mh-cart-count">0</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main layout: sidebar + content -->
+                <div class="mouser-shell main-area">
+                    <!-- Left sidebar: New by Category, New by Manufacturer, New by Week -->
+                    <aside class="left-menu mnp-sidebar">
+                        <ul>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/products/" class="mnp-sidebar-heading">
+                                    <i class="fa fa-angle-down"></i> New by Category
+                                </a>
+                                <ul class="mnp-sidebar-sub">
+                                    <li><a href="/new/products/circuit-protection">Circuit Protection</a></li>
+                                    <li><a href="/new/products/connectors">Connectors</a></li>
+                                    <li><a href="/new/products/electromechanical">Electromechanical</a></li>
+                                    <li><a href="/new/products/embedded-solutions">Embedded Solutions</a></li>
+                                    <li><a href="/new/products/enclosures">Enclosures</a></li>
+                                    <li><a href="/new/products/industrial-automation">Industrial Automation</a></li>
+                                    <li><a href="/new/products/opto-electronics">Opto-electronics</a></li>
+                                    <li><a href="/new/products/passive-components">Passive Components</a></li>
+                                    <li><a href="/new/products/power">Power</a></li>
+                                    <li><a href="/new/products/rf-wireless">RF &amp; Wireless</a></li>
+                                    <li><a href="/new/products/semiconductors">Semiconductors</a></li>
+                                    <li><a href="/new/products/sensors">Sensors</a></li>
+                                    <li><a href="/new/products/test-measurement">Test &amp; Measurement</a></li>
+                                    <li><a href="/new/products/thermal-management">Thermal Management</a></li>
+                                    <li><a href="/new/products/tools-supplies">Tools &amp; Supplies</a></li>
+                                    <li><a href="/new/products/wire-cable">Wire &amp; Cable</a></li>
+                                </ul>
+                            </li>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/manufacturer" class="mnp-sidebar-heading">
+                                    <i class="fa fa-angle-right"></i> New by Manufacturer
+                                </a>
+                            </li>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/week" class="mnp-sidebar-heading">
+                                    New by Week
+                                </a>
+                            </li>
+                        </ul>
+                    </aside>
+
+                    <!-- Right content -->
+                    <main class="right-content mnp-content">
+
+                        <!-- Hero banner -->
+                        <div class="mnp-hero">
+                            <div class="mnp-hero-text">
+                                <h1>More new products in stock</h1>
+                            </div>
+                            <div class="mnp-hero-images">
+                                <img src="/mouser_theme/static/img/newest-products-hero.webp" alt="Newest Products" style="width:220px;height:auto;"/>
+                            </div>
+                        </div>
+
+                        <!-- Explore New Products by -->
+                        <section class="mnp-explore-section">
+                            <h2 class="mnp-explore-title">Explore New Products by</h2>
+                            <div class="mnp-explore-cards">
+                                <a href="/new/products/" class="mnp-explore-card">
+                                    <div class="mnp-explore-img-wrap">
+                                        <img src="/mouser_theme/static/img/new-by-category.webp" alt="New by Category"/>
+                                    </div>
+                                    <span>New by Category</span>
+                                </a>
+                                <a href="/new/manufacturer" class="mnp-explore-card">
+                                    <div class="mnp-explore-img-wrap">
+                                        <img src="/mouser_theme/static/img/new-by-manufacturer.webp" alt="New by Manufacturer"/>
+                                    </div>
+                                    <span>New by Manufacturer</span>
+                                </a>
+                                <a href="/new/week" class="mnp-explore-card">
+                                    <div class="mnp-explore-img-wrap">
+                                        <img src="/mouser_theme/static/img/new-by-week.webp" alt="New by Week"/>
+                                    </div>
+                                    <span>New by Week</span>
+                                </a>
+                            </div>
+                        </section>
+
+                        <!-- Newest Products carousel section -->
+                        <section class="home-section newest-section mnp-products-section">
+                            <div class="section-head">
+                                <h2>Newest Products</h2>
+                            </div>
+                            <div class="product-strip">
+                                <button class="slide-arrow left"><i class="fa fa-chevron-left"></i></button>
+                                <t t-foreach="newest_products" t-as="p">
+                                    <article class="new-card original-product-card">
+                                        <div class="mnp-brand-logo-wrap">
+                                            <span class="mnp-brand-name" t-out="p.get('brand', '')"/>
+                                        </div>
+                                        <div class="original-product-img-wrap">
+                                            <img class="original-product-img" t-att-src="p.get('img')" t-att-alt="p['name']"/>
+                                        </div>
+                                        <a class="mouser-only-product-name" t-att-href="p.get('url', '#')" t-out="p['name']"/>
+                                    </article>
+                                </t>
+                                <button class="slide-arrow right"><i class="fa fa-chevron-right"></i></button>
+                            </div>
+                        </section>
+
+                        <!-- Newsletter -->
+                        <section class="mnp-newsletter">
+                            <h3>Get the Latest News</h3>
+                            <div class="mnp-newsletter-row">
+                                <input placeholder="Enter your Email"/>
+                                <button>Subscribe</button>
+                            </div>
+                        </section>
+
+                    </main>
+                </div>
+
+                <!-- Footer -->
+                <footer class="mouser-footer original-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div>
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p>
+                            <p><i class="fa fa-envelope"></i> bangalore@mouser.com</p>
+                            <p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p>
+                            <div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div>
+                        </div>
+                        <div><h4>COMPANY</h4><a href="#">About Us</a><a href="#">Newsroom</a><a href="#">Careers @ Mouser</a><a href="#">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social Responsibility</a></div>
+                        <div><h4>RESOURCES</h4><a href="#">Blog</a><a href="/new">Newest Products</a><a href="#">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a></div>
+                        <div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a></div>
+                        <div><h4>CONNECT WITH US</h4><div class="socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i></div></div>
+                    </div>
+                    <div class="mouser-shell footer-bottom-original">
+                        <div class="footer-links"><a href="/privacypolicy/">Privacy Centre</a><span>|</span><a href="#">Terms and Conditions</a><span>|</span><a href="#">Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a href="#">Sitemap</a></div>
+                        <div class="footer-bottom-row">
+                            <div class="copyright-text">
+                                <p><b>Copyright ©2026 Mouser Electronics, Inc.</b></p>
+                                <p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p>
+                            </div>
+                            <div class="cert-strip">
+                                <a href="/ecia/" class="footer-cert-link ecia-member-link" title="ECIA Authorised"><img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/></a>
+                                <img src="/mouser_theme/static/img/logo-nfsb_small.webp" alt="Customer Service"/>
+                                <img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/>
+                                <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO 14001"/>
+                                <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B"/>
+                                <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+                <a class="live-chat" href="#"><i class="fa fa-comment"></i> Live Chat</a>
+            </div>
+        </t>
+    </template>
+
+    <!-- ══ NEW PRODUCTS BY CATEGORY GRID PAGE (/new/products/) ══ -->
+    <template id="mouser_new_products_by_category" name="Newest Products by Category">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage mouser-newest-page mouser-nbc-page">
+
+                <!-- Top line -->
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right">
+                            <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Header -->
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home">
+                            <img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Logo" style="height:60px; width:auto;"/>
+                        </a>
+                        <div class="search-area">
+                            <div class="mh-search-wrap">
+                                <div class="search-box">
+                                    <button type="button">All <i class="fa fa-angle-down"></i></button>
+                                    <input placeholder="Part No. / Keyword"/>
+                                    <a class="search-btn" href="#"><i class="fa fa-search"></i></a>
+                                </div>
+                            </div>
+                            <label><input type="checkbox"/> In Stock</label>
+                            <label><input type="checkbox"/> RoHS</label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Blue nav -->
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row">
+                        <nav>
+                            <a href="/mouser-home">Products</a>
+                            <a href="/manufacturer/">Manufacturers</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                            <a href="#resources">Technical Resources</a>
+                            <a href="#">Help</a>
+                        </nav>
+                        <div class="nav-actions">
+                            <div class="mh-account-wrap">
+                                <a class="mh-account-btn" href="#" id="mouserAccountBtnNBC">Account &amp; Orders <i class="fa fa-angle-down"></i></a>
+                            </div>
+                            <div class="mh-cart-wrap">
+                                <a class="cart mh-cart-btn" href="#"><i class="fa fa-shopping-cart"></i><span class="mh-cart-count">0</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main layout -->
+                <div class="mouser-shell main-area">
+                    <!-- Sidebar -->
+                    <aside class="left-menu mnp-sidebar">
+                        <ul>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/products/" class="mnp-sidebar-heading mnp-sidebar-active">
+                                    <i class="fa fa-angle-down"></i> New by Category
+                                </a>
+                                <ul class="mnp-sidebar-sub">
+                                    <t t-foreach="categories" t-as="cat">
+                                        <li><a t-att-href="cat['url']" t-out="cat['name']"/></li>
+                                    </t>
+                                </ul>
+                            </li>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/manufacturer" class="mnp-sidebar-heading">
+                                    <i class="fa fa-angle-right"></i> New by Manufacturer
+                                </a>
+                            </li>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/week" class="mnp-sidebar-heading">New by Week</a>
+                            </li>
+                        </ul>
+                    </aside>
+
+                    <!-- Main content -->
+                    <main class="right-content mnp-content nbc-main-content">
+
+                        <!-- Page title -->
+                        <div class="nbc-page-header">
+                            <h1 class="nbc-title"><span class="nbc-title-bold">NEWEST PRODUCTS</span></h1>
+                        </div>
+
+                        <!-- Intro section -->
+                        <section class="nbc-intro-section">
+                            <h2 class="nbc-intro-heading">New Products <span class="nbc-intro-sub">by category</span></h2>
+                            <p class="nbc-intro-text">Introducing new electronic products every day, Mouser is the first choice among design engineers who are seeking the newest products and the latest technologies. By focusing on delivering the most recent technologies and the newest products, Mouser helps engineers obtain a clear edge in product features and longer product lifecycles.</p>
+                        </section>
+
+                        <!-- Category card grid -->
+                        <div class="nbc-grid">
+                            <t t-foreach="categories" t-as="cat">
+                                <a t-att-href="cat['url']" class="nbc-card">
+                                    <div class="nbc-card-img-wrap">
+                                        <img t-att-src="cat['img']" t-att-alt="cat['name']"/>
+                                    </div>
+                                    <span class="nbc-card-label" t-out="cat['name']"/>
+                                </a>
+                            </t>
+                        </div>
+
+                    </main>
+                </div>
+
+                <!-- Footer -->
+                <footer class="mouser-footer original-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div>
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p>
+                            <p><i class="fa fa-envelope"></i> bangalore@mouser.com</p>
+                            <p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p>
+                            <div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div>
+                        </div>
+                        <div><h4>COMPANY</h4><a href="#">About Us</a><a href="#">Newsroom</a><a href="#">Careers @ Mouser</a><a href="#">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social Responsibility</a></div>
+                        <div><h4>RESOURCES</h4><a href="#">Blog</a><a href="/new">Newest Products</a><a href="#">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a></div>
+                        <div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a></div>
+                        <div><h4>CONNECT WITH US</h4><div class="socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i></div></div>
+                    </div>
+                    <div class="mouser-shell footer-bottom-original">
+                        <div class="footer-links"><a href="/privacypolicy/">Privacy Centre</a><span>|</span><a href="#">Terms and Conditions</a><span>|</span><a href="#">Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a href="#">Sitemap</a></div>
+                        <div class="footer-bottom-row">
+                            <div class="copyright-text">
+                                <p><b>Copyright ©2026 Mouser Electronics, Inc.</b></p>
+                                <p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p>
+                            </div>
+                            <div class="cert-strip">
+                                <a href="/ecia/" class="footer-cert-link ecia-member-link"><img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/></a>
+                                <img src="/mouser_theme/static/img/logo-nfsb_small.webp" alt="Customer Service"/>
+                                <img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/>
+                                <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO 14001"/>
+                                <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B"/>
+                                <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <a class="live-chat" href="#"><i class="fa fa-comment"></i> Live Chat</a>
+            </div>
+        </t>
+    </template>
+
+
+    <!-- ══ NEW PRODUCTS CATEGORY DETAIL PAGE (/new/products/<slug>) ══ -->
+    <template id="mouser_new_products_category_detail" name="Newest Products - Category Detail">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage mouser-newest-page mouser-nbc-page">
+
+                <!-- Top line -->
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right">
+                            <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Header -->
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home">
+                            <img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Logo" style="height:60px; width:auto;"/>
+                        </a>
+                        <div class="search-area">
+                            <div class="mh-search-wrap">
+                                <div class="search-box">
+                                    <button type="button">All <i class="fa fa-angle-down"></i></button>
+                                    <input placeholder="Part No. / Keyword"/>
+                                    <a class="search-btn" href="#"><i class="fa fa-search"></i></a>
+                                </div>
+                            </div>
+                            <label><input type="checkbox"/> In Stock</label>
+                            <label><input type="checkbox"/> RoHS</label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Blue nav -->
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row">
+                        <nav>
+                            <a href="/mouser-home">Products</a>
+                            <a href="/manufacturer/">Manufacturers</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                            <a href="#resources">Technical Resources</a>
+                            <a href="#">Help</a>
+                        </nav>
+                        <div class="nav-actions">
+                            <div class="mh-account-wrap">
+                                <a class="mh-account-btn" href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a>
+                            </div>
+                            <div class="mh-cart-wrap">
+                                <a class="cart mh-cart-btn" href="#"><i class="fa fa-shopping-cart"></i><span class="mh-cart-count">0</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main layout -->
+                <div class="mouser-shell main-area">
+                    <!-- Sidebar -->
+                    <aside class="left-menu mnp-sidebar">
+                        <ul>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/products/" class="mnp-sidebar-heading">
+                                    <i class="fa fa-angle-down"></i> New by Category
+                                </a>
+                                <ul class="mnp-sidebar-sub">
+                                    <t t-foreach="all_cats" t-as="sc">
+                                        <li>
+                                            <a t-att-href="sc['url']"
+                                               t-att-style="'font-weight:700;color:#0068b5;' if sc['slug'] == cat_slug else ''"
+                                               t-out="sc['name']"/>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </li>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/manufacturer" class="mnp-sidebar-heading">
+                                    <i class="fa fa-angle-right"></i> New by Manufacturer
+                                </a>
+                            </li>
+                            <li class="mnp-sidebar-group">
+                                <a href="/new/week" class="mnp-sidebar-heading">New by Week</a>
+                            </li>
+                        </ul>
+                    </aside>
+
+                    <!-- Main content -->
+                    <main class="right-content mnp-content nbc-main-content">
+
+                        <!-- Page title -->
+                        <div class="nbc-page-header">
+                            <h1 class="nbc-title"><span class="nbc-title-bold">NEWEST PRODUCTS</span></h1>
+                        </div>
+
+                        <!-- Breadcrumb -->
+                        <nav class="nbc-breadcrumb">
+                            <a href="/mouser-home">Home</a>
+                            <span>›</span>
+                            <a href="/new/products/">Newest Products by Category</a>
+                            <span>›</span>
+                            <strong t-out="cat_name"/>
+                        </nav>
+
+                        <!-- Category hero -->
+                        <section class="nbc-cat-hero">
+                            <img t-att-src="cat_img" t-att-alt="cat_name" class="nbc-cat-hero-img"/>
+                            <div class="nbc-cat-hero-text">
+                                <h2 t-out="cat_name"/>
+                                <p>Introducing new <span t-out="cat_name.lower()"/> products every day. Mouser is the first choice among design engineers seeking the newest products and latest technologies.</p>
+                            </div>
+                        </section>
+
+                        <!-- Error -->
+                        <t t-if="api_error">
+                            <div class="nbc-api-error">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                <span>Could not load products: <t t-out="api_error"/></span>
+                            </div>
+                        </t>
+
+                        <!-- Results count -->
+                        <div t-if="not api_error" class="nbc-results-bar">
+                            <span><strong t-out="total"></strong> results found</span>
+                            <span class="nbc-results-page">Page <t t-out="page"/> of <t t-out="total_pages"/></span>
+                        </div>
+
+                        <!-- Products table -->
+                        <t t-if="products">
+                            <div class="nbc-products-table-wrap">
+                                <table class="nbc-products-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Mfr. Part No.</th>
+                                            <th>Mouser No.</th>
+                                            <th>Manufacturer</th>
+                                            <th>Description</th>
+                                            <th>Availability</th>
+                                            <th>Price (INR)</th>
+                                            <th>Datasheet</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="products" t-as="prod">
+                                            <tr>
+                                                <td class="nbc-td-img">
+                                                    <t t-if="prod.get('image')">
+                                                        <img t-att-src="prod['image']" class="nbc-prod-img" t-att-alt="prod['mpn']"/>
+                                                    </t>
+                                                    <t t-else=""><span class="nbc-no-img">—</span></t>
+                                                </td>
+                                                <td class="nbc-td-mpn">
+                                                    <a t-att-href="prod.get('detail_url','#')" target="_blank" rel="noopener noreferrer" t-out="prod['mpn']"/>
+                                                </td>
+                                                <td t-out="prod['mouser_no']"/>
+                                                <td t-out="prod['manufacturer']"/>
+                                                <td class="nbc-td-desc" t-out="prod['description']"/>
+                                                <td t-out="prod['availability']"/>
+                                                <td t-out="prod.get('price','')"/>
+                                                <td class="nbc-td-ds">
+                                                    <t t-if="prod.get('datasheet')">
+                                                        <a t-att-href="prod['datasheet']" target="_blank" rel="noopener noreferrer" title="Datasheet">
+                                                            <i class="fa fa-file-pdf-o nbc-pdf-icon"></i>
+                                                        </a>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Pagination -->
+                            <div t-if="total_pages > 1" class="nbc-pagination">
+                                <t t-foreach="range(1, total_pages + 1)" t-as="pg">
+                                    <a t-att-href="'/new/products/' + cat_slug + '?page=' + str(pg)"
+                                       t-att-class="'nbc-page-btn' + (' nbc-page-active' if pg == page else '')"
+                                       t-out="pg"/>
+                                </t>
+                            </div>
+                        </t>
+
+                        <t t-elif="not api_error">
+                            <div class="nbc-no-results">No products found for this category.</div>
+                        </t>
+
+                    </main>
+                </div>
+
+                <!-- Footer -->
+                <footer class="mouser-footer original-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div>
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p>
+                            <p><i class="fa fa-envelope"></i> bangalore@mouser.com</p>
+                            <p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p>
+                            <div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div>
+                        </div>
+                        <div><h4>COMPANY</h4><a href="#">About Us</a><a href="#">Newsroom</a><a href="#">Careers @ Mouser</a><a href="#">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social Responsibility</a></div>
+                        <div><h4>RESOURCES</h4><a href="#">Blog</a><a href="/new">Newest Products</a><a href="#">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a></div>
+                        <div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a></div>
+                        <div><h4>CONNECT WITH US</h4><div class="socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i></div></div>
+                    </div>
+                    <div class="mouser-shell footer-bottom-original">
+                        <div class="footer-links"><a href="/privacypolicy/">Privacy Centre</a><span>|</span><a href="#">Terms and Conditions</a><span>|</span><a href="#">Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a href="#">Sitemap</a></div>
+                        <div class="footer-bottom-row">
+                            <div class="copyright-text">
+                                <p><b>Copyright ©2026 Mouser Electronics, Inc.</b></p>
+                                <p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p>
+                            </div>
+                            <div class="cert-strip">
+                                <a href="/ecia/" class="footer-cert-link ecia-member-link"><img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/></a>
+                                <img src="/mouser_theme/static/img/logo-nfsb_small.webp" alt="Customer Service"/>
+                                <img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/>
+                                <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO 14001"/>
+                                <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B"/>
+                                <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <a class="live-chat" href="#"><i class="fa fa-comment"></i> Live Chat</a>
+            </div>
+        </t>
+    </template>
+
+</odoo>

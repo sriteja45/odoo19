@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Odoo 19 website_sale.product uses <section id="product_detail">
+        (not a div). Prefer that; fall back anchors are commented for themes
+        that diverge.
+    -->
+    <template id="product_qa_section" inherit_id="website_sale.product" name="Product Q&amp;A Section">
+        <xpath expr="//section[@id='product_detail']" position="after">
+            <div class="o_wsre_qa_section container mt-4 mb-5"
+                 t-att-data-product-tmpl-id="product.id"
+                 t-att-data-is-logged="1 if not user_id._is_public() else 0">
+                <h3 class="mb-3">
+                    <i class="fa fa-comments me-2"/>Customer Questions
+                    <span class="o_wsre_qa_count badge text-bg-secondary ms-1 d-none"/>
+                </h3>
+
+                <div class="o_wsre_qa_ask card mb-3" t-if="not user_id._is_public()">
+                    <div class="card-body">
+                        <label class="form-label fw-bold" for="o_wsre_qa_name">Ask a question</label>
+                        <input type="text" class="form-control mb-2 o_wsre_qa_name" id="o_wsre_qa_name"
+                               placeholder="What would you like to know?" maxlength="200"/>
+                        <textarea class="form-control mb-2 o_wsre_qa_body" rows="2"
+                                  placeholder="Optional details…"/>
+                        <div class="form-check mb-2">
+                            <input type="checkbox" class="form-check-input o_wsre_qa_anonymous" id="o_wsre_qa_anon"/>
+                            <label class="form-check-label small" for="o_wsre_qa_anon">Post anonymously</label>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm o_wsre_qa_submit">
+                            <i class="fa fa-paper-plane me-1"/>Submit question
+                        </button>
+                        <span class="o_wsre_qa_ask_error text-danger small ms-2"/>
+                    </div>
+                </div>
+                <div class="alert alert-light border o_wsre_qa_login_hint" t-if="user_id._is_public()">
+                    <a href="/web/login">Sign in</a>
+                    to ask a question about this product.
+                </div>
+
+                <div class="o_wsre_qa_list">
+                    <div class="text-muted small o_wsre_qa_loading">Loading questions…</div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

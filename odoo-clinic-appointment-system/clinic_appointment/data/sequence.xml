@@ -1,0 +1,53 @@
+<odoo>
+    <record id="seq_clinic_appointment" model="ir.sequence">
+        <field name="name">Clinic Appointment</field>
+        <field name="code">clinic.appointment</field>
+        <field name="prefix">APT</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+
+        <!-- IMPORTANT FIXES -->
+        <field name="implementation">no_gap</field>
+        <field name="use_date_range">False</field>
+    </record>
+
+    <record id="seq_clinic_lab_test" model="ir.sequence">
+        <field name="name">Lab Test</field>
+        <field name="code">clinic.lab.test</field>
+        <field name="prefix">LAB</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <!-- IMPORTANT FIXES -->
+        <field name="implementation">no_gap</field>
+        <field name="use_date_range">False</field>
+    </record>
+
+    <record id="seq_clinic_patient" model="ir.sequence">
+        <field name="name">Clinic Patient</field>
+        <field name="code">clinic.patient</field>
+        <field name="prefix">PAT</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        <field name="implementation">standard</field>
+        <field name="use_date_range">False</field>
+    </record>
+
+    <record id="seq_lab_request" model="ir.sequence">
+        <field name="name">Lab Request</field>
+        <field name="code">clinic.lab.request</field>
+        <field name="prefix">REQ</field>
+        <field name="padding">4</field>
+    </record>
+
+     <record id="seq_clinic_chat_session" model="ir.sequence">
+        <field name="name">Clinic Chat Session</field>
+        <field name="code">clinic.chat.session</field>
+        <field name="prefix">CHAT/</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="implementation">standard</field>
+    </record>
+
+</odoo>

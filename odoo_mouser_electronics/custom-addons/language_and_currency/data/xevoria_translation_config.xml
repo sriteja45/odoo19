@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Use set_param instead of <record> to avoid duplicate key errors on upgrade -->
+    <function model="ir.config_parameter" name="set_param">
+        <value eval="'xevoria.translation.provider'"/>
+        <value eval="'dictionary'"/>
+    </function>
+
+    <function model="ir.config_parameter" name="set_param">
+        <value eval="'xevoria.translation.languages'"/>
+        <value eval="'hi_IN,te_IN,ta_IN,fr_FR,de_DE'"/>
+    </function>
+</odoo>

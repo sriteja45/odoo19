@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_xevoria_currency_config_public,xevoria.currency.config public read,model_xevoria_currency_config,,1,0,0,0
+access_xevoria_currency_config_admin,xevoria.currency.config admin,model_xevoria_currency_config,base.group_system,1,1,1,1
+access_xevoria_product_translation_user,xevoria.product.translation user,model_xevoria_product_translation,base.group_user,1,1,1,1
+access_xevoria_translation_cache_user,xevoria.translation.cache.user,model_xevoria_translation_cache,base.group_user,1,1,1,1
+access_xevoria_translation_cache_public,xevoria.translation.cache.public,model_xevoria_translation_cache,base.group_public,1,0,0,0

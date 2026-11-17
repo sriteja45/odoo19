@@ -1,0 +1,150 @@
+<odoo>
+
+    <!-- LIST VIEW -->
+    <record id="view_lab_request_list" model="ir.ui.view">
+        <field name="name">clinic.lab.request.list</field>
+        <field name="model">clinic.lab.request</field>
+        <field name="arch" type="xml">
+            <list string="Lab Requests">
+                <field name="name"/>
+                <field name="request_date"/>
+                <field name="patient_name"/>
+                <field name="doctor_id"/>
+                <field name="status"/>
+                <field name="total_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_lab_request_form" model="ir.ui.view">
+        <field name="name">clinic.lab.request.form</field>
+        <field name="model">clinic.lab.request</field>
+        <field name="arch" type="xml">
+            <form string="Lab Request">
+                <header>
+                    <button name="action_mark_processing"
+                            type="object"
+                            string="Mark Processing"
+                            class="btn-primary"
+                            groups="clinic_appointment.group_clinic_lab"
+                            invisible="status != 'requested'"/>
+
+                    <button name="action_mark_completed"
+                            type="object"
+                            string="Mark Completed"
+                            class="btn-success"
+                            groups="clinic_appointment.group_clinic_lab"
+                            invisible="status != 'processing'"/>
+
+                    <field name="status"
+                           widget="statusbar"
+                           statusbar_visible="requested,processing,completed"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="request_date" readonly="1"/>
+                            <field name="appointment_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="patient_name" readonly="1"/>
+                            <field name="doctor_id" readonly="1"/>
+                            <field name="total_amount" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Tests">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="test_id"/>
+                                    <field name="name"/>
+                                    <field name="category"/>
+                                    <field name="code"/>
+                                    <field name="price"/>
+                                    <field name="status"/>
+                                    <field name="report" filename="report_filename"/>
+                                    <field name="report_filename"/>
+                                    <button name="action_view_report"
+                                            type="object"
+                                            string="View Report"
+                                            class="btn-link"
+                                            invisible="not report"/>
+                                </list>
+
+                                <form string="Test">
+                                    <sheet>
+                                        <group string="Test Information">
+                                            <group>
+                                                <field name="request_id" readonly="1"/>
+                                                <field name="test_id"/>
+                                                <field name="name"/>
+                                                <field name="category" readonly="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="code"/>
+                                                <field name="price"/>
+                                                <field name="status" readonly="1"/>
+                                            </group>
+                                        </group>
+
+                                        <group string="Report">
+                                            <field name="report" filename="report_filename"/>
+                                            <field name="report_filename"/>
+                                        </group>
+
+                                        <footer>
+                                            <button name="action_view_report"
+                                                    type="object"
+                                                    string="View Report"
+                                                    class="btn-primary"
+                                                    invisible="not report"/>
+                                            <button string="Close" special="cancel" class="btn-secondary"/>
+                                        </footer>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="view_lab_request_search" model="ir.ui.view">
+        <field name="name">clinic.lab.request.search</field>
+        <field name="model">clinic.lab.request</field>
+        <field name="arch" type="xml">
+            <search string="Lab Requests">
+                <field name="name"/>
+                <field name="patient_name"/>
+                <field name="doctor_id"/>
+
+                <filter name="filter_requested"
+                        string="Requested"
+                        domain="[('status','=','requested')]"/>
+
+                <filter name="filter_processing"
+                        string="Processing"
+                        domain="[('status','=','processing')]"/>
+
+                <filter name="filter_completed"
+                        string="Completed"
+                        domain="[('status','=','completed')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_lab_requests_grouped" model="ir.actions.act_window">
+        <field name="name">Lab Requests</field>
+        <field name="res_model">clinic.lab.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_lab_request_search"/>
+    </record>
+
+</odoo>

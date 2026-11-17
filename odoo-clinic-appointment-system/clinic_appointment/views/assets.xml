@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        ASSETS REGISTRATION
+        ===================
+        patient_chat.js   → loaded here via web.assets_frontend so it is
+                            available on /clinic/patient/chat (public, website=True).
+
+        doctor_chat.js    → NOT loaded here. The doctor dashboard
+                            (/clinic/doctor/chat/list) is a standalone <html>
+                            page that bypasses web.assets_frontend entirely.
+                            It loads doctor_chat.js via a <script> tag in its
+                            own <head>.  Loading it here as well causes it to
+                            execute twice on that page, double-binding every
+                            event listener and breaking all buttons.
+    -->
+    <template id="clinic_chat_assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="/clinic_appointment/static/src/js/patient_chat.js"/>
+        </xpath>
+    </template>
+</odoo>

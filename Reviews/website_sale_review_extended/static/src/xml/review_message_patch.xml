@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="mail.Message" t-inherit-mode="extension">
+        <!--
+            We reuse the exact same anchor portal_rating itself uses
+            (t-ref='messageContent', position 'inside') so this module
+            never has to guess at, or fight over, the exact DOM position
+            of portal_rating's own additions.
+        -->
+        <xpath expr="//*[@t-ref='messageContent']" position="inside">
+            <div t-if="message.rating_id and message.rating_id.id" class="o_wsre_review_extra mt-2">
+
+                <!-- Badges + votes row -->
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                    <span t-if="message.rating_id.is_verified_purchase"
+                          class="badge text-bg-success o_wsre_verified_badge"
+                          title="This reviewer purchased and received this product">
+                        <i class="fa fa-check-circle me-1"/>Verified Purchase
+                    </span>
+
+                    <span t-if="message.rating_id.product_variant_display"
+                          class="badge text-bg-info o_wsre_variant_badge"
+                          t-att-title="'Reviewed variant: ' + message.rating_id.product_variant_display">
+                        <i class="fa fa-tag me-1"/>
+                        <t t-esc="message.rating_id.product_variant_display"/>
+                    </span>
+
+                    <span t-if="message.rating_id.moderation_status === 'pending'"
+                          class="badge text-bg-warning"
+                          title="This review is awaiting approval and is only visible to you and staff">
+                        <i class="fa fa-clock-o me-1"/>Pending Approval
+                    </span>
+
+                    <span t-if="message.rating_id.is_anonymous"
+                          class="badge text-bg-secondary"
+                          title="The reviewer chose to hide their name">
+                        <i class="fa fa-user-secret me-1"/>Posted Anonymously
+                    </span>
+
+                    <div class="o_wsre_vote_buttons ms-auto d-flex align-items-center gap-2">
+                        <span class="text-muted small">Helpful?</span>
+                        <button type="button"
+                                t-attf-class="btn btn-sm btn-outline-secondary o_wsre_vote_btn {{ message.rating_id.user_vote === 'helpful' ? 'active' : '' }}"
+                                t-on-click="() => this.onVoteReview('helpful')">
+                            <i class="fa fa-thumbs-o-up me-1"/>
+                            <t t-esc="message.rating_id.helpful_count || 0"/>
+                        </button>
+                        <button type="button"
+                                t-attf-class="btn btn-sm btn-outline-secondary o_wsre_vote_btn {{ message.rating_id.user_vote === 'unhelpful' ? 'active' : '' }}"
+                                t-on-click="() => this.onVoteReview('unhelpful')">
+                            <i class="fa fa-thumbs-o-down me-1"/>
+                            <t t-esc="message.rating_id.unhelpful_count || 0"/>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Per-aspect scores (Phase 4) -->
+                <div t-if="message.rating_id.aspect_ratings and message.rating_id.aspect_ratings.length"
+                     class="o_wsre_aspect_display d-flex flex-wrap gap-3 mb-2">
+                    <t t-foreach="message.rating_id.aspect_ratings" t-as="ar" t-key="ar.id">
+                        <span class="small text-muted">
+                            <t t-esc="ar.name"/>:
+                            <t t-foreach="[1,2,3,4,5]" t-as="starVal" t-key="starVal">
+                                <i t-attf-class="fa {{ ar.value >= starVal ? 'fa-star' : 'fa-star-o' }} text-warning"/>
+                            </t>
+                        </span>
+                    </t>
+                </div>
+
+                <!-- Thumbnail grid for review media -->
+                <div t-if="message.rating_id.attachments and message.rating_id.attachments.length"
+                     class="o_wsre_media_grid d-flex flex-wrap gap-2 mb-1">
+                    <t t-foreach="message.rating_id.attachments" t-as="att" t-key="att.id">
+                        <button type="button"
+                                class="o_wsre_thumb btn p-0 border rounded overflow-hidden"
+                                style="width:80px;height:80px;"
+                                t-on-click="() => this.onWsreOpenLightbox(att, message.rating_id.attachments)"
+                                t-att-title="att.name">
+                            <img t-if="att.is_image"
+                                 t-att-src="att.url + (att.access_token and !att.url.includes('access_token') ? (att.url.includes('?') ? '&amp;' : '?') + 'access_token=' + att.access_token : '')"
+                                 t-att-alt="att.name"
+                                 class="w-100 h-100"
+                                 style="object-fit:cover;"
+                                 loading="lazy"/>
+                            <div t-elif="att.is_video"
+                                 class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark text-white">
+                                <i class="fa fa-play-circle fa-2x"/>
+                            </div>
+                            <div t-else=""
+                                 class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                                <i class="fa fa-file"/>
+                            </div>
+                        </button>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

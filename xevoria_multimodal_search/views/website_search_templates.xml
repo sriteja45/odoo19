@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template injecting Multimodal Visual Search Modal into Website Layout -->
+    <template id="multimodal_search_modal_template" inherit_id="website.layout" name="Visual Image &amp; Video Search Modal">
+        <xpath expr="//body" position="inside">
+            <!-- Direct stylesheet & script inclusion so styles work even if libsass/sassc is missing on Windows -->
+            <link rel="stylesheet" type="text/css" href="/xevoria_multimodal_search/static/src/css/multimodal_search.css"/>
+
+            <!-- Visual Vector Search Modal -->
+            <div class="modal fade" id="xevoriaMultimodalModal" tabindex="-1" aria-labelledby="xevoriaMultimodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content xevoria-multimodal-card">
+                        
+                        <!-- Modal Header -->
+                        <div class="modal-header border-0 pb-0">
+                            <div>
+                                <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2" id="xevoriaMultimodalLabel">
+                                    <span class="xevoria-ai-badge">EmbeddingGemma 2</span>
+                                    <span>Multimodal AI Product Search</span>
+                                </h5>
+                                <p class="text-muted small mb-0">Upload a product photo or video clip, paste a video URL, or enter a technical query to find matching items &amp; product videos using unified 768-d vectors.</p>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div class="modal-body pt-3">
+                            <!-- Optional Text Query & Video URL Inputs -->
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-7">
+                                    <input type="text" id="xevoriaTextQueryInput" class="form-control" placeholder="Optional: Describe product or enter part specs..."/>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="url" id="xevoriaVideoUrlInput" class="form-control" placeholder="Or paste Video URL (.mp4 / YouTube)..."/>
+                                </div>
+                            </div>
+
+                            <!-- Image & Video Search Dropzone Panel -->
+                            <div class="xevoria-dropzone" id="imageDropzone" onclick="if(!event.target.closest('#btnRemoveImage')) document.getElementById('imageInput').click();" style="cursor: pointer;">
+                                <input type="file" id="imageInput" accept="image/*,video/*" class="d-none" onchange="window.xevoriaHandleImageInput &amp;&amp; window.xevoriaHandleImageInput(this)"/>
+                                <div class="dropzone-content text-center py-4">
+                                    <div class="dropzone-icon mb-2">
+                                        <i class="fa fa-cloud-upload fa-3x text-primary"></i>
+                                    </div>
+                                    <h6 class="fw-bold mb-1">Drag &amp; drop product photo or video, or click to browse</h6>
+                                    <p class="text-muted small mb-3">Supports JPG, PNG, WEBP, MP4, WEBM (maps media into 768-d EmbeddingGemma 2 vector space &amp; shows matched product videos)</p>
+                                    <button type="button" class="btn btn-outline-primary btn-sm px-4 py-2" onclick="event.stopPropagation(); document.getElementById('imageInput').click()">
+                                        <i class="fa fa-folder-open me-1"></i> Choose Image or Video
+                                    </button>
+                                </div>
+                                <div class="preview-box d-none text-center p-3" id="imagePreviewBox">
+                                    <img id="imagePreviewImg" src="" alt="Preview" class="img-thumbnail rounded shadow-sm" style="max-height: 220px; object-fit: contain;"/>
+                                    <video id="videoPreviewEl" src="" controls="controls" class="img-thumbnail rounded shadow-sm d-none" style="max-height: 220px; max-width: 100%;"></video>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-sm btn-link text-danger text-decoration-none" id="btnRemoveImage" onclick="event.stopPropagation(); window.xevoriaRemoveImage &amp;&amp; window.xevoriaRemoveImage()">
+                                            <i class="fa fa-trash me-1"></i> Remove Media
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Search Trigger Action -->
+                            <div class="mt-4 d-flex justify-content-between align-items-center">
+                                <span class="text-muted small" id="searchContextNote">Ready to search across database vectors.</span>
+                                <button type="button" class="btn btn-primary px-4 py-2 fw-semibold" id="btnExecuteMultimodalSearch" onclick="window.xevoriaExecuteSearch &amp;&amp; window.xevoriaExecuteSearch()">
+                                    <i class="fa fa-search me-1"></i> Search Catalog
+                                </button>
+                            </div>
+
+                            <!-- Live Loading Progress -->
+                            <div class="xevoria-search-loader d-none text-center py-4 my-3" id="searchLoader">
+                                <div class="spinner-border text-primary mb-2" role="status"></div>
+                                <h6 class="fw-bold mb-1" id="loaderText">Generating 768-d vector embedding &amp; retrieving products...</h6>
+                                <p class="text-muted small mb-0">Computing cosine similarity against product catalog</p>
+                            </div>
+
+                            <!-- Search Results Grid -->
+                            <div class="xevoria-results-container d-none mt-4" id="searchResultsContainer">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="fw-bold mb-0 text-dark">
+                                        <span>Matched Products</span>
+                                        <span class="badge bg-primary rounded-pill ms-2" id="resultsCountBadge">0</span>
+                                    </h6>
+                                    <span class="text-muted small" id="extractedQueryHint"></span>
+                                </div>
+                                
+                                <div class="row g-3" id="resultsRow">
+                                    <!-- Dynamic product result cards rendered via JavaScript -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direct script inclusion to ensure immediate availability in website -->
+            <script type="text/javascript" src="/xevoria_multimodal_search/static/src/js/multimodal_search.js"></script>
+        </xpath>
+    </template>
+
+    <!-- Template adding Visual Search trigger button directly onto Website Shop Searchbar -->
+    <template id="shop_search_multimodal_button" inherit_id="website.website_search_box" name="Visual Image Search Trigger">
+        <xpath expr="//button[@type='submit']" position="before">
+            <button type="button" 
+                    class="btn btn-outline-secondary border-0 xevoria-trigger-btn px-2"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#xevoriaMultimodalModal"
+                    title="Multimodal Product Search (EmbeddingGemma 2)">
+                <i class="fa fa-camera text-primary"></i>
+            </button>
+        </xpath>
+    </template>
+</odoo>

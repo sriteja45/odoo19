@@ -1,0 +1,64 @@
+name: Build & Deploy Odoo Mouser Electronics QA
+
+on:
+  push:
+    branches:
+      - mouser-qa
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      # Create short SHA tag
+      - name: Set image tag
+        run: echo "TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+      # Login to GitHub Container Registry
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: balaai105
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build and Push Docker Image
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/dealwallet1/odoo_mouser_electronics:${{ env.TAG }}
+            ghcr.io/dealwallet1/odoo_mouser_electronics:qa
+
+      # Update values-qa.yaml
+      - name: Update Helm values
+        run: |
+          sed -i "s/tag:.*/tag: ${TAG}/" helm/odoo-chart/values-qa.yaml
+
+      # Commit changes
+      - name: Commit Changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add helm/odoo-chart/values-qa.yaml
+
+          git commit -m "Update QA image tag to ${TAG}" || echo "No changes to commit"
+
+      # Push changes
+      - name: Push Changes
+        run: |
+          git push origin mouser-qa

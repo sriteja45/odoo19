@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Odoo 19 Website Builder options for Customer Reviews snippet.
+         Purely visual / class / data-attribute based.
+         No functional change to votes, sort/filter AJAX, load-more,
+         moderation or rating bridge. -->
+    <t t-name="customer_feedback.FeedbackReviewsOption">
+
+        <!-- ========== Visibility ========== -->
+        <BuilderRow label.translate="Visibility">
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_title'"
+                label.translate="Hide section title"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_toolbar'"
+                label.translate="Hide sort &amp; filter bar"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_media'"
+                label.translate="Hide review photos &amp; videos"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_verified'"
+                label.translate="Hide verified purchase badge"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_votes'"
+                label.translate="Hide helpful votes"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_card_title'"
+                label.translate="Hide review title"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_card_meta'"
+                label.translate="Hide author &amp; date"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_card_variant'"
+                label.translate="Hide purchased variant"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_card_stars'"
+                label.translate="Hide star rating on cards"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_sample'"
+                label.translate="Hide editor placeholder samples"/>
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_block'"
+                label.translate="Hide entire block on frontend"/>
+        </BuilderRow>
+
+        <!-- ========== Title ========== -->
+        <BuilderRow label.translate="Title size">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Medium (default)
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_title_sm'">
+                    Small
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_title_lg'">
+                    Large
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+        <BuilderRow label.translate="Title color">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Default
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_title_primary'">
+                    Primary
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_title_muted'">
+                    Muted
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+        <!-- ========== Layout ========== -->
+        <BuilderRow label.translate="Card layout">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Default
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_card_compact'">
+                    Compact
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_card_bordered'">
+                    Bordered cards
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+        <BuilderRow label.translate="Text align">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Left (default)
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_align_center'">
+                    Center
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_align_right'">
+                    Right
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+        <!-- ========== Toolbar / buttons ========== -->
+        <BuilderRow label.translate="Filter button style">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Outline (default)
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_filter_soft'">
+                    Soft fill
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+        <BuilderRow label.translate="Load more button">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Outline primary (default)
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_loadmore_solid'">
+                    Solid primary
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_loadmore_link'">
+                    Link style
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+        <!-- ========== Default sort (data attribute — read by frontend Interaction) ========== -->
+        <BuilderRow label.translate="Default sort">
+            <BuilderSelect
+                action="'dataAttributeAction'"
+                actionParam="'defaultSort'">
+                <BuilderSelectItem dataAttributeActionValue="''">
+                    Newest (default)
+                </BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'newest'">
+                    Newest
+                </BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'highest'">
+                    Highest rated
+                </BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'lowest'">
+                    Lowest rated
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+        <!-- ========== Spacing ========== -->
+        <BuilderRow label.translate="Top spacing">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Default
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_pt_none'">
+                    None
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_pt_sm'">
+                    Small
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_pt_lg'">
+                    Large
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+        <BuilderRow label.translate="Bottom spacing">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Default
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_pb_none'">
+                    None
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_pb_sm'">
+                    Small
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_pb_lg'">
+                    Large
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+
+    </t>
+
+    <!-- Step 3: dedicated options when the title block is selected -->
+    <t t-name="customer_feedback.FeedbackReviewsTitleOption">
+        <BuilderRow label.translate="Title size">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Medium (default)
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_title_sm'">
+                    Small
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_title_lg'">
+                    Large
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+        <BuilderRow label.translate="Title color">
+            <BuilderSelect>
+                <BuilderSelectItem classAction="''">
+                    Default
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_title_primary'">
+                    Primary
+                </BuilderSelectItem>
+                <BuilderSelectItem classAction="'o_feedback_title_muted'">
+                    Muted
+                </BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+        <BuilderRow label.translate="Visibility">
+            <BuilderCheckbox
+                action="'classAction'"
+                actionParam="'o_feedback_hide_title'"
+                label.translate="Hide section title"/>
+        </BuilderRow>
+    </t>
+
+</templates>

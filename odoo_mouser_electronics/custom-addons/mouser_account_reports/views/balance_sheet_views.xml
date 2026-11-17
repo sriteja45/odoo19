@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ================================================= -->
+    <!-- Tree View -->
+    <!-- ================================================= -->
+
+    <record id="view_balance_sheet_tree" model="ir.ui.view">
+        <field name="name">mouser.balance.sheet.tree</field>
+        <field name="model">mouser.balance.sheet</field>
+        <field name="arch" type="xml">
+
+            <list string="Balance Sheet">
+
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="assets"/>
+                <field name="liabilities"/>
+                <field name="equity"/>
+
+            </list>
+
+        </field>
+    </record>
+
+
+    <!-- ================================================= -->
+    <!-- Form View -->
+    <!-- ================================================= -->
+
+    <record id="view_balance_sheet_form" model="ir.ui.view">
+        <field name="name">mouser.balance.sheet.form</field>
+        <field name="model">mouser.balance.sheet</field>
+        <field name="arch" type="xml">
+
+            <form string="Balance Sheet">
+
+                <header>
+
+                    <button
+                        name="action_generate_report"
+                        string="Generate Report"
+                        type="object"
+                        class="btn-primary"/>
+
+                </header>
+
+                <sheet>
+
+                    <group>
+
+                        <field name="name" readonly="1"/>
+
+                    </group>
+
+                    <group>
+
+                        <group string="Report Filters">
+
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+
+                        </group>
+
+                        <group string="Report Summary">
+
+                            <field name="assets" readonly="1"/>
+
+                            <field name="liabilities" readonly="1"/>
+
+                            <field name="equity" readonly="1"/>
+
+                        </group>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+
+    <!-- ================================================= -->
+    <!-- Action -->
+    <!-- ================================================= -->
+
+    <record id="action_balance_sheet" model="ir.actions.act_window">
+
+        <field name="name">Balance Sheet</field>
+
+        <field name="res_model">mouser.balance.sheet</field>
+
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+</odoo>

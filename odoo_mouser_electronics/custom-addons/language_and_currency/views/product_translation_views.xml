@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Standalone tree view for xevoria.product.translation -->
+    <record id="xevoria_product_translation_list_view" model="ir.ui.view">
+        <field name="name">xevoria.product.translation.list</field>
+        <field name="model">xevoria.product.translation</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="lang"/>
+                <field name="source_name" readonly="1"/>
+                <field name="translated_name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Standalone form view for xevoria.product.translation -->
+    <record id="xevoria_product_translation_form_view" model="ir.ui.view">
+        <field name="name">xevoria.product.translation.form</field>
+        <field name="model">xevoria.product.translation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product_id" readonly="1"/>
+                        <field name="lang"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Name">
+                        <field name="source_name" readonly="1"/>
+                        <field name="translated_name"/>
+                    </group>
+                    <group string="Description">
+                        <field name="source_description" readonly="1"/>
+                        <field name="translated_description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inherit product.template form to add Xevoria Translations tab -->
+    <record id="xevoria_product_template_form_translation_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.xevoria.translations</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Xevoria Translations" name="xevoria_translations">
+                    <group>
+                        <button name="action_xevoria_generate_translations"
+                                string="Generate / Refresh Translations"
+                                type="object"
+                                class="btn-primary"/>
+                        <field name="xevoria_translation_count" readonly="1"/>
+                    </group>
+                    <field name="xevoria_translation_ids"
+                           context="{'default_product_id': id}"
+                           view_mode="list,form"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

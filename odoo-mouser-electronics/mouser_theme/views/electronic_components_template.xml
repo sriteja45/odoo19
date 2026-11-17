@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── Electronic Components Directory Page ─────────────────────────── -->
+    <template id="electronic_components_page" name="Electronic Components">
+        <t t-call="website.layout">
+            <t t-set="pageName">mouser-electronic-components</t>
+            <div class="mouser-homepage mouser-ec-page">
+                <!-- ══ MOUSER HEADER (identical to homepage) ══ -->
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right">
+                            <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                        </div>
+                    </div>
+                </section>
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home">
+                            <img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Logo" style="height:60px; width:auto;"/>
+                        </a>
+                        <div class="search-area">
+                            <div class="search-box">
+                                <button>All <i class="fa fa-angle-down"></i></button>
+                                <input placeholder="Part No. / Keyword"/>
+                                <a class="search-btn" href="#"><i class="fa fa-search"></i></a>
+                            </div>
+                            <label><input type="checkbox"/> In Stock</label>
+                            <label><input type="checkbox"/> RoHS</label>
+                        </div>
+                    </div>
+                </section>
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row">
+                        <nav>
+                            <a href="/mouser-home">Products</a>
+                            <a href="/manufacturer/">Manufacturers</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                            <a href="#resources">Technical Resources</a>
+                            <a href="#">Help</a>
+                        </nav>
+                        <div class="nav-actions">
+                            <div class="mh-account-wrap">
+                                <a class="mh-account-btn" href="#" id="mouserAccountBtnEC">
+                                    Account &amp; Orders <i class="fa fa-angle-down"></i>
+                                </a>
+                                <div class="mh-account-dropdown" id="mouserAccountDropdownEC">
+                                    <a class="mh-login-btn" href="/services-tools/login">Log In</a>
+                                    <p class="mh-new-cust">New customer? <a href="/MyAccount/Create">Start here</a></p>
+                                    <a class="mh-order-hist" href="/account/orders">Order History</a>
+                                </div>
+                            </div>
+                            <div class="mh-cart-wrap">
+                                <a class="cart mh-cart-btn" href="#" id="mouserCartBtnEC">
+                                    <i class="fa fa-shopping-cart"></i><span class="mh-cart-count">0</span>
+                                </a>
+                                <div class="mh-cart-dropdown" id="mouserCartDropdownEC">
+                                    <table class="mh-cart-table">
+                                        <thead>
+                                            <tr><th>Mfr.</th><th>Mfr. No:</th><th>Qty</th><th>Ext Total</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td colspan="4" class="mh-cart-empty">Your basket is empty.</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="mh-cart-footer">
+                                        <a class="mh-view-basket" href="/shop/cart">View Basket</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+<!-- Breadcrumb + Title + Total -->
+                <div class="ec-top-band">
+                    <div class="mouser-shell">
+                        <nav class="ec-breadcrumb">
+                            <a href="/mouser-home">Home</a>
+                            <span class="ec-bc-sep">›</span>
+                            <span>All Products</span>
+                        </nav>
+                        <h1 class="ec-page-title">ELECTRONIC COMPONENTS</h1>
+                        <p class="ec-total-line">
+                            Total Results: <strong class="ec-total-num" t-out="total_results"/>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Search + Filter box (matching original layout) -->
+                <div class="ec-search-band">
+                    <div class="mouser-shell">
+                        <div class="ec-search-box">
+                            <!-- Top row: label + search field + Filter by + Apply -->
+                            <div class="ec-search-top-row">
+                                <div class="ec-search-left">
+                                    <span class="ec-search-label">Search within results</span>
+                                    <div class="ec-search-field-wrap">
+                                        <form action="/product/search" method="GET" class="ec-search-inline-form">
+                                            <input type="text" name="keyword" class="ec-search-input" placeholder="Part No. / Keyword"/>
+                                            <button type="submit" class="ec-search-go-btn"><i class="fa fa-search"/></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="ec-filter-right">
+                                    <span class="ec-filter-label">Filter by</span>
+                                    <div class="ec-filter-select-wrap">
+                                        
+<select class="form-select mh-filter-manufacturer" id="manufacturer_filter">
+    <option value="">All Manufacturers</option>
+    <option>Panasonic</option>
+    <option>Panjit</option>
+    <option>Parallax</option>
+    <option>Parker Chomerics</option>
+    <option>Particle</option>
+    <option>Pasternack</option>
+    <option>Penguin Edge</option>
+    <option>Performance Motion Devices</option>
+    <option>Phoenix Contact</option>
+    <option>Pimoroni</option>
+    <option>STMicroelectronics</option>
+    <option>Texas Instruments</option>
+    <option>Infineon</option>
+    <option>Murata</option>
+    <option>Littelfuse</option>
+    <option>Vishay</option>
+    <option>TE Connectivity</option>
+    <option>Amphenol</option>
+    <option>Analog Devices</option>
+    <option>NXP</option>
+</select>
+
+                                        <button class="ec-apply-btn" type="button">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Bottom row: checkboxes -->
+                            <div class="ec-checkbox-row">
+                                <label class="ec-cb-label"><input type="checkbox" class="ec-cb"/> In Stock</label>
+                                <label class="ec-cb-label"><input type="checkbox" class="ec-cb"/> Active</label>
+                                <label class="ec-cb-label"><input type="checkbox" class="ec-cb"/> RoHS Compliant</label>
+                                <label class="ec-cb-label"><input type="checkbox" class="ec-cb"/> Normally Stocked</label>
+                                <label class="ec-cb-label"><input type="checkbox" class="ec-cb"/> New Products</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category sections -->
+                <div class="mouser-shell ec-categories-wrap">
+                    <t t-foreach="categories" t-as="cat">
+                        <div class="ec-category-block">
+                            <div class="ec-cat-header">
+                                <a t-att-href="cat['url']" class="ec-cat-title">
+                                    <t t-out="cat['name']"/>
+                                    <span class="ec-cat-chevron">›</span>
+                                </a>
+                            </div>
+                            <div class="ec-subcat-grid">
+                                <t t-foreach="cat.get('subcategories', [])" t-as="sub">
+                                    <div class="ec-subcat-item">
+                                        <span class="ec-subcat-dot">•</span>
+                                        <a t-att-href="sub['url']" class="ec-subcat-link" t-out="sub['name']"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- Bottom total -->
+                    <div class="ec-bottom-total">
+                        Total Results: <strong t-out="total_results"/>
+                    </div>
+                </div>
+
+                <!-- Newsletter (identical to homepage) -->
+                <section class="newsletter">
+                    <h3>Get the Latest News</h3>
+                    <div>
+                        <input placeholder="Enter your Email"/>
+                        <button>Subscribe</button>
+                    </div>
+                </section>
+
+                <!-- Footer (identical to homepage original-footer) -->
+                <footer class="mouser-footer original-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div>
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <p><i class="fa fa-phone"/> <a href="tel:08042650011">080 42650011</a></p>
+                            <p><i class="fa fa-envelope"/> <a href="mailto:bangalore@mouser.com">bangalore@mouser.com</a></p>
+                            <p><i class="fa fa-map-marker"/> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p>
+                            <div class="tti-logo-wrap">
+                                <img src="/mouser_theme/static/src/img/tti-logo.svg" alt="TTI" class="tti-logo-img"/>
+                                <span class="tti-text">Part of the TTI<br/>Family of Specialists</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>COMPANY</h4>
+                            <a href="/about-us">About Us</a>
+                            <a href="/newsroom">Newsroom</a>
+                            <a href="/careers">Careers @ Mouser</a>
+                            <a href="/quality">Quality</a>
+                            <a href="/environmental">Environmental</a>
+                            <a href="/corporate-social-responsibility">Corporate Social Responsibility</a>
+                        </div>
+                        <div>
+                            <h4>RESOURCES</h4>
+                            <a href="/blog">Blog</a>
+                            <a href="/new">Newest Products</a>
+                            <a href="/manufacturer/">New Manufacturers</a>
+                            <a href="/applications">Applications</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                        </div>
+                        <div>
+                            <h4>SUPPORT</h4>
+                            <a href="/contact-us">Contact Us</a>
+                            <a href="/help">Help</a>
+                            <a href="/feedback">&#8663; Feedback</a>
+                            <a href="/browser-support">Browser Support</a>
+                            <a href="/cookie-policy">Cookie Policy</a>
+                        </div>
+                        <div>
+                            <h4>CONNECT WITH US</h4>
+                            <div class="footer-socials">
+                                <a href="#" class="footer-social-icon"><i class="fa fa-facebook-square"/></a>
+                                <a href="#" class="footer-social-icon"><i class="fa fa-instagram"/></a>
+                                <a href="#" class="footer-social-icon"><i class="fa fa-twitter"/></a>
+                                <a href="#" class="footer-social-icon"><i class="fa fa-rss"/></a>
+                                <a href="#" class="footer-social-icon"><i class="fa fa-youtube"/></a>
+                                <a href="#" class="footer-social-icon"><i class="fa fa-linkedin"/></a>
+                                <a href="#" class="footer-social-icon"><i class="fa fa-envelope"/></a>
+                                <a href="#" class="footer-social-icon"><i class="fa fa-comment"/></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mouser-shell footer-bottom">
+                        <div class="footer-bottom-links">
+                            <a href="/privacy">Privacy Centre</a><span class="ec-footer-sep"> | </span><a href="/terms">Terms and Conditions</a><span class="ec-footer-sep"> | </span><a href="/corporate-information">Corporate Information</a><span class="ec-footer-sep"> | </span><a href="/accessibility">Accessibility</a><span class="ec-footer-sep"> | </span><a href="/sitemap">Sitemap</a>
+                        </div>
+                        <p class="footer-copyright">Copyright ©2026 Mouser Electronics, Inc.</p>
+                        <p class="footer-legal">Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p>
+                        <div class="footer-cert-logos">
+                            <img src="/mouser_theme/static/img/ECIA-Authorized-Dist.webp" alt="ECIA Authorized Distributor" class="footer-cert-img"/>
+                            <img src="/mouser_theme/static/img/iesa-logo-large.png" alt="IESA" class="footer-cert-img"/>
+                            <img src="/mouser_theme/static/img/logo-cse_small.png" alt="Customer Service Excellence" class="footer-cert-img"/>
+                            <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO Certified" class="footer-cert-img"/>
+                            <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B Certified Distributor" class="footer-cert-img"/>
+                            <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD" class="footer-cert-img"/>
+                            <img src="/mouser_theme/static/img/trust-guard-secure.png" alt="Trust Guard Secure" class="footer-cert-img footer-cert-trust"/>
+                        </div>
+                    </div>
+                </footer>
+
+                <a href="#" class="live-chat"><i class="fa fa-comment"/> Live Chat</a>
+            </div>
+        </t>
+    </template>
+
+    <!-- ── Category Products Page ────────────────────────────────────────── -->
+    <template id="category_products_page" name="Category Products">
+        <t t-call="website.layout">
+            <t t-set="pageName">mouser-category-products</t>
+            <div class="mouser-homepage mouser-cat-page">
+                <!-- ══ MOUSER HEADER (identical to homepage) ══ -->
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right">
+                            <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                        </div>
+                    </div>
+                </section>
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home">
+                            <img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Logo" style="height:60px; width:auto;"/>
+                        </a>
+                        <div class="search-area">
+                            <div class="search-box">
+                                <button>All <i class="fa fa-angle-down"></i></button>
+                                <input placeholder="Part No. / Keyword"/>
+                                <a class="search-btn" href="#"><i class="fa fa-search"></i></a>
+                            </div>
+                            <label><input type="checkbox"/> In Stock</label>
+                            <label><input type="checkbox"/> RoHS</label>
+                        </div>
+                    </div>
+                </section>
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row">
+                        <nav>
+                            <a href="/mouser-home">Products</a>
+                            <a href="/manufacturer/">Manufacturers</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                            <a href="#resources">Technical Resources</a>
+                            <a href="#">Help</a>
+                        </nav>
+                        <div class="nav-actions">
+                            <div class="mh-account-wrap">
+                                <a class="mh-account-btn" href="#" id="mouserAccountBtnCat">
+                                    Account &amp; Orders <i class="fa fa-angle-down"></i>
+                                </a>
+                                <div class="mh-account-dropdown" id="mouserAccountDropdownCat">
+                                    <a class="mh-login-btn" href="/services-tools/login">Log In</a>
+                                    <p class="mh-new-cust">New customer? <a href="/MyAccount/Create">Start here</a></p>
+                                    <a class="mh-order-hist" href="/account/orders">Order History</a>
+                                </div>
+                            </div>
+                            <div class="mh-cart-wrap">
+                                <a class="cart mh-cart-btn" href="#" id="mouserCartBtnCat">
+                                    <i class="fa fa-shopping-cart"></i><span class="mh-cart-count">0</span>
+                                </a>
+                                <div class="mh-cart-dropdown" id="mouserCartDropdownCat">
+                                    <table class="mh-cart-table">
+                                        <thead>
+                                            <tr><th>Mfr.</th><th>Mfr. No:</th><th>Qty</th><th>Ext Total</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td colspan="4" class="mh-cart-empty">Your basket is empty.</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="mh-cart-footer">
+                                        <a class="mh-view-basket" href="/shop/cart">View Basket</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+<!-- ── Breadcrumb + Title + Results count ── -->
+                <div class="mcat-top-band">
+                    <div class="mouser-shell">
+                        <nav class="mcat-breadcrumb">
+                            <a href="/mouser-home">Home</a>
+                            <span class="mcat-bc-sep">›</span>
+                            <a href="/electronic-components">All Products</a>
+                            <span class="mcat-bc-sep">›</span>
+                            <span t-out="category_name"/>
+                        </nav>
+                        <div class="mcat-title-row">
+                            <h1 class="mcat-page-title" t-out="category_name"/>
+                            <a href="#" class="mcat-share-btn"><i class="fa fa-share-alt"/> Share</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Category description banner ── -->
+                <div class="mouser-shell mcat-desc-band">
+                    <div class="mcat-desc-inner">
+                        <img class="mcat-desc-img" src="/mouser_theme/static/src/img/prod_te.png" t-att-alt="category_name"/>
+                        <div class="mcat-desc-text">
+                            <p>
+                                <strong t-out="category_name"/> are in stock with same-day shipping at Mouser Electronics from industry leading manufacturers. Mouser is an authorized distributor for many
+                                <t t-out="category_name.lower()"/> manufacturers including Amphenol, Aptiv (formerly Delphi), Molex, TE Connectivity &amp; more.
+                            </p>
+                            <p>Please view our selection of <span t-out="category_name.lower()"/> &amp; accessories below.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Tab bar: Products | Images | Newest Products ── -->
+                <div class="mouser-shell">
+                    <div class="mcat-tabs">
+                        <a class="mcat-tab mcat-tab-active" href="#">
+                            <i class="fa fa-th-list"/> Products
+                            <t t-if="total">
+                                (<strong t-esc="'{:,}'.format(total)"/>)
+                            </t>
+                        </a>
+                        <a class="mcat-tab" href="#">
+                            <i class="fa fa-image"/> Images
+                        </a>
+                        <a class="mcat-tab" href="#">
+                            <i class="fa fa-star"/> Newest Products
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ── Results bar + Smart Filtering ── -->
+                <div class="mouser-shell mcat-results-bar" t-if="not error">
+                    <span class="mcat-results-label">
+                        Results: <strong t-esc="'{:,}'.format(total)"/>
+                    </span>
+                    <span class="mcat-smart-filter">
+                        <input type="checkbox" id="smartFilter" checked="checked"/>
+                        <label for="smartFilter">Smart Filtering</label>
+                        <a href="#" class="mcat-sf-help" title="Smart Filtering helps narrow your results">?</a>
+                    </span>
+                </div>
+
+                <!-- ── Applied Filters ── -->
+                <div class="mouser-shell mcat-applied-filters" t-if="not error">
+                    <span class="mcat-af-label">Applied Filters:</span>
+                    <span class="mcat-filter-chip">Connectors</span>
+                    <span class="mcat-filter-chip mcat-filter-chip-active">
+                        <t t-out="category_name"/> <a href="#" class="mcat-chip-x">✕</a>
+                    </span>
+                </div>
+
+                <!-- ── Filter columns (Manufacturer, Product, Type, etc.) ── -->
+                <div class="mouser-shell mcat-filter-cols" t-if="not error">
+                    <div class="mcat-filter-col">
+                        <div class="mcat-fcol-head">Manufacturer</div>
+                        <div class="mcat-fcol-body">
+                            <div class="mcat-fitem mcat-fitem-header">---- Most Popular ----</div>
+                            <div class="mcat-fitem"><a href="#">TE Connectivity</a></div>
+                            <div class="mcat-fitem"><a href="#">Aptiv</a></div>
+                            <div class="mcat-fitem"><a href="#">Amphenol</a></div>
+                            <div class="mcat-fitem"><a href="#">Molex</a></div>
+                            <div class="mcat-fitem"><a href="#">Yazaki</a></div>
+                            <div class="mcat-fitem mcat-fitem-header">---- A to Z ----</div>
+                            <div class="mcat-fitem"><a href="#">3M</a></div>
+                            <div class="mcat-fitem"><a href="#">ABB</a></div>
+                        </div>
+                    </div>
+                    <div class="mcat-filter-col">
+                        <div class="mcat-fcol-head">Product</div>
+                        <div class="mcat-fcol-body">
+                            <div class="mcat-fitem"><a href="#">Accessories</a></div>
+                            <div class="mcat-fitem"><a href="#">Accessory</a></div>
+                            <div class="mcat-fitem"><a href="#">Adapters</a></div>
+                            <div class="mcat-fitem"><a href="#" t-out="category_name"/></div>
+                            <div class="mcat-fitem"><a href="#">Terminal</a></div>
+                            <div class="mcat-fitem"><a href="#">Backshell</a></div>
+                            <div class="mcat-fitem"><a href="#">Backshells</a></div>
+                            <div class="mcat-fitem"><a href="#">Boot</a></div>
+                        </div>
+                    </div>
+                    <div class="mcat-filter-col">
+                        <div class="mcat-fcol-head">Number of Positions</div>
+                        <div class="mcat-fcol-body">
+                            <div class="mcat-fitem"><a href="#">1 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">2 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">3 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">4 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">5 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">6 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">7 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">8 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">9 Position</a></div>
+                            <div class="mcat-fitem"><a href="#">10 Position</a></div>
+                        </div>
+                    </div>
+                    <div class="mcat-filter-col">
+                        <div class="mcat-fcol-head">Gender</div>
+                        <div class="mcat-fcol-body">
+                            <div class="mcat-fitem"><a href="#">Female / Female</a></div>
+                            <div class="mcat-fitem"><a href="#">Jack</a></div>
+                            <div class="mcat-fitem"><a href="#">Jack (Socket)</a></div>
+                            <div class="mcat-fitem"><a href="#">Male / Female</a></div>
+                            <div class="mcat-fitem"><a href="#">Male / Male</a></div>
+                            <div class="mcat-fitem"><a href="#">Pin (Male)</a></div>
+                            <div class="mcat-fitem"><a href="#">Plug</a></div>
+                            <div class="mcat-fitem"><a href="#">Plug (Male)</a></div>
+                            <div class="mcat-fitem"><a href="#">Plug (RP - Female)</a></div>
+                            <div class="mcat-fitem"><a href="#">Receptacle (Female)</a></div>
+                        </div>
+                    </div>
+                    <div class="mcat-filter-col">
+                        <div class="mcat-fcol-head">Mount</div>
+                        <div class="mcat-fcol-body">
+                            <div class="mcat-fitem"><a href="#">Cable</a></div>
+                            <div class="mcat-fitem"><a href="#">Chassis</a></div>
+                            <div class="mcat-fitem"><a href="#">Flange</a></div>
+                            <div class="mcat-fitem"><a href="#">Mount</a></div>
+                            <div class="mcat-fitem"><a href="#">Panel</a></div>
+                            <div class="mcat-fitem"><a href="#">PCB</a></div>
+                            <div class="mcat-fitem"><a href="#">Push-In</a></div>
+                            <div class="mcat-fitem"><a href="#">Surface Mount</a></div>
+                            <div class="mcat-fitem"><a href="#">Through Hole</a></div>
+                            <div class="mcat-fitem"><a href="#">Wire</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Error message ── -->
+                <div t-if="error" class="mouser-shell mcat-error-msg">
+                    <i class="fa fa-exclamation-circle"/> <t t-out="error"/>
+                </div>
+
+                <!-- ── Products Table ── -->
+                <div class="mouser-shell mcat-products-wrap" t-if="products">
+                    <!-- Search within results -->
+                    <form t-attf-action="/c/#{category_slug}" method="GET" class="mcat-search-bar">
+                        <input type="text" name="keyword" class="mcat-search-input"
+                               placeholder="Part No. / Keyword" t-att-value="keyword"/>
+                        <button type="submit" class="mcat-search-btn"><i class="fa fa-search"/></button>
+                    </form>
+
+                    <table class="mcat-table">
+                        <thead>
+                            <tr>
+                                <th class="mcat-th-check"><input type="checkbox" title="Select All"/></th>
+                                <th class="mcat-th-img">Image</th>
+                                <th class="mcat-th-part">Part # <span class="mcat-sort-icon">⇅</span></th>
+                                <th class="mcat-th-mfr">Mfr. <span class="mcat-sort-icon">⇅</span></th>
+                                <th class="mcat-th-desc">Description</th>
+                                <th class="mcat-th-ds">Datasheet</th>
+                                <th class="mcat-th-avail">Availability</th>
+                                <th class="mcat-th-price">
+                                    Pricing (INR)
+                                    <a href="#" class="mcat-price-help">?</a>
+                                </th>
+                                <th class="mcat-th-qty">Qty.</th>
+                                <th class="mcat-th-rohs">RoHS</th>
+                                <th class="mcat-th-ecad">ECAD Model</th>
+                                <th class="mcat-th-product">Product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="products" t-as="p">
+                                <tr class="mcat-row">
+                                    <td class="mcat-td-check"><input type="checkbox"/></td>
+                                    <td class="mcat-td-img">
+                                        <img t-if="p.get('image')" t-att-src="p['image']"
+                                             class="mcat-prod-img" t-att-alt="p.get('mpn','')" loading="lazy"/>
+                                        <div t-else="" class="mcat-no-img"/>
+                                    </td>
+                                    <td class="mcat-td-part">
+                                        <div class="mcat-mouser-pn">
+                                            <span class="mcat-pn-label">Mouser Part No</span><br/>
+                                            <a t-if="p.get('detail_url')" t-att-href="p['detail_url']"
+                                               class="mcat-part-link" t-out="p.get('mouser_no','')"/>
+                                            <span t-else="" t-out="p.get('mouser_no','')"/>
+                                        </div>
+                                        <div class="mcat-mfr-pn" t-out="p.get('mpn','')"/>
+                                    </td>
+                                    <td class="mcat-td-mfr" t-out="p.get('manufacturer','')"/>
+                                    <td class="mcat-td-desc">
+                                        <span t-out="p.get('description','')"/>
+                                        <a t-if="p.get('detail_url')" t-att-href="p['detail_url']"
+                                           class="mcat-learn-more">Learn More</a>
+                                    </td>
+                                    <td class="mcat-td-ds">
+                                        <a t-if="p.get('datasheet')" t-att-href="p['datasheet']"
+                                           target="_blank" class="mcat-ds-link">
+                                            <i class="fa fa-file-pdf-o"/> PDF
+                                        </a>
+                                    </td>
+                                    <td class="mcat-td-avail" t-out="p.get('availability','')"/>
+                                    <td class="mcat-td-price">
+                                        <t t-if="p.get('price')">
+                                            <div class="mcat-price-row">
+                                                <span class="mcat-price-qty">1</span>
+                                                <span class="mcat-price-val" t-out="p.get('price','')"/>
+                                            </div>
+                                        </t>
+                                    </td>
+                                    <td class="mcat-td-qty">
+                                        <div class="mcat-qty-wrap">
+                                            <input type="number" class="mcat-qty-input" min="1" value="1"/>
+                                            <span class="mcat-mult">Mult.: 1</span>
+                                        </div>
+                                    </td>
+                                    <td class="mcat-td-rohs">
+                                        <span t-if="p.get('rohs')" class="mcat-rohs-badge" t-out="p.get('rohs','')"/>
+                                    </td>
+                                    <td class="mcat-td-ecad"></td>
+                                    <td class="mcat-td-product"></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination bar -->
+                    <div class="mcat-pagination-bar" t-if="total_pages > 1">
+                        <a t-if="page > 1"
+                           t-attf-href="/c/#{category_slug}?keyword=#{keyword}&amp;page=#{page-1}"
+                           class="mcat-pgbtn">‹</a>
+                        <t t-set="p_start" t-value="[1, page - 2][page > 2]"/>
+                        <t t-set="p_end" t-value="[total_pages, page + 2][page + 2 &lt; total_pages]"/>
+                        <t t-foreach="range(max(1, page-2), min(total_pages+1, page+3))" t-as="pg">
+                            <a t-attf-href="/c/#{category_slug}?keyword=#{keyword}&amp;page=#{pg}"
+                               t-att-class="'mcat-pgbtn mcat-pgbtn-active' if pg == page else 'mcat-pgbtn'"
+                               t-out="pg"/>
+                        </t>
+                        <span t-if="total_pages > page + 3" class="mcat-pg-ellipsis">»</span>
+                        <a t-if="page &lt; total_pages"
+                           t-attf-href="/c/#{category_slug}?keyword=#{keyword}&amp;page=#{page+1}"
+                           class="mcat-pgbtn">›</a>
+                    </div>
+                </div>
+
+                <div t-if="not products and not error" class="mouser-shell mcat-no-results">
+                    No products found for "<t t-out="keyword"/>".
+                </div>
+
+                <!-- ── Newsletter section ── -->
+                <div class="mcat-newsletter-band">
+                    <h3>Get the Latest News</h3>
+                    <div class="mcat-nl-row">
+                        <input class="mcat-nl-input" type="email" placeholder="Enter your Email"/>
+                        <button class="mcat-nl-btn">Subscribe</button>
+                    </div>
+                </div>
+
+                <!-- ── Full Footer (matching mouser.in) ── -->
+                <footer class="mcat-footer">
+                    <div class="mouser-shell mcat-footer-grid">
+                        <!-- Customer Service Office -->
+                        <div class="mcat-fcol">
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <div class="mcat-fc-item"><i class="fa fa-phone mcat-fc-icon"/> <a href="tel:08042650011">080 42650011</a></div>
+                            <div class="mcat-fc-item"><i class="fa fa-envelope mcat-fc-icon"/> <a href="mailto:bangalore@mouser.com">bangalore@mouser.com</a></div>
+                            <div class="mcat-fc-item mcat-addr">
+                                <i class="fa fa-map-marker mcat-fc-icon"/>
+                                <span>#9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</span>
+                            </div>
+                            <div class="mcat-tti-badge">
+                                <div class="mcat-tti-icon">TTI</div>
+                                <div class="mcat-tti-text">Part of the TTI<br/>Family of Specialists</div>
+                            </div>
+                        </div>
+                        <!-- Company -->
+                        <div class="mcat-fcol">
+                            <h4>COMPANY</h4>
+                            <a href="/about-tti">About Us</a>
+                            <a href="#">Newsroom</a>
+                            <a href="#">Careers @ Mouser</a>
+                            <a href="/quality">Quality</a>
+                            <a href="#">Environmental</a>
+                            <a href="#">Corporate Social Responsibility</a>
+                        </div>
+                        <!-- Resources -->
+                        <div class="mcat-fcol">
+                            <h4>RESOURCES</h4>
+                            <a href="#">Blog</a>
+                            <a href="#">Newest Products</a>
+                            <a href="#">New Manufacturers</a>
+                            <a href="#">Applications</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                        </div>
+                        <!-- Support -->
+                        <div class="mcat-fcol">
+                            <h4>SUPPORT</h4>
+                            <a href="/contact">Contact Us</a>
+                            <a href="#">Help</a>
+                            <a href="/feedback">Feedback</a>
+                            <a href="#">Browser Support</a>
+                            <a href="#">Cookie Policy</a>
+                        </div>
+                        <!-- Connect With Us -->
+                        <div class="mcat-fcol mcat-social-col">
+                            <h4>CONNECT WITH US</h4>
+                            <div class="mcat-socials">
+                                <a href="#" class="mcat-soc-link" title="Facebook"><i class="fa fa-facebook-square"/></a>
+                                <a href="#" class="mcat-soc-link" title="Instagram"><i class="fa fa-instagram"/></a>
+                                <a href="#" class="mcat-soc-link" title="Twitter/X"><i class="fa fa-twitter-square"/></a>
+                                <a href="#" class="mcat-soc-link" title="RSS"><i class="fa fa-rss-square"/></a>
+                                <a href="#" class="mcat-soc-link" title="YouTube"><i class="fa fa-youtube-square"/></a>
+                                <a href="#" class="mcat-soc-link" title="LinkedIn"><i class="fa fa-linkedin-square"/></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cert logos + legal bottom -->
+                    <div class="mouser-shell mcat-footer-bottom">
+                        <div class="mcat-fb-left">
+                            <div class="mcat-fb-links">
+                                <a href="/privacypolicy">Privacy Centre</a><span class="ec-footer-sep"> | </span><a href="/saleterms">Terms and Conditions</a><span class="ec-footer-sep"> | </span><a href="#">Corporate Information</a><span class="ec-footer-sep"> | </span><a href="/accessibility">Accessibility</a><span class="ec-footer-sep"> | </span><a href="#">Sitemap</a>
+                            </div>
+                            <p class="mcat-copyright">Copyright ©2026 Mouser Electronics, Inc.</p>
+                            <p class="mcat-legal">Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p>
+                        </div>
+                        <div class="mcat-cert-logos">
+                            <img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member" class="mcat-cert-img" title="ECIA Member"/>
+                            <img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA" class="mcat-cert-img" title="IESA"/>
+                            <img src="/mouser_theme/static/img/caap-logo.png" alt="Customer Award" class="mcat-cert-img" title="Customer Award"/>
+                            <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO" class="mcat-cert-img" title="ISO"/>
+                            <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B" class="mcat-cert-img" title="AS9120B Certified Distributor"/>
+                            <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD" class="mcat-cert-img" title="ESD"/>
+                            <img src="/mouser_theme/static/img/trust-guard-secure.png" alt="Trust Guard Secure" class="mcat-cert-img mcat-cert-trust" title="Trust Guard Secure"/>
+                        </div>
+                    </div>
+                </footer>
+
+                <a href="#" class="live-chat"><i class="fa fa-comment"/> Live Chat</a>
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Integrate into Odoo 19's existing product image column.
+        Odoo's standard gallery remains the primary product media UI.
+    -->
+    <template id="product_3d_viewer" inherit_id="website_sale.product" name="Product 3D / 360 Viewer">
+        <xpath expr="//div[@id='product_detail_main']" position="before">
+            <div class="o_product_3d_root">
+            <t t-set="raw_product_images" t-value="product_variant._get_images() if product_variant else product._get_images()"/>
+            <!--
+                _get_images() mixes the product.template/product.product record
+                (for the main image) with product.image records. Only the latter
+                have `embed_code` / `video_url`, so the video filter has to be
+                guarded by the model name - reading embed_code on a template
+                raises AttributeError and breaks the whole product page.
+            -->
+            <t t-set="product_images"
+               t-value="[img for img in raw_product_images if img.image_1920 and not (img._name == 'product.image' and img.embed_code)]"/>
+
+            <!-- Dedicated 360 frames take priority over normal product images -->
+            <t t-set="dedicated_360_frames" t-value="product.product_360_frame_ids.filtered(lambda f: f.image)"/>
+            <t t-set="frames_360" t-value="dedicated_360_frames if len(dedicated_360_frames) &gt;= 2 else product_images"/>
+            <t t-set="use_dedicated_360" t-value="len(dedicated_360_frames) &gt;= 2"/>
+
+            <!-- Prefer new multi-model list, fall back to legacy single field / variant -->
+            <t t-set="multi_models" t-value="product.product_3d_model_ids"/>
+            <t t-set="default_3d_model" t-value="product._get_default_3d_model()"/>
+            <t t-set="variant_3d_model" t-value="product_variant and product_variant.product_3d_model or False"/>
+            <t t-set="has_any_3d" t-value="bool(multi_models) or bool(variant_3d_model) or bool(product.product_3d_model)"/>
+
+            <t t-set="variant_3d_enable" t-value="(product_variant.product_3d_enable if product_variant else product.product_3d_enable)"/>
+            <t t-set="variant_3d_auto_rotate" t-value="(product_variant.product_3d_auto_rotate if product_variant else product.product_3d_auto_rotate)"/>
+            <t t-set="variant_3d_ar" t-value="(product_variant.product_3d_ar if product_variant else product.product_3d_ar)"/>
+
+            <!-- Camera defaults: model > product > website -->
+            <t t-set="effective_camera_orbit" t-value="(default_3d_model.camera_orbit if default_3d_model and default_3d_model.camera_orbit else None) or product.product_3d_camera_orbit or website.product_3d_default_camera_orbit or '0deg 75deg 105%'"/>
+            <t t-set="effective_field_of_view" t-value="(default_3d_model.field_of_view if default_3d_model and default_3d_model.field_of_view else None) or product.product_3d_field_of_view or website.product_3d_default_field_of_view or ''"/>
+
+            <!-- Poster: dedicated field > first product image -->
+            <t t-set="poster_url" t-value="product.product_3d_poster and ('/website_product_3d/model/product.template/%s/product_3d_poster' % product.id) or (product_images and product_images[0] and ('/web/image/%s/%s/image_1920' % (product_images[0]._name, product_images[0].id)) or False)"/>
+
+            <t t-set="has_simple_anim" t-value="product.product_3d_simple_anim_enable and bool(product_images)"/>
+            <t t-set="has_360" t-value="product.product_3d_360_enable and len(frames_360) &gt;= 2"/>
+            <t t-if="website.product_3d_viewer_enabled and variant_3d_enable and (has_any_3d or has_360 or has_simple_anim)">
+                <div class="o_product_3d_toolbar d-flex flex-wrap gap-2 mb-3" data-product-3d-toolbar="1">
+                    <button
+                        t-if="has_simple_anim"
+                        type="button"
+                        class="btn btn-outline-secondary o_product_3d_toggle"
+                        data-viewer-target="simple"
+                        aria-pressed="false"
+                    >
+                        <i class="fa fa-arrows me-1" role="presentation"/>Rotate / Zoom
+                    </button>
+                    <button
+                        t-if="has_any_3d"
+                        type="button"
+                        class="btn btn-outline-primary o_product_3d_toggle"
+                        data-viewer-target="3d"
+                        aria-pressed="false"
+                    >
+                        <i class="fa fa-cube me-1" role="presentation"/>3D View
+                    </button>
+                    <button
+                        t-if="has_360"
+                        type="button"
+                        class="btn btn-outline-secondary o_product_3d_toggle"
+                        data-viewer-target="360"
+                        aria-pressed="false"
+                    >
+                        <i class="fa fa-refresh me-1" role="presentation"/>360° View
+                    </button>
+                </div>
+
+                <div class="o_product_3d_panels">
+                    <!-- ========== SIMPLE ROTATE / ZOOM PANEL ========== -->
+                    <div
+                        t-if="has_simple_anim"
+                        class="o_product_simple_anim_wrapper d-none mb-3"
+                        data-product-simple-anim="1"
+                        data-viewer-type="simple"
+                    >
+                        <div class="o_product_simple_anim_header d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge text-bg-secondary">Rotate / Zoom</span>
+                            <small class="text-muted">Drag to rotate · Scroll or pinch to zoom</small>
+                        </div>
+                        <div class="o_product_simple_anim_stage" tabindex="0" role="application" aria-label="Product rotate and zoom viewer">
+                            <div class="o_product_simple_anim_inner">
+                                <img
+                                    class="o_product_simple_anim_image"
+                                    t-att-src="'/web/image/%s/%s/image_1920' % (product_images[0]._name, product_images[0].id)"
+                                    t-att-alt="product.name"
+                                    draggable="false"
+                                />
+                            </div>
+                        </div>
+                        <div class="mt-2 d-flex flex-wrap gap-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary o_product_simple_anim_reset">
+                                <i class="fa fa-refresh me-1"/>Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ========== 3D PANEL ========== -->
+                    <div
+                        t-if="has_any_3d"
+                        class="o_product_3d_viewer_wrapper d-none mb-3"
+                        data-product-3d-viewer="1"
+                        data-viewer-type="3d"
+                        t-att-data-auto-rotate="(default_3d_model.auto_rotate if default_3d_model else variant_3d_auto_rotate) and '1' or '0'"
+                        t-att-data-ar="(default_3d_model.enable_ar if default_3d_model else variant_3d_ar) and '1' or '0'"
+                        t-att-data-camera-orbit="effective_camera_orbit"
+                        t-att-data-field-of-view="effective_field_of_view"
+                        t-att-data-poster-url="poster_url"
+                        t-att-data-model-url="variant_3d_model and ('/website_product_3d/model/product.product/%s/product_3d_model' % product_variant.id) or (default_3d_model and ('/website_product_3d/model/product.3d.model/%s/model_file' % default_3d_model.id) or (product.product_3d_model and ('/website_product_3d/model/product.template/%s/product_3d_model' % product.id) or ''))"
+                        t-att-data-download-url="variant_3d_model and ('/website_product_3d/model/product.product/%s/product_3d_model' % product_variant.id) or (default_3d_model and ('/website_product_3d/model/product.3d.model/%s/model_file' % default_3d_model.id) or (product.product_3d_model and ('/website_product_3d/model/product.template/%s/product_3d_model' % product.id) or ''))"
+                    >
+                        <!-- Model switcher when multiple models exist -->
+                        <div t-if="len(multi_models) &gt; 1" class="o_product_3d_model_switcher mb-2 d-flex flex-wrap gap-1">
+                            <t t-foreach="multi_models" t-as="m">
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary o_product_3d_model_btn"
+                                        t-att-class="'btn btn-sm o_product_3d_model_btn ' + ('btn-primary' if m == default_3d_model else 'btn-outline-secondary')"
+                                        t-att-data-model-url="'/website_product_3d/model/product.3d.model/%s/model_file' % m.id"
+                                        t-att-data-auto-rotate="m.auto_rotate and '1' or '0'"
+                                        t-att-data-ar="m.enable_ar and '1' or '0'"
+                                        t-att-data-camera-orbit="m.camera_orbit or product.product_3d_camera_orbit or website.product_3d_default_camera_orbit or '0deg 75deg 105%'"
+                                        t-att-data-field-of-view="m.field_of_view or product.product_3d_field_of_view or website.product_3d_default_field_of_view or ''"
+                                        t-att-data-download-url="'/website_product_3d/model/product.3d.model/%s/model_file' % m.id">
+                                    <t t-esc="m.name"/>
+                                </button>
+                            </t>
+                        </div>
+
+                        <div class="o_product_3d_viewer_container">
+                            <model-viewer
+                                class="o_product_3d_model_viewer"
+                                t-att-alt="product.name"
+                                camera-controls=""
+                                touch-action="pan-y"
+                                t-att-auto-rotate="(default_3d_model.auto_rotate if default_3d_model else variant_3d_auto_rotate) and 'true' or None"
+                                t-att-ar="(default_3d_model.enable_ar if default_3d_model else variant_3d_ar) and '' or None"
+                                ar-modes="webxr scene-viewer quick-look"
+                                shadow-intensity="1"
+                                exposure="1"
+                                loading="lazy"
+                                t-att-poster="poster_url or None"
+                                t-att-camera-orbit="effective_camera_orbit"
+                                t-att-field-of-view="effective_field_of_view or None"
+                            />
+                            <div class="o_product_3d_loading" aria-live="polite">Loading 3D model…</div>
+                            <div class="o_product_3d_progress d-none" aria-live="polite">
+                                <div class="o_product_3d_progress_track">
+                                    <div class="o_product_3d_progress_bar" style="width:0%"></div>
+                                </div>
+                                <div class="o_product_3d_progress_text">Loading 0%</div>
+                            </div>
+                            <div class="o_product_3d_badge">
+                                <span class="badge text-bg-primary">3D View</span>
+                                <span t-if="(default_3d_model.enable_ar if default_3d_model else variant_3d_ar)" class="badge text-bg-secondary ms-1">AR available</span>
+                            </div>
+                        </div>
+
+                        <!-- Reset Camera + Download -->
+                        <div class="mt-2 d-flex flex-wrap gap-2">
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-secondary o_product_3d_reset_camera"
+                                    title="Reset camera to initial position">
+                                <i class="fa fa-refresh me-1"/>Reset Camera
+                            </button>
+                            <a t-att-href="variant_3d_model and ('/website_product_3d/model/product.product/%s/product_3d_model' % product_variant.id) or (default_3d_model and ('/website_product_3d/model/product.3d.model/%s/model_file' % default_3d_model.id) or (product.product_3d_model and ('/website_product_3d/model/product.template/%s/product_3d_model' % product.id) or '#'))"
+                               class="btn btn-sm btn-outline-secondary o_product_3d_download"
+                               download="product-3d-model.glb">
+                                <i class="fa fa-download me-1"/>Download 3D Model
+                            </a>
+                        </div>
+
+                        <div class="o_product_3d_error_message alert alert-warning d-none mt-2 mb-0" role="alert">
+                            The 3D model could not be loaded. Please check the uploaded GLB/GLTF file.
+                        </div>
+                    </div>
+
+                    <!-- ========== 360 PANEL ========== -->
+                    <div
+                        t-if="has_360"
+                        class="o_product_360_viewer_wrapper d-none mb-3"
+                        data-product-360-viewer="1"
+                        data-viewer-type="360"
+                        data-sensitivity="6"
+                    >
+                        <div class="o_product_360_viewer_header d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge text-bg-dark">360° View</span>
+                            <small class="text-muted o_product_360_hint">Drag or swipe to rotate</small>
+                        </div>
+                        <div class="o_product_360_viewer_stage" tabindex="0" role="application" aria-label="360 degree product viewer">
+                            <t t-if="use_dedicated_360">
+                                <img
+                                    class="o_product_360_image"
+                                    t-att-src="'/web/image/product.360.frame/%s/image' % frames_360[0].id"
+                                    t-att-alt="product.name"
+                                    draggable="false"
+                                />
+                            </t>
+                            <t t-else="">
+                                <img
+                                    class="o_product_360_image"
+                                    t-att-src="'/web/image/%s/%s/image_1920' % (frames_360[0]._name, frames_360[0].id)"
+                                    t-att-alt="product.name"
+                                    draggable="false"
+                                />
+                            </t>
+                            <div class="o_product_360_loading" aria-hidden="true">Loading…</div>
+                        </div>
+                        <!-- Frame sources for the 360 viewer.
+                             First frame keeps a real src so the initial paint is fast.
+                             Remaining frames use data-src so the browser does not
+                             download all 24–36 images up-front. JS preloads only the
+                             current frame + nearby neighbours on demand. -->
+                        <div class="o_product_360_frames" aria-hidden="true">
+                            <t t-foreach="frames_360" t-as="frame">
+                                <t t-if="use_dedicated_360">
+                                    <img
+                                        t-att-data-src="'/web/image/product.360.frame/%s/image' % frame.id"
+                                        t-att-alt="product.name"
+                                        loading="lazy"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <img
+                                        t-att-data-src="'/web/image/%s/%s/image_1920' % (frame._name, frame.id)"
+                                        t-att-alt="product.name"
+                                        loading="lazy"
+                                    />
+                                </t>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Variant model URLs kept for JS switching -->
+                <div class="d-none" data-product-3d-variant-models="1">
+                    <t t-foreach="product.product_variant_ids" t-as="variant">
+                        <span
+                            t-if="variant.product_3d_model"
+                            t-att-data-variant-id="variant.id"
+                            t-att-data-model-url="'/website_product_3d/model/product.product/%s/product_3d_model' % variant.id"
+                            t-att-data-auto-rotate="variant.product_3d_auto_rotate and '1' or '0'"
+                            t-att-data-ar="variant.product_3d_ar and '1' or '0'"
+                        />
+                    </t>
+                </div>
+            </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ==========================================
+         Inherit Sale Order Form
+    =========================================== -->
+
+    <record id="view_sale_order_form_tracking" model="ir.ui.view">
+        <field name="name">sale.order.form.tracking</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Add Shipment Page -->
+            <xpath expr="//notebook" position="inside">
+
+                <page string="Shipment Tracking">
+
+                    <group>
+
+                        <group string="Shipment Details">
+
+                            <field name="tracking_number"/>
+
+                            <field name="courier_name"/>
+
+                            <field name="shipping_method"/>
+
+                            <field name="payment_method"/>
+
+                            <field name="current_location"/>
+
+                            <field name="estimated_delivery"/>
+
+                            <field name="shipment_status"/>
+
+                        </group>
+
+                        <group string="Customer Requests">
+
+                            <field name="cancel_requested" readonly="1"/>
+
+                            <field name="return_requested" readonly="1"/>
+
+                        </group>
+
+                    </group>
+
+                    <separator string="Tracking Timeline"/>
+
+                    <group>
+
+                        <group>
+
+                            <field name="confirmed_date" readonly="1"/>
+
+                            <field name="packed_date" readonly="1"/>
+
+                            <field name="shipped_date" readonly="1"/>
+
+                        </group>
+
+                        <group>
+
+                            <field name="out_delivery_date" readonly="1"/>
+
+                            <field name="delivered_date" readonly="1"/>
+
+                        </group>
+
+                    </group>
+
+                    <separator string="Shipment Actions"/>
+
+                    <group>
+
+                        <button
+                            name="action_confirmed"
+                            string="Order Confirmed"
+                            type="object"
+                            class="btn-primary"/>
+
+                        <button
+                            name="action_packed"
+                            string="Packed"
+                            type="object"
+                            class="btn-info"/>
+
+                        <button
+                            name="action_shipped"
+                            string="Shipped"
+                            type="object"
+                            class="btn-warning"/>
+
+                        <button
+                            name="action_out_for_delivery"
+                            string="Out For Delivery"
+                            type="object"
+                            class="btn-secondary"/>
+
+                        <button
+                            name="action_delivered"
+                            string="Delivered"
+                            type="object"
+                            class="btn-success"/>
+
+                    </group>
+
+                </page>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>

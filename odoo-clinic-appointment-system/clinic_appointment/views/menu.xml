@@ -1,0 +1,334 @@
+
+<odoo>
+
+
+        <!-- ===============================
+            ROOT MENU
+        ================================ -->
+        <menuitem id="clinic_root_menu"
+            name="Clinic Management"
+            sequence="10"
+            groups="base.group_system,clinic_appointment.group_clinic_doctor,clinic_appointment.group_clinic_receptionist,clinic_appointment.group_clinic_nurse,clinic_appointment.group_clinic_lab"
+            web_icon="clinic_appointment,static/description/ActiveLife Multispeciality Clinic.png"/>
+        <!-- ===============================
+            APPOINTMENTS
+        ================================ -->
+        <menuitem id="clinic_appointment_menu"
+            name="Appointments"
+            parent="clinic_root_menu"
+            action="action_clinic_appointment"
+            sequence="10"
+            groups="base.group_system"/>
+        <!-- ===============================
+            EMPLOYEE ACTIONS
+        ================================ -->
+
+        <record id="action_clinic_employee" model="ir.actions.act_window">
+            <field name="name">Clinic Employees</field>
+            <field name="res_model">clinic.employee</field>
+            <field name="view_mode">kanban,list,form</field>
+        </record>
+
+            <!-- Doctors -->
+        <record id="action_clinic_doctors" model="ir.actions.act_window">
+            <field name="name">Doctors</field>
+            <field name="res_model">clinic.employee</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[('role','=','doctor')]</field>
+        </record>
+
+            <!-- Receptionists -->
+        <record id="action_clinic_receptionists" model="ir.actions.act_window">
+            <field name="name">Receptionists</field>
+            <field name="res_model">clinic.employee</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[('role','=','receptionist')]</field>
+        </record>
+
+            <!-- Nurses -->
+        <record id="action_clinic_nurses" model="ir.actions.act_window">
+            <field name="name">Nurses</field>
+            <field name="res_model">clinic.employee</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[('role','=','nurse')]</field>
+        </record>
+
+            <!-- Lab Technicians -->
+        <record id="action_clinic_lab" model="ir.actions.act_window">
+            <field name="name">Lab Technicians</field>
+            <field name="res_model">clinic.employee</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[('role','=','lab')]</field>
+        </record>
+
+        <record id="action_clinic_other_staff" model="ir.actions.act_window">
+            <field name="name">Other Staff</field>
+            <field name="res_model">clinic.employee</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[('role','=','other')]</field>
+        </record>
+
+        <!-- ===============================
+        PATIENT ACTION
+        ================================ -->
+
+        <record id="action_clinic_patient" model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="res_model">clinic.patient</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+            
+
+        <record id="action_clinic_enquiry" model="ir.actions.act_window">
+            <field name="name">Patient Enquiries</field>
+            <field name="res_model">clinic.enquiry</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+            <!-- Menu Item -->
+        <menuitem id="menu_clinic_employee" name="Employees" parent="clinic_root_menu" action="action_clinic_employee" groups="base.group_system" sequence="20"/>
+            <!-- Submenus per role -->
+        <menuitem id="clinic_doctors_menu" name="Doctors"
+                parent="menu_clinic_employee" action="action_clinic_doctors" sequence="1"/>
+
+        <menuitem id="clinic_receptionists_menu" name="Receptionists"
+                parent="menu_clinic_employee" action="action_clinic_receptionists" sequence="2"/>
+
+        <menuitem id="clinic_nurses_menu" name="Nurses"
+                parent="menu_clinic_employee" action="action_clinic_nurses" sequence="3"/>
+
+            
+        <menuitem id="clinic_lab_menu" name="Lab Technicians"
+                parent="menu_clinic_employee" action="action_clinic_lab" sequence="4"/>
+
+        
+
+        <menuitem id="clinic_other_staff_menu" name="Other Staff"
+                parent="menu_clinic_employee" action="action_clinic_other_staff" sequence="6"/>
+
+
+        <menuitem id="menu_clinic_enquiry" name="Patient Enquiries"
+                parent="clinic_root_menu" action="action_clinic_enquiry" sequence="30"/>
+
+            <!-- Hospital Room Actions -->
+        <record id="action_hospital_room" model="ir.actions.act_window">
+            <field name="name">Rooms</field>
+            <field name="res_model">hospital.room</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="action_room_booking" model="ir.actions.act_window">
+            <field name="name">Room Booking</field>
+            <field name="res_model">hospital.room.booking</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="action_occupied_rooms" model="ir.actions.act_window">
+            <field name="name">Occupied Rooms</field>
+            <field name="res_model">hospital.room</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('status','=','occupied')]</field>
+            <field name="context">{'create': False}</field>
+        </record>
+
+        <record id="action_cleaning_rooms" model="ir.actions.act_window">
+            <field name="name">Cleaning Rooms</field>
+            <field name="res_model">hospital.room</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('status','=','cleaning')]</field>
+            <field name="context">{'create': False}</field>
+        </record>
+
+        <!-- Hospital Room Menu -->
+        <menuitem id="menu_hospital_room"
+                name="Rooms"
+                parent="clinic_root_menu"
+                sequence="50"/>
+
+        <menuitem id="menu_hospital_room_list"
+                name="All Rooms"
+                parent="menu_hospital_room"
+                action="action_hospital_room"
+                sequence="1"/>
+
+        <menuitem id="menu_room_booking"
+                name="Room Booking"
+                parent="menu_hospital_room"
+                action="action_room_booking"
+                sequence="2"/>
+        
+        <menuitem id="menu_occupied_rooms"
+            name="Occupied Rooms"
+            parent="menu_hospital_room"
+            action="action_occupied_rooms"
+            sequence="3"/>
+
+        <menuitem id="menu_cleaning_rooms"
+            name="Cleaning Rooms"
+            parent="menu_hospital_room"
+            action="action_cleaning_rooms"
+            sequence="4"/>
+        
+        <!-- =====================================================
+                        DOCTOR DASHBOARD
+        ====================================================== -->
+        
+        <!-- Next Patient Server Action -->
+        <record id="action_next_patient" model="ir.actions.server">
+            <field name="name">Next Patient</field>
+            <field name="model_id" ref="model_clinic_appointment"/>
+            <field name="state">code</field>
+            <field name="code"><![CDATA[
+        action = env['clinic.appointment'].action_next_patient()
+        ]]></field>
+        </record>
+
+        <menuitem id="menu_doctor_root"
+                name="Doctor"
+                parent="clinic_root_menu"
+                sequence="30"
+                groups="clinic_appointment.group_clinic_doctor"/>
+            
+        <menuitem id="menu_doctor_next_patient"
+                name="Next Patient"
+                parent="menu_doctor_root"
+                action="action_next_patient"
+                sequence="1"
+                groups="clinic_appointment.group_clinic_doctor"/>
+
+        <menuitem id="menu_doctor_today_appointments"
+                name="Today Appointments"
+                parent="menu_doctor_root"
+                action="action_doctor_today_appointments"
+                sequence="2"
+                groups="clinic_appointment.group_clinic_doctor"/>
+
+        <menuitem id="menu_doctor_my_appointments"
+                name="My Appointments"
+                parent="menu_doctor_root"
+                action="action_doctor_my_appointments"
+                sequence="3"
+                groups="clinic_appointment.group_clinic_doctor"/>
+
+        <menuitem id="menu_doctor_completed"
+                name="Completed Consultations"
+                parent="menu_doctor_root"
+                action="action_doctor_completed_appointments"
+                sequence="4"
+                groups="clinic_appointment.group_clinic_doctor"/>
+
+        <menuitem id="menu_doctor_followups"
+                name="Follow-ups"
+                parent="menu_doctor_root"
+                action="action_doctor_followups"
+                sequence="5"
+                groups="clinic_appointment.group_clinic_doctor"/>
+
+        <!-- =====================================================
+                            LIVE CHAT 
+        ====================================================== -->
+
+        <record id="action_live_chat_dashboard" model="ir.actions.act_window">
+            <field name="name">Live Chat Dashboard</field>
+            <field name="res_model">clinic.chat.session</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('doctor_id.user_id', '=', uid), ('status', 'in', ['waiting', 'active'])]</field>
+            <field name="target">current</field>
+        </record>
+        
+        <menuitem id="menu_live_chat_root"
+                name="Live Chat"
+                parent="clinic_root_menu"
+                sequence="35"
+                groups="clinic_appointment.group_clinic_doctor"/>
+
+        <menuitem id="menu_live_chat_dashboard"
+                name="Chat Dashboard"
+                parent="menu_live_chat_root"
+                action="action_live_chat_dashboard"
+                sequence="10"/>
+
+        <!-- =====================================================
+                    RECEPTIONIST DASHBOARD
+        ===================================================== -->
+
+        <menuitem id="menu_receptionist_root"
+            name="Reception"
+            parent="clinic_root_menu"
+            groups="clinic_appointment.group_clinic_receptionist"/>
+
+        <!-- Today Appointments -->
+        <menuitem id="menu_reception_today"
+                name="Today Appointments"
+                parent="menu_receptionist_root"
+                action="action_reception_today_appointments"
+                sequence="1"
+                groups="clinic_appointment.group_clinic_receptionist"/>
+
+        <!-- Book Appointment -->
+        <menuitem id="menu_reception_book"
+                name="Book Appointment"
+                parent="menu_receptionist_root"
+                action="action_reception_draft_appointments"
+                sequence="2"
+                groups="clinic_appointment.group_clinic_receptionist"/>
+                
+        <!-- All Appointments -->
+        <menuitem id="menu_reception_all"
+                name="All Appointments"
+                parent="menu_receptionist_root"
+                action="action_reception_all_appointments"
+                sequence="3"
+                groups="clinic_appointment.group_clinic_receptionist"/>
+
+        <!-- Cancelled Appointments -->
+        <menuitem id="menu_reception_cancelled"
+                name="Cancelled Appointments"
+                parent="menu_receptionist_root"
+                action="action_reception_cancelled_appointments"
+                sequence="4"
+                groups="clinic_appointment.group_clinic_receptionist"/>
+
+            <!-- =====================================================
+                            NURSE DASHBOARD
+            ===================================================== -->
+
+            <menuitem id="menu_nurse_root"
+                    name="Nurse"
+                    parent="clinic_root_menu"
+                    groups="clinic_appointment.group_clinic_nurse"/>
+
+            <menuitem id="menu_nurse_today"
+                    name="Today Patients"
+                    parent="menu_nurse_root"
+                    action="action_nurse_today_patients"
+                    sequence="1"
+                    groups="clinic_appointment.group_clinic_nurse"/>
+
+            <menuitem id="menu_nurse_waiting"
+                    name="Waiting Patients"
+                    parent="menu_nurse_root"
+                    action="action_nurse_waiting_patients"
+                    sequence="2"
+                    groups="clinic_appointment.group_clinic_nurse"/>
+
+            <menuitem id="menu_nurse_consultation"
+                    name="In Consultation"
+                    parent="menu_nurse_root"
+                    action="action_nurse_in_consultation"
+                    sequence="3"
+                    groups="clinic_appointment.group_clinic_nurse"/>
+
+            <menuitem id="menu_nurse_completed"
+                    name="Completed Today"
+                    parent="menu_nurse_root"
+                    action="action_nurse_completed_today"
+                    sequence="4"
+                    groups="clinic_appointment.group_clinic_nurse"/>
+
+            <menuitem id="menu_patient_monitoring"
+                    name="Patient Monitoring"
+                    parent="menu_nurse_root"
+                    action="action_patient_monitoring"/>
+</odoo>

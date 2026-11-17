@@ -1,0 +1,10 @@
+<odoo>
+    <record id="action_report_clinic_call_history" model="ir.actions.report">
+        <field name="name">Clinic Call History</field>
+        <field name="model">clinic.call.history</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">clinic_appointment.report_clinic_call_history</field>
+        <field name="report_file">clinic_appointment.report_clinic_call_history</field>
+        <field name="print_report_name">'Call History'</field>
+    </record>
+</odoo>

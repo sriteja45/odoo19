@@ -1,0 +1,2349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="mouser_site_header_manufacturer" name="Mouser Common Header for Manufacturer Pages">
+        <section class="mouser-topline">
+            <div class="mouser-shell">
+                <div class="mouser-topline-left">
+                    <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                    <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                    <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                </div>
+                <div class="mouser-topline-right">
+                    <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="mouser-header-main">
+            <div class="mouser-shell header-row">
+                <a class="mouser-logo" href="/mouser-home">
+    <img src="/mouser_theme/static/src/img/custom_logo.webp"
+         alt="Logo"
+         style="height:60px; width:auto;"/>
+</a>
+                <div class="search-area">
+                    <div class="search-box">
+                        <button type="button">All <i class="fa fa-angle-down"></i></button>
+                        <form action="/product/search" method="get" style="display:flex;width:100%;"><input name="keyword" placeholder="Part No. / Keyword" style="flex:1;"/><button class="search-btn" type="submit"><i class="fa fa-search"></i></button></form>
+                        
+                    </div>
+                    <label><input type="checkbox"/> In Stock</label>
+                    <label><input type="checkbox"/> RoHS</label>
+                </div>
+            </div>
+        </section>
+
+        <section class="mouser-blue-nav">
+            <div class="mouser-shell nav-row">
+                <nav>
+                    <a href="/mouser-home">Products</a>
+                    <a class="active" href="/manufacturer/">Manufacturers</a>
+                    <a href="/services-tools">Services &amp; Tools</a>
+                    <a href="#resources">Technical Resources</a>
+                    <a href="#">Help</a>
+                </nav>
+                <div class="nav-actions">
+                    <a href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a>
+                    <a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="manufacturer_page_card" name="Manufacturer Page Card">
+        <div class="manufacturer-card">
+            <a t-att-href="manufacturer.website_url" class="manufacturer-card-link">
+                <div class="manufacturer-logo-box">
+                    <img t-if="manufacturer.logo" t-att-src="image_data_uri(manufacturer.logo)" t-att-alt="manufacturer.name" class="manufacturer-logo"/>
+                    <span t-else="" class="manufacturer-logo-fallback" t-out="manufacturer.name[:1]"/>
+                </div>
+                <div class="manufacturer-card-body">
+                    <div class="manufacturer-card-title" t-out="manufacturer.name"/>
+                    <div class="manufacturer-card-meta">
+                        <span t-out="'%s Products' % manufacturer.product_count"/>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </template>
+
+    <template id="manufacturers_page" name="All Manufacturers A-Z">
+        <t t-call="website.layout">
+
+            <div id="wrap" class="mouser-manufacturer-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <div class="mouser-manufacturer-container">
+
+                    <div class="mouser-breadcrumb">
+                        <a href="/mouser-home">Home</a>
+                        <span>›</span>
+                        <strong>All Manufacturers</strong>
+                    </div>
+
+                    <h1 class="manufacturer-main-title">ALL MANUFACTURERS A-Z</h1>
+
+                    <a class="manufacturer-feature-banner mouser-az-original-banner" href="https://manufacturers.mouser.com/amphenol-data-center/advanced-cooling-and-power-solutions-for-high-density-ai-data-centers" target="_blank" rel="noopener" aria-label="White Paper: Advanced Cooling and Power Solutions for High-Density AI Data Centers">
+                        <img src="/mouser_theme/static/src/img/manufacturer_amphenol_original_banner.png" alt="Amphenol white paper advanced cooling and power solutions for high-density AI data centers"/>
+                    </a>
+
+                    <div class="manufacturer-top-actions">
+                        <div class="manufacturer-links">
+                            <a href="/manufacturers/by-category">Manufacturers By Product Category</a>
+                            <span>|</span>
+                            <a href="/manufacturers/new">New Manufacturers</a>
+                        </div>
+
+                        <a href="/manufacturers/export/xlsx" class="manufacturer-export-btn">
+                            Export To Excel
+                        </a>
+                    </div>
+
+                    <div class="manufacturer-az-bar">
+                        <t t-foreach="letters" t-as="letter">
+                            <a t-att-href="'#letter-' + letter">
+                                <t t-out="letter"/>
+                            </a>
+                        </t>
+                    </div>
+
+                    <div class="manufacturer-list-wrapper">
+
+                        <t t-foreach="letters" t-as="letter">
+                            <t t-if="grouped_manufacturers.get(letter)">
+
+                                <section t-att-id="'letter-' + letter" class="manufacturer-letter-section">
+
+                                    <h2>
+                                        <t t-out="letter"/>
+                                    </h2>
+
+                                    <div class="manufacturer-name-grid">
+                                        <t t-foreach="grouped_manufacturers.get(letter)" t-as="manufacturer">
+                                            <a t-att-href="manufacturer.website_url or ('/manufacturers/%s' % manufacturer.id)">
+                                                <t t-out="manufacturer.name"/>
+                                            </a>
+                                        </t>
+                                    </div>
+
+                                </section>
+
+                            </t>
+                        </t>
+
+                    </div>
+
+                </div>
+
+                <section class="manufacturer-newsletter">
+                    <h3>Get the Latest News</h3>
+
+                    <div class="manufacturer-newsletter-form">
+                        <input type="email" placeholder="Enter your Email"/>
+                        <button type="button">Subscribe</button>
+                    </div>
+                </section>
+
+                <footer class="manufacturer-footer">
+                    <div class="manufacturer-footer-container">
+
+                        <div class="footer-col office">
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+
+                            <p>
+                                <i class="fa fa-phone"></i>
+                                <a href="tel:08042650011">080 42650011</a>
+                            </p>
+
+                            <p>
+                                <i class="fa fa-envelope"></i>
+                                bangalore@mouser.com
+                            </p>
+
+                            <p>
+                                <i class="fa fa-map-marker"></i>
+                                #9 Esquire Center<br/>
+                                Second Floor, A Wing, MG Road<br/>
+                                Bangalore 560001<br/>
+                                India
+                            </p>
+
+                            <p class="tti-text">
+                                tti<br/>
+                                <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a>
+                            </p>
+                        </div>
+
+                        <div class="footer-col">
+                            <h4>COMPANY</h4>
+                            <a href="#">About Us</a>
+                            <a href="#">Newsroom</a>
+                            <a href="#">Careers @ Mouser</a>
+                            <a href="#">Quality</a>
+                            <a href="#">Environmental</a>
+                            <a href="#">Corporate Social Responsibility</a>
+                        </div>
+
+                        <div class="footer-col">
+                            <h4>RESOURCES</h4>
+                            <a href="#">Blog</a>
+                            <a href="#">Newest Products</a>
+                            <a href="/manufacturers/new">New Manufacturers</a>
+                            <a href="#">Applications</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                        </div>
+
+                        <div class="footer-col">
+                            <h4>SUPPORT</h4>
+                            <a href="/contact">Contact Us</a>
+                            <a href="#">Help</a>
+                            <a href="/feedback">Feedback</a>
+                            <a href="#">Browser Support</a>
+                            <a href="#">Cookie Policy</a>
+                        </div>
+
+                        <div class="footer-col">
+                            <h4>CONNECT WITH US</h4>
+                            <div class="manufacturer-socials">
+                                <i class="fa fa-facebook-square"></i>
+                                <i class="fa fa-instagram"></i>
+                                <i class="fa fa-youtube-play"></i>
+                                <i class="fa fa-linkedin-square"></i>
+                                <i class="fa fa-rss-square"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="manufacturer-footer-bottom">
+                        <a href="#">Privacy Centre</a>
+                        <a href="#">Terms and Conditions</a>
+                        <a href="#">Corporate Information</a>
+                        <a href="/accessibility/">Accessibility</a>
+                        <a href="#">Sitemap</a>
+                        <p>Copyright ©2026 Mouser Electronics, Inc.</p>
+                    </div>
+                </footer>
+
+                <div class="manufacturer-live-chat">
+                    <i class="fa fa-comment"></i>
+                    Live Chat
+                </div>
+
+            </div>
+
+        </t>
+    </template>
+
+    <template id="manufacturer_detail_page" name="Manufacturer Detail Page">
+        <t t-call="website.layout">
+            <div id="wrap" t-attf-class="mouser-manufacturer-detail-page mouser-manufacturer-page #{'sure-seal-original-page' if manufacturer.name == 'Sure-Seal' else ''}">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <div class="mouser-manufacturer-container mouser-detail-original">
+                    <div class="mouser-breadcrumb detail-breadcrumb">
+                        <a href="/mouser-home">Home</a>
+                        <span>›</span>
+                        <a href="/manufacturer/">All Manufacturers</a>
+                        <t t-if="manufacturer.name == '4D LCD'">
+                            <span>›</span>
+                            <a href="/manufacturer/4d-systems">4D Systems</a>
+                        </t>
+                        <span>›</span>
+                        <strong t-out="manufacturer.name"/>
+                    </div>
+
+                    <div class="manufacturer-detail-topline">
+                        <div></div>
+                        <div class="ecia-mark"><span class="ecia-icon">▦</span><span>ecia</span></div>
+                    </div>
+
+                    <section class="manufacturer-original-detail">
+                        <aside class="manufacturer-left-column">
+                            <div t-attf-class="manufacturer-logo-tile #{'logo-apogee' if manufacturer.name == 'Apogee Semiconductor' else ('logo-alif' if manufacturer.name == 'Alif Semiconductor' else ('logo-4d-lcd' if manufacturer.name == '4D LCD' else ('logo-wide' if manufacturer.name == '2J Antennas' else ('logo-1bit' if manufacturer.name == '1BitSquared' else ('logo-1global' if manufacturer.name == '1Global' else ('logo-aaeon' if manufacturer.name == 'AAEON UP' else ('logo-advantech' if manufacturer.name == 'Advantech' else ('logo-sensore' if manufacturer.name == 'Sensore Electronic' else ('logo-dynament' if manufacturer.name == 'Dynament' else ('logo-noshok' if manufacturer.name == 'NOSHOK' else ('logo-hailo' if manufacturer.name == 'Hailo' else ('logo-maxim' if manufacturer.name == 'Maxim Integrated / Analog Devices' else ''))))))))))))}">
+                                <img t-if="manufacturer.name == 'Advantech'" src="/mouser_theme/static/img/advantech.png" alt="Advantech" class="advantech-logo-img"/>
+                                <img t-elif="manufacturer.name == 'Apogee Semiconductor'" src="/mouser_theme/static/src/img/apogee_logo.svg" alt="Apogee Semiconductor" class="apogee-logo-img"/>
+                                <img t-elif="manufacturer.name == 'Alif Semiconductor'" src="/mouser_theme/static/img/alif-semiconductor.webp" alt="Alif Semiconductor" class="alif-logo-img"/>
+                                <img t-elif="manufacturer.name == '4D LCD'" src="/mouser_theme/static/src/img/4d_lcd_logo.svg" alt="4D LCD" class="four-d-lcd-logo-img"/>
+                                <img t-elif="manufacturer.name == '1BitSquared'" src="/mouser_theme/static/src/img/onebitsquared_logo.png" alt="1BitSquared" class="onebit-logo-img"/>
+                                <img t-elif="manufacturer.name == '1Global'" src="/mouser_theme/static/src/img/oneglobal_logo.png" alt="1Global" class="oneglobal-logo-img"/>
+                                <img t-elif="manufacturer.name == 'AAEON UP'" src="/mouser_theme/static/src/img/aaeon_up_logo.svg" alt="AAEON UP" class="aaeon-logo-img"/>
+                                <div t-elif="manufacturer.name == '3M'" class="manufacturer-logo-3m-text">3M</div>
+                                <div t-elif="manufacturer.name == 'B&amp;K Precision'" class="bk-logo-img">B&amp;K PRECISION</div>
+                                <img t-elif="manufacturer.name == 'Bend Labs'" src="/mouser_theme/static/img/bend-labs-logo.webp" alt="Bend Labs" class="bend-labs-logo-img"/>
+                                <img t-elif="manufacturer.name == 'BOPLA'" src="/mouser_theme/static/img/bopla.webp" alt="BOPLA" class="bopla-logo-img"/>
+                                <img t-elif="manufacturer.name == 'Amphenol TPC'" src="/mouser_theme/static/img/amphenol-tpc.webp" alt="Amphenol TPC" class="amphenol-tpc-logo-img"/>
+                                <img t-elif="manufacturer.name == 'Sensore Electronic'" src="/mouser_theme/static/img/sensore-electronic.webp" alt="Sensore Electronic" class="sensore-electronic-logo-img"/>
+                                <img t-elif="manufacturer.name == 'Dynament'" src="/mouser_theme/static/img/dynament.webp" alt="Dynament" class="dynament-logo-img"/>
+                                <img t-elif="manufacturer.name == 'NOSHOK'" src="/mouser_theme/static/img/noshok.webp" alt="NOSHOK" class="noshok-logo-img"/>
+                                <img t-elif="manufacturer.name == 'Hailo'" src="/mouser_theme/static/img/hailo.webp" alt="Hailo" class="hailo-logo-img"/>
+                                <img t-elif="manufacturer.name == 'Sure-Seal'" src="/mouser_theme/static/img/sure-seal.webp" alt="Sure-Seal" class="sure-seal-logo-img"/>
+                                <img t-elif="manufacturer.name == 'Maxim Integrated / Analog Devices'" src="/mouser_theme/static/img/maxim-integrated.webp" alt="Analog Devices / Maxim Integrated" class="maxim-integrated-logo-img"/>
+                                <img t-elif="manufacturer.logo" t-att-src="image_data_uri(manufacturer.logo)" t-att-alt="manufacturer.name"/>
+                                <div t-elif="manufacturer.name == '2J Antennas'" class="manufacturer-logo-text logo-2j"><span class="dot-2j">●</span><span>2J</span> Antennas</div>
+                                <div t-else="" class="manufacturer-logo-text" t-out="manufacturer.name"/>
+                            </div>
+
+                            <div t-if="manufacturer.name == 'Advantech'" class="manufacturer-side-tabs">
+                                <a class="active" href="#about">About <i class="fa fa-chevron-right"></i></a>
+                                <a href="#product-line">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a href="#featured-products">Featured Products <i class="fa fa-chevron-right"></i></a>
+                                <a href="#resources-support">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                                <a href="#videos">Videos <i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <div t-elif="manufacturer.name == 'Amphenol TPC'" class="manufacturer-side-tabs amphenol-original-tabs">
+                                <a class="active" href="#about">About <i class="fa fa-chevron-right"></i></a>
+                                <a href="#product-line">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a href="#resources-support">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <div t-elif="manufacturer.name == 'Sensore Electronic'" class="manufacturer-side-tabs sensore-original-tabs">
+                                <a class="active" href="#about">About <i class="fa fa-chevron-right"></i></a>
+                                <a href="#product-line">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a href="#featured-products">Featured Products <i class="fa fa-chevron-right"></i></a>
+                                <a href="#resources-support">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <div t-elif="manufacturer.name == 'Sure-Seal'" class="manufacturer-side-tabs dynament-original-tabs">
+                                <a class="active" href="/manufacturer/sure-seal/">About <i class="fa fa-chevron-right"></i></a>
+                                <a href="/manufacturer/sure-seal/product-line/">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a href="/manufacturer/sure-seal/resources-support/">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <div t-elif="manufacturer.name == 'Maxim Integrated / Analog Devices'" class="manufacturer-side-tabs maxim-original-tabs">
+                                <a class="active" href="#about">About <i class="fa fa-chevron-right"></i></a>
+                                <a href="#product-line">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a href="#featured-products">Featured Products <i class="fa fa-chevron-right"></i></a>
+                                <a href="#resources-support">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                                <a href="#videos">Videos <i class="fa fa-chevron-right"></i></a>
+                                <a href="#development-tools">Development Tools <i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <div t-elif="manufacturer.name in ['Dynament', 'NOSHOK', 'Hailo']" class="manufacturer-side-tabs dynament-original-tabs">
+                                <a class="active" href="#about">About <i class="fa fa-chevron-right"></i></a>
+                                <a href="#product-line">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a href="#resources-support">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <div t-else="" class="manufacturer-side-tabs">
+                                <a class="active" href="#about">About <i class="fa fa-chevron-right"></i></a>
+                                <a href="#product-line">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a href="#featured-products">Featured Products <i class="fa fa-chevron-right"></i></a>
+                                <a t-if="manufacturer.name not in ['4D LCD', 'Alif Semiconductor', 'Apogee Semiconductor', 'Bend Labs', 'BOPLA']" href="#applications">Applications <i class="fa fa-chevron-right"></i></a>
+                                <a t-if="manufacturer.name not in ['Alif Semiconductor', 'Apogee Semiconductor', 'Bend Labs', 'BOPLA']" href="#videos">Videos <i class="fa fa-chevron-right"></i></a>
+                                <a href="#resources-support">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                            </div>
+
+                            <div class="detail-left-links">
+                                <div t-if="manufacturer.name != 'Sure-Seal'" class="newest-products-box">
+                                    <h3>NEWEST Products</h3>
+                                    <a t-att-href="'/new/' + manufacturer.name.lower().replace(' ', '-')">Newest Products by <t t-out="manufacturer.name"/></a>
+                                </div>
+                                <div class="all-products-box">
+                                    <h3>All Products</h3>
+                                    <a t-att-href="'/c/?m=' + manufacturer.name">Browse all products by <t t-out="manufacturer.name"/></a>
+                                </div>
+                                <div t-if="manufacturer.name == 'Advantech'" class="advantech-left-ad">
+                                    <img src="/mouser_theme/static/img/advantech-iot-academy-zone31-banner.webp" alt="Advantech IoT Academy"/>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <main class="manufacturer-detail-content">
+                            <div class="manufacturer-part-search">
+                                <input t-if="manufacturer.name == '4D LCD'" placeholder="Search for 4D Systems Parts"/>
+                                <input t-else="" t-att-placeholder="'Search for ' + manufacturer.name + ' Parts'"/>
+                                <button type="button"><i class="fa fa-search"></i></button>
+                            </div>
+
+                            <div t-if="manufacturer.name == 'Alif Semiconductor'" class="alif-hero-banner">
+                                <img src="/mouser_theme/static/img/Alif-Mouser_Ad_p1.webp" alt="Alif Semiconductor banner"/>
+                            </div>
+
+                            <div t-if="manufacturer.name == 'Advantech'" class="advantech-hero-banner">
+                                <img src="/mouser_theme/static/img/mouser-advantech-wireless-io-built-for-harsh-environments-banman-zone30-en.webp" alt="Flexible IIoT Architecture for the Industrial Edge"/>
+                            </div>
+
+                            <section id="about" class="manufacturer-about-section">
+                                <h1 t-out="manufacturer.name"/>
+                                <div t-if="manufacturer.name == 'Amphenol TPC'" class="amphenol-brand-links">
+                                    <a href="#">Amphenol Home</a><span>|</span><a href="#">Advanced Sensors</a><span>|</span><a href="#">Aerospace</a><span>|</span><a href="#">Air LB</a><span>|</span><a href="#">AIRMAR</a><span>|</span><a href="#">Alden</a><span>|</span><a href="#">All Sensors</a><span>|</span><a href="#">Aorora</a><span>|</span><a href="#">Anytek</a><span>|</span><a href="#">Audio</a><span>|</span><a href="#">Auxel</a><span>|</span>
+                                    <a href="#">Cables on Demand</a><span>|</span><a href="#">Canada</a><span>|</span><a href="#">Casco</a><span>|</span><a href="#">Commercial Products</a><span>|</span><a href="#">Communications Solutions</a><span>|</span><a href="#">CONEC</a><span>|</span><a href="#">Custom Cable</a><span>|</span><a href="#">Energy Technologies</a><span>|</span>
+                                    <a href="#">FCI</a><span>|</span><a href="#">Fiber Optics</a><span>|</span><a href="#">FSI</a><span>|</span><a href="#">FTG</a><span>|</span><a href="#">GEC</a><span>|</span><a href="#">i2s</a><span>|</span><a href="#">Industrial</a><span>|</span><a href="#">InterCon Systems</a><span>|</span><a href="#">LTD</a><span>|</span><a href="#">LTW</a><span>|</span><a href="#">LUTZE</a><span>|</span><a href="#">MCP</a><span>|</span><a href="#">Narda-MITEQ</a><span>|</span>
+                                    <a href="#">Network Solutions</a><span>|</span><a href="#">Nexus</a><span>|</span><a href="#">Onanon</a><span>|</span><a href="#">PCB Piezotronics</a><span>|</span><a href="#">Pcd</a><span>|</span><a href="#">PCD Shenzhen</a><span>|</span><a href="#">PCTEL</a><span>|</span><a href="#">Piher</a><span>|</span><a href="#">Positronic</a><span>|</span><a href="#">Procom</a><span>|</span><a href="#">ProLabs</a><span>|</span>
+                                    <a href="#">Q Microwave</a><span>|</span><a href="#">RF</a><span>|</span><a href="#">RFS Technologies</a><span>|</span><a href="#">Rochester Sensors</a><span>|</span><a href="#">SAA</a><span>|</span><a href="#">Sachsenkabel</a><span>|</span><a href="#">Sensors</a><span>|</span><a href="#">SGX Sensortech</a><span>|</span><a href="#">Sine Systems</a><span>|</span><a href="#">Socapex</a><span>|</span>
+                                    <a href="#">Spectra-Strip</a><span>|</span><a href="#">SSI</a><span>|</span><a href="#">SV Microwave</a><span>|</span><a href="#">TCS</a><span>|</span><a href="#">The Modal Shop</a><span>|</span><a href="#">Times Microwave Systems</a><span>|</span><strong>TPC</strong><span>|</span><a href="#">TPI</a><span>|</span><a href="#">Tuchel</a><span>|</span><a href="#">Wilcoxon</a><span>|</span><a href="#">XMA</a>
+                                </div>
+                                <div t-if="manufacturer.name == 'BOPLA'" class="bopla-description">
+                                    <p class="bopla-brand-links"><a href="#">Phoenix Mecano</a> <span class="mouser-pipe">|</span> <strong class="mouser-red">BOPLA</strong> <span class="mouser-pipe">|</span> <a href="#">Rose</a> <span class="mouser-pipe">|</span> <a href="#">RK Rose+Krieger</a></p>
+                                    <p><strong>BOPLA</strong> features over 25,000 electronic component products and has been developing and manufacturing enclosures and membrane keypads for more than 50 years. Founded in 1977, this company has been a part of the Swiss group of companies of Phoenix Mecano AG, which operates internationally, and their enclosures can be found in various sectors, such as safety and security technology, telecommunications, automotive technology, and the field of medicine.</p>
+                                </div>
+                                <div t-elif="manufacturer.name == 'Advantech'" class="manufacturer-description advantech-description">
+                                    <p><strong>Advantech</strong> is a leader in providing trusted innovative embedded and automation products and solutions. The company offers comprehensive system integration, hardware, software, customer-centric design services, and global logistics support; all backed by industry-leading front and back office e-business solutions. Advantech is an innovator and cooperates closely with partners to help provide complete solutions for a wide array of applications across a diverse range of industries.</p>
+                                    <div class="advantech-intel-box">
+                                        <img src="/mouser_theme/static/img/Intel-IOT-Premier_Supplier_Logo.webp" alt="Intel IoT Solutions Alliance Premier"/>
+                                        <p>Advantech is a Premier Member of The Intel® Internet of Things Solutions Alliance, one of the world's most recognized and trusted technology ecosystems. Members of The Intel® Internet of Things Solutions Alliance include leading solution and service providers from a broad range of industries, who provide the hardware, software, firmware, tools, and systems integration that developers need to take a leading role in the rise of intelligent systems.</p>
+                                    </div>
+                                </div>
+                                <div t-elif="manufacturer.website_description" class="manufacturer-description" t-field="manufacturer.website_description"/>
+                                <p t-elif="manufacturer.name == '1BitSquared'"><strong>1BitSquared</strong>, based in Eugene, Oregon, executes hardware and software design, development, and manufacturing for a wide range of embedded system tools and devices. Their mission is to provide high-quality, cutting-edge, affordable, open-source hardware and software for embedded hardware engineers, students, and enthusiasts.</p>
+                                <p t-elif="manufacturer.name == '2J Antennas'"><strong>2J Antennas</strong> is a world-class, trusted leader in antenna solutions that aims to deliver advanced technologies for the connected world. The company innovates and offers high-quality products and services with cutting-edge technologies to meet the rapidly evolving wireless industry catering to 5G, 4G LTE, 3G, 2G, WiFi, Iridium communications, GPS/GNSS/BeiDou frequencies, and more.</p>
+                                <p t-elif="manufacturer.name == '1Global'"><strong>1GLOBAL</strong> is a company that innovates eSIM-based GSM mobile services. They cater to businesses and individuals with products, including mobile phone calls and SMS recording services. These products are designed for businesses, remote SIM provisioning, IoT solutions, Telco-as-a-Service for travel companies, and affordable roaming for everyday consumers. As pioneers in eSIM technology, 1GLOBAL strives to develop the products and solutions our society needs to stay connected anywhere, anytime with anyone.</p>
+                                <p t-elif="manufacturer.name == '3M'"><strong>3M</strong> is a leading supplier of innovative solutions for the electrical, electronics, and communications industries. A diversified technology company, 3M has a worldwide presence in several markets, including OEM, consumer electronics, telecommunications, computers and peripherals, aerospace, military, automotive, and medical markets.</p>
+                                <p t-elif="manufacturer.name == 'Alif Semiconductor'"><strong>Alif Semiconductor</strong> was founded to address the rapidly growing market need for scalable and secure AI-enabled 32-bit, genuinely power-efficient microcontrollers. This market need led to Alif Semiconductor’s creation of a new class of embedded microcontrollers, or fusion processors. These processors enable seamless integration of technology for everyday life by unlocking innovative low-power techniques, unparalleled functional integration, accelerated artificial intelligence and machine learning edge processing, high security, and operating system diversity.</p>
+                                <p t-elif="manufacturer.name == 'Apogee Semiconductor'"><strong>Apogee Semiconductor</strong> strives to be the premier supplier of radiation hardened power, analog, and mixed signal ICs. They are rapidly growing their portfolio to provide a comprehensive suite of products, and have a team of experienced design, systems, and process engineers who are taking a different approach to radiation hardened by design (RHBD) IC design.</p>
+                                <p t-elif="manufacturer.name == 'AAEON UP'"><strong>AAEON UP</strong> is a leading designer and manufacturer of professional, intelligent IoT solutions, including the UP Board. The UP Board offers extensive features that make it ideal for applications such as robotics, drones, machine vision, smart home, education, digital signage, intelligent cars, and IoT solutions.</p>
+                                <p t-elif="manufacturer.name == '4D LCD'"><strong>4D LCD</strong> is a specialist provider of custom LCD display solutions, focused on delivering versatile, high-quality modules tailored to meet the exact needs of today’s devices and industries. From compact wearables to industrial interfaces and AI-powered systems, 4D LCD supports product designers and engineers with flexible options in size, brightness, touch capability, and mounting. Built on a commitment to precision, performance, and seamless integration, every display is engineered to enhance user experience and bring users' technology to life.</p>
+                                <p t-elif="manufacturer.name == 'Bend Labs'"><strong>Bend Labs</strong> is a technology company on a mission to bring motion measurement and understanding to the world through flexible soft sensing solutions.</p>
+                                <p t-elif="manufacturer.name == 'B&amp;K Precision'"><strong>B&amp;K Precision</strong> for over 70 years has been building a reputation for excellence in the design and manufacture of reliable and cost-effective test and measurement solutions. B&amp;K Precision instruments are used in design, research and development, production line testing, industrial maintenance, and education field service. The company's general-purpose instruments include signal generators, oscilloscopes, multimeters, DC power supplies, DC electronic loads, component testers, data acquisition recorders, and battery test solutions.</p>
+                                <p t-elif="manufacturer.name == 'Amphenol TPC'"><strong>Amphenol TPC</strong> is a leading supplier of high-performance wire, cable, connectors, and assemblies engineered to withstand harsh industrial environments. The company provides innovative and abuse-resistant industrial wire and cable solutions suitable for a wide range of industries, including automotive, industrial automation, rail and transit, marine, oil and gas, and food and beverage.</p>
+                                <p t-elif="manufacturer.name == 'Sensore Electronic'"><strong>Sensore Electronic</strong> is an Austrian manufacturer specializing in precision oxygen sensors and electronic control modules for demanding and safety-critical applications. Its portfolio includes moisture-resistant potentiometric oxygen sensors, SIL Level II-ready sensor modules, and optimized electronics designed for stable, long-term operation. Advanced capabilities such as automated production, continuous melt furnace sintering, and high precision calibration enable durable, application-specific sensing solutions with consistent accuracy and reliability.</p>
+                                <p t-elif="manufacturer.name == 'Dynament'"><strong>Dynament</strong> manufactures miniature nondispersive infrared (NDIR) gas sensors designed for accurate, long-term detection of methane, carbon dioxide, refrigerants, and nitrous oxide. Its patented Standard, Platinum, and Axiom sensor families integrate optics, electronics, and firmware to deliver stable, low-power performance and direct pellistor replacement. Solutions are widely used in industrial safety, HVAC, and environmental monitoring applications requiring certified, high-reliability gas sensing.</p>
+                                <div t-elif="manufacturer.name == 'Maxim Integrated / Analog Devices'" class="maxim-about-block">
+                                    <p class="maxim-brand-pill-row">
+                                        <a href="/manufacturer/analog-devices/" class="maxim-pill-link">Analog Devices</a>
+                                        <span class="maxim-pill-sep">|</span>
+                                        <strong class="maxim-pill-active">Maxim Integrated</strong>
+                                    </p>
+                                    <p class="maxim-desc-para"><strong>Analog Devices / Maxim Integrated</strong>, provides ease of design, and speeds time to market, through analog integration. The company&#x2019;s analog ICs offer extra features and functionality carefully designed to streamline circuit and simplify design. Look to Maxim for solutions for consumer electronics, personal computers and peripherals, mobile devices, wireless and fiber communications, test equipment, instrumentation, video displays, and automotive applications. Maxim&#x2019;s analog and mixed-signal solutions include data converters, interface circuits, power, RF wireless circuits, clocks and oscillators, microcontrollers (MCUs), operational amplifiers (op amps), and sensors.</p>
+                                    <h2 class="maxim-cat-section-title">View Analog Devices / Maxim Integrated Products by Category:</h2>
+                                    <div class="maxim-catgrid">
+                                        <a href="/c/amplifiers/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Amplifiers</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Amplifiers_Cat.webp" alt="Amplifiers"/></span></a>
+                                        <a href="/c/power/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Power</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Power_Cat.webp" alt="Power"/></span></a>
+                                        <a href="/c/controllers/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Controllers</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Controllers_Cat.webp" alt="Controllers"/></span></a>
+                                        <a href="/c/protection-isolation/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Protection and Isolation</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Protection_and_Isolation_Cat.webp" alt="Protection and Isolation"/></span></a>
+                                        <a href="/c/data-converters/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Data Converters</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Data_Converters_Cat.webp" alt="Data Converters"/></span></a>
+                                        <a href="/c/rf-wireless/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">RF / Wireless</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_RF_Wireless_Cat.webp" alt="RF / Wireless"/></span></a>
+                                        <a href="/c/interface/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Interface</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Interface_Cat.webp" alt="Interface"/></span></a>
+                                        <a href="/c/sensors/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Sensors</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Sensors_Cat.webp" alt="Sensors"/></span></a>
+                                        <a href="/c/memory/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Memory</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Memory_Cat.webp" alt="Memory"/></span></a>
+                                        <a href="/c/timing/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Timing</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Timing_Cat.webp" alt="Timing"/></span></a>
+                                        <a href="/c/multimedia/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Multimedia</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Multimedia_Cat.webp" alt="Multimedia"/></span></a>
+                                        <a href="/c/development-tools/?b=Maxim+Integrated+%2F+Analog+Devices" class="maxim-catrow"><span class="maxim-catrow-name">Development Tools</span><span class="maxim-catrow-img-wrap"><img src="/mouser_theme/static/img/Maxim_Development_Tools_Cat.webp" alt="Development Tools"/></span></a>
+                                    </div>
+                                </div>
+                                <p t-elif="manufacturer.short_description" t-out="manufacturer.short_description"/>
+                                <p t-else=""><t t-out="manufacturer.name"/> is a company page styled like the original Mouser distributor page. Use this section for company information, product summary, and support details.</p>
+                            </section>
+
+                            <t t-if="manufacturer.name != '3M'">
+                                <section id="product-line" class="manufacturer-anchor-spacer"></section>
+                                <section id="videos" class="manufacturer-anchor-spacer"></section>
+                                <section id="resources-support" class="manufacturer-anchor-spacer"></section>
+                            </t>
+
+                            <!-- Maxim Integrated / Analog Devices: Featured Products from Mouser API -->
+                            <t t-if="manufacturer.name == 'Maxim Integrated / Analog Devices'">
+                                <section id="featured-products" class="maxim-featured-section">
+                                    <h2 class="maxim-featured-title">Featured Products by Analog Devices / Maxim Integrated</h2>
+                                    <t t-if="api_products">
+                                        <div class="maxim-api-product-grid">
+                                            <t t-foreach="api_products[:8]" t-as="product">
+                                                <article class="maxim-api-card">
+                                                    <div class="maxim-api-card-img-wrap">
+                                                        <img t-if="product.get('image_url')" t-att-src="product.get('image_url')" t-att-alt="product.get('name', '')" class="maxim-api-img" loading="lazy"/>
+                                                        <div t-else="" class="maxim-api-img-placeholder"><span>Mouser</span></div>
+                                                    </div>
+                                                    <div class="maxim-api-card-body">
+                                                        <a t-att-href="product.get('product_url') or '#'" class="maxim-api-part-link"><t t-out="product.get('name', '')"/></a>
+                                                        <p t-if="product.get('manufacturer_part_number')" class="maxim-api-mpn">MPN: <t t-out="product.get('manufacturer_part_number')"/></p>
+                                                        <p t-if="product.get('mouser_part_number')" class="maxim-api-mouser-num">Mouser #: <t t-out="product.get('mouser_part_number')"/></p>
+                                                        <p t-if="product.get('availability')" class="maxim-api-avail"><t t-out="product.get('availability')"/></p>
+                                                        <div class="maxim-api-card-footer">
+                                                            <a t-if="product.get('datasheet_url')" t-att-href="product.get('datasheet_url')" class="maxim-api-ds-link" target="_blank" rel="noopener">Datasheet</a>
+                                                            <a t-att-href="product.get('product_url') or '#'" class="maxim-api-view-link">View Details</a>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </t>
+                                        </div>
+                                        <div class="maxim-featured-viewall-wrap">
+                                            <a href="/c/?m=Maxim+Integrated+%2F+Analog+Devices" class="maxim-featured-viewall-btn">View All Products by Analog Devices / Maxim Integrated</a>
+                                        </div>
+                                    </t>
+                                    <t t-elif="api_error">
+                                        <div class="maxim-api-error">Products temporarily unavailable. <a href="/c/?m=Maxim+Integrated+%2F+Analog+Devices">Browse all products</a>.</div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="maxim-featured-viewall-wrap">
+                                            <a href="/c/?m=Maxim+Integrated+%2F+Analog+Devices" class="maxim-featured-viewall-btn">Browse all Analog Devices / Maxim Integrated Products</a>
+                                        </div>
+                                    </t>
+                                </section>
+                            </t>
+
+                            <t t-if="manufacturer.name == '3M'">
+                                <div class="mouser-3m-top-banner" aria-label="3M Machine Vision Solutions banner">
+                                    <div class="banner-3m-logo">3M</div>
+                                    <div class="banner-3m-tag">Science.<br/>Applied to Life.™</div>
+                                    <div class="banner-3m-title">Machine Vision Solutions<br/>from Camera to Board.</div>
+                                    <div class="banner-3m-cables"><span></span><span></span><span></span></div>
+                                    <div class="banner-3m-learn">Learn<br/>More</div>
+                                </div>
+
+                                <section id="product-line" class="mouser-3m-brand-section">
+                                    <h2>View Products from a 3M Brand:</h2>
+                                    <div class="mouser-3m-brand-grid">
+                                        <a href="#" class="mouser-3m-brand-card"><span>3M Interconnect Solutions</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#" class="mouser-3m-brand-card"><span>3M Electronic Specialty</span><i class="fa fa-picture-o"></i></a>
+                                    </div>
+                                </section>
+
+                                <section id="applications" class="mouser-3m-category-section">
+                                    <h2>View by Product Category:</h2>
+                                    <div class="mouser-3m-category-grid">
+                                        <a href="#">Headers &amp; Wire Housings <i class="fa fa-plug"></i></a>
+                                        <a href="#">Wire &amp; Cable <i class="fa fa-random"></i></a>
+                                        <a href="#">Cable Assemblies <i class="fa fa-link"></i></a>
+                                        <a href="#">Flat Cable <i class="fa fa-bars"></i></a>
+                                        <a href="#">Connectors <i class="fa fa-chain"></i></a>
+                                        <a href="#">IC &amp; Component Sockets <i class="fa fa-microchip"></i></a>
+                                        <a href="#">Terminals <i class="fa fa-circle-o"></i></a>
+                                        <a href="#">Wire Protection <i class="fa fa-shield"></i></a>
+                                        <a href="#">Thermal Management <i class="fa fa-square"></i></a>
+                                        <a href="#">Hardware <i class="fa fa-cog"></i></a>
+                                        <a href="#">Adhesives Tapes <i class="fa fa-ticket"></i></a>
+                                        <a href="#">Chemicals <i class="fa fa-flask"></i></a>
+                                        <a href="#">Test &amp; Measurement <i class="fa fa-tachometer"></i></a>
+                                        <a href="#">Tools &amp; Accessories <i class="fa fa-wrench"></i></a>
+                                    </div>
+                                </section>
+
+                                <div class="mouser-3m-bottom-banner">
+                                    <div class="banner-3m-logo">3M</div>
+                                    <div class="banner-3m-tag">Science.<br/>Applied to Life.™</div>
+                                    <div class="banner-3m-title small">From server to switch<br/>and everywhere in between.</div>
+                                    <div class="banner-3m-learn">Learn<br/>More</div>
+                                </div>
+
+                                <section id="videos" class="mouser-3m-hidden-anchor"></section>
+                            </t>
+
+
+                            <section t-if="manufacturer.name not in ['3M', 'Amphenol TPC', 'Dynament', 'NOSHOK', 'Hailo', 'Sure-Seal', 'Maxim Integrated / Analog Devices']" id="featured-products" class="manufacturer-featured-products">
+                                <h2>Featured Products by <t t-out="manufacturer.name"/></h2>
+                                <div t-if="api_products" class="featured-product-grid api-featured-products">
+                                    <article t-foreach="api_products" t-as="product" class="featured-product-card api-product-card">
+                                        <t t-if="product.get('image_url')">
+                                            <img t-att-src="product.get('image_url')" t-att-alt="product.get('name')"/>
+                                        </t>
+                                        <div t-else="" class="api-product-image-fallback">Mouser</div>
+                                        <a t-att-href="product.get('product_url') or '#'">
+                                            <t t-out="product.get('name')"/>
+                                        </a>
+                                        <p t-if="product.get('manufacturer_part_number')">MPN: <t t-out="product.get('manufacturer_part_number')"/></p>
+                                        <p t-if="product.get('mouser_part_number')">Mouser #: <t t-out="product.get('mouser_part_number')"/></p>
+                                        <p t-if="product.get('availability')" class="api-availability"><t t-out="product.get('availability')"/></p>
+                                        <a t-if="product.get('datasheet_url')" class="api-datasheet-link" t-att-href="product.get('datasheet_url')" target="_blank" rel="noopener">Datasheet</a>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == 'B&amp;K Precision'" class="bk-original-content">
+                                    <h3>View Products by Category:</h3>
+                                    <div class="bk-category-grid">
+                                        <a href="#"><span>Bench Top Power Supplies</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Function Generators</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Multimeters</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>DC Electronic Loads</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Oscilloscopes</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Battery Testers</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Test Accessories</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Datalogging &amp; Acquisition</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Analyzers</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Environmental Testers</span><i class="fa fa-picture-o"></i></a>
+                                        <a href="#"><span>Component Testers</span><i class="fa fa-picture-o"></i></a>
+                                    </div>
+                                    <div class="bk-ad-banner">B&amp;K PRECISION <span>Triple Output Multi-Range DC Power Supplies 9140 Series</span></div>
+                                </div>
+                                <div t-elif="manufacturer.name == 'Advantech'" class="featured-product-grid advantech-featured-products">
+                                    <article class="featured-product-card advantech-card">
+                                        <img src="/mouser_theme/static/img/189044646.webp" alt="RSB-3810 Single Board Computer"/>
+                                        <a href="/new/advantech/advantech-rsb-3810-single-board-computer/">RSB-3810 Single Board Computer (SBC)</a>
+                                        <p>Powered by MediaTek Genio 1200 Processor (Arm® Cortex®A78 and A55-based) SoC with an integrated NPU.</p>
+                                    </article>
+                                    <article class="featured-product-card advantech-card">
+                                        <img src="/mouser_theme/static/img/101322434.webp" alt="WISE-6610P 16-Channel Industrial LoRaWAN Gateway"/>
+                                        <a href="/new/advantech/advantech-wise-6610p-lorawan-gateway/">WISE-6610P 16-Channel Industrial LoRaWAN Gateway</a>
+                                        <p>Features 16 wireless communication channels and an IP67-rated enclosure design.</p>
+                                    </article>
+                                    <article class="featured-product-card advantech-card">
+                                        <img src="/mouser_theme/static/img/109736695.webp" alt="ECU-1270 Expandable Industrial IoT Gateways"/>
+                                        <a href="/new/advantech/advantech-ecu-1270-industrial-iot-gateway/">ECU-1270 Expandable Industrial IoT Gateways</a>
+                                        <p>An IoT gateway built for versatility, addressing the diverse needs of industrial applications.</p>
+                                    </article>
+                                    <article class="featured-product-card advantech-card">
+                                        <img src="/mouser_theme/static/img/156214960.webp" alt="Robotics Development Kits for Vision AI"/>
+                                        <a href="/new/advantech/advantech-afe-r360dvk-dev-kits/">Robotics Development Kits for Vision AI</a>
+                                        <p>Powered by an Intel® Core™ Ultra 125H processor and support up to 32 TOPs.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == 'Bend Labs'" class="featured-product-grid bend-featured-products">
+                                    <article class="featured-product-card bend-card">
+                                        <img src="/mouser_theme/static/img/bend-2-axis-eval.webp" alt="2-Axis Flex Sensor Evaluation Kit"/>
+                                        <a href="/new/bend-labs/bend-labs-2-axis-eval-kit/">2-Axis Flex Sensor Evaluation Kit</a>
+                                        <p>Creates high-fidelity measurement of angular displacement, measures two angles in orthogonal planes.</p>
+                                    </article>
+                                    <article class="featured-product-card bend-card">
+                                        <img src="/mouser_theme/static/img/bend-1-axis-eval.webp" alt="1-Axis Flex Sensor Evaluation Kit"/>
+                                        <a href="/new/bend-labs/bend-labs-1-axis-eval-kit/">1-Axis Flex Sensor Evaluation Kit</a>
+                                        <p>Low-power integrated analog front-end with an I<sup>2</sup>C interface, providing angular data in degrees.</p>
+                                    </article>
+                                    <article class="featured-product-card bend-card">
+                                        <img src="/mouser_theme/static/img/bend-2-axis-sensor.webp" alt="2-Axis Flexible Sensor"/>
+                                        <a href="/new/bend-labs/bend-labs-2-axis-sensor/">2-Axis Flexible Sensor</a>
+                                        <p>Features a 1.8 to 3.63V voltage range, 78µA power consumption rating, and a life cycle of 1 million.</p>
+                                    </article>
+                                    <article class="featured-product-card bend-card">
+                                        <img src="/mouser_theme/static/img/bend-1-axis-sensor.webp" alt="1-Axis Flexible Flex Sensor"/>
+                                        <a href="/new/bend-labs/bend-labs-1-axis-sensor/">1-Axis Flexible Flex Sensor</a>
+                                        <p>Features a 1.62 to 3.63V voltage range, I<sup>2</sup>C output rating, and 1.8 to 3.3V power consumption.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == 'BOPLA'" class="featured-product-grid bopla-featured-products">
+                                    <article class="featured-product-card bopla-card">
+                                        <img src="/mouser_theme/static/img/103481880.webp" alt="Euromas ABS / PC / F05 Classic Enclosures"/>
+                                        <a href="/new/bopla/phoenix-mecano-bopla-enclosures-accessories/">Euromas ABS / PC / F05 Classic Enclosures</a>
+                                        <p>Available in three types of material: ABS, polycarbonate (PC), &amp; PC with UL 94V-0 flame protection.</p>
+                                    </article>
+                                    <article class="featured-product-card bopla-card">
+                                        <img src="/mouser_theme/static/img/102913803.webp" alt="Enclosures &amp; Accessories"/>
+                                        <a href="/new/bopla/phoenix-mecano-bopla-enclosures-accessories/">Enclosures &amp; Accessories</a>
+                                        <p>Expansive product lineup designed for electronic and industrial markets, durable construction.</p>
+                                    </article>
+                                    <article class="featured-product-card bopla-card">
+                                        <img src="/mouser_theme/static/img/102208513.webp" alt="Bocube &amp; Bocube Alu Versatile Enclosures"/>
+                                        <a href="/new/bopla/phoenix-mecano-bocube-enclosures/">Bocube &amp; Bocube Alu Versatile Enclosures</a>
+                                        <p>Available in three types of material: ABS thermoplastic polymer, PC UL 94V-0, and aluminum diecast.</p>
+                                    </article>
+                                    <article class="featured-product-card bopla-card">
+                                        <img src="/mouser_theme/static/img/101680247.webp" alt="Cable Glands &amp; Accessories"/>
+                                        <a href="/new/bopla/phoenix-mecano-bopla-cable-glands/">Cable Glands &amp; Accessories</a>
+                                        <p>Constructed from durable polyamide or brass, metric or PG threads, plugs &amp; nuts also available.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == '1BitSquared'" class="featured-product-grid one-featured-product">
+                                    <article class="featured-product-card icebreaker-card">
+                                        <img class="icebreaker-board-img" src="/mouser_theme/static/src/img/icebreaker_fpga_board.png" alt="iCEBreaker FPGA Development Board"/>
+                                        <a href="#">iCEBreaker FPGA Development Boards</a>
+                                        <p>Open-source tools and next-generation open CPU architectures designed for teachers and students.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == '1Global'" class="featured-product-grid oneglobal-featured-products">
+                                    <article class="featured-product-card oneglobal-card">
+                                        <img class="oneglobal-product-img esim-card-img" src="/mouser_theme/static/src/img/oneglobal_esim_card.png" alt="Removable Plastic LTE eSIM"/>
+                                        <a href="#">Removable Plastic LTE (Critical) eSIM</a>
+                                        <p>LTE eSIM is triple-cut and supplies 3, 12, or 36 months of 500MB, 1GB, or 3GB of pre-paid data.</p>
+                                    </article>
+                                    <article class="featured-product-card oneglobal-card">
+                                        <img class="oneglobal-product-img chip-img" src="/mouser_theme/static/src/img/oneglobal_chip.png" alt="MFF2 LTE Soldered eSIM"/>
+                                        <a href="#">MFF2 LTE (Critical) Soldered eSIM</a>
+                                        <p>MFF2 LTE (Critical) Soldered eSIM supplies 3 or 12 months of 500MB or 1GB pre-paid data.</p>
+                                    </article>
+                                    <article class="featured-product-card oneglobal-card">
+                                        <img class="oneglobal-product-img esim-card-img" src="/mouser_theme/static/src/img/oneglobal_esim_card.png" alt="Removable Plastic LPWAN eSIM"/>
+                                        <a href="#">Removable Plastic LPWAN eSIM</a>
+                                        <p>Removable Plastic LPWAN eSIM is triple-cut, with 12 or 36 months of 125MB or 250MB pre-paid data.</p>
+                                    </article>
+                                    <article class="featured-product-card oneglobal-card">
+                                        <img class="oneglobal-product-img chip-img" src="/mouser_theme/static/src/img/oneglobal_chip.png" alt="Soldered MFF2 LPWAN eSIM"/>
+                                        <a href="#">Soldered MFF2 LPWAN eSIM</a>
+                                        <p>Soldered MFF2 LPWAN eSIM supplies 12 months of 50MB or 125MB pre-paid data.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == 'Apogee Semiconductor'" class="featured-product-grid apogee-featured-products">
+                                    <article class="featured-product-card apogee-card">
+                                        <img src="/mouser_theme/static/src/img/apogee_arps10.svg" alt="ARPS10 Power Switch ICs"/>
+                                        <a href="#">ARPS10 Power Switch ICs</a>
+                                        <p>Ideal for space, medical imaging, &amp; applications demanding radiation tolerance &amp; high reliability.</p>
+                                    </article>
+                                    <article class="featured-product-card apogee-card">
+                                        <img src="/mouser_theme/static/src/img/apogee_apio16.svg" alt="APIO16 Rad-Hard I/O Expander"/>
+                                        <a href="#">APIO16 Rad-Hard I/O Expander</a>
+                                        <p>Provides robust and flexible I/O expansion capabilities with voltage level translation.</p>
+                                    </article>
+                                    <article class="featured-product-card apogee-card">
+                                        <img src="/mouser_theme/static/src/img/apogee_af54rhc804.svg" alt="AF54RHC804 Rad-Hard 8-channel Level Translator"/>
+                                        <a href="#">AF54RHC804 Rad-Hard 8-channel Level Translator</a>
+                                        <p>Operate across the 1.65V<sub>DC</sub> to 5.5V<sub>DC</sub> voltage range on both supply voltage inputs, V<sub>CC</sub>A and V<sub>CC</sub>Y.</p>
+                                    </article>
+                                    <article class="featured-product-card apogee-card">
+                                        <img src="/mouser_theme/static/src/img/apogee_af54rhc301.svg" alt="AF54RHC301 Rad-Hard Dual 3-Input Majority Voter"/>
+                                        <a href="#">AF54RHC301 Rad-Hard Dual 3-Input Majority Voter</a>
+                                        <p>Offers two instances of a triple-input voter gate with individual error outputs.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == 'Alif Semiconductor'" class="featured-product-grid alif-featured-products">
+                                    <article class="featured-product-card alif-card">
+                                        <img src="/mouser_theme/static/img/155856283.webp" alt="Ensemble Microcontroller and Processor Family"/>
+                                        <a href="#">Ensemble® Microcontroller &amp; Processor Family</a>
+                                        <p>Arm®-based 32-bit MCUs and fusion processors that scale from single-core to multi-core devices.</p>
+                                    </article>
+                                    <article class="featured-product-card alif-card">
+                                        <img src="/mouser_theme/static/img/117163481.webp" alt="Ensemble AK-E7-AIML Application Kit"/>
+                                        <a href="#">Ensemble® AK-E7-AIML Application Kit</a>
+                                        <p>Includes an integrated camera module that can be configured as a viewfinder orientation.</p>
+                                    </article>
+                                    <article class="featured-product-card alif-card">
+                                        <img src="/mouser_theme/static/img/139020416.webp" alt="Ensemble DK-E7 Development Kit"/>
+                                        <a href="#">Ensemble® DK-E7 Development Kit (DevKit)</a>
+                                        <p>Configured to operate as either E1, E3, E5, or E7 series MCU devices in the ensemble family.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == '4D LCD'" class="featured-product-grid four-d-lcd-featured-products">
+                                    <article class="featured-product-card four-d-card">
+                                        <img src="/mouser_theme/static/src/img/4d_lcd_90.svg" alt="9.0 inch TFT LCD Modules"/>
+                                        <a href="#">9.0&quot; TFT LCD Modules</a>
+                                        <p>Delivers vibrant visuals and responsive touch options in a large and flexible format.</p>
+                                    </article>
+                                    <article class="featured-product-card four-d-card">
+                                        <img src="/mouser_theme/static/src/img/4d_lcd_32.svg" alt="3.2 inch TFT LCD Modules"/>
+                                        <a href="#">3.2&quot; TFT LCD Modules</a>
+                                        <p>Compact displays designed for applications that require clarity, reliability, and energy efficiency.</p>
+                                    </article>
+                                    <article class="featured-product-card four-d-card">
+                                        <img src="/mouser_theme/static/src/img/4d_lcd_28.svg" alt="2.8 inch TFT LCD Modules"/>
+                                        <a href="#">2.8&quot; TFT LCD Modules</a>
+                                        <p>Color active-matrix LCD modules with amorphous silicon Thin Film Transistor (TFT) technology.</p>
+                                    </article>
+                                    <article class="featured-product-card four-d-card">
+                                        <img src="/mouser_theme/static/src/img/4d_lcd_24.svg" alt="2.4 inch TFT LCD Modules"/>
+                                        <a href="#">2.4&quot; TFT LCD Modules</a>
+                                        <p>Color active-matrix LCD modules incorporating amorphous Si Thin Film Transistor (TFT) technology.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == 'AAEON UP'" class="featured-product-grid aaeon-featured-products">
+                                    <article class="featured-product-card aaeon-card">
+                                        <img src="/mouser_theme/static/src/img/up_xtreme_i14.svg" alt="UP Xtreme i14 Developer Boards"/>
+                                        <a href="#">UP Xtreme i14 Developer Boards</a>
+                                        <p>Offers integrated computing with the Intel® Core™ Ultra processor platform.</p>
+                                    </article>
+                                    <article class="featured-product-card aaeon-card">
+                                        <img src="/mouser_theme/static/src/img/up_7000_edge.svg" alt="UP 7000 EDGE Systems"/>
+                                        <a href="#">UP 7000 EDGE Systems</a>
+                                        <p>Powered by Intel® Processor N-series, dual-channel LPDDR5 memory, and HDMI 1.4b supporting 4K UHD.</p>
+                                    </article>
+                                    <article class="featured-product-card aaeon-card">
+                                        <img src="/mouser_theme/static/src/img/up_squared_pro7000.svg" alt="UP Squared Pro 7000 Developer Boards"/>
+                                        <a href="#">UP Squared Pro 7000 Developer Boards</a>
+                                        <p>Offers greater development potential via high-performance computing power.</p>
+                                    </article>
+                                    <article class="featured-product-card aaeon-card">
+                                        <img src="/mouser_theme/static/src/img/up_4000_board.svg" alt="UP 4000 Developer Board"/>
+                                        <a href="#">UP 4000 Developer Board</a>
+                                        <p>Credit card-sized successor to previous UP Boards, offers a more efficient and versatile platform.</p>
+                                    </article>
+                                </div>
+                                <div t-elif="manufacturer.name == 'Sensore Electronic'" class="featured-product-grid sensore-featured-products">
+                                    <article class="featured-product-card sensore-card">
+                                        <img src="/mouser_theme/static/img/197170197.webp" alt="Mini Oxygen Sensor Board Mounts &amp; Flanged Kits"/>
+                                        <a href="/new/sensore-electronic/sensore-mini-oxygen-sensor-board-mounts-flanged-kits/">Mini Oxygen Sensor Board Mounts &amp; Flanged Kits</a>
+                                        <p>Offer high accuracy, single point lifetime calibration, and stable characteristics across a range.</p>
+                                    </article>
+                                    <article class="featured-product-card sensore-card">
+                                        <img src="/mouser_theme/static/img/163466725.webp" alt="OXY-FLEX Oxygen Transmitters"/>
+                                        <a href="/new/sensore-electronic/sensore-oxy-flex-oxygen-transmitters/">OXY-FLEX Oxygen Transmitters</a>
+                                        <p>Compact &amp; cost-effective zirconia transmitters that measure the level of oxygen in applications.</p>
+                                    </article>
+                                </div>
+                                <div t-else="" class="featured-product-grid">
+                                    <article class="featured-product-card">
+                                        <div class="antenna-img antenna-1"></div>
+                                        <a href="/new/2j-antennas/2j-stellar-antennas/">Stellar Antennas</a>
+                                        <p>For 5G NR and 2.4GHz, 5GHz, 6GHz ISM, and some are also ideal for GPS, GLONASS, QZSS, and Galileo.</p>
+                                    </article>
+                                    <article class="featured-product-card">
+                                        <div class="antenna-img antenna-2"></div>
+                                        <a href="#">Phoenix Antennas</a>
+                                        <p>For 5G NR, GPS, GLONASS, QZSS, Galileo, and 2.4GHz, 5GHz, and 6GHz ISM, depending on the model.</p>
+                                    </article>
+                                    <article class="featured-product-card">
+                                        <div class="antenna-img antenna-3"></div>
+                                        <a href="#">Roof Antennas</a>
+                                        <p>High performance for 5G NR, GPS, GLONASS, QZSS, Galileo, and ISM bands at 2.4GHz, 5GHz, and 6GHz.</p>
+                                    </article>
+                                    <article class="featured-product-card">
+                                        <div class="antenna-img antenna-4"></div>
+                                        <a href="#">Mini-Shaker &amp; Mini-I-Bar Antennas</a>
+                                        <p>For GPS, GLONASS, QZSS, Galileo, 5G NR, cellular, and LTE, offers adhesive- or screw-mount styles.</p>
+                                    </article>
+                                </div>
+                                <div t-if="manufacturer.name != 'B&amp;K Precision'" class="view-featured-wrap"><a href="#">View All Featured Products</a></div>
+                                <div t-if="manufacturer.name == 'Advantech'" class="advantech-bottom-ads">
+                                    <img src="/mouser_theme/static/img/mouser-advantech-epcrR3720devkit-static-infographic-banman-zone32-en.webp" alt="EPC-R3720 Edge AI Box Windows on Arm Dev Kit infographic"/>
+                                    <img src="/mouser_theme/static/img/mouser-advantech-esrppcsadam6gateways-banman-zone32-en.webp" alt="Advantech Edge Gateways for Equipment Monitoring"/>
+                                </div>
+                            </section>
+                        </main>
+                    </section>
+                </div>
+
+
+                <!-- Dynamic manufacturer products from Mouser API -->
+                <section t-if="manufacturer.name not in ['Amphenol TPC', 'Sensore Electronic', 'Dynament', 'NOSHOK', 'Hailo', 'Sure-Seal']" id="manufacturer-live-products" class="mouser-manufacturer-container" style="margin-top:30px;">
+                    <div style="border-top:1px solid #d7d7d7; padding-top:22px;">
+                        <div style="display:flex; justify-content:space-between; gap:16px; align-items:center; flex-wrap:wrap;">
+                            <h2 style="font-size:26px; margin:0;">
+                                Products by <t t-esc="manufacturer.name"/>
+                            </h2>
+                            <form action="/product/search" method="get" style="display:flex; max-width:470px; width:100%;">
+                                <input name="keyword" t-att-value="manufacturer.name" style="flex:1; height:42px; border:1px solid #c8c8c8; padding:0 12px;" t-att-placeholder="'Search for %s Parts' % manufacturer.name"/>
+                                <button type="submit" style="height:42px; border:0; background:#0077b6; color:#fff; padding:0 18px;">Search</button>
+                            </form>
+                        </div>
+
+                        <t t-if="api_error">
+                            <div style="margin-top:16px; padding:12px; background:#fff4e5; border:1px solid #ffd28a;">
+                                Mouser API products could not be loaded now:
+                                <t t-esc="api_error"/>
+                            </div>
+                        </t>
+
+                        <t t-if="api_products">
+                            <div style="overflow-x:auto; margin-top:18px;">
+                                <table style="width:100%; border-collapse:collapse; font-size:15px;">
+                                    <thead>
+                                        <tr style="background:#0077b6; color:white;">
+                                            <th style="padding:12px; border:1px solid #d0d0d0; text-align:left;">Image</th>
+                                            <th style="padding:12px; border:1px solid #d0d0d0; text-align:left;">Manufacturer Part No.</th>
+                                            <th style="padding:12px; border:1px solid #d0d0d0; text-align:left;">Mouser No.</th>
+                                            <th style="padding:12px; border:1px solid #d0d0d0; text-align:left;">Description</th>
+                                            <th style="padding:12px; border:1px solid #d0d0d0; text-align:left;">Availability</th>
+                                            <th style="padding:12px; border:1px solid #d0d0d0; text-align:left;">Datasheet</th>
+                                            <th style="padding:12px; border:1px solid #d0d0d0; text-align:left;">Product</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="api_products" t-as="p">
+                                            <tr>
+                                                <td style="padding:10px; border:1px solid #d0d0d0; width:95px;">
+                                                    <img t-if="p.get('image_url')" t-att-src="p.get('image_url')" style="max-width:70px; max-height:70px; object-fit:contain;"/>
+                                                </td>
+                                                <td style="padding:10px; border:1px solid #d0d0d0; font-weight:600;">
+                                                    <t t-esc="p.get('manufacturer_part_number')"/>
+                                                </td>
+                                                <td style="padding:10px; border:1px solid #d0d0d0;">
+                                                    <t t-esc="p.get('mouser_part_number')"/>
+                                                </td>
+                                                <td style="padding:10px; border:1px solid #d0d0d0;">
+                                                    <t t-esc="p.get('name')"/>
+                                                    <div t-if="p.get('category')" style="font-size:13px; color:#666; margin-top:4px;">
+                                                        <t t-esc="p.get('category')"/>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:10px; border:1px solid #d0d0d0;">
+                                                    <t t-esc="p.get('availability')"/>
+                                                </td>
+                                                <td style="padding:10px; border:1px solid #d0d0d0;">
+                                                    <a t-if="p.get('datasheet_url')" t-att-href="p.get('datasheet_url')" target="_blank" style="color:#0066b3; font-weight:600;">Datasheet</a>
+                                                    <span t-else="">-</span>
+                                                </td>
+                                                <td style="padding:10px; border:1px solid #d0d0d0;">
+                                                    <a t-if="p.get('product_url')" t-att-href="p.get('product_url')" style="display:inline-block; background:#6b4163; color:white; padding:7px 12px; border-radius:4px; text-decoration:none;">View</a>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+
+                        <t t-if="not api_products and not api_error">
+                            <div style="margin-top:16px; padding:14px; border:1px solid #ddd; background:#f8f8f8;">
+                                No live products found for <strong t-esc="manufacturer.name"/> right now.
+                                Try the search box above.
+                            </div>
+                        </t>
+                    </div>
+                </section>
+
+
+                <t t-call="mouser_theme.mouser_common_footer"/>
+
+                <div class="manufacturer-live-chat">
+                    <i class="fa fa-comment"></i>
+                    Live Chat
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="mouser_2j_stellar_product_page" name="2J Stellar Antennas Product Detail">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-product-detail-page mouser-manufacturer-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <main class="mouser-product-detail-container">
+                    <div class="product-detail-breadcrumb">
+                        <a href="/mouser-home">Home</a><span>›</span>
+                        <a href="#">NEWEST Products</a><span>›</span>
+                        <a href="#">New by Manufacturer</a><span>›</span>
+                        <a href="/manufacturer/2j-antennas/">2J Antennas</a><span>›</span>
+                        <strong>Stellar Antennas - 2J Antennas</strong>
+                    </div>
+
+                    <h1 class="newest-title">NEWEST PRODUCTS</h1>
+                    <div class="back-strip"><a href="/manufacturer/2j-antennas/"><i class="fa fa-chevron-left"></i> Back to 2J Antennas</a></div>
+
+                    <section class="stellar-hero-section">
+                        <div class="stellar-main-copy">
+                            <div class="brand-2j-line"><span class="dot-2j">●</span><span>2J</span> Antennas</div>
+                            <h2>2J Antennas Stellar Antennas</h2>
+                            <p>2J Antennas Stellar Antennas are designed for the 5G New Radio (NR) standard and 2.4GHz, 5GHz, and 6GHz ISM radio bands. Most models are also compatible with GPS, GLONASS, QZSS, and Galileo systems. All Stellar antennas provide high performance and are ground plane independent. The construction offers adhesive- or magnetic-mount styles with a 198mm x 127mm footprint and two heights: 51mm and a low-profile option of 15.7mm. Specifications include 25W maximum input power, 50Ω impedance, linear polarization, and an omnidirectional radiation pattern. 2J Stellar Antennas are IP67 and IP69 certified and RoHS and REACH compliant.</p>
+                        </div>
+                        <aside class="stellar-side-panel">
+                            <div class="stellar-product-img antenna-img antenna-1"></div>
+                            <a class="enlarge-link" href="#stellar-enlarge"><i class="fa fa-search-plus"></i> Enlarge</a>
+                            <a class="orange-detail-btn" href="#">View Details</a>
+                            <a class="blue-about-btn" href="/manufacturer/2j-antennas/">More About 2J Antennas</a>
+                            <div class="quick-links-box">
+                                <h3>QUICK LINKS</h3>
+                                <a href="#features">FEATURES</a>
+                                <a href="#specifications">SPECIFICATIONS</a>
+                                <a href="#datasheets">DATASHEETS</a>
+                                <a href="#top">↟ BACK TO TOP</a>
+                            </div>
+                        </aside>
+                    </section>
+
+                    <section id="features" class="stellar-info-section two-col-list">
+                        <h2>FEATURES</h2>
+                        <div class="two-col-content">
+                            <ul><li>Adhesive or magnetic mount</li><li>High performance</li><li>Ground plane independent</li><li>Low profile (2J4H86PGFh and 2J4H86PGFf)</li></ul>
+                            <ul><li>IP67 and IP69 certificates</li><li>Measured in certified CTIA 3D anechoic chamber</li><li>RoHS and REACH compliant</li></ul>
+                        </div>
+                    </section>
+
+                    <section id="specifications" class="stellar-info-section two-col-list specs-section">
+                        <h2>SPECIFICATIONS</h2>
+                        <div class="two-col-content">
+                            <ul>
+                                <li>All types<ul><li>Linear polarization</li><li>Omnidirectional radiation pattern</li><li>50Ω impedance</li><li>25W maximum input power</li></ul></li>
+                                <li>2J4H85Me<ul><li>198mm x 127mm x 51mm dimensions</li><li>Cable 1-4: 5G NR<ul><li>617MHz to 960MHz</li><li>1427MHz to 2690MHz</li><li>3300MHz to 5000MHz</li><li>5150MHz to 5925MHz</li></ul></li><li>Cable 5-8: 2.4GHz / 5GHz / 6GHz ISM<ul><li>2410MHz to 2490MHz</li><li>4920MHz to 7125MHz</li></ul></li></ul></li>
+                                <li>2J4H86PGFh<ul><li>198mm x 127mm x 15.7mm dimensions</li><li>Cable 1-4: 5G NR</li><li>Cable 5-6: 2.4GHz / 5GHz / 6GHz ISM</li><li>Cable 7: GPS / GLONASS / QZSS / Galileo</li></ul></li>
+                            </ul>
+                            <ul>
+                                <li>2J4H86PGFf<ul><li>198mm x 127mm x 15.7mm dimensions</li><li>Cable 1-4: 5G NR<ul><li>617MHz to 960MHz</li><li>1427MHz to 2690MHz</li><li>3300MHz to 5000MHz</li><li>5150MHz to 5925MHz</li></ul></li><li>Cable 5-8: 2.4GHz / 5GHz / 6GHz ISM</li><li>Cable 9: GPS / GLONASS / QZSS / Galileo</li></ul></li>
+                                <li>2J4H86MGFg<ul><li>198mm x 127mm x 51mm dimensions</li><li>Cable 1-4: 5G NR</li><li>Cable 5-7: 2.4GHz / 5GHz / 6GHz ISM</li><li>Cable 8: GPS / GLONASS / QZSS / Galileo</li></ul></li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="datasheets" class="stellar-info-section datasheets-section">
+                        <h2>DATASHEETS</h2>
+                        <ul><li><a href="#">2J4H85Me</a></li><li><a href="#">2J4H86PGFh</a></li><li><a href="#">2J4H86PGFf</a></li><li><a href="#">2J4H86MGFg</a></li></ul>
+                        <p class="publish-date">Published: 2025-10-14 | Updated: 2025-11-18</p>
+                    </section>
+                </main>
+
+                <div id="modal-closed" style="display:none"></div>
+                <div id="stellar-enlarge" class="stellar-modal-overlay">
+                    <a href="#modal-closed" class="modal-bg-close"></a>
+                    <div class="stellar-modal-box">
+                        <div class="modal-title">2J Antennas Stellar Antennas <a class="modal-close" href="#modal-closed">×</a></div>
+                        <div class="modal-large-antenna"><span class="modal-wire w1"></span><span class="modal-wire w2"></span><span class="modal-wire w3"></span><span class="modal-wire w4"></span></div>
+                    </div>
+                </div>
+
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="mouser_sensore_mini_oxygen_sensor_page" name="Sensore Electronic Mini Oxygen Sensor Board Mounts &amp; Flanged Kits">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-product-detail-page mouser-manufacturer-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <main class="mouser-product-detail-container">
+                    <div class="product-detail-breadcrumb">
+                        <a href="/mouser-home">Home</a><span>›</span>
+                        <a href="#">NEWEST Products</a><span>›</span>
+                        <a href="#">New by Manufacturer</a><span>›</span>
+                        <a href="/manufacturer/sensore-electronic/">Sensore Electronic</a><span>›</span>
+                        <strong>Mini Oxygen Sensor Board Mounts &amp; Flanged Kits - Sensore Electronic</strong>
+                    </div>
+
+                    <h1 class="newest-title">NEWEST PRODUCTS</h1>
+                    <div class="back-strip"><a href="/manufacturer/sensore-electronic/"><i class="fa fa-chevron-left"></i> Back to Sensore Electronic</a></div>
+
+                    <section class="stellar-hero-section sensore-product-hero">
+                        <div class="stellar-main-copy sensore-main-copy">
+                            <img src="/mouser_theme/static/img/sensore-electronic.webp" alt="Sensore Electronic" class="sensore-product-brand-logo"/>
+                            <h2>Sensore Electronic Mini Oxygen Sensor Board Mounts &amp; Flanged Kits</h2>
+                            <p>Sensore Electronic Mini Oxygen Sensor Board Mounts and Flanged Kits are designed using Zirconium Dioxide (ZrO<sub>2</sub>) technology to deliver highly accurate readings. These board mounts and flanged kits feature single point lifetime calibration, stable characteristics across a range, and minimal interference with other gases. The mini oxygen sensor board mounts and flanged kits also feature a 0.7V to 1.6V bias voltage range and 1.5W power consumption (depends on application). These board mounts and flanged kits include an optional electronics control board with industry-standard outputs.</p>
+                            <p>The SO-B0-x mini oxygen sensor board mounts and SO-B1-x mini oxygen sensor flanged kits feature measuring ranges from 1000ppm to 96% oxygen. These board mounts and flanged kits are used in medical, measuring instrumentation, security technology, electrical industries, laboratories, and food industries.</p>
+                        </div>
+                        <aside class="stellar-side-panel sensore-side-panel">
+                            <img src="/mouser_theme/static/img/197170197.webp" alt="Mini Oxygen Sensor Board Mounts &amp; Flanged Kits" class="sensore-product-thumb"/>
+                            <a class="enlarge-link" href="#" id="sensore-enlarge-btn"><i class="fa fa-search-plus"></i> Enlarge</a>
+                            <a class="orange-detail-btn" href="#">View Details</a>
+                            <a class="blue-about-btn" href="/manufacturer/sensore-electronic/">More About Sensore Electronic</a>
+                            <div class="quick-links-box">
+                                <h3>QUICK LINKS</h3>
+                                <a href="#features">FEATURES</a>
+                                <a href="#applications">APPLICATIONS</a>
+                                <a href="#kit-contents">KIT CONTENTS</a>
+                                <a href="#so-b0-dimension">SO-B0-X MINI OXYGEN SENSOR BOAR...</a>
+                                <a href="#so-b1-dimension">SO-B1-X MINI OXYGEN SENSOR FLAN...</a>
+                                <a href="#datasheets">DATASHEETS</a>
+                                <a href="#top">&#x2191; BACK TO TOP</a>
+                            </div>
+                        </aside>
+                    </section>
+
+                    <section id="features" class="stellar-info-section two-col-list">
+                        <h2>FEATURES</h2>
+                        <div class="two-col-content">
+                            <ul>
+                                <li>Zirconium Dioxide (ZrO<sub>2</sub>) technology</li>
+                                <li>Full scale ranges from 1000ppm to 96% oxygen</li>
+                                <li>Minimal interference with other gases</li>
+                                <li>Sensor signal not affected by temperature</li>
+                                <li>Stable sensor characteristics across a range</li>
+                            </ul>
+                            <ul>
+                                <li>0.7V to 3.6V bias voltage range</li>
+                                <li>1.5W power consumption (depends on application)</li>
+                                <li>MTTF typical of 10 years</li>
+                                <li>Optional electronics control board with industry-standard outputs</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="applications" class="stellar-info-section two-col-list">
+                        <h2>APPLICATIONS</h2>
+                        <div class="two-col-content">
+                            <ul>
+                                <li>Medical:
+                                    <ul>
+                                        <li>Oxygen concentrators</li>
+                                        <li>Incubators</li>
+                                    </ul>
+                                </li>
+                                <li>Laboratories:
+                                    <ul>
+                                        <li>Inert gas processing cabinets (glove boxes)</li>
+                                        <li>Incubators (controlled bacterial growth)</li>
+                                    </ul>
+                                </li>
+                                <li>Measuring instrumentation:
+                                    <ul>
+                                        <li>Oxygen meters (stationary/portable)</li>
+                                        <li>Air conditioning and ventilation</li>
+                                        <li>Measurements under controlled O<sub>2</sub> content</li>
+                                    </ul>
+                                </li>
+                                <li>Security technology/monitoring:
+                                    <ul>
+                                        <li>Diving</li>
+                                        <li>Fermentation units</li>
+                                        <li>Greenhouses and wine cellar</li>
+                                        <li>Fire protection (increased N<sub>2</sub> atmosphere)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>Electrical industries:
+                                    <ul>
+                                        <li>Inert gas processing machines and cabinets</li>
+                                        <li>Nitrogen concentrators</li>
+                                        <li>Storage with increased N<sub>2</sub> atmosphere (oxidation prevention)</li>
+                                        <li>Drying units</li>
+                                    </ul>
+                                </li>
+                                <li>Food industries:
+                                    <ul>
+                                        <li>Packaging</li>
+                                        <li>Controlled food testing</li>
+                                        <li>Monitoring fruit ripening processing (storage/transport)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="kit-contents" class="stellar-info-section">
+                        <h2>KIT CONTENTS</h2>
+                        <ul>
+                            <li>Mini oxygen sensor board mounts or mini oxygen sensor flanged</li>
+                            <li>Generic Sensor Board (GSB)</li>
+                        </ul>
+                    </section>
+
+                    <section id="so-b0-dimension" class="stellar-info-section sensore-dimension-section">
+                        <h2>SO-B0-X MINI OXYGEN SENSOR BOARD MOUNTS DIMENSION</h2>
+                        <div class="sensore-dimension-diagram">
+                            <svg viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg" class="sensore-dim-svg">
+                                <!-- Left: Side view of SO-B0-X -->
+                                <g transform="translate(30,20)">
+                                    <!-- Body rectangle -->
+                                    <rect x="40" y="30" width="100" height="90" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <!-- Pins at bottom -->
+                                    <line x1="55" y1="120" x2="55" y2="155" stroke="#333" stroke-width="2"/>
+                                    <line x1="80" y1="120" x2="80" y2="155" stroke="#333" stroke-width="2"/>
+                                    <line x1="105" y1="120" x2="105" y2="155" stroke="#333" stroke-width="2"/>
+                                    <line x1="125" y1="120" x2="125" y2="155" stroke="#333" stroke-width="2"/>
+                                    <!-- Top flange -->
+                                    <rect x="25" y="22" width="130" height="10" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <!-- Dimension arrows: width Ø13.92 -->
+                                    <line x1="25" y1="8" x2="155" y2="8" stroke="#333" stroke-width="0.8" marker-start="url(#arr)" marker-end="url(#arr)"/>
+                                    <text x="90" y="5" text-anchor="middle" font-size="9" fill="#333">Ø13.92</text>
+                                    <!-- Dimension arrows: height 13.60 -->
+                                    <line x1="8" y1="22" x2="8" y2="120" stroke="#333" stroke-width="0.8"/>
+                                    <text x="4" y="76" text-anchor="middle" font-size="9" fill="#333" transform="rotate(-90,4,76)">13.60</text>
+                                    <!-- Pin spacing Ø0.80(x4) -->
+                                    <text x="90" y="170" text-anchor="middle" font-size="9" fill="#333">Ø0.80 (x4)</text>
+                                    <!-- Bottom dim Ø15.30 -->
+                                    <line x1="25" y1="180" x2="155" y2="180" stroke="#333" stroke-width="0.8"/>
+                                    <text x="90" y="192" text-anchor="middle" font-size="9" fill="#333">Ø15.30</text>
+                                    <!-- 90.89 angle note -->
+                                    <text x="155" y="32" font-size="8" fill="#333">90.89</text>
+                                </g>
+                                <!-- Right: Pin-side view circle diagram -->
+                                <g transform="translate(280,15)">
+                                    <!-- Outer circle Ø15.30 ref -->
+                                    <circle cx="130" cy="110" r="100" fill="none" stroke="#333" stroke-width="1.5" stroke-dasharray="5,3"/>
+                                    <!-- Inner circle Ø13.92 -->
+                                    <circle cx="130" cy="110" r="88" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <!-- 4 pins -->
+                                    <circle cx="93" cy="80" r="6" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <text x="93" y="84" text-anchor="middle" font-size="9" fill="#333">3</text>
+                                    <circle cx="167" cy="80" r="6" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <text x="167" y="84" text-anchor="middle" font-size="9" fill="#333">4</text>
+                                    <circle cx="93" cy="140" r="6" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <text x="93" y="144" text-anchor="middle" font-size="9" fill="#333">1</text>
+                                    <circle cx="167" cy="140" r="6" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <text x="167" y="144" text-anchor="middle" font-size="9" fill="#333">2</text>
+                                    <!-- Dimension Ø7.18 between pins -->
+                                    <line x1="99" y1="80" x2="161" y2="80" stroke="#333" stroke-width="0.7" stroke-dasharray="2,2"/>
+                                    <text x="130" y="68" text-anchor="middle" font-size="9" fill="#333">Ø7.18</text>
+                                    <!-- 0.79 pin pitch -->
+                                    <text x="200" y="142" font-size="9" fill="#333">0.79</text>
+                                    <!-- 8.44 -->
+                                    <text x="200" y="114" font-size="9" fill="#333">8.44</text>
+                                    <text x="130" y="230" text-anchor="middle" font-size="11" fill="#333" font-style="italic" font-weight="bold">Pin-side view</text>
+                                    <text x="130" y="248" text-anchor="middle" font-size="9" fill="#666">Unit: mm</text>
+                                </g>
+                                <defs>
+                                    <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                                        <path d="M0,0 L6,3 L0,6 Z" fill="#333"/>
+                                    </marker>
+                                </defs>
+                            </svg>
+                        </div>
+                    </section>
+
+                    <section id="so-b1-dimension" class="stellar-info-section sensore-dimension-section">
+                        <h2>SO-B1-X MINI OXYGEN SENSOR FLANGED KITS DIMENSION</h2>
+                        <div class="sensore-dimension-diagram">
+                            <svg viewBox="0 0 580 280" xmlns="http://www.w3.org/2000/svg" class="sensore-dim-svg">
+                                <!-- Left: Pin-side view of SO-B1-X (diamond orientation) -->
+                                <g transform="translate(20,20)">
+                                    <!-- Outer diamond shape for flanged kit -->
+                                    <polygon points="130,10 240,90 130,170 20,90" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <!-- Inner circle -->
+                                    <circle cx="130" cy="90" r="50" fill="none" stroke="#333" stroke-width="1.5" stroke-dasharray="4,3"/>
+                                    <!-- 4 pins -->
+                                    <circle cx="95" cy="68" r="7" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <text x="95" y="72" text-anchor="middle" font-size="9" fill="#333">3</text>
+                                    <circle cx="165" cy="68" r="7" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <text x="165" y="72" text-anchor="middle" font-size="9" fill="#333">4</text>
+                                    <circle cx="95" cy="112" r="7" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <text x="95" y="116" text-anchor="middle" font-size="9" fill="#333">1</text>
+                                    <circle cx="165" cy="112" r="7" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <text x="165" y="116" text-anchor="middle" font-size="9" fill="#333">2</text>
+                                    <!-- Dimension label 34 wide top -->
+                                    <line x1="20" y1="5" x2="240" y2="5" stroke="#333" stroke-width="0.7"/>
+                                    <text x="130" y="2" text-anchor="middle" font-size="9" fill="#333">34</text>
+                                    <!-- Dim 17 half -->
+                                    <text x="240" y="50" font-size="9" fill="#333">17</text>
+                                    <!-- Dim Ø13.92 circle -->
+                                    <text x="130" y="155" text-anchor="middle" font-size="9" fill="#333">Ø13.92</text>
+                                    <text x="130" y="195" text-anchor="middle" font-size="11" fill="#333" font-style="italic" font-weight="bold">Pin-side view</text>
+                                </g>
+                                <!-- Right: Side cross-section view -->
+                                <g transform="translate(300,20)">
+                                    <!-- Main body -->
+                                    <rect x="40" y="60" width="150" height="100" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <!-- Top flange wider -->
+                                    <rect x="10" y="50" width="210" height="12" fill="none" stroke="#333" stroke-width="1.5"/>
+                                    <!-- Pins bottom -->
+                                    <line x1="65" y1="160" x2="65" y2="200" stroke="#333" stroke-width="2"/>
+                                    <line x1="95" y1="160" x2="95" y2="200" stroke="#333" stroke-width="2"/>
+                                    <line x1="135" y1="160" x2="135" y2="200" stroke="#333" stroke-width="2"/>
+                                    <line x1="165" y1="160" x2="165" y2="200" stroke="#333" stroke-width="2"/>
+                                    <!-- Width dim 44.4 -->
+                                    <line x1="10" y1="35" x2="220" y2="35" stroke="#333" stroke-width="0.8"/>
+                                    <text x="115" y="32" text-anchor="middle" font-size="9" fill="#333">44.4</text>
+                                    <!-- Ø13.92 inner -->
+                                    <line x1="40" y1="25" x2="190" y2="25" stroke="#333" stroke-width="0.8" stroke-dasharray="3,2"/>
+                                    <text x="115" y="22" text-anchor="middle" font-size="9" fill="#333">Ø13.92</text>
+                                    <!-- Height 13.6 -->
+                                    <line x1="228" y1="60" x2="228" y2="160" stroke="#333" stroke-width="0.8"/>
+                                    <text x="238" y="116" font-size="9" fill="#333" transform="rotate(90,238,116)">13.6</text>
+                                    <!-- 0.89 note -->
+                                    <text x="196" y="58" font-size="8" fill="#333">0.89</text>
+                                    <!-- Pin dim Ø0.80(x4) -->
+                                    <text x="115" y="218" text-anchor="middle" font-size="9" fill="#333">Ø0.80 (x4)</text>
+                                    <!-- Ø15.30 overall -->
+                                    <line x1="10" y1="228" x2="220" y2="228" stroke="#333" stroke-width="0.8"/>
+                                    <text x="115" y="242" text-anchor="middle" font-size="9" fill="#333">Ø15.30</text>
+                                    <text x="115" y="260" text-anchor="middle" font-size="9" fill="#666">Unit: mm</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </section>
+
+                    <section id="datasheets" class="stellar-info-section datasheets-section">
+                        <h2>DATASHEETS</h2>
+                        <ul>
+                            <li><a href="/pdfDocs/SO-B0-xxx-DS-1223-EN-01.pdf" target="_blank">SO-B0-x Mini Oxygen Sensor Board Mount</a></li>
+                            <li><a href="/pdfDocs/SO-B1-xxx-DS-1223-EN-01.pdf" target="_blank">SO-B1-x Mini Oxygen Sensor Flanged</a></li>
+                        </ul>
+                        <p class="publish-date">Published: 2024-11-25 | Updated: 2026-05-13</p>
+                    </section>
+                </main>
+
+                <!-- Enlarge modal - JS powered to match original Mouser -->
+                <div id="sensore-enlarge-modal" class="sensore-modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+                    <div class="sensore-modal-backdrop" id="sensore-modal-backdrop"></div>
+                    <div class="sensore-modal-box">
+                        <div class="sensore-modal-title">
+                            Sensore Electronic Mini Oxygen Sensor Board Mounts &amp; Flanged Kits
+                            <button class="sensore-modal-close" id="sensore-modal-close" aria-label="Close">&#x00D7;</button>
+                        </div>
+                        <div class="sensore-modal-body">
+                            <img src="/mouser_theme/static/img/197170197_large.webp"
+                                 alt="Mini Oxygen Sensor Board Mounts &amp; Flanged Kits"
+                                 class="sensore-modal-img"/>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                (function() {
+                    function openModal() {
+                        document.getElementById('sensore-enlarge-modal').style.display = 'flex';
+                        document.body.style.overflow = 'hidden';
+                    }
+                    function closeModal() {
+                        document.getElementById('sensore-enlarge-modal').style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var btn = document.getElementById('sensore-enlarge-btn');
+                        if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+                        var closeBtn = document.getElementById('sensore-modal-close');
+                        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+                        var backdrop = document.getElementById('sensore-modal-backdrop');
+                        if (backdrop) backdrop.addEventListener('click', closeModal);
+                        document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+                    });
+                })();
+                </script>
+
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="mouser_sensore_oxy_flex_page" name="Sensore Electronic OXY-FLEX Oxygen Transmitters">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-product-detail-page mouser-manufacturer-page sensore-oxy-page"><span id="top"></span>
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <main class="mouser-product-detail-container">
+                    <div class="product-detail-breadcrumb">
+                        <a href="/mouser-home">Home</a><span>›</span>
+                        <a href="#">NEWEST Products</a><span>›</span>
+                        <a href="#">New by Manufacturer</a><span>›</span>
+                        <a href="/manufacturer/sensore-electronic/">Sensore Electronic</a><span>›</span>
+                        <strong>OXY-FLEX Oxygen Transmitters - Sensore Electronic</strong>
+                    </div>
+
+                    <h1 class="newest-title">NEWEST PRODUCTS</h1>
+                    <div class="back-strip"><a href="/manufacturer/sensore-electronic/"><i class="fa fa-chevron-left"></i> Back to Sensore Electronic</a></div>
+
+                    <section class="stellar-hero-section sensore-product-hero oxy-flex-hero">
+                        <div class="stellar-main-copy sensore-main-copy oxy-flex-copy">
+                            <img src="/mouser_theme/static/img/sensore-electronic.webp" alt="Sensore Electronic" class="sensore-product-brand-logo"/>
+                            <h2>Sensore Electronic OXY-FLEX Oxygen Transmitters</h2>
+                            <p>Sensore Electronic OXY-FLEX Oxygen Transmitters are compact and cost-effective zirconia transmitters designed to measure the percentage level of oxygen in combustion processes, excess air monitoring, bakery ovens, and other applications. The OXY-FLEX is configurable to measure either 0% to 25% or 0% to 100% oxygen and supplies manual or automatic calibration. The OXY-FLEX Series is quick to install and integrate into existing systems, and specialist software is not required. The probe can be mounted directly on an aluminum or stainless steel electronic housing.</p>
+                            <p>The SST Sensing OXY-FLEX Oxygen Transmitters are ideal for typical applications such as combustion control of industrial boilers, burning oil, gas, coal, or biomass; composting probes; and duct monitoring systems.</p>
+                        </div>
+                        <aside class="stellar-side-panel sensore-side-panel oxy-flex-side-panel">
+                            <img src="/mouser_theme/static/img/163466725.webp" alt="OXY-FLEX Oxygen Transmitters" class="sensore-product-thumb oxy-flex-thumb"/>
+                            <a class="enlarge-link sensore-oxy-enlarge-link" href="#" id="oxy-flex-enlarge-btn"><i class="fa fa-search-plus"></i> Enlarge</a>
+                            <a class="orange-detail-btn" href="/c/?m=Sensore%20Electronic">View Details</a>
+                            <a class="blue-about-btn" href="/manufacturer/sensore-electronic/">More About Sensore Electronic</a>
+                            <a class="blue-about-btn" href="/mouser_theme/static/pdfdocs/OXY-FLEX_Series_Oxygen_Transmitter_User_Manual.pdf" target="_blank">View Datasheet</a>
+                            <div class="quick-links-box">
+                                <h3>QUICK LINKS</h3>
+                                <a href="#features">FEATURES</a>
+                                <a href="#applications">APPLICATIONS</a>
+                                <a href="#additional-resources">ADDITIONAL RESOURCES</a>
+                                <a href="#main-components">MAIN COMPONENTS</a>
+                                <a href="#dimensions-mm">DIMENSIONS MM</a>
+                                <a href="#top">↟ BACK TO TOP</a>
+                            </div>
+                        </aside>
+                    </section>
+
+                    <section id="features" class="stellar-info-section two-col-list oxy-flex-section">
+                        <h2>FEATURES</h2>
+                        <div class="two-col-content">
+                            <ul>
+                                <li>0.1% to 25% or 0.1% to 100% oxygen transmitter</li>
+                                <li>4mA to 20mA/0VDC to 10VDC and digital outputs selectable</li>
+                                <li>Cycling 3.3V DC logic output allows direct monitoring of the O2 sensor for diagnostic purposes</li>
+                                <li>Can be calibrated in normal air, 20.7% O2, or in any other known O2 concentration</li>
+                            </ul>
+                            <ul>
+                                <li>Selectable output filtering allows fast and dynamic or slow and stable output</li>
+                                <li>Externally triggered automatic or manual calibration</li>
+                                <li>Measures in temperatures up to 400°C/750°F</li>
+                                <li>IP66-certified enclosure in either aluminum or stainless steel</li>
+                                <li>Certified CE, UKCA, ISO9001</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="applications" class="stellar-info-section two-col-list oxy-flex-section">
+                        <h2>APPLICATIONS</h2>
+                        <div class="two-col-content">
+                            <ul>
+                                <li>Compressed air class 1 to Class 6 dryers</li>
+                                <li>Breathing air</li>
+                                <li>Inert and bulk gases</li>
+                                <li>Welding gases</li>
+                                <li>Combustion optimization</li>
+                            </ul>
+                            <ul>
+                                <li>Pharmaceutical oxygen control</li>
+                                <li>Oil, gas, and biomass boilers</li>
+                                <li>Composting</li>
+                                <li>Commercial baking ovens</li>
+                                <li>Oxygen generation</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="additional-resources" class="stellar-info-section oxy-flex-section">
+                        <h2>ADDITIONAL RESOURCES</h2>
+                        <ul>
+                            <li><a href="/mouser_theme/static/pdfdocs/OXY-FLEX_Series_Oxygen_Transmitter_Datasheet.pdf" target="_blank">Datasheet</a></li>
+                            <li><a href="/mouser_theme/static/pdfdocs/OXY-FLEX_Series_Oxygen_Transmitter_User_Manual.pdf" target="_blank">OXY-FLEX Series Oxygen Transmitter User Manual</a></li>
+                        </ul>
+                    </section>
+
+                    <section id="main-components" class="stellar-info-section oxy-flex-section main-components-section">
+                        <h2>MAIN COMPONENTS</h2>
+                        <img src="/mouser_theme/static/img/OXY-FLEX_Main Components.webp" alt="OXY-FLEX main components" class="oxy-flex-main-components-img"/>
+                    </section>
+
+                    <section id="dimensions-mm" class="stellar-info-section oxy-flex-section dimensions-mm-section">
+                        <h2>DIMENSIONS MM</h2>
+                        <img src="/mouser_theme/static/img/2024-09-17_13-03-18Copy.webp" alt="OXY-FLEX dimensions mm" class="oxy-flex-dimensions-img"/>
+                        <p class="publish-date">Published: 2024-09-17 | Updated: 2026-05-13</p>
+                    </section>
+                </main>
+
+                <div id="oxy-flex-enlarge-modal" class="sensore-modal-overlay oxy-flex-modal" style="display:none;" role="dialog" aria-modal="true">
+                    <div class="sensore-modal-backdrop" id="oxy-flex-modal-backdrop"></div>
+                    <div class="sensore-modal-box oxy-flex-modal-box">
+                        <div class="sensore-modal-title">Sensore Electronic OXY-FLEX Oxygen Transmitters <button class="sensore-modal-close" id="oxy-flex-modal-close" aria-label="Close">×</button></div>
+                        <div class="sensore-modal-body oxy-flex-modal-body">
+                            <img src="/mouser_theme/static/img/163466725.webp" alt="Sensore Electronic OXY-FLEX Oxygen Transmitters" class="sensore-modal-img oxy-flex-modal-img"/>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                (function() {
+                    function openModal() {
+                        var modal = document.getElementById('oxy-flex-enlarge-modal');
+                        if (modal) modal.style.display = 'flex';
+                        document.body.style.overflow = 'hidden';
+                    }
+                    function closeModal(e) {
+                        if (e) e.preventDefault();
+                        var modal = document.getElementById('oxy-flex-enlarge-modal');
+                        if (modal) modal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var btn = document.getElementById('oxy-flex-enlarge-btn');
+                        if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+                        var closeBtn = document.getElementById('oxy-flex-modal-close');
+                        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+                        var backdrop = document.getElementById('oxy-flex-modal-backdrop');
+                        if (backdrop) backdrop.addEventListener('click', closeModal);
+                        document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(e); });
+                    });
+                })();
+                </script>
+
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+    <template id="manufacturers_new_page" name="New Manufacturers Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-manufacturer-page mouser-new-manufacturers-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <div class="mouser-manufacturer-container">
+                    <div class="mouser-breadcrumb">
+                        <a href="/mouser-home">Home</a>
+                        <span>›</span>
+                        <a href="/manufacturer/">All Manufacturers</a>
+                        <span>›</span>
+                        <strong>New Manufacturers</strong>
+                    </div>
+
+                    <a class="new-manufacturer-banner" href="https://resources.mouser.com/bench-talk-for-design-engineers/wi-sun-ipv6-wireless-mesh-technology-scales-massively" target="_blank" rel="noopener">
+                        <div class="new-banner-image">
+                            <span class="new-banner-blog-badge">blog</span>
+                            <span class="new-banner-video-card">Wi-SUN</span>
+                        </div>
+                        <div class="new-banner-brand">DIGI<span class="digi-triangle"></span></div>
+                        <div class="new-banner-text">
+                            <span>Blog: Wi-SUN - The IPv6 Wireless Mesh Technology That<br/>Scales Massively</span>
+                        </div>
+                        <span class="feature-next-btn">›</span>
+                    </a>
+
+                    <h1 class="new-manufacturer-title">New Manufacturers</h1>
+
+                    <div class="new-manufacturer-list">
+                        <t t-foreach="new_manufacturers" t-as="item">
+                            <article t-att-class="'new-manufacturer-item' + (' new-manufacturer-hidden' if item_index &gt;= 10 else '')">
+                                <a t-att-href="item.get('slug') or '#'" class="new-manufacturer-logo new-manufacturer-logo-link" t-att-title="item['name']">
+                                    <img t-if="item.get('logo_img')" t-att-src="item['logo_img']" t-att-alt="item['name']"/>
+                                    <span t-else="" t-out="item['logo']"></span>
+                                </a>
+                                <div class="new-manufacturer-info">
+                                    <div class="new-added-date">Added <t t-out="item['date']"/></div>
+                                    <a t-att-href="item.get('slug') or '#'" class="new-maker-name" t-out="item['name']"></a>
+                                    <p>
+                                        <strong t-out="item['name']"></strong>
+                                        <t t-out="' ' + item['desc']"/>
+                                    </p>
+                                    <a t-att-href="item.get('slug') or '#'" class="new-learn-link">Learn more about <t t-out="item['name']"/></a>
+                                </div>
+                            </article>
+                        </t>
+                    </div>
+
+                    <div class="new-view-more-wrap">
+                        <button type="button" class="new-view-more-btn">View More <i class="fa fa-caret-down"></i></button>
+                    </div>
+                </div>
+
+                <section class="manufacturer-newsletter">
+                    <h3>Get the Latest News</h3>
+                    <div class="manufacturer-newsletter-form">
+                        <input type="email" placeholder="Enter your Email"/>
+                        <button type="button">Subscribe</button>
+                    </div>
+                </section>
+
+                <footer class="manufacturer-footer original-footer">
+                    <div class="manufacturer-footer-container">
+                        <div class="footer-col office">
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p>
+                            <p><i class="fa fa-envelope"></i> bangalore@mouser.com</p>
+                            <p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India</p>
+                            <div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div>
+                        </div>
+                        <div class="footer-col">
+                            <h4>COMPANY</h4>
+                            <a href="#">About Us</a><a href="#">Newsroom</a><a href="#">Careers @ Mouser</a><a href="#">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social Responsibility</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>RESOURCES</h4>
+                            <a href="#">Blog</a><a href="#">Newest Products</a><a href="/manufacturers/new">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>SUPPORT</h4>
+                            <a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback">Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>CONNECT WITH US</h4>
+                            <div class="manufacturer-socials socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i><span class="blog-icon">blog</span></div>
+                        </div>
+                    </div>
+                    <div class="manufacturer-footer-bottom footer-bottom-original">
+                        <div class="footer-links"><a href="#">Privacy Centre</a><span>|</span><a href="#">Terms and Conditions</a><span>|</span><a href="#">Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a href="#">Sitemap</a></div>
+                        <div class="footer-bottom-row">
+                            <div class="copyright-text">
+                                <p><strong>Copyright ©2026 Mouser Electronics, Inc.</strong></p>
+                                <p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.</p>
+                            </div>
+                            <div class="cert-strip">
+                                <img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/>
+                                <img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/>
+                                <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO 14001"/>
+                                <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B"/>
+                                <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+    <template id="manufacturers_by_category_page" name="Manufacturers By Product Category">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-manufacturer-page mouser-manufacturer-category-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <div class="mouser-manufacturer-container">
+
+                    <div class="mouser-breadcrumb">
+                        <a href="/mouser-home">Home</a>
+                        <span>›</span>
+                        <a href="/manufacturer/">All Manufacturers</a>
+                        <span>›</span>
+                        <strong>Manufacturers by Product Category</strong>
+                    </div>
+
+                    <h1 class="manufacturer-main-title">MANUFACTURERS BY PRODUCT CATEGORY</h1>
+
+                    <div class="manufacturer-category-banner">
+                        <div class="category-banner-image">
+                            <i class="fa fa-book"></i>
+                        </div>
+                        <div class="category-banner-brand">
+                            <strong>Microchip</strong>
+                            <span>samtec</span>
+                        </div>
+                        <div class="category-banner-text">
+                            <a href="#">eBook: Microchip &amp; Samtec - 8 Experts on PCIe for Emerging Embedded Systems</a>
+                        </div>
+                        <button class="feature-next-btn">›</button>
+                    </div>
+
+                    <div class="manufacturer-top-actions">
+                        <div class="manufacturer-links">
+                            <a href="/manufacturer/">Manufacturers A-Z</a>
+                            <span>|</span>
+                            <a href="/manufacturers/new">New Manufacturers</a>
+                        </div>
+
+                        <a href="/manufacturers/export/xlsx" class="manufacturer-export-btn">
+                            Export To Excel
+                        </a>
+                    </div>
+
+                    <t t-if="category_manufacturer_data">
+                        <div class="manufacturer-category-tabs">
+                            <t t-foreach="category_manufacturer_data" t-as="category">
+                                <a t-att-href="'#cat-' + category['anchor']">
+                                    <t t-out="category['name']"/>
+                                </a>
+                            </t>
+                        </div>
+
+                        <div class="manufacturer-list-wrapper category-list-wrapper">
+                            <t t-foreach="category_manufacturer_data" t-as="category">
+                                <section t-att-id="'cat-' + category['anchor']" class="manufacturer-letter-section category-section">
+                                    <h2>
+                                        <t t-out="category['name']"/>
+                                    </h2>
+
+                                    <div class="manufacturer-name-grid category-name-grid">
+                                        <t t-foreach="category['manufacturers']" t-as="manufacturer">
+                                            <a t-att-href="manufacturer['url']">
+                                                <t t-out="manufacturer['name']"/>
+                                            </a>
+                                        </t>
+                                    </div>
+                                </section>
+                            </t>
+                        </div>
+                    </t>
+
+                    <t t-else="">
+                        <div class="alert alert-info">
+                            No manufacturer-category links were found yet.
+                        </div>
+                    </t>
+
+                </div>
+
+                <section class="manufacturer-newsletter">
+                    <h3>Get the Latest News</h3>
+                    <div class="manufacturer-newsletter-form">
+                        <input type="email" placeholder="Enter your Email"/>
+                        <button type="button">Subscribe</button>
+                    </div>
+                </section>
+
+                <footer class="manufacturer-footer">
+                    <div class="manufacturer-footer-container">
+
+                        <div class="footer-col office">
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p>
+                            <p><i class="fa fa-envelope"></i> bangalore@mouser.com</p>
+                            <p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India</p>
+                            <div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div>
+                        </div>
+
+                        <div class="footer-col">
+                            <h4>COMPANY</h4>
+                            <a href="#">About Us</a>
+                            <a href="#">Newsroom</a>
+                            <a href="#">Careers @ Mouser</a>
+                            <a href="#">Quality</a>
+                            <a href="#">Environmental</a>
+                            <a href="#">Corporate Social Responsibility</a>
+                        </div>
+
+                        <div class="footer-col">
+                            <h4>RESOURCES</h4>
+                            <a href="#">Blog</a>
+                            <a href="#">Newest Products</a>
+                            <a href="/manufacturers/new">New Manufacturers</a>
+                            <a href="#">Applications</a>
+                            <a href="/services-tools">Services &amp; Tools</a>
+                        </div>
+
+                        <div class="footer-col">
+                            <h4>SUPPORT</h4>
+                            <a href="/contact">Contact Us</a>
+                            <a href="#">Help</a>
+                            <a href="/feedback">Feedback</a>
+                            <a href="#">Browser Support</a>
+                            <a href="#">Cookie Policy</a>
+                        </div>
+
+                        <div class="footer-col">
+                            <h4>CONNECT WITH US</h4>
+                            <div class="manufacturer-socials">
+                                <i class="fa fa-facebook-square"></i>
+                                <i class="fa fa-instagram"></i>
+                                <i class="fa fa-youtube-play"></i>
+                                <i class="fa fa-linkedin-square"></i>
+                                <i class="fa fa-rss-square"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="manufacturer-footer-bottom">
+                        <a href="#">Privacy Centre</a>
+                        <a href="#">Terms and Conditions</a>
+                        <a href="#">Corporate Information</a>
+                        <a href="/accessibility/">Accessibility</a>
+                        <a href="#">Sitemap</a>
+                        <p>Copyright ©2026 Mouser Electronics, Inc.</p>
+                    </div>
+                </footer>
+
+                <div class="manufacturer-live-chat">
+                    <i class="fa fa-comment"></i>
+                    Live Chat
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="mouser_products_no_results_footer" name="Mouser Products Footer">
+        <section class="manufacturer-newsletter product-newsletter-gap">
+            <h3>Get the Latest News</h3>
+            <div class="manufacturer-newsletter-form">
+                <input type="email" placeholder="Enter your Email"/>
+                <button type="button">Subscribe</button>
+            </div>
+        </section>
+
+        <footer class="manufacturer-footer">
+            <div class="manufacturer-footer-container">
+                <div class="footer-col office">
+                    <h4>CUSTOMER SERVICE OFFICE</h4>
+                    <p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p>
+                    <p><i class="fa fa-envelope"></i> bangalore@mouser.com</p>
+                    <p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p>
+                    <p class="tti-text"><span class="tti-box">tti</span> Part of the TTI<br/>Family of Specialists</p>
+                </div>
+                <div class="footer-col"><h4>COMPANY</h4><a href="#">About Us</a><a href="#">Newsroom</a><a href="#">Careers @ Mouser</a><a href="#">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social Responsibility</a></div>
+                <div class="footer-col"><h4>RESOURCES</h4><a href="#">Blog</a><a href="#">Newest Products</a><a href="/manufacturers/new">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a></div>
+                <div class="footer-col"><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback">Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a></div>
+                <div class="footer-col"><h4>CONNECT WITH US</h4><div class="manufacturer-socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><i class="fa fa-twitter-square"></i><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i></div></div>
+            </div>
+            <div class="manufacturer-footer-bottom product-footer-bottom">
+                <div><a href="#">Privacy Centre</a> | <a href="#">Terms and Conditions</a> | <a href="#">Corporate Information</a> | <a href="/accessibility/">Accessibility</a> | <a href="#">Sitemap</a></div>
+                <p><strong>Copyright ©2026 Mouser Electronics, Inc.</strong></p>
+                <div class="footer-bottom-grid"><div><p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p></div><div class="footer-cert-row">
+                        <img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/>
+                        <img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/>
+                        <img src="/mouser_theme/static/img/logo-cse_small.png" alt="Customer Service Excellence"/>
+                        <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO Certified"/>
+                        <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B Certified Distributor"/>
+                        <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/>
+                        <img src="/mouser_theme/static/img/trust-guard-secure.png" alt="Trust Guard Secure"/>
+                    </div></div>
+            </div>
+        </footer>
+    </template>
+
+    <template id="mouser_empty_products_page" name="Mouser Manufacturer No Products Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-products-empty-page mouser-manufacturer-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <main class="mouser-products-container">
+                    <div class="product-breadcrumb"><a href="/shop">All Products</a><span>›</span><strong t-out="maker"/></div>
+                    <hr/>
+
+                    <div class="mouser-no-results-alert">
+                        <div class="alert-icon">!</div>
+                        <div class="alert-content">
+                            <strong>No Results Found.</strong>
+                            <span>Try modifying your search term below or visit our <a href="#">Help Centre</a>.</span>
+                        </div>
+                    </div>
+
+                    <section class="mouser-search-within">
+                        <h3>Search within results</h3>
+                        <div class="within-search-row">
+                            <input type="text" placeholder="Part No. / Keyword"/>
+                            <button type="button"><i class="fa fa-search"></i></button>
+                        </div>
+                        <div class="within-filter-grid">
+                            <label><input type="checkbox"/> <strong>In Stock</strong></label>
+                            <label><input type="checkbox"/> <strong>Active</strong></label>
+                            <label><input type="checkbox"/> <strong>RoHS Compliant</strong></label>
+                            <label><input type="checkbox"/> <strong>Normally Stocked</strong></label>
+                            <label><input type="checkbox"/> <strong>New Products</strong></label>
+                        </div>
+                    </section>
+
+                    <section class="mouser-search-help-grid">
+                        <div>
+                            <h2>Search Suggestions</h2>
+                            <ul>
+                                <li>Check spelling of part number or keywords</li>
+                                <li>Use fewer or different keywords</li>
+                                <li>Search on 1 part number at a time</li>
+                                <li>Apply 1 filter at a time</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h2>Products &amp; Manufacturers</h2>
+                            <a href="#">Search by Product Category</a>
+                            <a href="/manufacturer/">Search by Manufacturer</a>
+                            <a href="#">Search by Newest Products</a>
+                        </div>
+                        <div>
+                            <h2>Additional Questions?</h2>
+                            <a href="/contact">Contact Us</a>
+                            <a href="#">How to search for products</a>
+                            <a href="#">Sitemap</a>
+                        </div>
+                    </section>
+                </main>
+
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="mouser_sure_seal_products_page" name="Sure-Seal Products - Mouser India">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-products-results-page mouser-manufacturer-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <main class="mouser-results-container">
+                    <div class="mouser-results-breadcrumb-row">
+                        <div class="product-breadcrumb results-breadcrumb"><a href="/shop">All Products</a><span>›</span><a href="/manufacturer/sure-seal/">Sure-Seal</a><span>›</span><strong t-esc="page_title or 'Sure-Seal Connectors'"/></div>
+                        <button class="mouser-share-btn" type="button"><i class="fa fa-share-alt"></i> Share</button>
+                    </div>
+                    <hr/>
+
+                    <section class="sure-seal-results-hero">
+                        <div class="sure-results-logo-wrap">
+                            <img src="/mouser_theme/static/img/sure-seal.webp" alt="Sure-Seal"/>
+                            <strong>Authorized Distributor</strong>
+                        </div>
+                        <h1 t-esc="page_title or 'Sure-Seal Connectors'"/>
+                    </section>
+
+                    <section class="mouser-result-tabs" style="margin-top:16px;">
+                        <a class="active" href="/c/connectors/?m=Sure-Seal"><i class="fa fa-cubes"></i> Products (<t t-esc="len(products) or total_results or 0"/>)</a>
+                        <a href="/c/connectors/?m=Sure-Seal&amp;view=images"><i class="fa fa-picture-o"></i> Images</a>
+                        <a href="/c/connectors/?m=Sure-Seal&amp;keyword=new"><i class="fa fa-certificate"></i> Newest Products</a>
+                    </section>
+
+                    <section class="mouser-connector-types" style="padding:14px 12px;border:1px solid #ddd;border-top:0;">
+                        <h3>Types of Connectors</h3>
+                        <label style="margin-right:18px;"><input type="radio" name="view_mode" checked="checked"/> List</label>
+                        <label><input type="radio"/> Images</label>
+                        <div class="cat-link-grid" style="margin-top:14px;">
+                            <t t-foreach="categories" t-as="cat">
+                                <a t-att-href="cat.get('url')">‹ <t t-esc="cat.get('name')"/> (<t t-esc="cat.get('count')"/>)</a>
+                            </t>
+                        </div>
+                    </section>
+
+                    <h2 style="margin:22px 0 10px;">Results: <t t-esc="len(products) or total_results or 0"/></h2>
+
+                    <section class="mouser-search-within results-search-within">
+                        <form action="/c/connectors/" method="get">
+                            <input type="hidden" name="m" value="Sure-Seal"/>
+                            <t t-if="category"><input type="hidden" name="category" t-att-value="category"/></t>
+                            <h3>Search within results</h3>
+                            <div class="within-search-row">
+                                <input type="text" name="keyword" t-att-value="keyword" placeholder="Part No. / Keyword"/>
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                            <div class="within-filter-grid results-filter-grid">
+                                <label><input name="instock" value="1" type="checkbox" t-att-checked="'checked' if filters.get('instock') else None"/> <strong>In Stock</strong></label>
+                                <label><input name="active" value="1" type="checkbox" t-att-checked="'checked' if filters.get('active') else None"/> <strong>Active</strong></label>
+                                <label><input name="rohs" value="1" type="checkbox" t-att-checked="'checked' if filters.get('rohs') else None"/> <strong>RoHS Compliant</strong></label>
+                                <label><input name="normally_stocked" value="1" type="checkbox"/> <strong>Normally Stocked</strong></label>
+                                <label><input name="new" value="1" type="checkbox"/> <strong>New Products</strong></label>
+                            </div>
+                        </form>
+                    </section>
+
+                    <t t-if="api_error"><div class="alert alert-warning" style="margin:12px 0;">Mouser API error: <t t-esc="api_error"/></div></t>
+
+                    <section class="mouser-product-table-section">
+                        <div class="table-actions-bar">
+                            <div><button type="button">Buy Selected</button><button type="button">Compare Selected (up to 20)</button></div>
+                            <a class="btn" t-att-href="'/c/connectors/?m=Sure-Seal&amp;keyword=%s' % (keyword or '')"><i class="fa fa-refresh"></i> Refresh Live Data</a>
+                        </div>
+                        <table class="mouser-product-table">
+                            <thead>
+                                <tr>
+                                    <th>Select</th><th>Image</th><th>Part # <i class="fa fa-sort-amount-desc"></i></th><th>Mfr. <i class="fa fa-sort-amount-desc"></i></th><th>Description</th><th>Datasheet</th><th>Availability</th><th>Pricing (INR)<br/><input placeholder="Price by Qty."/></th><th>Qty.</th><th>RoHS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="products">
+                                    <tr t-foreach="products" t-as="p">
+                                        <td class="select-cell"><input type="checkbox"/></td>
+                                        <td class="img-cell"><img t-if="p.get('image')" t-att-src="p.get('image')" style="max-width:65px; max-height:65px; object-fit:contain;"/><div t-if="not p.get('image')" class="fake-prod-img"><span></span></div></td>
+                                        <td class="part-cell"><em>Mfr. Part No.</em><a t-att-href="'/product/detail?mouser_no=' + (p.get('mouser_no') or '')" t-esc="p.get('mpn')"/><br/><br/><em>Mouser Part No</em><span t-esc="p.get('mouser_no')"/></td>
+                                        <td><a href="/manufacturer/sure-seal/" t-esc="p.get('manufacturer') or 'Sure-Seal'"/></td>
+                                        <td><span t-esc="p.get('description')"/><div t-if="p.get('category')" style="font-size:12px;color:#666;margin-top:4px;" t-esc="p.get('category')"/></td>
+                                        <td><a t-if="p.get('datasheet')" t-att-href="p.get('datasheet')" target="_blank"><i class="fa fa-external-link"></i> Datasheet</a></td>
+                                        <td class="avail" t-esc="p.get('availability')"/>
+                                        <td class="price-cell"><t t-if="p.get('prices')"><t t-foreach="p.get('prices')" t-as="price_row"><a href="#" t-esc="price_row.get('qty')"/> <span t-esc="price_row.get('price')"/><br/></t></t><t t-if="not p.get('prices')"><span>Quote</span></t></td>
+                                        <td class="qty-cell"><div><input/><button type="button">Buy</button></div><small>Min.: 1<br/>Mult.: 1</small></td>
+                                        <td class="rohs-cell"><span>♻</span><a href="#"><t t-esc="p.get('rohs') or 'RoHS'"/><br/>Details</a></td>
+                                    </tr>
+                                </t>
+                                <t t-if="not products"><tr><td colspan="10" style="padding:18px; text-align:center;">No live products loaded. Please check the Mouser API key and server internet access.</td></tr></t>
+                            </tbody>
+                        </table>
+                        <div class="mouser-pagination"><a class="active">1</a><a>2</a><a>3</a><a>4</a><a>»</a></div>
+                    </section>
+                </main>
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+
+
+    <template id="product_search_results_template" name="Product Search Results">
+        <t t-call="website.layout">
+            <div class="container mt-4 mb-5">
+                <h1 style="font-size:40px;font-weight:700;">Product Search Results</h1>
+
+                <form action="/product/search" method="get" style="margin:20px 0;">
+                    <input type="text" name="keyword" t-att-value="keyword"
+                           placeholder="Search products..."
+                           style="padding:10px;width:350px;border:1px solid #ccc;"/>
+                    <button type="submit"
+                            style="padding:10px 20px;background:#0070c9;color:white;border:none;">
+                        Search
+                    </button>
+                </form>
+
+                <t t-if="error">
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong>
+                        <span t-esc="error"/>
+                    </div>
+                </t>
+
+                <t t-if="products">
+                    <table class="table table-bordered table-striped">
+                        <thead style="background:#0070c9;color:white;">
+                            <tr>
+                                <th>Image</th>
+                                <th>Manufacturer</th>
+                                <th>Mouser No</th>
+                                <th>MPN</th>
+                                <th>Description</th>
+                                <th>Availability</th>
+                                <th>Datasheet</th><th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="products" t-as="p">
+                                <td>
+                                    <img t-if="p['image']"
+                                         t-att-src="p['image']"
+                                         style="max-height:60px;"/>
+                                </td>
+                                <td t-esc="p['manufacturer']"/>
+                                <td t-esc="p['mouser_no']"/>
+                                <td t-esc="p['mpn']"/>
+                                <td t-esc="p['description']"/>
+                                <td t-esc="p['availability']"/>
+                                <td>
+                                    <a t-if="p['datasheet']"
+                                       t-att-href="p['datasheet']"
+                                       target="_blank">
+                                        Datasheet
+                                    </a>
+                                </td>
+                                <td>
+                                    <a t-att-href="'/product/detail?mouser_no=%s' % p['mouser_no']"
+                                       class="btn btn-sm btn-primary">
+                                        View Details
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </t>
+    </template>
+
+
+
+<template id="product_detail_template" name="Product Detail">
+<t t-call="website.layout">
+<div class="container mt-5 mb-5">
+<h1 class="mb-4">Product Detail</h1>
+<t t-if="product">
+<div class="row">
+<div class="col-md-4">
+<img t-att-src="product.get('ImagePath')" style="max-width:300px;"/>
+</div>
+<div class="col-md-8">
+<h3><t t-esc="product.get('ManufacturerPartNumber')"/></h3>
+<p><strong>Manufacturer:</strong> <t t-esc="product.get('Manufacturer')"/></p>
+<p><strong>Mouser No:</strong> <t t-esc="product.get('MouserPartNumber')"/></p>
+<p><strong>Description:</strong> <t t-esc="product.get('Description')"/></p>
+<p><strong>Availability:</strong> <t t-esc="product.get('Availability')"/></p>
+<p>
+<a t-att-href="product.get('DataSheetUrl')" target="_blank" class="btn btn-primary">View Datasheet</a>
+</p>
+</div>
+</div>
+</t>
+</div>
+</t>
+</template>
+
+
+    <template id="sure_seal_product_line_page" name="Sure-Seal Product Line Original">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-manufacturer-page mouser-manufacturer-detail-page sure-seal-original-page sure-seal-product-line-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <div class="mouser-manufacturer-container mouser-detail-original">
+                    <div class="mouser-breadcrumb detail-breadcrumb">
+                        <a href="/mouser-home">Home</a>
+                        <span>›</span>
+                        <a href="/manufacturer/">All Manufacturers</a>
+                        <span>›</span>
+                        <a href="/manufacturer/sure-seal/">Sure-Seal</a>
+                        <span>›</span>
+                        <strong>Sure-Seal Product Line</strong>
+                    </div>
+
+                    <div class="manufacturer-detail-topline">
+                        <div></div>
+                        <div class="ecia-mark"><span class="ecia-icon">▦</span><span>ecia</span></div>
+                    </div>
+
+                    <section class="manufacturer-original-detail sure-product-line-grid">
+                        <aside class="manufacturer-left-column">
+                            <div class="manufacturer-logo-tile">
+                                <img src="/mouser_theme/static/img/sure-seal.webp" alt="Sure-Seal" class="sure-seal-logo-img"/>
+                            </div>
+
+                            <div class="manufacturer-side-tabs dynament-original-tabs">
+                                <a href="/manufacturer/sure-seal/">About <i class="fa fa-chevron-right"></i></a>
+                                <a class="active" href="/manufacturer/sure-seal/product-line/">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a href="/manufacturer/sure-seal/resources-support/">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                            </div>
+
+                            <div class="detail-left-links">
+                                <div class="all-products-box">
+                                    <h3>All Products</h3>
+                                    <a href="/c/?m=Sure-Seal">Browse all products by Sure-Seal</a>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <main class="manufacturer-detail-content sure-product-line-content">
+                            <form class="manufacturer-part-search" action="/c/connectors/" method="get">
+                                <input type="hidden" name="m" value="Sure-Seal"/>
+                                <input name="keyword" placeholder="Search for Sure-Seal Parts"/>
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+
+                            <section class="sure-product-line-section">
+                                <h1>Sure-Seal Product Line</h1>
+                                <div class="sure-total">Total Results:96</div>
+                                <div class="sure-category-box"><a href="/c/connectors/?m=Sure-Seal">Connectors <i class="fa fa-angle-right"></i></a></div>
+                                <div class="sure-subcategories">
+                                    <a href="/c/connectors/?m=Sure-Seal&amp;category=Automotive%20Connectors">‹ Automotive Connectors (57)</a>
+                                    <a href="/c/connectors/?m=Sure-Seal&amp;category=Circular%20Connectors">‹ Circular Connectors (27)</a>
+                                    <a href="/c/connectors/?m=Sure-Seal&amp;category=MIL-Spec%20/%20MIL-Type">‹ MIL-Spec / MIL-Type (22)</a>
+                                </div>
+                                <div class="sure-category-box"><a href="#">Tools &amp; Supplies <i class="fa fa-angle-right"></i></a></div>
+                                <div class="sure-subcategories single">
+                                    <a href="#">‹ Tools (12)</a>
+                                </div>
+                            </section>
+                        </main>
+                    </section>
+                </div>
+
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="sure_seal_resources_support_page" name="Sure-Seal Resources Support Original">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-manufacturer-page mouser-manufacturer-detail-page sure-seal-original-page sure-seal-resources-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <div class="mouser-manufacturer-container mouser-detail-original">
+                    <div class="mouser-breadcrumb detail-breadcrumb">
+                        <a href="/mouser-home">Home</a>
+                        <span>›</span>
+                        <a href="/manufacturer/">All Manufacturers</a>
+                        <span>›</span>
+                        <a href="/manufacturer/sure-seal/">Sure-Seal</a>
+                        <span>›</span>
+                        <strong>Sure-Seal Resources &amp; Support</strong>
+                    </div>
+
+                    <div class="manufacturer-detail-topline">
+                        <div></div>
+                        <div class="ecia-mark"><span class="ecia-icon">▦</span><span>ecia</span></div>
+                    </div>
+
+                    <section class="manufacturer-original-detail sure-resources-grid">
+                        <aside class="manufacturer-left-column">
+                            <div class="manufacturer-logo-tile">
+                                <img src="/mouser_theme/static/img/sure-seal.webp" alt="Sure-Seal" class="sure-seal-logo-img"/>
+                            </div>
+
+                            <div class="manufacturer-side-tabs dynament-original-tabs">
+                                <a href="/manufacturer/sure-seal/">About <i class="fa fa-chevron-right"></i></a>
+                                <a href="/manufacturer/sure-seal/product-line/">Product Line <i class="fa fa-chevron-right"></i></a>
+                                <a class="active" href="/manufacturer/sure-seal/resources-support/">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                            </div>
+
+                            <div class="detail-left-links">
+                                <div class="all-products-box">
+                                    <h3>All Products</h3>
+                                    <a href="/c/?m=Sure-Seal">Browse all products by Sure-Seal</a>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <main class="manufacturer-detail-content sure-resources-content">
+                            <div class="manufacturer-part-search">
+                                <input placeholder="Search for Sure-Seal Parts"/>
+                                <button type="button"><i class="fa fa-search"></i></button>
+                            </div>
+
+                            <section class="sure-resources-section">
+                                <h1>Sure-Seal Resources &amp; Support</h1>
+                                <h2>Resources</h2>
+                                <ul>
+                                    <li><a href="https://suresealconnections.com/" target="_blank" rel="noopener noreferrer">Sure-Seal Website</a></li>
+                                </ul>
+                            </section>
+                        </main>
+                    </section>
+                </div>
+
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="mouser_generic_manufacturer_products_page" name="Mouser Generic Manufacturer Products Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-products-results-page mouser-manufacturer-page">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+
+                <main class="mouser-results-container">
+                    <div class="mouser-results-breadcrumb-row">
+                        <div class="product-breadcrumb results-breadcrumb">
+                            <a href="/shop">All Products</a><span>›</span>
+                            <strong t-out="maker"/>
+                        </div>
+                        <button class="mouser-share-btn" type="button"><i class="fa fa-share-alt"></i> Share</button>
+                    </div>
+                    <hr/>
+
+                    <section class="sure-seal-results-hero">
+                        <div class="sure-results-logo-wrap">
+                            <strong>Authorized Distributor</strong>
+                        </div>
+                        <h1>All Results (<t t-esc="total_results"/>)</h1>
+                    </section>
+
+                    <section class="mouser-search-within results-search-within" style="margin-top:16px;">
+                        <h3>Search within results</h3>
+                        <form method="get">
+                            <input type="hidden" name="m" t-att-value="maker"/>
+                            <div class="within-search-row">
+                                <input type="text" name="keyword" placeholder="Part No. / Keyword" t-att-value="keyword or ''"/>
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                            <div class="within-filter-grid">
+                                <label><input type="checkbox" name="instock" t-att-checked="filters.get('instock')"/> <strong>In Stock</strong></label>
+                                <label><input type="checkbox" name="active" t-att-checked="filters.get('active')"/> <strong>Active</strong></label>
+                                <label><input type="checkbox" name="rohs" t-att-checked="filters.get('rohs')"/> <strong>RoHS Compliant</strong></label>
+                            </div>
+                        </form>
+                    </section>
+
+                    <t t-if="api_error">
+                        <div class="mouser-no-results-alert" style="margin-top:16px;">
+                            <div class="alert-icon">!</div>
+                            <div class="alert-content">
+                                <strong>API Error.</strong>
+                                <span t-out="api_error"/>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-elif="not products">
+                        <div class="mouser-no-results-alert" style="margin-top:16px;">
+                            <div class="alert-icon">!</div>
+                            <div class="alert-content">
+                                <strong>No Results Found.</strong>
+                                <span>Try modifying your search term above.</span>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-else="">
+                        <table class="mouser-products-table" style="width:100%;border-collapse:collapse;margin-top:18px;font-size:13px;">
+                            <thead>
+                                <tr style="background:#0875b4;color:#fff;">
+                                    <th style="padding:8px 10px;text-align:left;">Image</th>
+                                    <th style="padding:8px 10px;text-align:left;">Mouser No.</th>
+                                    <th style="padding:8px 10px;text-align:left;">Mfr. Part No.</th>
+                                    <th style="padding:8px 10px;text-align:left;">Description</th>
+                                    <th style="padding:8px 10px;text-align:left;">Availability</th>
+                                    <th style="padding:8px 10px;text-align:left;">Price</th>
+                                    <th style="padding:8px 10px;text-align:left;">Datasheet</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="products" t-as="prod">
+                                    <tr t-att-style="'background:' + ('#f9f9f9' if prod_index % 2 == 0 else '#fff')">
+                                        <td style="padding:8px 10px;width:60px;">
+                                            <t t-if="prod.get('image')">
+                                                <img t-att-src="prod.get('image')" style="max-width:50px;max-height:40px;" alt=""/>
+                                            </t>
+                                            <t t-else="">
+                                                <span style="color:#aaa;font-size:11px;">No img</span>
+                                            </t>
+                                        </td>
+                                        <td style="padding:8px 10px;">
+                                            <a t-att-href="prod.get('detail_url') or '#'" target="_blank" rel="noopener noreferrer" style="color:#0875b4;" t-out="prod.get('mouser_no') or ''"/>
+                                        </td>
+                                        <td style="padding:8px 10px;font-weight:600;" t-out="prod.get('mpn') or ''"/>
+                                        <td style="padding:8px 10px;max-width:260px;" t-out="prod.get('description') or ''"/>
+                                        <td style="padding:8px 10px;" t-out="prod.get('availability') or ''"/>
+                                        <td style="padding:8px 10px;">
+                                            <t t-if="prod.get('prices')">
+                                                <t t-foreach="prod['prices'][:2]" t-as="pb">
+                                                    <div style="white-space:nowrap;"><span t-out="pb.get('qty')"/>: <span t-out="pb.get('price')"/></div>
+                                                </t>
+                                            </t>
+                                        </td>
+                                        <td style="padding:8px 10px;">
+                                            <t t-if="prod.get('datasheet')">
+                                                <a t-att-href="prod.get('datasheet')" target="_blank" rel="noopener noreferrer" title="Datasheet">
+                                                    <i class="fa fa-file-pdf-o" style="color:#c00;font-size:18px;"></i>
+                                                </a>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination -->
+                        <div t-if="total_pages > 1" style="display:flex;align-items:center;gap:6px;margin:22px 0;justify-content:center;">
+                            <t t-foreach="range(1, total_pages + 1)" t-as="pg">
+                                <a t-att-href="'/c/?m=' + maker + ('&amp;keyword=' + keyword if keyword else '') + '&amp;page=' + str(pg)"
+                                   t-att-style="'padding:6px 12px;border-radius:4px;border:1px solid #ddd;text-decoration:none;' + ('background:#0875b4;color:#fff;border-color:#0875b4;' if pg == page else 'color:#0875b4;')"
+                                   t-out="pg"/>
+                            </t>
+                        </div>
+                    </t>
+                </main>
+
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+                <div class="manufacturer-live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+    <template id="te_connectivity_original_page" name="TE Connectivity Manufacturer Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="te-manufacturer-page mouser-homepage">
+                <t t-call="mouser_theme.mouser_site_header_manufacturer"/>
+                <main class="te-mfg-shell">
+                    <div class="te-breadcrumb-row">
+                        <div class="te-breadcrumb"><a href="/mouser-home">Home</a><span>›</span><a href="/manufacturer/">All Manufacturers</a><span>›</span><strong>TE Connectivity</strong></div>
+                        <img class="te-ecia" src="/mouser_theme/static/img/ECIA-Authorized-Dist.webp" alt="ecia"/>
+                    </div>
+                    <section class="te-top-area">
+                        <div class="te-logo-box"><img src="/mouser_theme/static/img/te-connectivity.webp" alt="TE Connectivity"/></div>
+                        <div class="te-part-search"><input placeholder="Search for TE Connectivity Parts"/><button><i class="fa fa-search"></i></button></div>
+                    </section>
+                    <a class="te-hero-banner" href="/automotive-connectivity"><img src="/mouser_theme/static/img/mouser-teconn-automotive-data-connectivity-stream-banman-zone30-en.webp" alt="Discover the future of automotive data connectivity"/></a>
+                    <div class="te-content-grid">
+                        <aside class="te-left-nav">
+                            <a class="active" href="#about">About <i class="fa fa-chevron-right"></i></a>
+                            <a href="#product-line">Product Line <i class="fa fa-chevron-right"></i></a>
+                            <a href="#featured-products">Featured Products <i class="fa fa-chevron-right"></i></a>
+                            <a href="#applications">Applications &amp; Solutions <i class="fa fa-chevron-right"></i></a>
+                            <a href="#technology">Technology Zone <i class="fa fa-chevron-right"></i></a>
+                            <a href="#videos">Chalk Talk Videos <i class="fa fa-chevron-right"></i></a>
+                            <a href="#ebooks">eBooks <i class="fa fa-chevron-right"></i></a>
+                            <a href="#resources">Resources &amp; Support <i class="fa fa-chevron-right"></i></a>
+                            <div class="te-side-links">
+                                <h3>NEWEST Products</h3>
+                                <a href="#">Newest Products by TE Connectivity</a>
+                                <h3>All Products</h3>
+                                <a href="#">Browse all products by TE Connectivity</a>
+                                <img src="/mouser_theme/static/img/mouser-te-industrialautomation-ebook-banman-zone31-260x280-en.webp" alt="Advancements in Industrial Automation"/>
+                            </div>
+                        </aside>
+                        <section class="te-main-content">
+                            <section id="about" class="te-about">
+                                <h1>TE Connectivity</h1>
+                                <p><strong>TE Connectivity</strong> (NYSE: TEL) is a global industrial technology leader creating a safer, sustainable, productive, and connected future. As a trusted innovation partner, TE's broad range of connectivity and sensor solutions enable the distribution of power, signal and data to advance next-generation transportation, energy networks, automated factories, data centers enabling artificial intelligence, and more.</p>
+                                <p>The company's more than 90,000 employees, including 10,000 engineers, work alongside customers in approximately 130 countries. In a world that is racing ahead, TE ensures that every connection counts.</p>
+                            </section>
+                            <section id="product-line" class="te-products-section">
+                                <h2>View Products by Category:</h2>
+                                <div class="te-card-grid two">
+                                    <a><span>Circuit Protection</span><img src="/mouser_theme/static/img/101322434.webp" alt=""/></a>
+                                    <a><span>Relays</span><img src="/mouser_theme/static/img/137585223.webp" alt=""/></a>
+                                    <a><span>Connectors</span><img src="/mouser_theme/static/img/102208513.webp" alt=""/></a>
+                                    <a><span>Antennas</span><img src="/mouser_theme/static/img/163466725.webp" alt=""/></a>
+                                    <a><span>Wire Protection &amp; Management</span><img src="/mouser_theme/static/img/189521717.webp" alt=""/></a>
+                                    <a><span>Sensors</span><img src="/mouser_theme/static/img/109736695.webp" alt=""/></a>
+                                    <a><span>Passives</span><img src="/mouser_theme/static/img/102913803.webp" alt=""/></a>
+                                    <a><span>Switches</span><img src="/mouser_theme/static/img/197170197.webp" alt=""/></a>
+                                    <a><span>Tools</span><img src="/mouser_theme/static/img/112929815.webp" alt=""/></a>
+                                    <a><span>Wire &amp; Cable</span><img src="/mouser_theme/static/img/101680247.webp" alt=""/></a>
+                                </div>
+                            </section>
+                            <section class="te-products-section">
+                                <h2>View Products by Brand:</h2>
+                                <div class="te-card-grid three">
+                                    <t t-foreach="['Agastat','Alcoswitch','AMP','Axicom','Buchanan','CGS','CII','Citec','Corcom','DEUTSCH','Entrelec','ERNI','First Sensor','Holsworthy','INTERCONTEC','Kemtron','Kilovac','KISSLING','Linx Technologies','Measurement Specialties','Nanonics','OEG','Potter &amp; Brumfield','Polamco','Q-Cee\'s','Raychem','Schaffner','Schrack','SMI']" t-as="brand">
+                                        <a><span t-out="brand"/><img src="/mouser_theme/static/img/102208513.webp" alt=""/></a>
+                                    </t>
+                                </div>
+                            </section>
+                            <section id="featured-products" class="te-bottom-banners">
+                                <img src="/mouser_theme/static/img/mouser-te-alternativeenergy-infographic-banman-zone32-en.webp" alt="TE alternative energy infographic"/>
+                                <img src="/mouser_theme/static/img/mouser-te-industrialautomation-ebook-banman-zone32-860x90-en.webp" alt="TE eBook"/>
+                            </section>
+                        </section>
+                    </div>
+                </main>
+                <section class="newsletter"><h3>Get the Latest News</h3><div><input placeholder="Enter your Email"/><button>Subscribe</button></div></section>
+                <footer class="mouser-footer original-footer te-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div><h4>CUSTOMER SERVICE OFFICE</h4><p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p><p><i class="fa fa-envelope"></i> bangalore@mouser.com</p><p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p><div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div></div>
+                        <div><h4>COMPANY</h4><a>About Us</a><a>Newsroom</a><a>Careers @ Mouser</a><a>Quality</a><a>Environmental</a><a>Corporate Social<br/>Responsibility</a></div>
+                        <div><h4>RESOURCES</h4><a>Blog</a><a>Newest Products</a><a>New Manufacturers</a><a>Applications</a><a>Services &amp; Tools</a></div>
+                        <div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a>Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a>Browser Support</a><a>Cookie Policy</a></div>
+                        <div><h4>CONNECT WITH US</h4><div class="socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i><span class="blog-icon">blog</span></div></div>
+                    </div>
+                    <div class="mouser-shell footer-bottom-original"><div class="footer-links"><a href="/privacypolicy/">Privacy Centre</a><span>|</span><a>Terms and Conditions</a><span>|</span><a>Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a>Sitemap</a></div><div class="footer-bottom-row"><div class="copyright-text"><p><b>Copyright ©2026 Mouser Electronics, Inc.</b></p><p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p></div><div class="cert-strip"><img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/><img src="/mouser_theme/static/img/logo-nfsb_small.webp" alt="Customer Service"/><img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/><img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO 14001"/><img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B"/><img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/></div></div></div>
+                </footer>
+                <a class="live-chat" href="#"><i class="fa fa-comment"></i> Live Chat</a>
+            </div>
+        </t>
+    </template>
+
+    <template id="te_automotive_connectivity_page" name="TE Connectivity - Automotive Connectivity">
+        <t t-call="website.layout">
+            <div id="wrap" class="te-auto-page">
+                <div class="te-auto-topbar"><a href="/manufacturer/te-connectivity/">&#171; Mouser.com</a></div>
+                <header class="te-auto-header">
+                    <img class="te-auto-mouser-logo" src="/mouser_theme/static/img/te-connectivity.webp" alt="Mouser Electronics" style="display:none"/>
+                    <div class="te-auto-logo-row">
+                        <span class="te-auto-mouser-word">MOUSER<br/><small>ELECTRONICS.</small></span>
+                        <span class="te-auto-divider"></span>
+                        <div class="te-auto-te-box"><img src="/mouser_theme/static/img/te-connectivity.webp" alt="TE Connectivity"/><span>AUTHORIZED DISTRIBUTOR</span></div>
+                    </div>
+                </header>
+                <nav class="te-auto-nav">
+                    <a href="/automotive-connectivity" class="active">Home</a>
+                    <a href="#applications">Applications <i class="fa fa-chevron-down"></i></a>
+                    <a href="#content">Content <i class="fa fa-chevron-down"></i></a>
+                    <div class="te-auto-nav-icons"><i class="fa fa-search"></i><i class="fa fa-share-alt"></i></div>
+                </nav>
+                <section class="te-auto-hero">
+                    <img src="/mouser_theme/static/img/mouser-teconn-automotive-data-connectivity-stream-banman-zone30-en.webp" alt="Automotive Connectivity"/>
+                </section>
+                <main class="te-auto-main">
+                    <h1>Automotive Connectivity</h1>
+                    <p>TE Connectivity's automotive connectivity solutions help engineers design safer, smarter, and more connected vehicles &#8212; from high-speed data connectors to sensors that enable ADAS, infotainment, and electrification.</p>
+                    <div class="te-auto-card-grid">
+                        <a class="te-auto-card" href="#">
+                            <div class="te-auto-card-img te-auto-card-topfive">
+                                <span class="te-auto-topfive-badge">TOP<br/>FIVE</span>
+                                <span class="te-auto-topfive-sub">REASONS</span>
+                            </div>
+                            <div class="te-auto-card-body">Top Five Reasons to Choose TE Automotive Connectivity</div>
+                        </a>
+                        <a class="te-auto-card" href="#">
+                            <div class="te-auto-card-img te-auto-card-placeholder"><i class="fa fa-eye"></i></div>
+                            <div class="te-auto-card-body">Immersive In-Cabin Experiences &amp; Sensing Technology</div>
+                        </a>
+                        <a class="te-auto-card" href="#">
+                            <div class="te-auto-card-img te-auto-card-placeholder te-auto-card-dark"><span>MATE-AX</span><small>Miniaturized Automotive<br/>Coaxial Connector System</small></div>
+                            <div class="te-auto-card-body">MATE-AX Miniaturized Automotive Coaxial Connector System</div>
+                        </a>
+                    </div>
+                </main>
+                <t t-call="mouser_theme.mouser_products_no_results_footer"/>
+            </div>
+        </t>
+    </template>
+
+</odoo>

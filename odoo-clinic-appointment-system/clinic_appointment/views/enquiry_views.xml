@@ -1,0 +1,44 @@
+<odoo>
+
+    <record id="view_clinic_enquiry_tree" model="ir.ui.view">
+        <field name="name">clinic.enquiry.tree</field>
+        <field name="model">clinic.enquiry</field>
+        <field name="arch" type="xml">
+            <list string="Patient Enquiries">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="create_date"/>
+                <field name="replied"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_clinic_enquiry_form" model="ir.ui.view">
+        <field name="name">clinic.enquiry.form</field>
+        <field name="model">clinic.enquiry</field>
+        <field name="arch" type="xml">
+            <form string="Patient Enquiry">
+                <header>
+                    <button name="action_send_reply"
+                            string="Send Reply"
+                            type="object"
+                            class="btn-primary"
+                            invisible="replied"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="phone"/>
+                        <field name="email"/>
+                        <field name="message" readonly="1"/>
+                        <field name="reply"/>
+                        <field name="replied" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

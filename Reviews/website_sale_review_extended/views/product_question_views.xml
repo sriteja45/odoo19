@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_question_view_list" model="ir.ui.view">
+        <field name="name">product.question.list</field>
+        <field name="model">product.question</field>
+        <field name="arch" type="xml">
+            <list string="Product Questions">
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="partner_id"/>
+                <field name="state" widget="badge"
+                        decoration-success="state == 'answered'"
+                        decoration-info="state == 'open'"
+                        decoration-muted="state == 'closed'"/>
+                <field name="answer_count"/>
+                <field name="upvote_count"/>
+                <field name="website_published" widget="boolean_toggle"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="product_question_view_form" model="ir.ui.view">
+        <field name="name">product.question.form</field>
+        <field name="model">product.question</field>
+        <field name="arch" type="xml">
+            <form string="Product Question">
+                <header>
+                    <button name="action_mark_answered" type="object" string="Mark Answered"
+                            invisible="state == 'answered'"/>
+                    <button name="action_close" type="object" string="Close"
+                            invisible="state == 'closed'"/>
+                    <button name="action_reopen" type="object" string="Reopen"
+                            invisible="state == 'open'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="open,answered,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Question summary…"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="product_id"/>
+                            <field name="partner_id"/>
+                            <field name="is_anonymous"/>
+                        </group>
+                        <group>
+                            <field name="upvote_count" readonly="1"/>
+                            <field name="answer_count" readonly="1"/>
+                            <field name="website_published"/>
+                            <field name="create_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Details">
+                        <field name="body" nolabel="1" placeholder="Optional longer details…"/>
+                    </group>
+                    <notebook>
+                        <page string="Answers" name="answers">
+                            <field name="answer_ids">
+                                <list editable="bottom">
+                                    <field name="body"/>
+                                    <field name="partner_id"/>
+                                    <field name="is_seller" widget="boolean_toggle" readonly="1"/>
+                                    <field name="is_verified_buyer" widget="boolean_toggle" readonly="1"/>
+                                    <field name="upvote_count" readonly="1"/>
+                                    <field name="website_published" widget="boolean_toggle"/>
+                                    <field name="create_date" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_question_view_search" model="ir.ui.view">
+        <field name="name">product.question.search</field>
+        <field name="model">product.question</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="partner_id"/>
+                <filter string="Open" name="filter_open" domain="[('state', '=', 'open')]"/>
+                <filter string="Answered" name="filter_answered" domain="[('state', '=', 'answered')]"/>
+                <filter string="Closed" name="filter_closed" domain="[('state', '=', 'closed')]"/>
+                <filter string="Published" name="filter_published" domain="[('website_published', '=', True)]"/>
+                <group>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Product" name="group_product" context="{'group_by': 'product_tmpl_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_question_action" model="ir.actions.act_window">
+        <field name="name">Product Questions</field>
+        <field name="res_model">product.question</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_filter_open': 1}</field>
+    </record>
+
+    <menuitem id="menu_product_questions"
+              name="Product Questions"
+              parent="website_sale.menu_catalog"
+              action="product_question_action"
+              sequence="96"/>
+
+</odoo>

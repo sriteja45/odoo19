@@ -1,0 +1,497 @@
+/*=====================================================
+                GENERAL
+======================================================*/
+
+body{
+    background:#f3f3f3;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.tracking-container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 15px;
+}
+
+.card-box{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:20px;
+    margin-bottom:25px;
+}
+
+.section-title{
+    font-size:22px;
+    font-weight:600;
+    margin-bottom:20px;
+    color:#222;
+}
+
+hr{
+    margin:25px 0;
+}
+
+/*=====================================================
+                BREADCRUMB
+======================================================*/
+
+.tracking-breadcrumb{
+    font-size:15px;
+    margin-bottom:20px;
+}
+
+.tracking-breadcrumb a{
+    color:#007185;
+    text-decoration:none;
+}
+
+.tracking-breadcrumb a:hover{
+    text-decoration:underline;
+}
+
+.tracking-breadcrumb span{
+    color:#555;
+}
+
+/*=====================================================
+                ORDER SUMMARY
+======================================================*/
+
+/*=========================
+ORDER SUMMARY
+==========================*/
+
+.order-summary-card{
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:30px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+
+    border:1px solid #eee;
+
+}
+
+.order-summary-card h3{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.summary-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:18px 0;
+
+    font-size:18px;
+
+}
+
+.summary-total{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    margin:30px 0;
+
+}
+
+.summary-btn{
+
+    width:100%;
+
+    margin-top:18px;
+
+    padding:14px;
+
+    font-size:18px;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+}
+
+.btn-warning{
+
+    background:#FFC107;
+
+    border:none;
+
+    color:#fff;
+
+}
+
+.btn-danger{
+
+    background:#DC3545;
+
+    border:none;
+
+}
+
+.btn-outline-dark{
+
+    border:2px solid #222;
+
+    color:#222;
+
+}
+
+.btn-outline-dark:hover{
+
+    background:#222;
+
+    color:#fff;
+
+}
+/*=====================================================
+                STATUS BADGE
+======================================================*/
+
+.status-badge{
+    display:inline-block;
+    padding:7px 18px;
+    border-radius:20px;
+    color:#fff;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.status-confirmed{
+    background:#ff9800;
+}
+
+.status-packed{
+    background:#2196F3;
+}
+
+.status-shipped{
+    background:#009688;
+}
+
+.status-delivered{
+    background:#4CAF50;
+}
+
+.status-cancelled{
+    background:#f44336;
+}
+
+/*=====================================================
+                DELIVERY PROGRESS
+======================================================*/
+
+.progress-wrapper{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:40px 0;
+    position:relative;
+}
+
+.progress-wrapper::before{
+    content:'';
+    position:absolute;
+    top:28px;
+    left:8%;
+    width:84%;
+    height:4px;
+    background:#ddd;
+    z-index:0;
+}
+
+.progress-step{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    flex:1;
+}
+
+.progress-icon{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#ddd;
+    color:#fff;
+    line-height:55px;
+    font-size:22px;
+    margin:auto;
+}
+
+.progress-step.active .progress-icon{
+    background:#28a745;
+}
+
+.progress-title{
+    margin-top:10px;
+    font-weight:600;
+    font-size:14px;
+}
+
+/*=====================================================
+                TIMELINE
+======================================================*/
+
+.timeline{
+    position:relative;
+    margin-top:20px;
+    padding-left:30px;
+}
+
+.timeline::before{
+    content:'';
+    position:absolute;
+    left:10px;
+    top:0;
+    width:2px;
+    height:100%;
+    background:#28a745;
+}
+
+.timeline-item{
+    position:relative;
+    margin-bottom:30px;
+}
+
+.timeline-item:last-child{
+    margin-bottom:0;
+}
+
+.timeline-item::before{
+    content:'';
+    position:absolute;
+    left:-28px;
+    top:5px;
+    width:20px;
+    height:20px;
+    background:#28a745;
+    border-radius:50%;
+}
+
+.timeline-date{
+    font-size:13px;
+    color:#777;
+    margin-bottom:5px;
+}
+
+.timeline-title{
+    font-weight:bold;
+    color:#222;
+}
+
+/*=====================================================
+                LIVE LOCATION
+======================================================*/
+
+.location-card{
+    border-left:5px solid #2196F3;
+    background:#f9fcff;
+    padding:20px;
+    border-radius:6px;
+}
+
+.location-card h4{
+    margin-bottom:15px;
+}
+
+.location-item{
+    margin-bottom:12px;
+}
+
+.location-label{
+    font-weight:bold;
+}
+
+.location-value{
+    color:#555;
+}
+
+/*=====================================================
+                ORDER TABLE
+======================================================*/
+
+.order-table{
+    width:100%;
+}
+
+.order-table th{
+    background:#f8f8f8;
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+.order-table td{
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+.order-table img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+}
+
+/*=====================================================
+                PRICE SUMMARY
+======================================================*/
+
+.price-summary{
+    width:350px;
+    float:right;
+}
+
+.price-summary table{
+    width:100%;
+}
+
+.price-summary td{
+    padding:10px;
+}
+
+.total-row{
+    font-size:20px;
+    font-weight:bold;
+    border-top:2px solid #ddd;
+}
+
+/*=====================================================
+                BUTTONS
+======================================================*/
+
+.action-buttons{
+    margin-top:40px;
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.action-buttons .btn{
+    padding:12px 25px;
+    border-radius:6px;
+    font-weight:600;
+}
+
+.btn-track{
+    background:#2196F3;
+    color:#fff;
+}
+
+.btn-track:hover{
+    background:#1976D2;
+}
+
+.btn-download{
+    background:#28a745;
+    color:#fff;
+}
+
+.btn-download:hover{
+    background:#218838;
+}
+
+.btn-help{
+    background:#ff9800;
+    color:#fff;
+}
+
+.btn-help:hover{
+    background:#fb8c00;
+}
+
+/*=====================================================
+                RESPONSIVE
+======================================================*/
+
+@media(max-width:768px){
+
+.progress-wrapper{
+    flex-direction:column;
+}
+
+.progress-wrapper::before{
+    display:none;
+}
+
+.progress-step{
+    margin-bottom:25px;
+}
+
+.price-summary{
+    width:100%;
+    float:none;
+}
+
+.action-buttons{
+    flex-direction:column;
+}
+
+.summary-table td{
+    display:block;
+    width:100%;
+}
+
+.summary-label{
+    padding-bottom:0;
+    font-weight:bold;
+}
+
+}
+/* ============================
+   ORDER SUMMARY CARD
+============================ */
+
+.order-summary-card{
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+
+.order-summary-card h3{
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    font-size:16px;
+}
+
+.summary-total{
+    display:flex;
+    justify-content:space-between;
+    font-size:22px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.summary-btn{
+    width:100%;
+    margin-bottom:12px;
+    padding:12px;
+    font-size:16px;
+    font-weight:600;
+    border-radius:8px;
+}

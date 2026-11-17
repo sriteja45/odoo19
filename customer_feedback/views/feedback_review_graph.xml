@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Default graph: Average Rating by Product -->
+    <record id="view_feedback_review_graph" model="ir.ui.view">
+        <field name="name">feedback.review.graph</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <graph string="Average Rating by Product" type="bar" sample="1">
+                <field name="product_id"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Reviews by Month -->
+    <record id="view_feedback_review_graph_by_month" model="ir.ui.view">
+        <field name="name">feedback.review.graph.by.month</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <graph string="Reviews by Month" type="line" sample="1">
+                <field name="review_date" interval="month"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Rating Distribution -->
+    <record id="view_feedback_review_graph_distribution" model="ir.ui.view">
+        <field name="name">feedback.review.graph.distribution</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <graph string="Rating Distribution" type="bar" sample="1">
+            </graph>
+        </field>
+    </record>
+
+    <!-- Reviews per Customer -->
+    <record id="view_feedback_review_graph_by_customer" model="ir.ui.view">
+        <field name="name">feedback.review.graph.by.customer</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <graph string="Reviews per Customer" type="bar" sample="1">
+                <field name="customer_id"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,760 @@
+/* ============================================================
+   ADMIN BLOG CHAT
+   Odoo Website Theme Driven
+   No Project-Specific Colors
+   ============================================================ */
+
+
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
+
+.qevrixa-blog-admin-chat {
+
+    /*
+       Use the current Odoo website theme variables directly.
+
+       No Mouser colors.
+       No Dealwallet colors.
+       No Qevrixa colors.
+       No hardcoded color values.
+    */
+
+    --blog-chat-primary:
+        var(--o-cc1-btn-primary);
+
+    --blog-chat-primary-text:
+        var(--o-cc1-btn-primary-text);
+
+    --blog-chat-primary-border:
+        var(--o-cc1-btn-primary-border);
+
+    --blog-chat-background:
+        var(--o-cc1-bg);
+
+    --blog-chat-text:
+        var(--o-cc1-text);
+
+    --blog-chat-heading:
+        var(--o-cc1-headings);
+
+    --blog-chat-link:
+        var(--o-cc1-link);
+
+
+    /* --------------------------------------------------------
+       DERIVED THEME VALUES
+       -------------------------------------------------------- */
+
+    --blog-chat-border:
+        color-mix(
+            in srgb,
+            var(--blog-chat-text) 15%,
+            transparent
+        );
+
+    --blog-chat-soft-background:
+        color-mix(
+            in srgb,
+            var(--blog-chat-primary) 8%,
+            var(--blog-chat-background)
+        );
+
+    --blog-chat-shadow-color:
+        color-mix(
+            in srgb,
+            var(--blog-chat-text) 25%,
+            transparent
+        );
+
+    --blog-chat-muted:
+        color-mix(
+            in srgb,
+            var(--blog-chat-text) 65%,
+            transparent
+        );
+}
+
+
+/* ============================================================
+   ADMIN BLOG CHAT CONTAINER
+   ============================================================ */
+
+.qevrixa-blog-admin-chat {
+
+    position:
+        static !important;
+}
+
+
+/* ============================================================
+   CHAT BUTTON - BOTTOM RIGHT
+   ============================================================ */
+
+.qevrixa-blog-chat-button {
+
+    position:
+        fixed !important;
+
+    right:
+        25px !important;
+
+    bottom:
+        25px !important;
+
+    left:
+        auto !important;
+
+    top:
+        auto !important;
+
+    width:
+        55px !important;
+
+    height:
+        55px !important;
+
+    border:
+        none !important;
+
+    border-radius:
+        50% !important;
+
+    background:
+        var(--blog-chat-primary) !important;
+
+    color:
+        var(--blog-chat-primary-text) !important;
+
+    font-size:
+        24px !important;
+
+    cursor:
+        pointer !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    padding:
+        0 !important;
+
+    margin:
+        0 !important;
+
+    box-shadow:
+        0 4px 12px
+        var(--blog-chat-shadow-color) !important;
+
+    z-index:
+        999999 !important;
+
+    transition:
+        all .3s ease !important;
+}
+
+
+/* ============================================================
+   CHAT BUTTON HOVER
+============================================================ */
+
+.qevrixa-blog-chat-button:hover {
+
+    filter:
+        brightness(0.94) !important;
+
+    color:
+        var(--blog-chat-primary-text) !important;
+
+    transform:
+        scale(1.08) !important;
+}
+
+
+/* ============================================================
+   CHAT WINDOW - BOTTOM RIGHT
+============================================================ */
+
+.qevrixa-blog-chat-window {
+
+    position:
+        fixed !important;
+
+    right:
+        25px !important;
+
+    bottom:
+        90px !important;
+
+    left:
+        auto !important;
+
+    top:
+        auto !important;
+
+    width:
+        400px !important;
+
+    height:
+        500px !important;
+
+    background:
+        var(--blog-chat-background) !important;
+
+    border-radius:
+        12px !important;
+
+    box-shadow:
+        0 6px 25px
+        var(--blog-chat-shadow-color) !important;
+
+    overflow:
+        hidden !important;
+
+    z-index:
+        999998 !important;
+}
+
+
+/* ============================================================
+   CHAT HEADER
+============================================================ */
+
+.qevrixa-blog-chat-header {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    padding:
+        16px;
+
+    background:
+        var(--blog-chat-primary);
+
+    color:
+        var(--blog-chat-primary-text);
+
+    font-weight:
+        700;
+}
+
+
+/* ============================================================
+   CHAT HEADER TEXT
+============================================================ */
+
+.qevrixa-blog-chat-header span {
+
+    color:
+        var(--blog-chat-primary-text);
+}
+
+
+/* ============================================================
+   CLOSE BUTTON
+============================================================ */
+
+.qevrixa-blog-chat-close {
+
+    border:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        var(--blog-chat-primary-text);
+
+    font-size:
+        24px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    line-height:
+        1;
+
+    padding:
+        0;
+
+    transition:
+        all .2s ease;
+}
+
+.qevrixa-blog-chat-close:hover {
+
+    filter:
+        brightness(0.85);
+
+    transform:
+        scale(1.1);
+}
+
+
+/* ============================================================
+   CHAT BODY
+============================================================ */
+
+.qevrixa-blog-chat-body {
+
+    height:
+        390px;
+
+    padding:
+        16px;
+
+    overflow-y:
+        auto;
+
+    background:
+        var(--blog-chat-soft-background);
+
+    color:
+        var(--blog-chat-text);
+}
+
+
+/* ============================================================
+   BOT MESSAGE
+============================================================ */
+
+.qevrixa-blog-chat-body
+.blog-chat-bot-message {
+
+    margin:
+        10px 0;
+}
+
+
+.qevrixa-blog-chat-body
+.blog-chat-message-content {
+
+    display:
+        inline-block;
+
+    background:
+        var(--blog-chat-background);
+
+    color:
+        var(--blog-chat-text);
+
+    padding:
+        10px 14px;
+
+    border:
+        1px solid
+        var(--blog-chat-border);
+
+    border-radius:
+        10px;
+
+    max-width:
+        90%;
+
+    word-break:
+        break-word;
+
+    box-shadow:
+        0 2px 6px
+        var(--blog-chat-shadow-color);
+}
+
+
+/* ============================================================
+   USER MESSAGE
+============================================================ */
+
+.qevrixa-blog-chat-body
+.blog-chat-user-message {
+
+    text-align:
+        right;
+
+    margin:
+        10px 0;
+}
+
+
+.qevrixa-blog-chat-body
+.blog-chat-user-message > div {
+
+    display:
+        inline-block;
+
+    background:
+        var(--blog-chat-primary);
+
+    color:
+        var(--blog-chat-primary-text);
+
+    padding:
+        10px 14px;
+
+    border:
+        1px solid
+        var(--blog-chat-primary-border);
+
+    border-radius:
+        10px;
+
+    max-width:
+        85%;
+
+    word-break:
+        break-word;
+}
+
+
+/* ============================================================
+   CHAT FOOTER
+============================================================ */
+
+.qevrixa-blog-chat-footer {
+
+    display:
+        flex;
+
+    border-top:
+        1px solid
+        var(--blog-chat-border);
+
+    background:
+        var(--blog-chat-background);
+}
+
+
+/* ============================================================
+   INPUT
+============================================================ */
+
+.qevrixa-blog-chat-footer input {
+
+    flex:
+        1;
+
+    padding:
+        12px;
+
+    border:
+        none;
+
+    outline:
+        none;
+
+    background:
+        var(--blog-chat-background);
+
+    color:
+        var(--blog-chat-text);
+
+    font-size:
+        14px;
+}
+
+
+.qevrixa-blog-chat-footer input::placeholder {
+
+    color:
+        var(--blog-chat-muted);
+}
+
+
+/* ============================================================
+   SEND BUTTON
+============================================================ */
+
+.qevrixa-blog-chat-footer button {
+
+    padding:
+        12px 18px;
+
+    border:
+        1px solid
+        var(--blog-chat-primary-border);
+
+    background:
+        var(--blog-chat-primary);
+
+    color:
+        var(--blog-chat-primary-text);
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    transition:
+        all .3s ease;
+}
+
+
+.qevrixa-blog-chat-footer button:hover {
+
+    filter:
+        brightness(0.94);
+
+    color:
+        var(--blog-chat-primary-text);
+}
+
+
+/* ============================================================
+   ERROR MESSAGE
+============================================================ */
+
+.qevrixa-blog-chat-body
+.blog-chat-error-message {
+
+    margin:
+        10px 0;
+}
+
+
+.qevrixa-blog-chat-body
+.blog-chat-error-message > div {
+
+    background:
+        color-mix(
+            in srgb,
+            var(--blog-chat-primary) 12%,
+            var(--blog-chat-background)
+        );
+
+    color:
+        var(--blog-chat-text);
+
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--blog-chat-primary) 35%,
+            transparent
+        );
+
+    padding:
+        10px 14px;
+
+    border-radius:
+        10px;
+
+    max-width:
+        90%;
+
+    word-break:
+        break-word;
+}
+
+
+/* ============================================================
+   INFO MESSAGE
+============================================================ */
+
+.qevrixa-blog-chat-body
+.blog-chat-info-message {
+
+    margin:
+        10px 0;
+}
+
+
+.qevrixa-blog-chat-body
+.blog-chat-info-message > div {
+
+    background:
+        var(--blog-chat-soft-background);
+
+    color:
+        var(--blog-chat-text);
+
+    border:
+        1px solid
+        var(--blog-chat-border);
+
+    padding:
+        10px 14px;
+
+    border-radius:
+        10px;
+
+    max-width:
+        90%;
+
+    word-break:
+        break-word;
+}
+
+
+/* ============================================================
+   LOADING MESSAGE
+============================================================ */
+
+.qevrixa-blog-chat-body
+.blog-chat-loading {
+
+    margin:
+        10px 0;
+}
+
+
+.qevrixa-blog-chat-body
+.blog-chat-loading > div {
+
+    display:
+        inline-block;
+
+    background:
+        var(--blog-chat-background);
+
+    color:
+        var(--blog-chat-muted);
+
+    border:
+        1px solid
+        var(--blog-chat-border);
+
+    padding:
+        10px 14px;
+
+    border-radius:
+        10px;
+
+    box-shadow:
+        0 2px 6px
+        var(--blog-chat-shadow-color);
+}
+
+
+/* ============================================================
+   CHAT SCROLLBAR
+============================================================ */
+
+.qevrixa-blog-chat-body::-webkit-scrollbar {
+
+    width:
+        6px;
+}
+
+
+.qevrixa-blog-chat-body::-webkit-scrollbar-track {
+
+    background:
+        transparent;
+}
+
+
+.qevrixa-blog-chat-body::-webkit-scrollbar-thumb {
+
+    background:
+        var(--blog-chat-primary);
+
+    border-radius:
+        10px;
+}
+
+
+.qevrixa-blog-chat-body::-webkit-scrollbar-thumb:hover {
+
+    filter:
+        brightness(0.94);
+}
+
+
+/* ============================================================
+   LINKS INSIDE CHAT
+============================================================ */
+
+.qevrixa-blog-chat-body a {
+
+    color:
+        var(--blog-chat-link);
+
+    text-decoration:
+        none;
+}
+
+
+.qevrixa-blog-chat-body a:hover {
+
+    filter:
+        brightness(0.85);
+
+    text-decoration:
+        underline;
+}
+
+
+/* ============================================================
+   SMALL SCREENS
+============================================================ */
+
+@media (max-width: 600px) {
+
+    .qevrixa-blog-chat-button {
+
+        right:
+            15px !important;
+
+        bottom:
+            15px !important;
+    }
+
+    .qevrixa-blog-chat-window {
+
+        right:
+            15px !important;
+
+        bottom:
+            80px !important;
+
+        width:
+            calc(100vw - 30px) !important;
+
+        max-width:
+            400px !important;
+
+        height:
+            500px !important;
+    }
+}
+
+
+/* ============================================================
+   VERY SMALL SCREENS
+============================================================ */
+
+@media (max-width: 400px) {
+
+    .qevrixa-blog-chat-window {
+
+        right:
+            10px !important;
+
+        bottom:
+            75px !important;
+
+        width:
+            calc(100vw - 20px) !important;
+    }
+
+    .qevrixa-blog-chat-body {
+
+        height:
+            390px;
+    }
+}
+

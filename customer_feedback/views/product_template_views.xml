@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_feedback_form" model="ir.ui.view">
+        <field name="name">product.template.feedback.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_reviews" type="object" class="oe_stat_button" icon="fa-star">
+                    <div class="o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="rating_avg" widget="float" nolabel="1"/> / 5
+                        </span>
+                        <span class="o_stat_text">Avg Rating</span>
+                    </div>
+                </button>
+                <button name="action_view_reviews" type="object" class="oe_stat_button" icon="fa-comments">
+                    <field name="rating_count" widget="statinfo" string="Reviews"/>
+                </button>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <notebook position="inside">
+                    <page string="Reviews" name="feedback_reviews">
+                        <group>
+                            <group string="Native rating (source of truth)">
+                                <field name="rating_avg" widget="float" readonly="1" string="Average Rating"/>
+                                <field name="rating_count" readonly="1" string="Rating Count"/>
+                            </group>
+                        </group>
+                        <div class="text-muted mb-2">
+                            Star distribution is computed on demand from native
+                            <code>rating.rating</code> via
+                            <code>_rating_get_repartition()</code>.
+                        </div>
+                        <field name="review_ids" readonly="1">
+                            <list>
+                                <field name="customer_id"/>
+                                <field name="rating"/>
+                                <field name="review_title"/>
+                                <field name="review_date"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

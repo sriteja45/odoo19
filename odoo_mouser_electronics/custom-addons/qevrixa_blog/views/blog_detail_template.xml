@@ -1,0 +1,1588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- BLOG DETAIL PAGE                                         -->
+    <!-- ========================================================= -->
+
+    <template id="blog_detail_template" name="Blog Detail">
+
+        <t t-call="website.layout">
+
+            <!-- ================================================= -->
+            <!-- MAIN CONTAINER                                    -->
+            <!-- ================================================= -->
+
+            <div class="container mt-5 mb-5">
+
+                <!-- ================================================= -->
+                <!-- BACK TO BLOGS                                     -->
+                <!-- ================================================= -->
+
+                <a href="/blog"
+                   class="btn btn-outline-secondary mb-4">
+                    ← Back to Blogs
+                </a>
+
+
+                <!-- ================================================= -->
+                <!-- MAIN BLOG + SIDEBAR                               -->
+                <!-- ================================================= -->
+
+                <div class="row">
+
+                    <!-- ================================================= -->
+                    <!-- LEFT SIDE - MAIN BLOG                            -->
+                    <!-- ================================================= -->
+
+                    <div class="col-lg-8">
+
+                        <!-- ================================================= -->
+                        <!-- BLOG IMAGE - FULL IMAGE VISIBLE                  -->
+                        <!-- ================================================= -->
+
+                        <t t-if="blog.image">
+
+                            <div class="blog-detail-image-wrapper">
+
+                                <img
+                                    t-att-src="'/web/image/qevrixa.blog/%s/image' % blog.id"
+                                    class="blog-detail-image"
+                                    alt="Blog Image"
+                                />
+
+                            </div>
+
+                        </t>
+
+
+                        <!-- ================================================= -->
+                        <!-- BLOG TITLE                                        -->
+                        <!-- ================================================= -->
+
+                        <h1 class="mb-3">
+                            <t t-esc="blog.name"/>
+                        </h1>
+
+
+                        <!-- ================================================= -->
+                        <!-- BLOG META INFORMATION                             -->
+                        <!-- ================================================= -->
+
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+
+                            <p class="text-muted mb-0">
+
+                                <!-- CATEGORY -->
+
+                                <strong>Category:</strong>
+
+                                <t t-if="blog.category_id">
+
+                                    <a
+                                        t-att-href="'/blog?category_id=%s' % blog.category_id.id"
+                                        class="blog-meta-link category-link"
+                                        t-att-title="'View all blogs in %s' % blog.category_id.name"
+                                    >
+                                        <t t-esc="blog.category_id.name"/>
+                                    </a>
+
+                                </t>
+
+                                <t t-else="">
+                                    <span class="text-muted">
+                                        Uncategorized
+                                    </span>
+                                </t>
+
+
+                                <span class="meta-separator">|</span>
+
+
+                                <!-- AUTHOR -->
+
+                                <strong>Author:</strong>
+
+                                <t t-if="blog.author_id">
+
+                                    <a
+                                        t-att-href="'/blog?author_id=%s' % blog.author_id.id"
+                                        class="blog-meta-link author-link"
+                                        t-att-title="'View all blogs by %s' % blog.author_id.name"
+                                    >
+                                        <t t-esc="blog.author_id.name"/>
+                                    </a>
+
+                                </t>
+
+                                <t t-else="">
+                                    <span class="text-muted">
+                                        Admin
+                                    </span>
+                                </t>
+
+
+                                <span class="meta-separator">|</span>
+
+
+                                <!-- DATE -->
+
+                                <strong>Date:</strong>
+
+                                <t t-if="blog.publish_date">
+
+                                    <a
+                                        t-att-href="'/blog?publish_date=%s' % blog.publish_date.strftime('%Y-%m-%d')"
+                                        class="blog-meta-link date-link"
+                                        t-att-title="'View all blogs published on %s' % blog.publish_date.strftime('%Y-%m-%d')"
+                                    >
+                                        <t t-esc="blog.publish_date.strftime('%Y-%m-%d')"/>
+                                    </a>
+
+                                </t>
+
+                                <t t-else="">
+                                    <span class="text-muted">
+                                        No Date
+                                    </span>
+                                </t>
+
+
+                                <span class="meta-separator">|</span>
+
+
+                                <!-- VIEWS -->
+
+                                <i class="fa fa-eye me-1"
+                                   aria-hidden="true">
+                                </i>
+
+                                <t t-esc="blog.views or 0"/>
+
+                                Views
+
+
+                                <span class="meta-separator">|</span>
+
+
+                                <!-- READING TIME -->
+
+                                <i class="fa fa-clock-o me-1"
+                                   aria-hidden="true">
+                                </i>
+
+                                <t t-esc="reading_time or 0"/>
+
+                                min read
+
+                            </p>
+
+
+                            <!-- ================================================= -->
+                            <!-- SHARE BUTTONS                                    -->
+                            <!-- ================================================= -->
+
+                            <div class="blog-meta-share d-flex align-items-center gap-2">
+
+                                <!-- FACEBOOK -->
+
+                                <a
+                                    t-att-href="'https://www.facebook.com/sharer/sharer.php?u=' + request.httprequest.url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn btn-sm btn-outline-primary"
+                                    title="Share on Facebook"
+                                    aria-label="Share on Facebook"
+                                >
+                                    <i class="fa fa-facebook"
+                                       aria-hidden="true">
+                                    </i>
+                                </a>
+
+
+                                <!-- LINKEDIN -->
+
+                                <a
+                                    t-att-href="'https://www.linkedin.com/sharing/share-offsite/?url=' + request.httprequest.url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn btn-sm btn-outline-primary"
+                                    title="Share on LinkedIn"
+                                    aria-label="Share on LinkedIn"
+                                >
+                                    <i class="fa fa-linkedin"
+                                       aria-hidden="true">
+                                    </i>
+                                </a>
+
+
+                                <!-- WHATSAPP -->
+
+                                <a
+                                    t-att-href="'https://api.whatsapp.com/send?text=' + request.httprequest.url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn btn-sm btn-outline-success"
+                                    title="Share on WhatsApp"
+                                    aria-label="Share on WhatsApp"
+                                >
+                                    <i class="fa fa-whatsapp"
+                                       aria-hidden="true">
+                                    </i>
+                                </a>
+
+
+                                <!-- COPY LINK -->
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-secondary"
+                                    title="Copy Blog Link"
+                                    aria-label="Copy Blog Link"
+                                    onclick="navigator.clipboard.writeText(window.location.href).then(function(){alert('Blog link copied!');});"
+                                >
+                                    <i class="fa fa-link"
+                                       aria-hidden="true">
+                                    </i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- BLOG LIKE / DISLIKE / REPORT                    -->
+                        <!-- ================================================= -->
+
+                        <hr/>
+
+                        <div class="blog-actions d-flex justify-content-end align-items-center mb-4">
+
+                            <div class="blog-actions-buttons d-flex align-items-center gap-2">
+
+                                <!-- LIKE BLOG -->
+
+                                <div class="blog-like">
+
+                                    <a
+                                        t-att-href="'/blog/like/%s' % blog.id"
+                                        class="btn blog-like-button"
+                                        aria-label="Like blog"
+                                        title="Like Blog"
+                                    >
+
+                                        <i class="fa fa-heart me-1"
+                                           aria-hidden="true">
+                                        </i>
+
+                                        <t t-esc="likes or 0"/>
+
+                                        Likes
+
+                                    </a>
+
+                                </div>
+
+
+                                <!-- DISLIKE BLOG -->
+
+                                <div class="blog-dislike">
+
+                                    <a
+                                        t-att-href="'/blog/dislike/%s' % blog.id"
+                                        class="btn blog-dislike-button"
+                                        aria-label="Dislike blog"
+                                        title="Dislike Blog"
+                                    >
+
+                                        <i class="fa fa-thumbs-down me-1"
+                                           aria-hidden="true">
+                                        </i>
+
+                                        <t t-esc="dislikes or 0"/>
+
+                                        Dislikes
+
+                                    </a>
+
+                                </div>
+
+
+                                <!-- REPORT BLOG -->
+
+                                <div class="blog-report">
+
+                                    <form
+                                        t-att-action="'/blog/report/%s' % blog.id"
+                                        method="post"
+                                        class="d-inline m-0"
+                                        onsubmit="return confirm('Are you sure you want to report this blog?');"
+                                    >
+
+                                        <input
+                                            type="hidden"
+                                            name="csrf_token"
+                                            t-att-value="request.csrf_token()"
+                                        />
+
+                                        <button
+                                            type="submit"
+                                            class="btn blog-report-button"
+                                            aria-label="Report blog"
+                                            title="Report Blog"
+                                        >
+
+                                            <i class="fa fa-exclamation-triangle me-1"
+                                               aria-hidden="true">
+                                            </i>
+
+                                            Report
+
+                                            <t t-if="'report_count' in blog._fields">
+
+                                                <span class="ms-1">
+                                                    <t t-esc="blog.report_count or 0"/>
+                                                </span>
+
+                                            </t>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- BLOG CONTENT                                      -->
+                        <!-- ================================================= -->
+
+                        <div class="blog-content-area">
+
+                            <div t-field="blog.content">
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- PREVIOUS / NEXT BLOG                              -->
+                        <!-- ================================================= -->
+
+                        <hr class="mt-5"/>
+
+                        <div class="d-flex justify-content-between align-items-center flex-wrap blog-navigation">
+
+                            <!-- PREVIOUS -->
+
+                            <div>
+
+                                <t t-if="previous_blog">
+
+                                    <a
+                                        t-att-href="'/blog/%s' % previous_blog.slug"
+                                        class="btn btn-outline-primary"
+                                    >
+                                        ← Previous Blog
+                                    </a>
+
+                                </t>
+
+                            </div>
+
+
+                            <!-- NEXT -->
+
+                            <div>
+
+                                <t t-if="next_blog">
+
+                                    <a
+                                        t-att-href="'/blog/%s' % next_blog.slug"
+                                        class="btn btn-outline-primary"
+                                    >
+                                        Next Blog →
+                                    </a>
+
+                                </t>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- RIGHT SIDE - SIDEBAR                              -->
+                    <!-- ================================================= -->
+
+                    <div class="col-lg-4">
+
+                        <!-- ================================================= -->
+                        <!-- RELATED BLOGS                                    -->
+                        <!-- ================================================= -->
+
+                        <div class="card shadow">
+
+                            <div class="card-header">
+
+                                <h5 class="mb-0">
+                                    Related Blogs
+                                </h5>
+
+                            </div>
+
+
+                            <div class="card-body">
+
+                                <t t-if="related_blogs">
+
+                                    <t t-foreach="related_blogs" t-as="related">
+
+                                        <div class="mb-3">
+
+                                            <a
+                                                t-att-href="'/blog/%s' % related.slug"
+                                                class="text-decoration-none"
+                                            >
+
+                                                <strong>
+                                                    <t t-esc="related.name"/>
+                                                </strong>
+
+                                            </a>
+
+                                            <br/>
+
+                                            <small class="text-muted">
+
+                                                <t t-if="related.category_id">
+
+                                                    <a
+                                                        t-att-href="'/blog?category_id=%s' % related.category_id.id"
+                                                        class="related-meta-link"
+                                                    >
+                                                        <t t-esc="related.category_id.name"/>
+                                                    </a>
+
+                                                </t>
+
+                                                <t t-else="">
+                                                    Uncategorized
+                                                </t>
+
+                                            </small>
+
+                                        </div>
+
+                                        <hr/>
+
+                                    </t>
+
+                                </t>
+
+
+                                <t t-else="">
+
+                                    <p class="text-muted mb-0">
+                                        No related blogs found.
+                                    </p>
+
+                                </t>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- COMMENTS SECTION                                  -->
+                        <!-- ================================================= -->
+
+                        <div class="blog-sidebar-comments mt-5">
+
+                            <hr class="mb-4"/>
+
+                            <h3 class="mb-4">
+
+                                <i class="fa fa-comments me-2"
+                                   aria-hidden="true">
+                                </i>
+
+                                Comments
+                                (
+                                <t t-esc="comments_count or 0"/>
+                                )
+
+                            </h3>
+
+
+                            <!-- ================================================= -->
+                            <!-- LOGGED-IN USER                                    -->
+                            <!-- ================================================= -->
+
+                            <t t-if="show_comments">
+
+                                <!-- COMMENT FORM -->
+
+                                <div class="mb-3 comment-form-box">
+
+                                    <form
+                                        t-att-action="'/blog/comment/%s' % blog.id"
+                                        method="post"
+                                    >
+
+                                        <input
+                                            type="hidden"
+                                            name="csrf_token"
+                                            t-att-value="request.csrf_token()"
+                                        />
+
+                                        <div class="mb-3">
+
+                                            <label class="form-label">
+                                                Comment
+                                            </label>
+
+                                            <textarea
+                                                name="comment"
+                                                class="form-control comment-textarea"
+                                                rows="3"
+                                                placeholder="Write your comment..."
+                                                required="required"
+                                            ></textarea>
+
+                                        </div>
+
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary comment-post-button"
+                                        >
+
+                                            <i class="fa fa-comment me-1"
+                                               aria-hidden="true">
+                                            </i>
+
+                                            Post Comment
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+
+                                <!-- ================================================= -->
+                                <!-- POSTED COMMENTS HEADING                          -->
+                                <!-- ================================================= -->
+
+                                <h5 class="mb-3">
+
+                                    <i class="fa fa-comments me-2"
+                                       aria-hidden="true">
+                                    </i>
+
+                                    Posted Comments
+                                    (
+                                    <t t-esc="comments_count or 0"/>
+                                    )
+
+                                </h5>
+
+
+                                <!-- ================================================= -->
+                                <!-- DISPLAY COMMENTS                                -->
+                                <!-- ================================================= -->
+
+                                <div class="blog-comments">
+
+                                    <t t-if="blog.comment_ids">
+
+                                        <t t-foreach="blog.comment_ids" t-as="comment">
+
+                                            <t t-if="not comment.blocked">
+
+                                                <!-- ================================================= -->
+                                                <!-- COMMENT CARD                                    -->
+                                                <!-- ================================================= -->
+
+                                                <div class="card mb-3 blog-comment-card">
+
+                                                    <div class="card-body">
+
+                                                        <!-- ================================================= -->
+                                                        <!-- COMMENT USER + DATE/TIME - SAME LINE             -->
+                                                        <!-- ================================================= -->
+
+                                                        <div class="comment-user-date-row">
+
+                                                            <!-- USER NAME -->
+
+                                                            <strong class="comment-user-name">
+                                                                <t t-esc="comment.name"/>
+                                                            </strong>
+
+
+                                                            <!-- DATE / TIME -->
+
+                                                            <span class="comment-date-time">
+
+                                                                <t t-if="'create_date' in comment._fields">
+
+                                                                    <t t-esc="comment.create_date.strftime('%Y-%m-%d %H:%M:%S')"/>
+
+                                                                </t>
+
+                                                            </span>
+
+                                                        </div>
+
+
+                                                        <!-- ================================================= -->
+                                                        <!-- COMMENT TEXT                                   -->
+                                                        <!-- ================================================= -->
+
+                                                        <div class="mt-3 comment-content js-comment-content">
+
+                                                            <t t-esc="comment.comment"/>
+
+                                                        </div>
+
+
+                                                        <!-- ================================================= -->
+                                                        <!-- COMMENT ACTIONS                                -->
+                                                        <!-- ================================================= -->
+
+                                                        <div class="comment-actions mt-3">
+
+                                                            <div class="d-flex align-items-center flex-wrap gap-2">
+
+                                                                <!-- LIKE -->
+
+                                                                <form
+                                                                    t-att-action="'/blog/comment/like/%s' % comment.id"
+                                                                    method="post"
+                                                                    class="d-inline m-0"
+                                                                >
+
+                                                                    <input
+                                                                        type="hidden"
+                                                                        name="csrf_token"
+                                                                        t-att-value="request.csrf_token()"
+                                                                    />
+
+                                                                    <button
+                                                                        type="submit"
+                                                                        class="btn btn-sm comment-like-button comment-action-btn"
+                                                                        title="Like Comment"
+                                                                    >
+
+                                                                        <i class="fa fa-thumbs-up me-1"
+                                                                           aria-hidden="true">
+                                                                        </i>
+
+                                                                        Like
+
+                                                                        <span class="comment-count">
+
+                                                                            <t t-if="'likes' in comment._fields">
+
+                                                                                <t t-esc="comment.likes or 0"/>
+
+                                                                            </t>
+
+                                                                            <t t-else="">
+                                                                                0
+                                                                            </t>
+
+                                                                        </span>
+
+                                                                    </button>
+
+                                                                </form>
+
+
+                                                                <!-- DISLIKE -->
+
+                                                                <form
+                                                                    t-att-action="'/blog/comment/dislike/%s' % comment.id"
+                                                                    method="post"
+                                                                    class="d-inline m-0"
+                                                                >
+
+                                                                    <input
+                                                                        type="hidden"
+                                                                        name="csrf_token"
+                                                                        t-att-value="request.csrf_token()"
+                                                                    />
+
+                                                                    <button
+                                                                        type="submit"
+                                                                        class="btn btn-sm comment-dislike-button comment-action-btn"
+                                                                        title="Dislike Comment"
+                                                                    >
+
+                                                                        <i class="fa fa-thumbs-down me-1"
+                                                                           aria-hidden="true">
+                                                                        </i>
+
+                                                                        Dislike
+
+                                                                        <span class="comment-count">
+
+                                                                            <t t-if="'dislikes' in comment._fields">
+
+                                                                                <t t-esc="comment.dislikes or 0"/>
+
+                                                                            </t>
+
+                                                                            <t t-else="">
+                                                                                0
+                                                                            </t>
+
+                                                                        </span>
+
+                                                                    </button>
+
+                                                                </form>
+
+
+                                                                <!-- REPORT -->
+
+                                                                <form
+                                                                    t-att-action="'/blog/comment/report/%s' % comment.id"
+                                                                    method="post"
+                                                                    class="d-inline m-0"
+                                                                    onsubmit="return confirm('Are you sure you want to report this comment?');"
+                                                                >
+
+                                                                    <input
+                                                                        type="hidden"
+                                                                        name="csrf_token"
+                                                                        t-att-value="request.csrf_token()"
+                                                                    />
+
+                                                                    <button
+                                                                        type="submit"
+                                                                        class="btn btn-sm comment-report-button comment-action-btn"
+                                                                        title="Report Comment"
+                                                                    >
+
+                                                                        <i class="fa fa-exclamation-triangle me-1"
+                                                                           aria-hidden="true">
+                                                                        </i>
+
+                                                                        Report
+
+                                                                        <t t-if="'report_count' in comment._fields">
+
+                                                                            <span class="comment-count">
+
+                                                                                <t t-esc="comment.report_count or 0"/>
+
+                                                                            </span>
+
+                                                                        </t>
+
+                                                                    </button>
+
+                                                                </form>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </t>
+
+                                        </t>
+
+                                    </t>
+
+
+                                    <!-- ================================================= -->
+                                    <!-- NO COMMENTS                                      -->
+                                    <!-- ================================================= -->
+
+                                    <t t-else="">
+
+                                        <div class="alert alert-light border no-comments-box">
+
+                                            <i class="fa fa-comments me-2"
+                                               aria-hidden="true">
+                                            </i>
+
+                                            No comments yet.
+                                            Be the first to comment!
+
+                                        </div>
+
+                                    </t>
+
+                                </div>
+
+                            </t>
+
+
+                            <!-- ================================================= -->
+                            <!-- PUBLIC USER                                      -->
+                            <!-- ================================================= -->
+
+                            <t t-if="not show_comments">
+
+                                <div class="alert alert-info mt-4 login-comment-box">
+
+                                    <i class="fa fa-info-circle me-2"
+                                       aria-hidden="true">
+                                    </i>
+
+                                    <strong>
+                                        Please login to view and post comments.
+                                    </strong>
+
+                                    <div class="mt-3">
+
+                                        <a
+                                            t-att-href="'/web/login?redirect=/blog/%s' % blog.slug"
+                                            class="btn btn-primary btn-sm"
+                                        >
+
+                                            <i class="fa fa-sign-in me-1"
+                                               aria-hidden="true">
+                                            </i>
+
+                                            Login to Comment
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </t>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================================= -->
+            <!-- CLICKABLE URL SCRIPT FOR COMMENTS                         -->
+            <!-- ========================================================= -->
+
+            <script type="text/javascript">
+                <![CDATA[
+
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var commentElements =
+                        document.querySelectorAll(".js-comment-content");
+
+                    commentElements.forEach(function (element) {
+
+                        var text = element.textContent || "";
+
+                        var urlRegex = /(https?:\/\/[^\s]+)/g;
+
+                        var parts = text.split(urlRegex);
+
+                        element.innerHTML = "";
+
+                        parts.forEach(function (part) {
+
+                            if (/^https?:\/\//i.test(part)) {
+
+                                var cleanUrl = part;
+                                var trailing = "";
+
+                                while (
+                                    cleanUrl.length > 0 &&
+                                    /[.,!?;:)\]}]$/.test(cleanUrl)
+                                ) {
+
+                                    trailing =
+                                        cleanUrl.slice(-1) + trailing;
+
+                                    cleanUrl =
+                                        cleanUrl.slice(0, -1);
+
+                                }
+
+                                var link =
+                                    document.createElement("a");
+
+                                link.href = cleanUrl;
+
+                                link.textContent = cleanUrl;
+
+                                link.target = "_blank";
+
+                                link.rel =
+                                    "noopener noreferrer";
+
+                                link.className =
+                                    "comment-product-link";
+
+                                element.appendChild(link);
+
+                                if (trailing) {
+
+                                    element.appendChild(
+                                        document.createTextNode(trailing)
+                                    );
+
+                                }
+
+                            } else {
+
+                                element.appendChild(
+                                    document.createTextNode(part)
+                                );
+
+                            }
+
+                        });
+
+                    });
+
+                });
+
+                ]]>
+            </script>
+
+
+            <!-- ========================================================= -->
+            <!-- CSS                                                       -->
+            <!-- ========================================================= -->
+
+            <style type="text/css">
+
+                /* =========================================================
+                   BLOG IMAGE
+                   FULL IMAGE VISIBLE - NO CROPPING
+                   ========================================================= */
+
+                .blog-detail-image-wrapper {
+                    width: 100%;
+                    min-height: 360px;
+                    max-height: 650px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                    margin-bottom: 24px;
+                    background: #f8f9fa;
+                    border-radius: 8px;
+                    padding: 10px;
+                }
+
+                .blog-detail-image {
+                    display: block;
+                    width: auto !important;
+                    height: auto !important;
+                    max-width: 100% !important;
+                    max-height: 630px !important;
+                    object-fit: contain !important;
+                    object-position: center center !important;
+                    border-radius: 8px;
+                    margin: 0 auto;
+                }
+
+
+                /* =========================================================
+                   BLOG CONTENT
+                   ========================================================= */
+
+                .blog-content-area {
+                    width: 100%;
+                    overflow: visible;
+                }
+
+                .blog-content-area img {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+                .blog-content-area iframe {
+                    max-width: 100%;
+                }
+
+
+                /* =========================================================
+                   CLICKABLE BLOG META
+                   ========================================================= */
+
+                .blog-meta-link {
+                    text-decoration: none !important;
+                    font-weight: 500;
+                    transition: all 0.2s ease;
+                }
+
+                .blog-meta-link:hover {
+                    text-decoration: underline !important;
+                }
+
+                .category-link {
+                    color: #0d6efd !important;
+                }
+
+                .category-link:hover {
+                    color: #084298 !important;
+                }
+
+                .author-link {
+                    color: #198754 !important;
+                }
+
+                .author-link:hover {
+                    color: #146c43 !important;
+                }
+
+                .date-link {
+                    color: #6f42c1 !important;
+                }
+
+                .date-link:hover {
+                    color: #59359a !important;
+                }
+
+                .meta-separator {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    color: #6c757d;
+                }
+
+                .related-meta-link {
+                    color: #0d6efd;
+                    text-decoration: none;
+                }
+
+                .related-meta-link:hover {
+                    text-decoration: underline;
+                }
+
+
+                /* =========================================================
+                   BLOG ACTIONS
+                   ========================================================= */
+
+                .blog-actions {
+                    width: 100%;
+                    margin-top: 10px;
+                    margin-bottom: 24px;
+                    display: flex !important;
+                    justify-content: flex-end !important;
+                    align-items: center !important;
+                }
+
+                .blog-actions-buttons {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    gap: 10px;
+                }
+
+                .blog-actions .btn {
+                    min-height: 44px;
+                    padding: 9px 16px;
+                    border-radius: 7px;
+                    font-size: 15px;
+                    font-weight: 500;
+                    transition: all 0.2s ease;
+                }
+
+
+                /* =========================================================
+                   LIKE BLOG
+                   ========================================================= */
+
+                .blog-like-button {
+                    background-color: #dff5e3 !important;
+                    border: 1px solid #9ed8aa !important;
+                    color: #257a36 !important;
+                }
+
+                .blog-like-button:hover,
+                .blog-like-button:focus,
+                .blog-like-button:active {
+                    background-color: #c9edcf !important;
+                    border-color: #7fc98d !important;
+                    color: #1f6a2e !important;
+                    box-shadow: none !important;
+                }
+
+                .blog-like-button i {
+                    color: #2e8b42 !important;
+                }
+
+
+                /* =========================================================
+                   DISLIKE BLOG
+                   ========================================================= */
+
+                .blog-dislike-button {
+                    background-color: #fde3e3 !important;
+                    border: 1px solid #e6a3a3 !important;
+                    color: #b33a3a !important;
+                }
+
+                .blog-dislike-button:hover,
+                .blog-dislike-button:focus,
+                .blog-dislike-button:active {
+                    background-color: #f8cccc !important;
+                    border-color: #dc8d8d !important;
+                    color: #9f2f2f !important;
+                    box-shadow: none !important;
+                }
+
+                .blog-dislike-button i {
+                    color: #c03939 !important;
+                }
+
+
+                /* =========================================================
+                   REPORT BLOG
+                   ========================================================= */
+
+                .blog-report-button {
+                    background-color: #fff4e5 !important;
+                    border: 1px solid #f0b66d !important;
+                    color: #b76b00 !important;
+                }
+
+                .blog-report-button:hover,
+                .blog-report-button:focus,
+                .blog-report-button:active {
+                    background-color: #ffe7c2 !important;
+                    border-color: #e5a04f !important;
+                    color: #995900 !important;
+                    box-shadow: none !important;
+                }
+
+                .blog-report-button i {
+                    color: #d98200 !important;
+                }
+
+
+                /* =========================================================
+                   COMMENT SECTION
+                   ========================================================= */
+
+                .blog-sidebar-comments .card {
+                    margin-bottom: 12px !important;
+                }
+
+                .blog-sidebar-comments .card-body {
+                    padding: 14px 15px;
+                }
+
+                .blog-sidebar-comments h3 {
+                    font-size: 24px;
+                    margin-bottom: 18px !important;
+                }
+
+                .blog-sidebar-comments h5 {
+                    font-size: 18px;
+                }
+
+
+                /* =========================================================
+                   COMMENT FORM BOX
+                   ROUNDED / CURVED EDGES
+                   ========================================================= */
+
+                .comment-form-box {
+                    background: #ffffff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 14px;
+                    padding: 16px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                }
+
+
+                /* =========================================================
+                   COMMENT TEXTAREA
+                   ========================================================= */
+
+                .comment-textarea {
+                    min-height: 65px;
+                    height: 65px;
+                    resize: vertical;
+                    border-radius: 10px !important;
+                    border: 1px solid #d9dee5 !important;
+                    padding: 10px 12px;
+                    transition: all 0.2s ease;
+                }
+
+                .comment-textarea:focus {
+                    border-color: #86b7fe !important;
+                    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.12) !important;
+                    outline: none;
+                }
+
+
+                /* =========================================================
+                   POST COMMENT BUTTON
+                   ========================================================= */
+
+                .comment-post-button {
+                    border-radius: 8px !important;
+                    padding: 8px 16px;
+                    font-weight: 500;
+                }
+
+
+                /* =========================================================
+                   COMMENT CARD
+                   MAIN CURVED BOX
+                   ========================================================= */
+
+                .blog-comment-card {
+                    background: #ffffff;
+                    border: 1px solid #e3e6ea !important;
+                    border-radius: 14px !important;
+                    overflow: hidden;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                    transition: all 0.2s ease;
+                }
+
+
+                /* =========================================================
+                   COMMENT CARD HOVER
+                   ========================================================= */
+
+                .blog-comment-card:hover {
+                    border-color: #d5dbe2 !important;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    transform: translateY(-1px);
+                }
+
+
+                /* =========================================================
+                   COMMENT CARD BODY
+                   ========================================================= */
+
+                .blog-comment-card .card-body {
+                    padding: 14px 15px !important;
+                }
+
+
+                /* =========================================================
+                   COMMENT USER + DATE/TIME
+                   SAME LINE
+                   ========================================================= */
+
+                .comment-user-date-row {
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    width: 100%;
+                    line-height: 1.4;
+                }
+
+                .comment-user-name {
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #212529;
+                }
+
+                .comment-date-time {
+                    font-size: 13px;
+                    color: #6c757d;
+                    white-space: nowrap;
+                }
+
+
+                /* =========================================================
+                   COMMENT CONTENT
+                   SHOW CONTENT - DO NOT HIDE TEXT
+                   ========================================================= */
+
+                .comment-content {
+                    margin-top: 10px !important;
+                    line-height: 1.5;
+                    word-break: break-word;
+                    overflow: visible !important;
+                    white-space: normal !important;
+                    text-overflow: clip !important;
+                    font-size: 14px;
+                    padding: 8px 10px;
+                    background: #f8f9fa;
+                    border-radius: 9px;
+                }
+
+
+                /* =========================================================
+                   COMMENT PRODUCT LINK
+                   ========================================================= */
+
+                .comment-product-link {
+                    color: #0d6efd;
+                    font-weight: 600;
+                    text-decoration: underline;
+                    word-break: break-all;
+                    display: inline;
+                }
+
+                .comment-product-link:hover {
+                    color: #084298;
+                    text-decoration: none;
+                }
+
+
+                /* =========================================================
+                   COMMENT ACTIONS
+                   ========================================================= */
+
+                .comment-actions {
+                    padding-top: 8px;
+                }
+
+                .comment-action-btn {
+                    border-radius: 7px;
+                    font-size: 13px;
+                    padding: 4px 9px;
+                    transition: all 0.2s ease;
+                }
+
+                .comment-action-btn:hover {
+                    transform: translateY(-1px);
+                }
+
+                .comment-count {
+                    font-weight: 600;
+                    margin-left: 3px;
+                }
+
+                .comment-actions form {
+                    display: inline-block;
+                    margin: 0;
+                }
+
+
+                /* =========================================================
+                   COMMENT LIKE
+                   ========================================================= */
+
+                .comment-like-button {
+                    background-color: #e3f6e7 !important;
+                    border: 1px solid #9fd6aa !important;
+                    color: #287a39 !important;
+                }
+
+                .comment-like-button:hover,
+                .comment-like-button:focus,
+                .comment-like-button:active {
+                    background-color: #ccefd3 !important;
+                    border-color: #82c891 !important;
+                    color: #21672f !important;
+                    box-shadow: none !important;
+                }
+
+                .comment-like-button i {
+                    color: #2f8b43 !important;
+                }
+
+
+                /* =========================================================
+                   COMMENT DISLIKE
+                   ========================================================= */
+
+                .comment-dislike-button {
+                    background-color: #fde6e6 !important;
+                    border: 1px solid #e2a5a5 !important;
+                    color: #b13b3b !important;
+                }
+
+                .comment-dislike-button:hover,
+                .comment-dislike-button:focus,
+                .comment-dislike-button:active {
+                    background-color: #f8cdcd !important;
+                    border-color: #d98d8d !important;
+                    color: #982f2f !important;
+                    box-shadow: none !important;
+                }
+
+                .comment-dislike-button i {
+                    color: #c43d3d !important;
+                }
+
+
+                /* =========================================================
+                   COMMENT REPORT
+                   ========================================================= */
+
+                .comment-report-button {
+                    background-color: #fff4e6 !important;
+                    border: 1px solid #efb66c !important;
+                    color: #b66b00 !important;
+                }
+
+                .comment-report-button:hover,
+                .comment-report-button:focus,
+                .comment-report-button:active {
+                    background-color: #ffe7c4 !important;
+                    border-color: #e3a04e !important;
+                    color: #995900 !important;
+                    box-shadow: none !important;
+                }
+
+                .comment-report-button i {
+                    color: #d98200 !important;
+                }
+
+
+                /* =========================================================
+                   NO COMMENTS BOX
+                   ========================================================= */
+
+                .no-comments-box {
+                    border-radius: 12px !important;
+                    padding: 14px 16px;
+                }
+
+
+                /* =========================================================
+                   LOGIN COMMENT BOX
+                   ========================================================= */
+
+                .login-comment-box {
+                    border-radius: 12px !important;
+                }
+
+
+                /* =========================================================
+                   BLOG NAVIGATION
+                   ========================================================= */
+
+                .blog-navigation {
+                    gap: 10px;
+                }
+
+
+                /* =========================================================
+                   MOBILE
+                   ========================================================= */
+
+                @media (max-width: 576px) {
+
+                    .blog-actions {
+                        justify-content: flex-start !important;
+                    }
+
+                    .blog-actions-buttons {
+                        width: 100%;
+                        justify-content: flex-start;
+                        flex-wrap: wrap;
+                    }
+
+                    .blog-actions .btn {
+                        font-size: 13px;
+                        padding: 8px 11px;
+                    }
+
+                    .comment-actions .d-flex {
+                        width: 100%;
+                    }
+
+                    .comment-action-btn {
+                        font-size: 12px;
+                        padding: 4px 7px;
+                    }
+
+
+                    /* =================================================
+                       MOBILE BLOG IMAGE
+                       COMPLETE IMAGE VISIBLE
+                       ================================================= */
+
+                    .blog-detail-image-wrapper {
+                        width: 100%;
+                        min-height: 200px;
+                        max-height: 400px;
+                        padding: 6px;
+                        margin-bottom: 20px;
+                    }
+
+                    .blog-detail-image {
+                        width: auto !important;
+                        height: auto !important;
+                        max-width: 100% !important;
+                        max-height: 380px !important;
+                        object-fit: contain !important;
+                    }
+
+
+                    /* =================================================
+                       MOBILE COMMENT CARD
+                       ================================================= */
+
+                    .blog-comment-card {
+                        border-radius: 12px !important;
+                    }
+
+                    .blog-comment-card .card-body {
+                        padding: 12px !important;
+                    }
+
+                    .comment-form-box {
+                        border-radius: 12px;
+                        padding: 12px;
+                    }
+
+                    .comment-content {
+                        border-radius: 8px;
+                        padding: 8px 9px;
+                    }
+
+
+                    /* =================================================
+                       MOBILE COMMENT USER + DATE
+                       ================================================= */
+
+                    .comment-user-date-row {
+                        gap: 6px;
+                    }
+
+                    .comment-user-name {
+                        font-size: 14px;
+                    }
+
+                    .comment-date-time {
+                        font-size: 12px;
+                    }
+
+
+                    .blog-meta-link {
+                        font-size: 14px;
+                    }
+
+                    .meta-separator {
+                        margin-left: 3px;
+                        margin-right: 3px;
+                    }
+
+                }
+
+            </style>
+
+        </t>
+
+    </template>
+
+</odoo>

@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_xevoria_bulk_translation_wizard_form" model="ir.ui.view">
+        <field name="name">xevoria.bulk.translation.wizard.form</field>
+        <field name="model">xevoria.bulk.translation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bulk Product Translation">
+                <sheet>
+                    <group string="Selection Summary">
+                        <field name="product_count" readonly="1"/>
+                        <field name="language_count" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="product_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="language_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                    <group string="Options">
+                        <field name="only_missing_translations"/>
+                        <field name="sync_native_fields"/>
+                        <field name="process_in_queue"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_run_bulk_translation" type="object" string="Run Bulk Translation" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_xevoria_bulk_translation_wizard" model="ir.actions.act_window">
+        <field name="name">Bulk Product Translation</field>
+        <field name="res_model">xevoria.bulk.translation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+</odoo>

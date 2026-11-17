@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="home_promo_detail_page" name="Mouser Home Promo Detail Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage promo-detail-page">
+                <section class="mouser-blue-nav"><div class="mouser-shell nav-row"><nav><a href="/mouser-home">Products</a><a href="/manufacturer/">Manufacturers</a><a href="/services-tools">Services &amp; Tools</a><a href="/mouser-home#resources">Technical Resources</a><a href="#">Help</a></nav><div class="nav-actions"><a href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a><a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a></div></div></section>
+                <section class="promo-hero"><img t-att-src="image" t-att-alt="title"/></section>
+                <main class="mouser-shell promo-content"><p><a href="/mouser-home">Home</a> &gt; <span t-out="title"/></p><h1 t-out="title"/><h3 t-out="subtitle"/><p t-out="text"/><a class="mouser-btn" t-att-href="button_url" t-out="button"/></main>
+            </div>
+        </t>
+    </template>
+    <template id="about_tti_original_page" name="About TTI Original Like Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage about-tti-page">
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right"><a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span></div>
+                    </div>
+                </section>
+                <section class="mouser-header-main"><div class="mouser-shell header-row"><a class="mouser-logo" href="/mouser-home">
+    <img src="/mouser_theme/static/src/img/custom_logo.webp"
+         alt="Logo"
+         style="height:60px; width:auto;"/>
+</a><div class="search-area"><div class="search-box"><button>All <i class="fa fa-angle-down"></i></button><input placeholder="Part No. / Keyword"/><a class="search-btn" href="#"><i class="fa fa-search"></i></a></div><label><input type="checkbox"/> In Stock</label><label><input type="checkbox"/> RoHS</label></div></div></section>
+                <section class="mouser-blue-nav"><div class="mouser-shell nav-row"><nav><a href="/mouser-home">Products</a><a href="/manufacturer/">Manufacturers</a><a href="/services-tools">Services &amp; Tools</a><a href="/mouser-home#resources">Technical Resources</a><a href="#">Help</a></nav><div class="nav-actions"><a href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a><a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a></div></div></section>
+                <section class="mouser-pattern-hero"><div class="mouser-shell"><h1>The TTI Family of Specialists</h1></div></section>
+                <main class="tti-original-content">
+                    <section class="tti-white"><div class="tti-page-container"><h2>About TTI, Inc.</h2><hr/><p>TTI, Inc., a Berkshire Hathaway company, is a global specialty distributor of electronic components, serving procurement professionals with deep inventory and reliable service. Founded in 1971, TTI has built a reputation for excellence by focusing exclusively on interconnect, passive, electromechanical, and discrete semiconductor components.</p><p>With more than 8,000 employees and over 136 locations across the Americas, Europe, Asia and Africa, TTI provides unmatched product availability and supply chain expertise. The company’s commitment to quality, precision, and customer satisfaction has made it a trusted partner for manufacturers in industrial, transportation, aerospace, defence, medical, and communications sectors.</p></div></section>
+                    <section class="tti-grey"><div class="tti-page-container"><h2>What sets TTI apart</h2><ul><li><b>Specialised Focus:</b> Dedicated exclusively to IP&amp;E components for maximum product depth and expertise.</li><li><b>Deep Inventory:</b> Industry-leading availability of components from trusted manufacturers.</li><li><b>Global Infrastructure:</b> Over 275,000 square metres of certified warehouse space across three continents.</li><li><b>Quality Assurance:</b> ISO-certified facilities and proprietary systems ensure accuracy and reliability.</li><li><b>Customer Commitment:</b> Built on a philosophy of delivering the right parts, on time, every time.</li><li><b>Culture of Integrity:</b> A workplace defined by honesty, kindness, and continuous improvement.</li><li><b>Responsible Practices:</b> Committed to environmental stewardship and ethical business operations.</li><li><b>Industry Insight:</b> Sharing technical knowledge through expert content.</li></ul></div></section>
+                    <section class="tti-white"><div class="tti-page-container"><h2>The TTI family of specialists</h2><p>TTI is part of the TTI Family of Specialists, which includes Mouser Electronics, Sager Electronics, and the Exponential Technology Group. Together, these companies offer customers access to the latest technologies, specialised services, and a global distribution network.</p><hr/><h4>Mouser Electronics</h4><p>Mouser Electronics is a globally authorised distributor of semiconductors and electronic components for over 1,200 industry-leading manufacturer brands, specialising in the rapid introduction of the newest products and technologies targeting the design engineer and buyer communities.</p><hr/><h4>Sager Electronics</h4><p>Grounded in over 135 years of innovation and service, Sager Electronics is a North American electronic component distributor of interconnect, power and electromechanical electronic components and a provider of custom solutions. Our Distributing Confidence® business model goes beyond fulfilment to provide our customers and suppliers a unique combination of operational excellence and innovative business solutions.</p><hr/><h4>Exponential Technology Group (XTG)</h4><p>The Exponential Technology Group (XTG) is a collection of companies specialising in the design-in and supply of component technologies that enable modern electronic systems from automotive and communication applications to the internet of things (IoT). The companies within XTG maintain their own areas of expertise and focus and collaborate to deliver total solutions to their common customers.</p></div></section>
+                </main>
+                <section class="newsletter"><h3>Get the Latest News</h3><div><input placeholder="Enter your Email"/><button>Subscribe</button></div></section>
+                <footer class="mouser-footer original-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div>
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p>
+                            <p><i class="fa fa-envelope"></i> bangalore@mouser.com</p>
+                            <p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p>
+                            <div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div>
+                        </div>
+                        <div><h4>COMPANY</h4><a href="#">About Us</a><a href="#">Newsroom</a><a href="https://careers.mouser.com" target="_blank" rel="noopener noreferrer">Careers @ Mouser</a><a href="/quality">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social<br/>Responsibility</a></div>
+                        <div><h4>RESOURCES</h4><a href="#">Blog</a><a href="#">Newest Products</a><a href="#">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a></div>
+                        <div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a></div>
+                        <div><h4>CONNECT WITH US</h4><div class="socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i><span class="blog-icon">blog</span></div></div>
+                    </div>
+                    <div class="mouser-shell footer-bottom-original">
+                        <div class="footer-links"><a href="/privacypolicy/">Privacy Centre</a><span>|</span><a href="#">Terms and Conditions</a><span>|</span><a href="#">Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a href="#">Sitemap</a></div>
+                        <div class="footer-bottom-row">
+                            <div class="copyright-text"><p><b>Copyright ©2026 Mouser Electronics, Inc.</b></p><p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p></div>
+                            <div class="cert-strip">
+                                <a href="/ecia/" class="footer-cert-link ecia-member-link" title="ECIA Authorised"><img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/></a>
+                                <img src="/mouser_theme/static/img/logo-nfsb_small.webp" alt="Customer Service"/>
+                                <img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/>
+                                <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO 14001"/>
+                                <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B"/>
+                                <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/>
+                                <img src="/mouser_theme/static/img/trust-guard-secure.png" alt="Trust Guard Secure"/>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <div class="live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+    <template id="quality_original_page" name="Mouser Quality Original Like Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage quality-original-page">
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right"><a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span></div>
+                    </div>
+                </section>
+                <section class="mouser-header-main"><div class="mouser-shell header-row"><a class="mouser-logo" href="/mouser-home"><img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Mouser Electronics" style="height:60px; width:auto;"/></a><div class="search-area"><div class="search-box"><button>All <i class="fa fa-angle-down"></i></button><input placeholder="Part No. / Keyword"/><a class="search-btn" href="#"><i class="fa fa-search"></i></a></div><label><input type="checkbox"/> In Stock</label><label><input type="checkbox"/> RoHS</label></div></div></section>
+                <section class="mouser-blue-nav"><div class="mouser-shell nav-row"><nav><a href="/mouser-home">Products</a><a href="/manufacturer/">Manufacturers</a><a href="/services-tools">Services &amp; Tools</a><a href="/mouser-home#resources">Technical Resources</a><a href="#">Help</a></nav><div class="nav-actions"><a href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a><a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a></div></div></section>
+                <section class="quality-hero"><img src="/mouser_theme/static/src/img/mouser-hp-bn-lg-authenticallyblue-en.webp" alt="Trust the source. Choose Mouser."/></section>
+                <main class="quality-main mouser-shell">
+                    <section class="quality-copy">
+                        <div class="quality-logos">
+                            <img src="/mouser_theme/static/img/quality-as6496-logo-105x60-2.webp" alt="AS6496 Certified Distributor"/>
+                            <img src="/mouser_theme/static/img/quality-as9120b-logo-105x60.webp" alt="AS9120B Certified Distributor"/>
+                            <img src="/mouser_theme/static/img/quality-ecia-member-logo-95x60.webp" alt="ECIA Member"/>
+                            <img src="/mouser_theme/static/img/quality-pricaap-logo-130x60.png" alt="PRI CAAP"/>
+                            <img src="/mouser_theme/static/img/quality-iesa-logo-120x60.webp" alt="IESA"/>
+                            <img src="/mouser_theme/static/img/quality-elcina-logo-130x60.webp" alt="ELCINA"/>
+                            <img src="/mouser_theme/static/img/quality-joscar-logo-74x60.webp" alt="JOSCAR Registered"/>
+                            <img src="/mouser_theme/static/img/quality-iso-14001-certified-logo.webp" alt="ISO 14001:2015 Certified"/>
+                            <img src="/mouser_theme/static/img/quality-naed-logo.webp" alt="NAED"/>
+                            <img src="/mouser_theme/static/img/quality-a3member-logo.webp" alt="A3 Member"/>
+                        </div>
+                        <h1>Real Products. Trusted Source.</h1>
+                        <p>It is critical that engineers know the electronic components in their designs are authentic. Order with confidence - Mouser ensures our customers receive authorised, authentic components directly from the original manufacturers. Mouser customers can trust that we have the most stringent product traceability and anti-counterfeit controls in place - ensuring the delivery of 100% genuine electronic components.</p>
+
+                        <h2>AS9100D &amp; AS9120B ISO9001:2015 Registered Distributor</h2>
+                        <p>Mouser is a coveted AS9120B certified distributor, securing the supply chain for aviation, space, and defense industries. It is based on the ISO9001:2015 quality management system standard and includes requirements for aviation, space, and defense. This establishes high-level traceability, and anti-counterfeit controls apply for every electronic component stocked and shipped. Mouser is also AS9100D certified for the renewal of Moisture Sensitive Level (MSL) electronic components.</p>
+
+                        <h2>SAE AS6496 Accredited Distributor</h2>
+                        <p>Mouser is the first distributor to be accredited as fully meeting the stringent requirements of the SAE AS6496 standard for anti-counterfeit measures in authorised electronic component distribution. AS6496 sets requirements for the avoidance, detection, mitigation and disposition of counterfeit products in the authorised distribution supply chain. Overall, meeting this standard means we can provide full traceability to the original manufacturers on every product we stock and sell.</p>
+
+                        <h2>ECIA Authorised Distributor</h2>
+                        <p>As a member of ECIA (Electronic Components Industry Association), Mouser is dedicated to providing factory-warranted, first-quality, genuine components – adhering to the highest standards in customer service. Additionally, we are a member of <a href="https://www.trustedparts.com/en" target="_blank" rel="noopener noreferrer">TrustedParts.com</a>, which allows you to leverage the strength of authorised industry partnerships, ensuring 100% peace of mind, flexibility, selection, and excellent customer service.</p>
+                        <p>The mission of ECIA is to promote and improve the business environment for the authorised sale of electronic components. Dedicated to the enhancement of the distributor-manufacturer relationship, this association represents companies involved in the distribution of electronic components and parts, computer and computer peripheral components, and test, measurement, and control equipment and their manufacturers.</p>
+                        <p>Purchasing through Mouser means:</p>
+                        <ul>
+                            <li>The products have been obtained directly from the manufacturers or from their authorised channels</li>
+                            <li>The products have been handled and stored in accordance with industry quality standards</li>
+                            <li>Full access to our manufacturers' full range of up-to-date technical and product information, as well as comprehensive technical support</li>
+                        </ul>
+                    </section>
+                    <aside class="quality-side">
+                        <div class="quality-panel"><h3>Resources &amp; Certificates</h3><a href="https://mouser.bynder.com/m/4f3afea9107fcc2a/original/Mouser-s-Quality-Manual.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-pdf-o"></i> Mouser’s Quality Manual (PDF)</a><a href="https://mouser.bynder.com/m/21d5524109b49b58/original/Authorized-Distributor-Certificate.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-pdf-o"></i> Mouser's Authorised Distributor Certificate (PDF)</a><a href="https://mouser.bynder.com/m/3cc2f18f3654109d/original/Quality-Certificate.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-pdf-o"></i> Mouser’s AS9100D/ISO 9001:2015 Certificate (PDF)</a><a href="https://mouser.bynder.com/m/4fc2024d35a7fe06/original/AS9120B-Certificate.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-pdf-o"></i> Mouser’s AS9120B/ISO 9001:2015 Certificate (PDF)</a><a href="https://mouser.bynder.com/m/602e7e9dfeef7271/original/AS6496-Certificate.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-pdf-o"></i> Mouser’s AS6496 Certificate (PDF)</a><a href="https://mouser.bynder.com/m/645f6aabb7758ca/original/ISO14001-2015-Certificate.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-pdf-o"></i> Mouser’s ISO 14001:2015 Certificate (PDF)</a><a href="https://mouser.bynder.com/m/8bfa0e79f1affd1/original/Anti-Counterfeit-Control-Plan.pdf" target="_blank" rel="noopener noreferrer">Anti-Counterfeit Control Plan (PDF)</a><a href="https://www.mouser.in/blog/author/chuck-amsden/aid/535/blog" target="_blank" rel="noopener noreferrer">Read Mouser\'s Risk Mitigation and Anti-Counterfeit Blog</a></div>
+                        <div class="quality-panel"><h3>Contact</h3><p>If you have any questions about our Quality Management System, please get in touch with our Director of Quality at <a href="mailto:quality@mouser.com">quality@mouser.com</a>.</p></div>
+                        <div class="order-confidence">Order <span>with</span> Confidence.</div>
+                    </aside>
+                </main>
+                <section class="newsletter"><h3>Get the Latest News</h3><div><input placeholder="Enter your Email"/><button>Subscribe</button></div></section>
+                <footer class="mouser-footer original-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div>
+                            <h4>CUSTOMER SERVICE OFFICE</h4>
+                            <p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p>
+                            <p><i class="fa fa-envelope"></i> <a href="mailto:bangalore@mouser.com">bangalore@mouser.com</a></p>
+                            <p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p>
+                            <div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div>
+                        </div>
+                        <div><h4>COMPANY</h4><a href="#">About Us</a><a href="#">Newsroom</a><a href="https://careers.mouser.com" target="_blank" rel="noopener noreferrer">Careers @ Mouser</a><a href="/quality">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social<br/>Responsibility</a></div>
+                        <div><h4>RESOURCES</h4><a href="#">Blog</a><a href="#">Newest Products</a><a href="#">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a></div>
+                        <div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a></div>
+                        <div><h4>CONNECT WITH US</h4><div class="socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i><span class="blog-icon">blog</span></div></div>
+                    </div>
+                    <div class="mouser-shell footer-bottom-original">
+                        <div class="footer-links"><a href="/privacypolicy/">Privacy Centre</a><span>|</span><a href="#">Terms and Conditions</a><span>|</span><a href="#">Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a href="#">Sitemap</a></div>
+                        <div class="footer-bottom-row">
+                            <div class="copyright-text"><p><b>Copyright ©2026 Mouser Electronics, Inc.</b></p><p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p></div>
+                            <div class="cert-strip">
+                                <a href="/ecia/" class="footer-cert-link ecia-member-link" title="ECIA Authorised"><img src="/mouser_theme/static/img/logo-ecia_small.png" alt="ECIA Member"/></a>
+                                <img src="/mouser_theme/static/img/logo-nfsb_small.webp" alt="Customer Service"/>
+                                <img src="/mouser_theme/static/img/logo-IESA_small.webp" alt="IESA"/>
+                                <img src="/mouser_theme/static/img/logo-ISO14001_small.png" alt="ISO 14001"/>
+                                <img src="/mouser_theme/static/img/logo-as9120b_small.webp" alt="AS9120B"/>
+                                <img src="/mouser_theme/static/img/logo-esd_small.webp" alt="ESD"/>
+                                <img src="/mouser_theme/static/img/trust-guard-secure.png" alt="Trust Guard Secure"/>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <div class="live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="technical_roadshow_original_page" name="Mouser India Technical Roadshow Original Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage technical-roadshow-page">
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right"><a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span></div>
+                    </div>
+                </section>
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home"><img src="/mouser_theme/static/src/img/custom_logo.webp" alt="Mouser Electronics" style="height:60px; width:auto;"/></a>
+                        <div class="search-area"><div class="search-box"><button>All <i class="fa fa-angle-down"></i></button><input placeholder="Part No. / Keyword"/><a class="search-btn" href="#"><i class="fa fa-search"></i></a></div><label><input type="checkbox"/> In Stock</label><label><input type="checkbox"/> RoHS</label></div>
+                    </div>
+                </section>
+                <section class="mouser-blue-nav"><div class="mouser-shell nav-row"><nav><a href="/mouser-home">Products</a><a href="/manufacturer/">Manufacturers</a><a href="/services-tools">Services &amp; Tools</a><a href="/mouser-home#resources">Technical Resources</a><a href="#">Help</a></nav><div class="nav-actions"><a href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a><a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a></div></div></section>
+
+                <section class="trs-hero"><img src="/mouser_theme/static/src/img/technical_roadshow_hero.png" alt="Technical Roadshow 2026"/></section>
+                <section class="trs-locations"><div><i class="fa fa-map-marker"></i> Pune | June 12</div><div><i class="fa fa-map-marker"></i> Bengaluru | June 18</div><div><i class="fa fa-map-marker"></i> Chennai | July 3</div></section>
+
+                <main class="trs-content">
+                    <h1>Join us for the Mouser India Technical Roadshow Series 2026</h1>
+                    <p>The region’s leading electronics and embedded technology roadshow returns, bringing together industry leaders from top global manufacturers. Connect with technical experts, experience live demonstrations, and explore advanced solutions driving consumer electronics, smart cities, and next-generation embedded systems across India. It’s also the perfect place to visit with us and learn how Mouser can support your engineering and design needs.</p>
+                    <h2>Why attend:</h2>
+                    <ul>
+                        <li>Learn emerging technology applications from manufacturer experts.</li>
+                        <li>Network with India's electronics innovation community.</li>
+                        <li>Access hands-on demonstrations and technical deep dives.</li>
+                    </ul>
+                    <h2>Scheduled shows</h2>
+                    <table class="trs-schedule">
+                        <thead><tr><th>Date</th><th>City</th><th>Topic</th></tr></thead>
+                        <tbody>
+                            <tr><td>Friday 12th June</td><td>Pune</td><td>Accelerating Innovation in Automotive Electronics &amp; EV Ecosystem</td></tr>
+                            <tr><td>Thursday 18th June</td><td>Bengaluru</td><td>Empowering Innovation through AI Hardware</td></tr>
+                            <tr><td>Friday 3rd July</td><td>Chennai</td><td>Engineering the Next Era of Smarter Manufacturing</td></tr>
+                        </tbody>
+                    </table>
+                    <a class="trs-register" href="https://mouseriotroadshow.electronicsforu.com/register/">Register Now</a>
+                    <h2 class="trs-sponsor-title">Sponsors:</h2>
+                    <div class="trs-sponsors">
+                        <span>Amphenol</span><span>ANALOG<br/>DEVICES</span><span>Littelfuse</span><span>molex</span>
+                        <span>PHOENIX<br/>CONTACT</span><span>samtec</span><span>Silicon Labs</span><span>TAIYO YUDEN</span><span>TE<br/><small>AUTHORIZED DISTRIBUTOR</small></span>
+                    </div>
+                </main>
+
+                <section class="newsletter"><h3>Get the Latest News</h3><div><input placeholder="Enter your Email"/><button>Subscribe</button></div></section>
+                <footer class="mouser-footer original-footer">
+                    <div class="mouser-shell footer-grid">
+                        <div><h4>CUSTOMER SERVICE OFFICE</h4><p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p><p><i class="fa fa-envelope"></i> <a href="mailto:bangalore@mouser.com">bangalore@mouser.com</a></p><p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p><div class="tti-family"><span class="tti-box">tti</span><span>Part of the TTI<br/>Family of Specialists</span></div></div>
+                        <div><h4>COMPANY</h4><a href="/about-tti">About Us</a><a href="#">Newsroom</a><a href="#">Careers @ Mouser</a><a href="/quality">Quality</a><a href="#">Environmental</a><a href="#">Corporate Social<br/>Responsibility</a></div>
+                        <div><h4>RESOURCES</h4><a href="#">Blog</a><a href="#">Newest Products</a><a href="#">New Manufacturers</a><a href="#">Applications</a><a href="/services-tools">Services &amp; Tools</a></div>
+                        <div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a href="#">Help</a><a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a><a href="#">Browser Support</a><a href="#">Cookie Policy</a></div>
+                        <div><h4>CONNECT WITH US</h4><div class="socials"><i class="fa fa-facebook-square"></i><i class="fa fa-instagram"></i><span class="social-x">𝕏</span><i class="fa fa-rss-square"></i><i class="fa fa-youtube-play"></i><i class="fa fa-linkedin-square"></i><i class="fa fa-envelope-square"></i><span class="blog-icon">blog</span></div></div>
+                    </div>
+                    <div class="mouser-shell footer-bottom-original"><div class="footer-links"><a href="/privacypolicy/">Privacy Centre</a><span>|</span><a href="#">Terms and Conditions</a><span>|</span><a href="#">Corporate Information</a><span>|</span><a href="/accessibility/">Accessibility</a><span>|</span><a href="#">Sitemap</a></div><p><b>Copyright ©2026 Mouser Electronics, Inc.</b></p><p>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.</p></div>
+                </footer>
+                <div class="live-chat"><i class="fa fa-comment"></i> Live Chat</div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

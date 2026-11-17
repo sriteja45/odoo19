@@ -1,0 +1,416 @@
+
+<odoo>
+    <data>
+
+
+        <!-- Cardiology -->
+        <record id="spec_cardiology" model="clinic.specialization">
+            <field name="name">Cardiology</field>
+        </record>
+
+        <record id="spec_interventional_cardiology" model="clinic.specialization">
+            <field name="name">Interventional Cardiology</field>
+        </record>
+
+        <record id="spec_pediatric_cardiology" model="clinic.specialization">
+            <field name="name">Pediatric Cardiology</field>
+        </record>
+
+        <record id="spec_electrophysiology" model="clinic.specialization">
+            <field name="name">Electrophysiology</field>
+        </record>
+
+
+        <!-- Neurology -->
+        <record id="spec_neurology" model="clinic.specialization">
+            <field name="name">Neurology</field>
+        </record>
+
+        <record id="spec_neurosurgery" model="clinic.specialization">
+            <field name="name">Neurosurgery</field>
+        </record>
+
+        <record id="spec_pediatric_neurology" model="clinic.specialization">
+            <field name="name">Pediatric Neurology</field>
+        </record>
+
+        <record id="spec_neurocritical_care" model="clinic.specialization">
+            <field name="name">Neurocritical Care</field>
+        </record>
+
+
+        <!-- Orthopedics -->
+        <record id="spec_orthopedics" model="clinic.specialization">
+            <field name="name">Orthopedics</field>
+        </record>
+
+        <record id="spec_spine_surgery" model="clinic.specialization">
+            <field name="name">Spine Surgery</field>
+        </record>
+
+        <record id="spec_joint_replacement" model="clinic.specialization">
+            <field name="name">Joint Replacement</field>
+        </record>
+
+        <record id="spec_arthroscopy" model="clinic.specialization">
+            <field name="name">Arthroscopy</field>
+        </record>
+
+        <record id="spec_sports_orthopedics" model="clinic.specialization">
+            <field name="name">Sports Orthopedics</field>
+        </record>
+
+
+        <!-- Dermatology -->
+        <record id="spec_dermatology" model="clinic.specialization">
+            <field name="name">Dermatology</field>
+        </record>
+
+        <record id="spec_cosmetology" model="clinic.specialization">
+            <field name="name">Cosmetology</field>
+        </record>
+
+        <record id="spec_cosmetic_dermatology" model="clinic.specialization">
+            <field name="name">Cosmetic Dermatology</field>
+        </record>
+
+        <record id="spec_hair_transplant" model="clinic.specialization">
+            <field name="name">Hair Transplant Surgery</field>
+        </record>
+
+        <record id="spec_laser_dermatology" model="clinic.specialization">
+            <field name="name">Laser Dermatology</field>
+        </record>
+
+
+        <!-- Gynecology -->
+        <record id="spec_gynecology" model="clinic.specialization">
+            <field name="name">Gynecology</field>
+        </record>
+
+        <record id="spec_obstetrics" model="clinic.specialization">
+            <field name="name">Obstetrics</field>
+        </record>
+
+        <record id="spec_infertility" model="clinic.specialization">
+            <field name="name">Infertility Treatment</field>
+        </record>
+
+        <record id="spec_maternal_fetal_medicine" model="clinic.specialization">
+            <field name="name">Maternal Fetal Medicine</field>
+        </record>
+
+
+        <!-- Pediatrics -->
+        <record id="spec_pediatrics" model="clinic.specialization">
+            <field name="name">Pediatrics</field>
+        </record>
+
+        <record id="spec_neonatology" model="clinic.specialization">
+            <field name="name">Neonatology</field>
+        </record>
+
+        <record id="spec_pediatric_surgery" model="clinic.specialization">
+            <field name="name">Pediatric Surgery</field>
+        </record>
+
+
+        <!-- Gastroenterology -->
+        <record id="spec_gastroenterology" model="clinic.specialization">
+            <field name="name">Gastroenterology</field>
+        </record>
+
+        <record id="spec_hepatology" model="clinic.specialization">
+            <field name="name">Hepatology</field>
+        </record>
+
+        <record id="spec_colorectal_surgery" model="clinic.specialization">
+            <field name="name">Colorectal Surgery</field>
+        </record>
+
+        <record id="spec_bariatric_surgery" model="clinic.specialization">
+            <field name="name">Bariatric Surgery</field>
+        </record>
+
+
+        <!-- Nephrology -->
+        <record id="spec_nephrology" model="clinic.specialization">
+            <field name="name">Nephrology</field>
+        </record>
+
+        <record id="spec_dialysis_medicine" model="clinic.specialization">
+            <field name="name">Dialysis Medicine</field>
+        </record>
+
+        <record id="spec_renal_transplant" model="clinic.specialization">
+            <field name="name">Renal Transplant</field>
+        </record>
+
+
+        <!-- Pulmonology -->
+        <record id="spec_pulmonology" model="clinic.specialization">
+            <field name="name">Pulmonology</field>
+        </record>
+
+        <record id="spec_sleep_medicine" model="clinic.specialization">
+            <field name="name">Sleep Medicine</field>
+        </record>
+
+        <record id="spec_critical_care" model="clinic.specialization">
+            <field name="name">Critical Care Medicine</field>
+        </record>
+
+
+        <!-- Oncology -->
+        <record id="spec_oncology" model="clinic.specialization">
+            <field name="name">Oncology</field>
+        </record>
+
+        <record id="spec_medical_oncology" model="clinic.specialization">
+            <field name="name">Medical Oncology</field>
+        </record>
+
+        <record id="spec_radiation_oncology" model="clinic.specialization">
+            <field name="name">Radiation Oncology</field>
+        </record>
+
+        <record id="spec_surgical_oncology" model="clinic.specialization">
+            <field name="name">Surgical Oncology</field>
+        </record>
+
+
+        <!-- Eye -->
+        <record id="spec_ophthalmology" model="clinic.specialization">
+            <field name="name">Ophthalmology</field>
+        </record>
+
+        <record id="spec_retina_specialist" model="clinic.specialization">
+            <field name="name">Retina Specialist</field>
+        </record>
+
+        <record id="spec_glaucoma_specialist" model="clinic.specialization">
+            <field name="name">Glaucoma Specialist</field>
+        </record>
+
+
+        <!-- ENT -->
+        <record id="spec_ent" model="clinic.specialization">
+            <field name="name">ENT</field>
+        </record>
+
+        <record id="spec_head_neck_surgery" model="clinic.specialization">
+            <field name="name">Head and Neck Surgery</field>
+        </record>
+
+
+        <!-- Dentistry -->
+        <record id="spec_dentistry" model="clinic.specialization">
+            <field name="name">Dentistry</field>
+        </record>
+
+        <record id="spec_oral_surgery" model="clinic.specialization">
+            <field name="name">Oral Surgery</field>
+        </record>
+
+
+        <!-- Radiology -->
+        <record id="spec_radiology" model="clinic.specialization">
+            <field name="name">Radiology</field>
+        </record>
+
+        <record id="spec_interventional_radiology" model="clinic.specialization">
+            <field name="name">Interventional Radiology</field>
+        </record>
+
+
+        <!-- Surgery -->
+        <record id="spec_general_surgery" model="clinic.specialization">
+            <field name="name">General Surgery</field>
+        </record>
+
+        <record id="spec_plastic_surgery" model="clinic.specialization">
+            <field name="name">Plastic Surgery</field>
+        </record>
+
+        <record id="spec_vascular_surgery" model="clinic.specialization">
+            <field name="name">Vascular Surgery</field>
+        </record>
+
+
+        <!-- Therapy -->
+        <record id="spec_physiotherapy" model="clinic.specialization">
+            <field name="name">Physiotherapy</field>
+        </record>
+
+        <record id="spec_rehabilitation_medicine" model="clinic.specialization">
+            <field name="name">Rehabilitation Medicine</field>
+        </record>
+
+
+        <!-- Modern Digital Healthcare -->
+        <record id="spec_digital_health" model="clinic.specialization">
+            <field name="name">Digital Health Medicine</field>
+        </record>
+
+        <record id="spec_telemedicine" model="clinic.specialization">
+            <field name="name">Telemedicine</field>
+        </record>
+
+        <record id="spec_remote_patient_monitoring" model="clinic.specialization">
+            <field name="name">Remote Patient Monitoring</field>
+        </record>
+
+        <record id="spec_mobile_health" model="clinic.specialization">
+            <field name="name">Mobile Health Medicine</field>
+        </record>
+
+        <record id="spec_ai_diagnostics" model="clinic.specialization">
+            <field name="name">AI Diagnostic Medicine</field>
+        </record>
+
+        <!-- Endocrinology -->
+        <record id="spec_endocrinology" model="clinic.specialization">
+            <field name="name">Endocrinology</field>
+        </record>
+
+        <record id="spec_diabetology" model="clinic.specialization">
+            <field name="name">Diabetology</field>
+        </record>
+
+        <record id="spec_thyroid_disorders" model="clinic.specialization">
+            <field name="name">Thyroid Disorders</field>
+        </record>
+
+        <record id="spec_metabolic_medicine" model="clinic.specialization">
+            <field name="name">Metabolic Medicine</field>
+        </record>
+
+
+        <!-- Psychiatry -->
+        <record id="spec_psychiatry" model="clinic.specialization">
+            <field name="name">Psychiatry</field>
+        </record>
+
+        <record id="spec_psychology" model="clinic.specialization">
+            <field name="name">Clinical Psychology</field>
+        </record>
+
+        <record id="spec_addiction_medicine" model="clinic.specialization">
+            <field name="name">Addiction Medicine</field>
+        </record>
+
+
+        <!-- Rheumatology -->
+        <record id="spec_rheumatology" model="clinic.specialization">
+            <field name="name">Rheumatology</field>
+        </record>
+
+        <record id="spec_autoimmune_diseases" model="clinic.specialization">
+            <field name="name">Autoimmune Disease Clinic</field>
+        </record>
+
+        <record id="spec_arthritis_clinic" model="clinic.specialization">
+            <field name="name">Arthritis Clinic</field>
+        </record>
+
+
+        <!-- Pain Management -->
+        <record id="spec_pain_management" model="clinic.specialization">
+            <field name="name">Pain Management</field>
+        </record>
+
+        <record id="spec_chronic_pain_clinic" model="clinic.specialization">
+            <field name="name">Chronic Pain Clinic</field>
+        </record>
+
+
+        <!-- Geriatrics -->
+        <record id="spec_geriatrics" model="clinic.specialization">
+            <field name="name">Geriatrics</field>
+        </record>
+
+        <record id="spec_palliative_care" model="clinic.specialization">
+            <field name="name">Palliative Care</field>
+        </record>
+
+
+        <!-- Preventive Medicine -->
+        <record id="spec_preventive_medicine" model="clinic.specialization">
+            <field name="name">Preventive Medicine</field>
+        </record>
+
+        <record id="spec_lifestyle_medicine" model="clinic.specialization">
+            <field name="name">Lifestyle Medicine</field>
+        </record>
+
+        <record id="spec_wellness_medicine" model="clinic.specialization">
+            <field name="name">Wellness Medicine</field>
+        </record>
+
+
+        <!-- Travel & Tropical -->
+        <record id="spec_travel_medicine" model="clinic.specialization">
+            <field name="name">Travel Medicine</field>
+        </record>
+
+        <record id="spec_tropical_medicine" model="clinic.specialization">
+            <field name="name">Tropical Medicine</field>
+        </record>
+
+
+        <!-- Immunology -->
+        <record id="spec_clinical_immunology" model="clinic.specialization">
+            <field name="name">Clinical Immunology</field>
+        </record>
+
+        <record id="spec_allergy_clinic" model="clinic.specialization">
+            <field name="name">Allergy Clinic</field>
+        </record>
+
+
+        <!-- Genetic Medicine -->
+        <record id="spec_genetic_medicine" model="clinic.specialization">
+            <field name="name">Genetic Medicine</field>
+        </record>
+
+        <record id="spec_genomic_medicine" model="clinic.specialization">
+            <field name="name">Genomic Medicine</field>
+        </record>
+
+
+        <!-- Family Medicine -->
+        <record id="spec_family_medicine" model="clinic.specialization">
+            <field name="name">Family &amp; Community Medicine</field>
+        </record>
+
+        <record id="spec_internal_medicine" model="clinic.specialization">
+            <field name="name">Internal Medicine Specialist</field>
+        </record>
+
+
+        <!-- Emergency -->
+        <record id="spec_emergency_medicine" model="clinic.specialization">
+            <field name="name">Emergency Medicine</field>
+        </record>
+
+        <record id="spec_trauma_care" model="clinic.specialization">
+            <field name="name">Trauma Care</field>
+        </record>
+
+
+        <!-- Laboratory -->
+        <record id="spec_pathology" model="clinic.specialization">
+            <field name="name">Pathology</field>
+        </record>
+
+        <record id="spec_laboratory_medicine" model="clinic.specialization">
+            <field name="name">Laboratory Medicine</field>
+        </record>
+
+        <record id="spec_clinical_biochemistry" model="clinic.specialization">
+            <field name="name">Clinical Biochemistry</field>
+        </record>
+
+    </data>
+
+</odoo>

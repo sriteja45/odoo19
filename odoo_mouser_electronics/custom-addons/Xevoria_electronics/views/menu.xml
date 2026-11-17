@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Menu -->
+    <record id="menu_xevoria_home" model="website.menu">
+        <field name="name">Home</field>
+        <field name="url">/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="menu_xevoria_shop" model="website.menu">
+        <field name="name">Shop</field>
+        <field name="url">/shop</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="menu_xevoria_services" model="website.menu">
+        <field name="name">Services</field>
+        <field name="url">/services</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">3</field>
+    </record>
+
+    <record id="menu_xevoria_about" model="website.menu">
+        <field name="name">About Us</field>
+        <field name="url">/about-us</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">4</field>
+    </record>
+
+    <record id="menu_xevoria_contact" model="website.menu">
+        <field name="name">Contact Us</field>
+        <field name="url">/contact-us</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">5</field>
+    </record>
+
+</odoo>

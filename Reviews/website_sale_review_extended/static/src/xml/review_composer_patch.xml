@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="mail.Composer" t-inherit-mode="extension">
+        <!--
+            Reuse the exact same anchor and same condition
+            (env.displayRating and !message) that portal_rating uses for
+            its own star-rating widget, so our checkbox / media UI only
+            ever shows for a brand-new product review.
+        -->
+        <xpath expr="//div[hasclass('o-mail-Composer-coreMain')]" position="before">
+            <div t-if="env.displayRating and !message" class="o_wsre_composer_extras px-2 mb-2">
+                <!-- Anonymous option -->
+                <div class="o_wsre_anonymous_option form-check mb-2">
+                    <input type="checkbox" class="form-check-input" id="o_wsre_is_anonymous"
+                           t-att-checked="wsreState.isAnonymous"
+                           t-on-change="onToggleAnonymous"/>
+                    <label class="form-check-label small text-muted" for="o_wsre_is_anonymous">
+                        Post this review anonymously
+                    </label>
+                </div>
+
+                <!-- Media drop zone + previews -->
+                <div class="o_wsre_media_zone border border-dashed rounded p-2 mb-1"
+                     t-on-dragover="onWsreDragOver"
+                     t-on-dragleave="onWsreDragLeave"
+                     t-on-drop="onWsreDrop">
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                t-on-click="onWsreMediaClick"
+                                t-att-disabled="wsreState.uploading or wsreState.mediaPreviews.length >= 5">
+                            <i class="fa fa-camera me-1"/>
+                            Add photos / videos
+                        </button>
+                        <span class="text-muted small">or drag &amp; drop (max 5, 10 MiB each)</span>
+                        <input type="file" class="o_wsre_media_input d-none"
+                               accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm,video/quicktime"
+                               multiple="multiple"
+                               t-on-change="onWsreMediaSelected"/>
+                    </div>
+
+                    <div t-if="wsreState.mediaPreviews.length" class="o_wsre_media_previews d-flex flex-wrap gap-2 mt-2">
+                        <t t-foreach="wsreState.mediaPreviews" t-as="prev" t-key="prev.localId">
+                            <div class="o_wsre_preview_item position-relative border rounded overflow-hidden"
+                                 style="width:72px;height:72px;">
+                                <img t-if="prev.is_image and prev.previewUrl"
+                                     t-att-src="prev.previewUrl"
+                                     t-att-alt="prev.name"
+                                     class="w-100 h-100"
+                                     style="object-fit:cover;"/>
+                                <div t-elif="prev.is_video"
+                                     class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark text-white">
+                                    <i class="fa fa-play-circle fa-2x"/>
+                                </div>
+                                <div t-else=""
+                                     class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted small">
+                                    <i class="fa fa-file"/>
+                                </div>
+                                <button type="button"
+                                        class="btn btn-sm btn-danger position-absolute top-0 end-0 p-0"
+                                        style="width:20px;height:20px;line-height:1;border-radius:0 0 0 4px;"
+                                        t-on-click="() => this.onWsreRemoveMedia(prev.localId)"
+                                        title="Remove">
+                                    <i class="fa fa-times"/>
+                                </button>
+                            </div>
+                        </t>
+                    </div>
+
+                    <div t-if="wsreState.uploading" class="text-muted small mt-1">
+                        <i class="fa fa-spinner fa-spin me-1"/>Uploading…
+                    </div>
+                    <div t-if="wsreState.uploadError" class="text-danger small mt-1">
+                        <i class="fa fa-exclamation-triangle me-1"/><t t-esc="wsreState.uploadError"/>
+                    </div>
+                </div>
+
+                <!-- Per-aspect star pickers (Phase 4), only shown when the
+                     product's website categories have aspects configured -->
+                <div t-if="wsreState.aspects and wsreState.aspects.length"
+                     class="o_wsre_aspect_ratings border rounded p-2 mt-1">
+                    <div class="small text-muted fw-bold mb-1">Rate specific aspects (optional)</div>
+                    <div t-foreach="wsreState.aspects" t-as="aspect" t-key="aspect.id"
+                         class="d-flex align-items-center gap-2 mb-1">
+                        <span class="small" style="min-width:140px;" t-esc="aspect.name"/>
+                        <span class="o_wsre_aspect_stars">
+                            <t t-foreach="[1,2,3,4,5]" t-as="starVal" t-key="starVal">
+                                <i t-attf-class="fa {{ (wsreState.aspectValues[aspect.id] || 0) >= starVal ? 'fa-star' : 'fa-star-o' }} text-warning o_wsre_aspect_star"
+                                   role="button"
+                                   t-att-title="starVal + ' / 5'"
+                                   t-on-click="() => this.onWsreSetAspectValue(aspect.id, starVal)"/>
+                            </t>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

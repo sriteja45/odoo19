@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Portal / public feedback pages
+         All pages use native website.layout (Team Lead: extend, don't replace).
+         Bootstrap utility classes only — no custom theme, no building-block hacks.
+         ================================================================ -->
+
+    <template id="portal_review_form" name="Submit Your Review">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8">
+                            <h2 class="mb-3">Rate Your Purchase</h2>
+                            <p class="mb-4">
+                                <strong t-out="feedback_request.product_id.name"/>
+                            </p>
+                            <t t-if="error == 'rating'">
+                                <div class="alert alert-danger" role="alert">
+                                    Please select a star rating between 1 and 5.
+                                </div>
+                            </t>
+                            <t t-if="error == 'length'">
+                                <div class="alert alert-danger" role="alert">
+                                    Your review is too short.
+                                </div>
+                            </t>
+                            <t t-if="error == 'media'">
+                                <div class="alert alert-danger" role="alert">
+                                    One or more photos/videos could not be uploaded (unsupported type, too large, or over the allowed limit). Please try again.
+                                </div>
+                            </t>
+                            <form t-attf-action="/feedback/review/#{feedback_request.token}/submit" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Your Rating</label>
+                                    <div class="btn-group d-flex flex-wrap" role="group" aria-label="Star rating">
+                                        <t t-foreach="[1,2,3,4,5]" t-as="star">
+                                            <input type="radio" class="btn-check" name="rating"
+                                                   t-att-value="star" t-att-id="'rating_%s' % star"
+                                                   autocomplete="off"/>
+                                            <label class="btn btn-outline-warning" t-att-for="'rating_%s' % star">
+                                                <t t-esc="star"/> &#9733;
+                                            </label>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="review_title" class="form-label">Review Title (optional)</label>
+                                    <input type="text" class="form-control" id="review_title"
+                                           name="review_title" maxlength="200"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="review_text" class="form-label">Your Review</label>
+                                    <textarea class="form-control" id="review_text" name="review_text" rows="5"/>
+                                </div>
+
+                                <div class="mb-3 o_feedback_media_upload"
+                                     t-if="request.env['ir.config_parameter'].sudo().get_param('customer_feedback.media_enabled', 'True') == 'True'">
+                                    <label class="form-label">Photos &amp; Videos (optional)</label>
+                                    <input type="file" class="form-control" name="media_files"
+                                           accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+                                           multiple="multiple"/>
+                                    <div class="form-text">
+                                        JPEG, PNG, WebP, GIF, MP4, WebM. Max size and counts are set by the store.
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_already_submitted" name="Review Already Submitted">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8">
+                            <h2 class="mb-3">Thank You!</h2>
+                            <p>You've already submitted a review for this purchase.</p>
+                            <t t-if="review">
+                                <p>Your rating: <strong t-out="review.rating"/> / 5</p>
+                                <p t-if="review.review_text" t-out="review.review_text"/>
+                            </t>
+                            <t t-if="allow_edit">
+                                <a t-attf-href="/feedback/review/#{token}/edit"
+                                   class="btn btn-outline-primary">
+                                    Edit Your Review
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_expired_token" name="Review Link Expired">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8">
+                            <h2 class="mb-3">Link Expired</h2>
+                            <p>Sorry, this review link has expired and is no longer valid.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_invalid_token" name="Invalid Review Link">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8">
+                            <h2 class="mb-3">Invalid Link</h2>
+                            <p>You are not authorized to review this product, or the link is invalid.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_edit_disabled" name="Review Editing Disabled">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8">
+                            <h2 class="mb-3">Editing Not Available</h2>
+                            <p>Sorry, editing submitted reviews is currently disabled.</p>
+                            <a t-attf-href="/feedback/review/#{token}"
+                               class="btn btn-outline-secondary">
+                                Back to Your Review
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_review_edit_form" name="Edit Your Review">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8">
+                            <h2 class="mb-3">Edit Your Review</h2>
+                            <p class="mb-4">
+                                <strong t-out="feedback_request.product_id.name"/>
+                            </p>
+                            <t t-if="error == 'rating'">
+                                <div class="alert alert-danger" role="alert">
+                                    Please select a star rating between 1 and 5.
+                                </div>
+                            </t>
+                            <t t-if="error == 'length'">
+                                <div class="alert alert-danger" role="alert">
+                                    Your review is too short.
+                                </div>
+                            </t>
+                            <form t-attf-action="/feedback/review/#{feedback_request.token}/edit" method="post">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Your Rating</label>
+                                    <div class="btn-group d-flex flex-wrap" role="group" aria-label="Star rating">
+                                        <t t-foreach="[1,2,3,4,5]" t-as="star">
+                                            <input type="radio" class="btn-check" name="rating"
+                                                   t-att-value="star" t-att-id="'edit_rating_%s' % star"
+                                                   t-att-checked="'checked' if star == review.rating else None"
+                                                   autocomplete="off"/>
+                                            <label class="btn btn-outline-warning" t-att-for="'edit_rating_%s' % star">
+                                                <t t-esc="star"/> &#9733;
+                                            </label>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="review_title" class="form-label">Review Title (optional)</label>
+                                    <input type="text" class="form-control" id="review_title" name="review_title"
+                                           maxlength="200" t-att-value="review.review_title"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="review_text" class="form-label">Your Review</label>
+                                    <textarea class="form-control" id="review_text" name="review_text" rows="5"
+                                              t-esc="review.review_text"/>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Update Review</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_my_reviews" name="My Reviews">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container my-5">
+                    <h2 class="mb-4">My Reviews</h2>
+                    <t t-if="not reviews">
+                        <p class="text-muted">You have not submitted any reviews yet.</p>
+                    </t>
+                    <t t-else="">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Rating</th>
+                                        <th>Review</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th/>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="reviews" t-as="review">
+                                        <td t-out="review.product_id.display_name"/>
+                                        <td>
+                                            <span class="text-warning">
+                                                <t t-set="star_count" t-value="int(round(review.rating or 0))"/>
+                                                <t t-esc="'&#9733;' * star_count"/>
+                                                <t t-esc="'&#9734;' * (5 - star_count)"/>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span t-if="review.review_title" class="fw-semibold d-block"
+                                                  t-out="review.review_title"/>
+                                            <span t-out="review.review_text"/>
+                                        </td>
+                                        <td>
+                                            <span t-out="dict(review._fields['status'].selection).get(review.status)"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="review.review_date" t-options="{'widget': 'date'}"/>
+                                        </td>
+                                        <td>
+                                            <a t-if="allow_edit and review.request_id and review.request_id.token"
+                                               t-attf-href="/feedback/review/#{review.request_id.token}/edit"
+                                               class="btn btn-sm btn-outline-primary">
+                                                Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <t t-if="pager and pager['page_count'] > 1" t-call="portal.portal_pager"/>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

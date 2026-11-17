@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_xevoria_multimodal_embedding_internal,xevoria.multimodal.embedding.internal,model_xevoria_multimodal_embedding,base.group_user,1,1,1,1
+access_xevoria_multimodal_embedding_portal,xevoria.multimodal.embedding.portal,model_xevoria_multimodal_embedding,base.group_portal,1,0,0,0
+access_xevoria_multimodal_embedding_public,xevoria.multimodal.embedding.public,model_xevoria_multimodal_embedding,base.group_public,1,0,0,0

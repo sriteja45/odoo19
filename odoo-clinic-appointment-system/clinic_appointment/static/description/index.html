@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Clinic Management System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f7f9fc;
+            font-size: 18px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 36px;
+        }
+
+        h2 {
+            color: #34495e;
+            border-left: 5px solid #3498db;
+            padding-left: 10px;
+            font-size: 26px;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        .section {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        img {
+            width: 100%;
+            max-width: 850px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        p.desc {
+            margin-top: 5px;
+            color: #555;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        ul {
+            margin-left: 20px;
+            font-size: 17px;
+        }
+
+        .highlight {
+            background: #ecf5ff;
+            padding: 12px;
+            border-left: 4px solid #3498db;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 17px;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 17px;
+        }
+
+        .details-table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .details-table td:first-child {
+            font-weight: bold;
+            width: 200px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🏥 Clinic Management System</h1>
+
+<!-- 🚀 BENEFITS -->
+<div class="section">
+    <h2>🚀 Key Benefits</h2>
+    <ul>
+        <li>Easy and efficient appointment management system</li>
+        <li>Role-based access control for secure operations</li>
+        <li>Improved patient experience with seamless booking</li>
+        <li>Centralized clinic operations in a single platform</li>
+        <li>Real-time appointment tracking and updates</li>
+        <li>Efficient coordination between doctors and staff</li>
+        <li>Secure storage and management of patient data</li>
+        <li>Automated notifications and reminders</li>
+        <li>Integrated lab test management and reporting</li>
+        <li>Support for telehealth and video consultations</li>
+        <li>User-friendly interface</li>
+    </ul>
+</div>
+
+<!-- ⚙️ TECHNICAL -->
+<div class="section">
+    <h2>⚙️ Technical Overview</h2>
+    <ul>
+        <li>Built using Odoo ORM with modular architecture</li>
+        <li>Role-based access with security groups</li>
+        <li>Python backend for workflows and validations</li>
+        <li>XML views for UI (form, tree, kanban)</li>
+        <li>Website integration for booking and services</li>
+        <li>Automated actions for reminders</li>
+        <li>Integrated communication using Odoo Discuss</li>
+    </ul>
+</div>
+
+<!-- 🌐 WEBSITE -->
+<div class="section">
+    <h2>🌐 Website Pages</h2>
+
+    <h3>🏠 Homepage</h3>
+    <img src="Homepage.png"/>
+    <p class="desc">
+        Modern clinic homepage offering a complete overview of healthcare services.<br/>
+        Provides quick navigation and easy access to appointment booking features.
+    </p>
+
+    <h3>👨‍⚕️ Doctors Page</h3>
+    <img src="Doctors Web Page.png"/>
+    <p class="desc">
+        Displays a list of doctors with their specialization and experience details.<br/>
+        Helps patients select the right doctor based on their medical needs.
+    </p>
+
+    <h3>🩺 Services Page</h3>
+    <img src="Services Page.png"/>
+    <p class="desc">
+        Showcases all medical services and specialties offered by the clinic.<br/>
+        Helps patients understand available treatments and healthcare solutions.
+    </p>
+
+    <h3>🧪 Lab Tests Page</h3>
+    <img src="Lab Tests Page.png"/>
+    <p class="desc">
+        Provides a detailed list of diagnostic tests and lab services.<br/>
+        Allows patients to explore test information and available facilities.
+    </p>
+
+    <h3>📞 Contact Page</h3>
+    <img src="Contact Page.png"/>
+    <p class="desc">
+        Contains clinic contact details including address and phone information.<br/>
+        Enables easy communication for patient inquiries and support.
+    </p>
+
+    <h3>📅 Book Appointment Page</h3>
+    <img src="Book Appointment Page.png"/>
+    <p class="desc">
+        Allows patients to book appointments with preferred doctors easily.<br/>
+        Supports selecting date, time, and consultation type efficiently.
+    </p>
+
+</div>
+
+<!-- ⚙️ FEATURES -->
+<div class="section">
+    <h2>⚙️ Core Features</h2>
+
+    <h3>📊 Admin Dashboard</h3>
+    <img src="admin_main_dashboard.png"/>
+    <p class="desc">Centralized dashboard showing overall clinic performance and operations.<br/>Provides quick insights into appointments and system activities.</p>
+
+    <h3>📈 Appointment Analytics</h3>
+    <img src="analytics_appointment_stats.png"/>
+    <p class="desc">Displays appointment statistics including trends and reports.<br/>Helps in analyzing performance and improving decision-making.</p>
+
+    <h3>👨‍⚕️ Doctor Interface</h3>
+    <img src="doctor_interface_actions.png"/>
+    <p class="desc">Enables doctors to manage daily appointments and consultations.<br/>Improves workflow and patient interaction efficiency.</p>
+
+    <h3>🏢 Reception Desk</h3>
+    <img src="reception_front_desk_view.png"/>
+    <p class="desc">Simplifies patient check-in and appointment handling at reception.<br/>Improves front desk productivity and service quality.</p>
+
+    <h3>👩‍⚕️ Nurse Dashboard</h3>
+    <img src="nurse_dashboard.png"/>
+    <p class="desc">Provides nurses with tools for patient care and room allocation.<br/>Enhances coordination within healthcare staff.</p>
+
+    <h3>🧪 Lab Coordination</h3>
+    <img src="lab_test_coordination.png"/>
+    <p class="desc">Manages lab test requests and report tracking efficiently.<br/>Ensures smooth communication between doctors and lab staff.</p>
+
+    <h3>🎥 Telehealth</h3>
+    <img src="telehealth_video_consultation.png"/>
+    <p class="desc">Supports remote consultations through video calling features.<br/>Provides convenient healthcare access for patients.</p>
+
+    <h3>🤖 AI Chatbot</h3>
+    <img src="ai_chatbot_clinic_assistant.png"/>
+    <p class="desc">Automated assistant for answering patient queries instantly.<br/>Improves engagement and reduces manual workload.</p>
+
+    <h3>📞 Call Logs</h3>
+    <img src="detailed_call_history_logs.png"/>
+    <p class="desc">Tracks communication history including call duration and time.<br/>Useful for monitoring and administrative reporting.</p>
+
+    <h3>💬 Discuss Communication</h3>
+    <img src="unified_discuss_communication.png"/>
+    <p class="desc">Integrated messaging system for internal and external communication.<br/>Enhances collaboration across clinic staff.</p>
+
+</div>
+
+<!-- 👩‍💻 TEAM -->
+<div class="section">
+    <h2>👩‍💻 Development Team</h2>
+    <ul>
+        <li>Divya</li>
+        <li>Spandana</li>
+        <li>Sri Teja</li>
+        <li>Manaswitha</li>
+    </ul>
+</div>
+
+<!-- 📦 APP DETAILS -->
+<div class="section">
+    <h2>📦 App Details</h2>
+
+    <table class="details-table">
+        <tr><td>Module Name</td><td>Clinic Management System</td></tr>
+        <tr><td>Category</td><td>Healthcare / Medical</td></tr>
+        <tr><td>Version</td><td>1.0</td></tr>
+        <tr><td>Author</td><td>Divya, Spandana, Sri Teja, Manaswitha</td></tr>
+        <tr><td>License</td><td>LGPL-3</td></tr>
+        <tr><td>Compatibility</td><td>Odoo 19</td></tr>
+        <tr><td>Dependencies</td><td>base, web, mail, website</td></tr>
+    </table>
+
+    <div class="highlight">
+        ✔ Fully compatible with Odoo 19 <br/>
+        ✔ Scalable and production-ready module  
+    </div>
+</div>
+
+</body>
+</html>

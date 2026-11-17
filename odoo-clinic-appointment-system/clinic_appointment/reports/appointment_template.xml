@@ -1,0 +1,126 @@
+<odoo>
+    <template id="report_appointment_pdf_template">
+        <t t-call="web.basic_layout">
+
+            <div class="page" style="font-family: Arial, sans-serif; font-size: 13px;">
+
+                <!-- 🔷 HEADER -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    
+                    <!-- Logo -->
+                    <div>
+                        <img src="/clinic_appointment/static/description/ActiveLife Multispeciality Clinic.png"
+                             style="height:80px;" alt="Clinic Logo"/>
+                    </div>
+
+                    <!-- Title -->
+                    <div style="text-align:right;">
+                        <h2 style="margin:0; color:#000;">
+                            Clinic Appointment Report
+                        </h2>
+                        <p style="margin:0; color:#7f8c8d;">
+                            Professional Medical Summary
+                        </p>
+                    </div>
+                </div>
+
+                <hr style="border:1px solid #ddd;"/>
+
+                <!-- 🔷 FILTER -->
+                <div style="margin:10px 0;">
+                    <b>From:</b>
+                    <span t-esc="env.context.get('date_from') or ''"/>
+
+                    <b style="margin-left:20px;">To:</b>
+                    <span t-esc="env.context.get('date_to') or ''"/>
+                </div>
+
+                <!-- 🔷 TOTAL -->
+                <div style="margin-bottom:10px;">
+                    <b>Total Appointments:</b>
+                    <span t-esc="len(docs) if docs else 0"/>
+                </div>
+
+                <!-- 🔷 TABLE -->
+                <table style="width:100%; border-collapse: collapse;">
+
+                    <thead>
+                        <tr style="background:#2c3e50; color:white;">
+                            <th style="padding:8px; border:1px solid #ddd;">ID</th>
+                            <th style="padding:8px; border:1px solid #ddd;">Patient</th>
+                            <th style="padding:8px; border:1px solid #ddd;">Doctor</th>
+                            <th style="padding:8px; border:1px solid #ddd;">Date</th>
+                            <th style="padding:8px; border:1px solid #ddd;">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <t t-foreach="docs" t-as="rec">
+                            <tr style="text-align:center;">
+
+                                <!-- ID -->
+                                <td style="padding:6px; border:1px solid #ddd;">
+                                    <span t-esc="rec.appointment_id or rec.id"/>
+                                </td>
+
+                                <!-- Patient -->
+                                <td style="padding:6px; border:1px solid #ddd;">
+                                    <span t-esc="rec.patient_name if rec.patient_name else ''"/>
+                                </td>
+
+                                <!-- Doctor -->
+                                <td style="padding:6px; border:1px solid #ddd;">
+                                    <span t-esc="rec.doctor_id.name if rec.doctor_id else ''"/>
+                                </td>
+
+                                <!-- Date -->
+                                <td style="padding:6px; border:1px solid #ddd;">
+                                    <span t-esc="rec.appointment_date or ''"/>
+                                </td>
+
+                                <!-- STATUS -->
+                                <td style="padding:6px; border:1px solid #ddd;">
+                                    <t t-if="rec.state == 'confirmed'">
+                                        <span style="color:green; font-weight:bold;">Confirmed</span>
+                                    </t>
+                                    <t t-elif="rec.state == 'cancelled'">
+                                        <span style="color:red; font-weight:bold;">Cancelled</span>
+                                    </t>
+                                    <t t-elif="rec.state == 'done'">
+                                        <span style="color:blue; font-weight:bold;">Completed</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span style="color:#555;">
+                                            <span t-esc="rec.state or ''"/>
+                                        </span>
+                                    </t>
+                                </td>
+
+                            </tr>
+                        </t>
+                    </tbody>
+
+                </table>
+
+                <!-- 🔷 FOOTER -->
+                <div style="margin-top:30px; display:flex; justify-content:space-between;">
+
+                    <!-- Left -->
+                    <div style="color:#7f8c8d;">
+                        Generated on:
+                        <span t-esc="time.strftime('%d-%b-%Y')"/>
+                    </div>
+
+                    <!-- Right -->
+                    <div style="text-align:right;">
+                        <p style="margin-bottom:40px;">Authorized Signature</p>
+                        <hr style="width:200px;"/>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </t>
+    </template>
+</odoo>

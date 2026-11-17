@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_multimodal" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.multimodal</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='website']" position="inside">
+                <block title="EmbeddingGemma 2 Multimodal Product Search" id="multimodal_search_settings" groups="base.group_system">
+                    <setting string="Model Configuration" help="EmbeddingGemma 2 maps text, images, and videos natively into a shared 768-d vector space. Audio config is omitted for 440M parameter efficiency.">
+                        <field name="multimodal_model_id" placeholder="google/embeddinggemma-2"/>
+                    </setting>
+
+                    <setting string="Matryoshka Representation Learning (MRL)" help="EmbeddingGemma 2 supports truncation down to 256d or 512d to reduce vector storage while preserving recall.">
+                        <field name="multimodal_mrl_dimension"/>
+                    </setting>
+
+                    <setting string="Compute Device" help="Select GPU acceleration or CPU execution.">
+                        <field name="multimodal_device"/>
+                    </setting>
+
+                    <setting string="PgVector Database (Optional)" help="PostgreSQL connection string with pgvector extension. If offline, in-DB vector fallback is used.">
+                        <field name="multimodal_pgvector_db_url" placeholder="postgresql+psycopg://odoo:odoo@localhost:5532/odoo"/>
+                    </setting>
+
+                    <setting string="Search Thresholds" help="Control sensitivity of search results.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label string="Min Confidence (%)" for="multimodal_min_score" class="col-lg-3 o_light_label"/>
+                                <field name="multimodal_min_score"/>
+                            </div>
+                            <div class="row mt8">
+                                <label string="Max Results" for="multimodal_max_results" class="col-lg-3 o_light_label"/>
+                                <field name="multimodal_max_results"/>
+                            </div>
+                        </div>
+                    </setting>
+
+                    <setting string="Batch Indexing" help="Generate EmbeddingGemma 2 vector embeddings for catalog products (text, images, and videos) in bulk.">
+                        <button name="action_batch_index_all_products"
+                                type="object"
+                                string="Batch Index All Products"
+                                class="btn-primary"
+                                icon="fa-database"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

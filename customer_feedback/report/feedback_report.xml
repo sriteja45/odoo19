@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_product_ratings" model="ir.actions.report">
+        <field name="name">Product Ratings Report</field>
+        <field name="model">product.template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">customer_feedback.report_product_ratings_document</field>
+        <field name="report_file">customer_feedback.report_product_ratings_document</field>
+        <field name="print_report_name">'Product Ratings - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_product_ratings_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="product">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="product.name"/>
+                        <p t-if="date_from or date_to" class="text-muted">
+                            Reviews shown for:
+                            <span t-esc="date_from or 'the beginning'"/> to <span t-esc="date_to or 'today'"/>
+                        </p>
+                        <table class="table table-sm o_report_table" style="margin-top: 16px;">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Average Rating</strong></td>
+                                    <td>
+                                        <span t-esc="'%.2f' % product.rating_avg"/> / 5
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Review Count</strong></td>
+                                    <td><span t-field="product.rating_count"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="margin-top: 24px;">Rating Distribution</h4>
+                        <table class="table table-sm o_report_table">
+                            <thead>
+                                <tr>
+                                    <th>Stars</th>
+                                    <th>Reviews</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5 Stars</td>
+                                    <td><span t-esc="product.get_rating_distribution().get(5, 0)"/></td>
+                                </tr>
+                                <tr>
+                                    <td>4 Stars</td>
+                                    <td><span t-esc="product.get_rating_distribution().get(4, 0)"/></td>
+                                </tr>
+                                <tr>
+                                    <td>3 Stars</td>
+                                    <td><span t-esc="product.get_rating_distribution().get(3, 0)"/></td>
+                                </tr>
+                                <tr>
+                                    <td>2 Stars</td>
+                                    <td><span t-esc="product.get_rating_distribution().get(2, 0)"/></td>
+                                </tr>
+                                <tr>
+                                    <td>1 Star</td>
+                                    <td><span t-esc="product.get_rating_distribution().get(1, 0)"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="margin-top: 24px;">Recent Reviews</h4>
+                        <table class="table table-sm o_report_table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Rating</th>
+                                    <th>Title</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="reviews" t-value="recent_reviews_by_product.get(product.id)"/>
+                                <tr t-foreach="reviews" t-as="review">
+                                    <td><span t-field="review.review_date"/></td>
+                                    <td><span t-field="review.customer_id.name"/></td>
+                                    <td><span t-esc="review.rating"/>/5</td>
+                                    <td><span t-field="review.review_title"/></td>
+                                </tr>
+                                <tr t-if="not reviews">
+                                    <td colspan="4"><em>No approved reviews yet.</em></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

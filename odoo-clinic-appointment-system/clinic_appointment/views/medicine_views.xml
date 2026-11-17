@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_medicine_form" model="ir.ui.view">
+        <field name="name">clinic.medicine.form</field>
+        <field name="model">clinic.medicine</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+
+                    <group>
+                        <field name="name"/>
+                        <field name="category"/>
+                    </group>
+
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+</odoo>

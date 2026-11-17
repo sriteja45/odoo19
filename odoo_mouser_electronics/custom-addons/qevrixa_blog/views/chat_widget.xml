@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="floating_blog_chat"
+              inherit_id="website.layout">
+
+        <xpath expr="//body" position="inside">
+
+            <!-- Show chatbot ONLY on Blog pages -->
+            <t t-if="request.httprequest.path.startswith('/blog')">
+
+                <!-- Floating Chat Button -->
+
+                <a href="#"
+                   class="floating-chat"
+                   id="blog-chat-button"
+                   role="button">
+
+                    <i class="fa fa-comments"></i>
+
+                </a>
+
+
+                <!-- Chat Window -->
+
+                <div id="blog-chat-window"
+                     class="blog-chat-window"
+                     style="display:none;">
+
+                    <!-- Header -->
+
+                    <div class="blog-chat-header">
+
+                        <span>
+                            <i class="fa fa-robot"></i>
+                            AI Blog Assistant
+                        </span>
+
+                        <span id="close-blog-chat"
+                              style="cursor:pointer;">
+                            ×
+                        </span>
+
+                    </div>
+
+
+                    <!-- Messages -->
+
+                    <div id="blog-chat-body"
+                         class="blog-chat-body">
+
+                        <div class="bot-message">
+                            👋 Hi! Ask me anything about this blog.
+                        </div>
+
+                    </div>
+
+
+                    <!-- Footer -->
+
+                    <div class="blog-chat-footer">
+
+                        <input
+                            id="blog-question"
+                            type="text"
+                            placeholder="Ask anything about this blog..." />
+
+                        <button
+                            id="send-blog-question"
+                            type="button">
+
+                            Send
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </t>
+
+        </xpath>
+
+    </template>
+
+</odoo>

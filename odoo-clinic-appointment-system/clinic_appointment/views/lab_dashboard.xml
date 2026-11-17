@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Lab Technician Root -->
+        <menuitem id="lab_dashboard_root"
+                  name="Lab Technician Dashboard"
+                  sequence="5"
+                  groups="clinic_appointment.group_clinic_lab"/>
+
+        <!-- Lab Reports -->
+        <menuitem id="lab_reports_menu"
+                  name="Lab Reports"
+                  parent="lab_dashboard_root"
+                  action="action_clinic_appointment"
+                  sequence="10"
+                  groups="clinic_appointment.group_clinic_lab"/>
+
+    </data>
+</odoo>

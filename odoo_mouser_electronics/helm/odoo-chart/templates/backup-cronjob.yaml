@@ -1,0 +1,73 @@
+{{- if .Values.backup.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mouser-odoo-backup
+
+spec:
+  schedule: "{{ .Values.backup.schedule }}"
+
+  successfulJobsHistoryLimit: {{ .Values.backup.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.backup.failedJobsHistoryLimit }}
+
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+
+          imagePullSecrets:
+            - name: ghcr-secret
+
+          containers:
+            - name: backup
+              image: ghcr.io/dealwallet1/odoo-backup-mouser:latest
+              imagePullPolicy: Always
+
+              env:
+                - name: DB_HOST
+                  value: "{{ .Values.backup.postgres.host }}"
+
+                - name: DB_NAME
+                  value: "{{ .Values.backup.postgres.database }}"
+
+                - name: DB_USER
+                  value: "{{ .Values.backup.postgres.user }}"
+
+                - name: DB_PASSWORD
+                  value: "{{ .Values.backup.postgres.password }}"
+
+                - name: R2_BUCKET
+                  value: "{{ .Values.backup.r2.bucket }}"
+
+                - name: R2_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: r2-secret
+                      key: access-key
+
+                - name: R2_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: r2-secret
+                      key: secret-key
+
+                - name: R2_ACCOUNT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: r2-secret
+                      key: account-id
+
+              volumeMounts:
+                - name: odoo-storage
+                  mountPath: /var/lib/odoo
+
+          volumes:
+            - name: odoo-storage
+              persistentVolumeClaim:
+
+                claimName: "{{ .Values.backup.persistence.claimName }}"
+
+                claimName: {{ .Values.backup.persistence.claimName }}
+
+{{- end }}

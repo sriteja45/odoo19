@@ -1,0 +1,65 @@
+<odoo>
+    <record id="view_product_template_form_xevoria_translation_poc" model="ir.ui.view">
+        <field name="name">product.template.form.xevoria.translation.poc</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Translation POC">
+                    <group string="Website Language Detection">
+                        <group>
+                            <field name="xevoria_website_language_count" readonly="1"/>
+                            <field name="xevoria_website_language_ids" widget="many2many_tags" readonly="1"/>
+                        </group>
+                        <group>
+                            <button name="action_xevoria_prepare_website_language_translations"
+                                    type="object"
+                                    string="Prepare Active Website Languages"
+                                    class="btn-secondary"/>
+                            <button name="action_xevoria_translate_all_active_languages"
+                                    type="object"
+                                    string="Translate All Active Languages"
+                                    class="btn-primary"/>
+                            <button name="action_xevoria_sync_all_native_translations"
+                                    type="object"
+                                    string="Sync Native Translated Fields"
+                                    class="btn-secondary"/>
+                            <button name="action_xevoria_enqueue_active_language_translations"
+                                    type="object"
+                                    string="Enqueue Translation Jobs"
+                                    class="btn-secondary"/>
+                            <button name="action_xevoria_translate_catalog_components"
+                                    type="object"
+                                    string="Translate Catalog Components"
+                                    class="btn-secondary"/>
+                            <button name="action_xevoria_translate_seo_components"
+                                    type="object"
+                                    string="Translate SEO Components"
+                                    class="btn-secondary"/>
+                            <button name="action_xevoria_repair_source_website_description"
+                                    type="object"
+                                    string="Repair Source Website Description"
+                                    class="btn-warning"
+                                    confirm="This re-saves the Website/eCommerce Description field exactly as currently shown for the source language. Make sure it already contains the correct English text before continuing."/>
+                        </group>
+                    </group>
+                    <field name="xevoria_translation_poc_ids" context="{'default_product_tmpl_id': id}">
+                        <list editable="bottom">
+                            <field name="lang_id"/>
+                            <field name="translated_name"/>
+                            <field name="review_state" readonly="1"/>
+                            <field name="applied" readonly="1"/>
+                            <field name="native_sync_status" readonly="1"/>
+                            <field name="last_applied_date" readonly="1"/>
+                            <button name="action_approve_translation" type="object" string="Approve" class="btn-primary" invisible="review_state not in ('generated', 'pending_review', 'rejected')"/>
+                            <button name="action_publish_translation" type="object" string="Publish" class="btn-primary" invisible="review_state not in ('approved', 'published')"/>
+                            <button name="action_apply_translation" type="object" string="Apply" class="btn-secondary" invisible="review_state not in ('approved', 'published')"/>
+                            <button name="action_sync_native_translation" type="object" string="Sync Native" invisible="review_state not in ('approved', 'published')"/>
+                            <button name="action_preview_translation" type="object" string="Preview"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

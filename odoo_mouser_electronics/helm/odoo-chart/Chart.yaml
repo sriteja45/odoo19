@@ -1,0 +1,5 @@
+apiVersion: v2
+name: odoo-mouser-electronics
+description: odoo-mouser-electronics is a custom Odoo module designed to integrate Mouser Electronics' product data into the Odoo ERP system. This module allows users to access real-time information about Mouser's extensive inventory, including product details, pricing, and availability, directly within their Odoo environment. By leveraging this integration, businesses can streamline their procurement processes, enhance inventory management, and make informed purchasing decisions based on up-to-date data from Mouser Electronics.
+version: 0.1.0
+appVersion: "19.0"

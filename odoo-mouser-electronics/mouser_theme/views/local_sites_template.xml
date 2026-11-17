@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mouser_local_sites_page" name="Mouser Worldwide Local Sites">
+        <t t-call="website.layout">
+            <div id="wrap" class="mouser-homepage mouser-local-sites-page">
+                <section class="mouser-topline">
+                    <div class="mouser-shell">
+                        <div class="mouser-topline-left">
+                            <a href="/about-tti" class="tti-top-link">Part of the TTI Family of Specialists</a><span class="sep">|</span>
+                            <a href="tel:08042650011"><i class="fa fa-phone"></i> Contact Mouser (Bangalore) 080 42650011</a><span class="sep">|</span>
+                            <a href="/feedback"><i class="fa fa-external-link"></i> Feedback</a>
+                        </div>
+                        <div class="mouser-topline-right">
+                            <a href="/cs/localsites/">Change Location</a><span class="flag">🇮🇳</span><span>English</span><span>₹ INR <i class="fa fa-angle-down"></i></span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mouser-header-main">
+                    <div class="mouser-shell header-row">
+                        <a class="mouser-logo" href="/mouser-home">
+    <img src="/mouser_theme/static/src/img/custom_logo.webp"
+         alt="Logo"
+         style="height:60px; width:auto;"/>
+</a>
+                        <div class="search-area">
+                            <div class="search-box"><button>All <i class="fa fa-angle-down"></i></button><input placeholder="Part No. / Keyword"/><a class="search-btn" href="#"><i class="fa fa-search"></i></a></div>
+                            <label><input type="checkbox"/> In Stock</label><label><input type="checkbox"/> RoHS</label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mouser-blue-nav">
+                    <div class="mouser-shell nav-row">
+                        <nav><a href="/mouser-home">Products</a><a href="/manufacturer/">Manufacturers</a><a href="/services-tools">Services &amp; Tools</a><a href="#">Technical Resources</a><a href="#">Help</a></nav>
+                        <div class="nav-actions"><a href="#">Account &amp; Orders <i class="fa fa-angle-down"></i></a><a class="cart" href="#"><i class="fa fa-shopping-cart"></i><span>0</span></a></div>
+                    </div>
+                </section>
+
+                <main class="mouser-shell localsites-main">
+                    <div class="localsites-hero">Mouser worldwide</div>
+                    <section class="localsites-intro">
+                        <h1>Mouser Worldwide</h1>
+                        <p>If your location is not listed, please select one of the following:</p>
+                        <div class="localsites-featured">
+                            <div class="local-country local-feature"><span class="flag-box">🗺️</span><div><a class="country-name" href="#">Mouser International</a><div><a href="#">USD</a></div></div></div>
+                            <div class="local-country local-feature"><span class="flag-box">🇪🇺</span><div><a class="country-name" href="#">Mouser Europe</a><div><a href="#">EUR</a><span>|</span><a href="#">USD</a></div></div></div>
+                        </div>
+                    </section>
+
+                    <t t-foreach="regions" t-as="region">
+                        <section class="local-region">
+                            <h2 t-out="region['title']"/>
+                            <div class="country-grid">
+                                <t t-foreach="region['countries']" t-as="country">
+                                    <div class="local-country">
+                                        <span class="flag-box" t-out="country['flag']"/>
+                                        <div>
+                                            <a class="country-name" href="#" t-out="country['name']"/>
+                                            <div class="currency-row">
+                                                <t t-foreach="country['currencies']" t-as="cur">
+                                                    <a href="#" t-out="cur"/><span class="cur-sep">|</span>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </section>
+                    </t>
+                </main>
+
+                <section class="newsletter"><h3>Get the Latest News</h3><div><input placeholder="Enter your Email"/><button>Subscribe</button></div></section>
+                <footer class="mouser-footer"><div class="mouser-shell footer-grid"><div><h4>CUSTOMER SERVICE OFFICE</h4><p><i class="fa fa-phone"></i> <a href="tel:08042650011">080 42650011</a></p><p><i class="fa fa-envelope"></i> bangalore@mouser.com</p><p><i class="fa fa-map-marker"></i> #9 Esquire Center<br/>Second Floor, A Wing, MG Road<br/>Bangalore 560001<br/>India<br/>CIN: U31908KA2013FTC068222</p><div class="tti">tti<br/><span>Part of the TTI<br/>Family of Specialists</span></div></div><div><h4>COMPANY</h4><a>About Us</a><a>Newsroom</a><a>Careers @ Mouser</a><a>Quality</a><a>Environmental</a><a>Corporate Social Responsibility</a></div><div><h4>RESOURCES</h4><a>Blog</a><a>Newest Products</a><a>New Manufacturers</a><a>Applications</a><a>Services &amp; Tools</a></div><div><h4>SUPPORT</h4><a href="/contact">Contact Us</a><a>Help</a><a href="/feedback">Feedback</a><a>Browser Support</a><a>Cookie Policy</a></div><div><h4>CONNECT WITH US</h4><p class="socials">f ◎ 𝕏 rss ▶ in ✉ blog</p></div></div><div class="mouser-shell footer-bottom"><span>Privacy Centre</span> | <span>Terms and Conditions</span> | <span>Corporate Information</span> | <span>Accessibility</span> | <span>Sitemap</span><br/><br/><strong>Copyright ©2026 Mouser Electronics, Inc.</strong><br/><br/>Mouser® and Mouser Electronics® are trademarks of Mouser Electronics, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners. Corporate headquarters and logistics centre in Mansfield, Texas USA.<div class="cert-row"><span>ecia<br/>MEMBER</span><span>ESA</span><span>CUSTOMER<br/>SERVICE</span><span>ISO<br/>14001:2015</span><span>AS9120B</span><span>TRUST<br/>SECURE</span></div></div></footer>
+                <a class="live-chat" href="#"><i class="fa fa-comment"></i> Live Chat</a>
+            </div>
+        </t>
+    </template>
+</odoo>

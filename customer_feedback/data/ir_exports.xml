@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ir_exports_feedback_review" model="ir.exports">
+        <field name="name">Customer Reviews Export</field>
+        <field name="resource">feedback.review</field>
+    </record>
+
+    <record id="ir_exports_line_product" model="ir.exports.line">
+        <field name="name">product_id</field>
+        <field name="export_id" ref="ir_exports_feedback_review"/>
+    </record>
+    <record id="ir_exports_line_customer" model="ir.exports.line">
+        <field name="name">customer_id</field>
+        <field name="export_id" ref="ir_exports_feedback_review"/>
+    </record>
+    <record id="ir_exports_line_rating" model="ir.exports.line">
+        <field name="name">rating</field>
+        <field name="export_id" ref="ir_exports_feedback_review"/>
+    </record>
+    <record id="ir_exports_line_review_title" model="ir.exports.line">
+        <field name="name">review_title</field>
+        <field name="export_id" ref="ir_exports_feedback_review"/>
+    </record>
+    <record id="ir_exports_line_review_text" model="ir.exports.line">
+        <field name="name">review_text</field>
+        <field name="export_id" ref="ir_exports_feedback_review"/>
+    </record>
+    <record id="ir_exports_line_status" model="ir.exports.line">
+        <field name="name">status</field>
+        <field name="export_id" ref="ir_exports_feedback_review"/>
+    </record>
+    <record id="ir_exports_line_review_date" model="ir.exports.line">
+        <field name="name">review_date</field>
+        <field name="export_id" ref="ir_exports_feedback_review"/>
+    </record>
+</odoo>

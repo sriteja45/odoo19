@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="header_login_buttons"
+              inherit_id="website.layout">
+
+        <xpath expr="//ul[contains(@class,'navbar-nav')]" position="inside">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/web/login">
+                        Sign In
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/web/signup">
+                        Sign Up
+                    </a>
+                </li>
+
+        </xpath>
+
+    </template>
+
+</odoo>

@@ -1,0 +1,131 @@
+<odoo> 
+ 
+    <!-- ========================= 
+         Appointment Confirmed 
+    ========================== --> 
+    <record id="email_template_appointment_confirmed" model="mail.template"> 
+        <field name="name">Appointment Confirmed</field> 
+        <field name="model_id" ref="model_clinic_appointment"/> 
+        <field name="subject">Your Appointment is Confirmed</field> 
+        <field name="email_from">{{ user.email or 'admin@clinic.com' }}</field> 
+        <field name="email_to">{{ object.email }}</field> 
+        <field name="body_html"> 
+            <![CDATA[ 
+            <div> 
+                <p>Dear <strong><t t-esc="object.patient_name"/></strong>,</p> 
+ 
+                <p>Your appointment has been <strong>CONFIRMED</strong>.</p> 
+ 
+                <ul> 
+                    <li><strong>Doctor:</strong> <t t-esc="object.doctor_id.name"/></li> 
+                    <li><strong>Date:</strong> <t t-esc="object.appointment_date"/></li> 
+                    <li><strong>Time:</strong> <t t-esc="object.appointment_time"/></li> 
+                </ul> 
+ 
+                <p>Please arrive 10 minutes early.</p> 
+ 
+                <p>Regards,<br/> 
+                <strong>Clinic Team</strong></p> 
+            </div> 
+            ]]> 
+        </field> 
+    </record> 
+    <!-- ========================= 
+         Appointment Cancelled 
+    ========================== --> 
+    <record id="email_template_appointment_cancelled" model="mail.template"> 
+        <field name="name">Appointment Cancelled</field> 
+        <field name="model_id" ref="model_clinic_appointment"/> 
+        <field name="subject">Your Appointment has been Cancelled</field> 
+        <field name="email_from">{{ user.email or 'admin@clinic.com' }}</field> 
+        <field name="email_to">{{ object.email }}</field> 
+        <field name="body_html"> 
+            <![CDATA[ 
+            <div> 
+                <p>Dear <strong><t t-esc="object.patient_name"/></strong>,</p> 
+ 
+                <p>Your appointment has been <strong>CANCELLED</strong>.</p> 
+ 
+                <p><strong>Reason:</strong></p> 
+                <p><t t-esc="object.cancel_reason"/></p> 
+ 
+                <p>Please contact us to reschedule.</p> 
+ 
+                <p>Regards,<br/> 
+                <strong>Clinic Team</strong></p> 
+            </div> 
+            ]]> 
+        </field> 
+    </record> 
+ 
+    <!-- ========================= 
+         Consultation Completed 
+    ========================== --> 
+    <record id="email_template_consultation_done" model="mail.template"> 
+        <field name="name">Consultation Completed</field> 
+        <field name="model_id" ref="model_clinic_appointment"/> 
+        <field name="subject">Doctor Consultation Summary</field> 
+        <field name="email_from">{{ user.email or 'admin@clinic.com' }}</field> 
+        <field name="email_to">{{ object.email }}</field> 
+        <field name="body_html"> 
+            <![CDATA[ 
+            <div> 
+                <p>Dear <strong><t t-esc="object.patient_name"/></strong>,</p> 
+ 
+                <p>Your consultation is completed.</p> 
+ 
+                <p><strong>Doctor Notes:</strong></p> 
+                <p> 
+                    <t t-esc="object.doctor_notes or 'No notes provided.'"/> 
+                </p> 
+ 
+                <p><strong>Next Action:</strong> 
+                    <t t-esc="object.next_action"/> 
+                </p> 
+ 
+                <p><strong>Follow-up Date:</strong> 
+                    <t t-esc="object.followup_date"/> 
+                </p> 
+ 
+                <p>Take care and get well soon.</p> 
+ 
+                <p>Regards,<br/> 
+                <strong>Clinic Team</strong></p> 
+            </div> 
+            ]]> 
+        </field> 
+    </record> 
+    <!-- ========================= 
+         Follow-up Reminder 
+    ========================== --> 
+    <record id="email_template_followup_reminder" model="mail.template"> 
+        <field name="name">Follow-up Reminder</field> 
+        <field name="model_id" ref="model_clinic_appointment"/> 
+        <field name="subject">Follow-up Appointment Reminder</field> 
+        <field name="email_from">{{ user.email or 'admin@clinic.com' }}</field> 
+        <field name="email_to">{{ object.email }}</field> 
+        <field name="body_html"> 
+            <![CDATA[ 
+            <div> 
+                <p>Dear <strong><t t-esc="object.patient_name"/></strong>,</p> 
+ 
+                <p>This is a reminder for your follow-up appointment.</p> 
+ 
+                <ul> 
+                    <li><strong>Doctor:</strong>  
+                        <t t-esc="object.doctor_id.name"/> 
+                    </li> 
+                    <li><strong>Follow-up Date:</strong>  
+                        <t t-esc="object.followup_date"/> 
+                    </li> 
+                </ul> 
+ 
+                <p>Please do not miss your visit.</p> 
+ 
+                <p>Regards,<br/> 
+                <strong>Clinic Team</strong></p> 
+            </div> 
+            ]]> 
+        </field> 
+    </record> 
+</odoo>

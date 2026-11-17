@@ -1,0 +1,81 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_clinic_appointment_admin,clinic.appointment admin,model_clinic_appointment,base.group_system,1,1,1,1
+access_clinic_appointment_doctor,clinic.appointment doctor,model_clinic_appointment,clinic_appointment.group_clinic_doctor,1,1,1,0
+access_clinic_appointment_nurse,clinic.appointment nurse,model_clinic_appointment,clinic_appointment.group_clinic_nurse,1,1,1,0
+access_clinic_appointment_receptionist,clinic.appointment receptionist,model_clinic_appointment,clinic_appointment.group_clinic_receptionist,1,1,1,0
+access_clinic_appointment_lab,clinic.appointment lab technician,model_clinic_appointment,clinic_appointment.group_clinic_lab,1,1,1,0
+access_clinic_appointment_report,clinic.appointment.report,model_clinic_appointment_report,base.group_system,1,1,1,1
+access_clinic_employee_admin,clinic.employee admin,model_clinic_employee,base.group_system,1,1,1,1
+access_clinic_employee_lab,clinic.employee lab,model_clinic_employee,clinic_appointment.group_clinic_lab,1,1,1,1
+access_clinic_employee_receptionist,clinic.employee receptionist,model_clinic_employee,clinic_appointment.group_clinic_receptionist,1,0,0,0
+access_clinic_employee_doctor,clinic.employee doctor,model_clinic_employee,clinic_appointment.group_clinic_doctor,1,0,0,0
+access_clinic_employee_nurse,clinic.employee nurse,model_clinic_employee,clinic_appointment.group_clinic_nurse,1,0,0,0
+
+access_clinic_department,clinic.department,model_clinic_department,,1,1,1,1
+access_clinic_disease,clinic.disease,model_clinic_disease,,1,1,1,1
+
+access_clinic_enquiry_admin,clinic.enquiry admin,model_clinic_enquiry,base.group_system,1,1,1,1
+access_clinic_enquiry_receptionist,clinic.enquiry receptionist,model_clinic_enquiry,clinic_appointment.group_clinic_receptionist,1,1,1,1
+
+access_clinic_medicine_admin,clinic.medicine admin,model_clinic_medicine,base.group_system,1,1,1,1
+access_clinic_medicine_pharmacist,clinic.medicine pharmacist,model_clinic_medicine,clinic_appointment.group_clinic_pharmacist,1,1,1,0
+access_clinic_medicine_doctor,clinic.medicine doctor,model_clinic_medicine,clinic_appointment.group_clinic_doctor,1,1,1,0
+access_clinic_medicine_receptionist,clinic.medicine receptionist,model_clinic_medicine,clinic_appointment.group_clinic_receptionist,1,0,0,0
+access_clinic_medicine_nurse,clinic.medicine nurse,model_clinic_medicine,clinic_appointment.group_clinic_nurse,1,0,0,0
+
+access_clinic_prescription_doctor,clinic.prescription doctor,model_clinic_prescription,clinic_appointment.group_clinic_doctor,1,1,1,0
+
+access_clinic_lab_test_admin,clinic.lab.test admin,model_clinic_lab_test,base.group_system,1,1,1,1
+access_clinic_lab_test_lab,clinic.lab.test lab,model_clinic_lab_test,clinic_appointment.group_clinic_lab,1,1,1,1
+access_clinic_lab_test_doctor,clinic.lab.test doctor,model_clinic_lab_test,clinic_appointment.group_clinic_doctor,1,1,1,0
+access_clinic_lab_test_receptionist,clinic.lab.test receptionist,model_clinic_lab_test,clinic_appointment.group_clinic_receptionist,1,1,1,1
+access_clinic_lab_test_nurse,clinic.lab.test nurse,model_clinic_lab_test,clinic_appointment.group_clinic_nurse,1,1,1,1
+
+access_clinic_lab_request_admin,clinic.lab.request admin,model_clinic_lab_request,base.group_system,1,1,1,1
+access_clinic_lab_request_lab,clinic.lab.request lab,model_clinic_lab_request,clinic_appointment.group_clinic_lab,1,1,1,1
+access_clinic_lab_request_doctor,clinic.lab.request doctor,model_clinic_lab_request,clinic_appointment.group_clinic_doctor,1,1,1,0
+access_clinic_lab_request_receptionist,clinic.lab.request receptionist,model_clinic_lab_request,clinic_appointment.group_clinic_receptionist,1,1,1,1
+access_clinic_lab_request_nurse,clinic.lab.request nurse,model_clinic_lab_request,clinic_appointment.group_clinic_nurse,1,1,1,1
+
+access_clinic_lab_test_line_admin,clinic.lab.test line admin,model_clinic_lab_test_line,base.group_system,1,1,1,1
+access_clinic_lab_test_line_lab,clinic.lab.test line lab,model_clinic_lab_test_line,clinic_appointment.group_clinic_lab,1,1,1,1
+access_clinic_lab_test_line_doctor,clinic.lab.test line doctor,model_clinic_lab_test_line,clinic_appointment.group_clinic_doctor,1,1,1,0
+access_clinic_lab_test_line_receptionist,clinic.lab.test line receptionist,model_clinic_lab_test_line,clinic_appointment.group_clinic_receptionist,1,1,1,1
+access_clinic_lab_test_line_nurse,clinic.lab.test line nurse,model_clinic_lab_test_line,clinic_appointment.group_clinic_nurse,1,1,1,1
+
+access_room_admin,hospital.room admin,model_hospital_room,base.group_system,1,1,1,1
+access_room_receptionist,hospital.room receptionist,model_hospital_room,clinic_appointment.group_clinic_receptionist,1,0,0,0
+access_room_nurse,hospital.room nurse,model_hospital_room,clinic_appointment.group_clinic_nurse,1,1,0,0
+access_room_housekeeping,hospital.room housekeeping,model_hospital_room,clinic_appointment.group_clinic_housekeeping,1,1,0,0
+
+access_room_booking_admin,hospital.room.booking admin,model_hospital_room_booking,base.group_system,1,1,1,1
+access_room_booking_receptionist,hospital.room.booking receptionist,model_hospital_room_booking,clinic_appointment.group_clinic_receptionist,1,1,1,0
+access_room_booking_nurse,hospital.room.booking nurse,model_hospital_room_booking,clinic_appointment.group_clinic_nurse,1,1,1,0
+
+access_clinic_patient_admin,clinic.patient admin,model_clinic_patient,base.group_system,1,1,1,1
+access_clinic_patient_receptionist,clinic.patient receptionist,model_clinic_patient,clinic_appointment.group_clinic_receptionist,1,1,1,0
+access_clinic_patient_doctor,clinic.patient doctor,model_clinic_patient,clinic_appointment.group_clinic_doctor,1,0,0,0
+access_clinic_patient_nurse,clinic.patient nurse,model_clinic_patient,clinic_appointment.group_clinic_nurse,1,0,0,0
+access_clinic_patient_lab,clinic.patient lab,model_clinic_patient,clinic_appointment.group_clinic_lab,1,1,1,0
+
+access_hospital_bed_admin,hospital.bed admin,model_hospital_bed,base.group_system,1,1,1,1
+access_hospital_bed_receptionist,hospital.bed receptionist,model_hospital_bed,clinic_appointment.group_clinic_receptionist,1,1,1,0
+access_hospital_bed_nurse,hospital.bed nurse,model_hospital_bed,clinic_appointment.group_clinic_nurse,1,1,1,0
+access_hospital_bed_housekeeping,hospital.bed housekeeping,model_hospital_bed,clinic_appointment.group_clinic_housekeeping,1,1,0,0
+
+access_clinic_dashboard_admin,clinic.dashboard admin,model_clinic_dashboard,base.group_system,1,1,1,1
+access_clinic_dashboard_doctor,clinic.dashboard doctor,model_clinic_dashboard,clinic_appointment.group_clinic_doctor,1,1,1,0
+access_clinic_dashboard_receptionist,clinic.dashboard receptionist,model_clinic_dashboard,clinic_appointment.group_clinic_receptionist,1,1,1,0
+access_clinic_dashboard_nurse,clinic.dashboard nurse,model_clinic_dashboard,clinic_appointment.group_clinic_nurse,1,1,1,0
+access_clinic_dashboard_lab,clinic.dashboard lab,model_clinic_dashboard,clinic_appointment.group_clinic_lab,1,1,1,0
+
+access_clinic_lab_request_admin,clinic.lab.request admin,model_clinic_lab_request,base.group_system,1,1,1,1
+access_clinic_lab_request_lab,clinic.lab.request lab,model_clinic_lab_request,clinic_appointment.group_clinic_lab,1,1,1,1
+access_clinic_lab_request_doctor,clinic.lab.request doctor,model_clinic_lab_request,clinic_appointment.group_clinic_doctor,1,1,1,0
+
+access_clinic_chatbot_session_user,clinic.chatbot.session user,model_clinic_chatbot_session,base.group_user,1,1,1,1
+access_clinic_chatbot_message_user,clinic.chatbot.message user,model_clinic_chatbot_message,base.group_user,1,1,1,1
+
+access_clinic_call_history_user,clinic.call.history user,model_clinic_call_history,base.group_user,1,1,1,1
+

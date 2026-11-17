@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Remove an older broken inherited checkout confirmation view whose XPath no longer matches Odoo 19 website_sale templates. -->
+    <delete model="ir.ui.view" search="['|', ('key', '=', 'Xevoria_electronics.xevoria_order_confirmation'), ('name', '=', 'xevoria_order_confirmation')]"/>
+</odoo>

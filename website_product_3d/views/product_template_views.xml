@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_3d" model="ir.ui.view">
+        <field name="name">product.template.form.3d</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="3D / Animation" name="product_3d">
+                    <group>
+                        <group string="General">
+                            <field name="product_3d_enable"
+                                    help="Master switch for this product. The website-level switch defaults to ON after install, so the feature is available globally."/>
+                            <field name="product_3d_simple_anim_enable"
+                                    help="Drag-to-rotate and scroll/pinch zoom on the main product photo. No 3D model needed. Best first option."/>
+                            <field name="product_3d_360_enable"
+                                    help="Drag-to-spin sequence. Prefer the dedicated 360° Frames list below. Falls back to eCommerce images if the list is empty. Needs at least 2 frames."/>
+                        </group>
+                        <group string="Default Viewer Options">
+                            <field name="product_3d_auto_rotate"
+                                    help="Slowly spin the 3D model until the visitor interacts with it."/>
+                            <field name="product_3d_ar"
+                                    help="Show View in your space on supported phones (best with a .usdz model)."/>
+                            <field name="product_3d_camera_orbit"
+                                    placeholder="0deg 75deg 105%"
+                                    help='Starting camera as azimuth elevation distance, e.g. 0deg 75deg 105%.'/>
+                            <field name="product_3d_field_of_view"
+                                    placeholder="30deg"
+                                    help="Optional zoom level, e.g. 30deg. Leave empty for automatic."/>
+                        </group>
+                    </group>
+
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not product_3d_has_large_model">
+                        <field name="product_3d_has_large_model" invisible="1"/>
+                        <p class="mb-0">
+                            <i class="fa fa-exclamation-triangle me-1"/>
+                            <strong>Performance warning:</strong>
+                            <field name="product_3d_size_hint" nolabel="1" class="d-inline"/>
+                        </p>
+                    </div>
+
+                    <group string="Poster Image (optional)">
+                        <field name="product_3d_poster" filename="product_3d_poster_filename"
+                                help="Shown while the 3D model loads. If empty, the product main image is used."/>
+                        <field name="product_3d_poster_filename" invisible="1"/>
+                    </group>
+
+                    <separator string="360° Frames (optional)"/>
+                    <div class="alert alert-info" role="alert" invisible="not product_3d_360_enable">
+                        <p class="mb-1">
+                            Upload ordered photos here for the best 360° experience.
+                            Drag the handle to set rotation order (24–36 frames recommended).
+                            When 2+ frames exist, they are used instead of the normal eCommerce images.
+                        </p>
+                    </div>
+                    <field name="product_360_frame_ids" nolabel="1"
+                            context="{'default_product_tmpl_id': id}"
+                            invisible="not product_3d_360_enable">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name" optional="show"/>
+                            <field name="image" widget="image" class="oe_avatar"/>
+                            <field name="image_filename" column_invisible="1"/>
+                        </list>
+                    </field>
+
+                    <separator string="3D Models"/>
+                    <field name="product_3d_model_ids" nolabel="1" context="{'default_product_tmpl_id': id}">
+                        <list editable="bottom" decoration-warning="size_warning">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="model_file" filename="model_filename"
+                                    help="Upload .glb (recommended), .gltf or .usdz. Aim for under 8 MB. Compress with Draco/Meshopt if larger."/>
+                            <field name="model_filename" column_invisible="1"/>
+                            <field name="model_file_size" string="MB" optional="show" widget="float" digits="[10,2]"/>
+                            <field name="size_warning" string="Size warning" optional="show"/>
+                            <field name="is_default"/>
+                            <field name="auto_rotate"/>
+                            <field name="enable_ar"/>
+                            <field name="camera_orbit" optional="show"/>
+                            <field name="field_of_view" optional="hide"/>
+                        </list>
+                    </field>
+
+                    <!-- Legacy single model — DEPRECATED, shown only when multi-model list is empty -->
+                    <group string="Legacy Single Model (Deprecated)" invisible="product_3d_model_ids">
+                        <div class="alert alert-warning mb-2" role="alert" colspan="2">
+                            <strong>Deprecated.</strong> Prefer the <em>3D Models</em> list above.
+                            This field is kept only for backward compatibility with older data.
+                        </div>
+                        <field name="product_3d_model" filename="product_3d_model_filename"/>
+                        <field name="product_3d_model_filename" invisible="1"/>
+                    </group>
+
+                    <!-- Backend 3D Preview container (prefers multi-model default) -->
+                    <div class="o_product_3d_backend_preview_container mt-3 mb-3"
+                         data-product-3d-backend-preview="1"
+                         data-model-name="product.template"
+                         data-field-name="product_3d_model"
+                         data-prefer-default-model="1">
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                        <p class="mb-1"><strong>Three ways to show interactive product views</strong></p>
+                        <p class="mb-2">
+                            You do <em>not</em> need a real 3D model for every product. Start simple
+                            and upgrade only when needed:
+                        </p>
+                        <ol class="mb-2">
+                            <li>
+                                <strong>Simple Rotate / Zoom</strong> (easiest) &#8211; tick
+                                <em>Enable Simple Rotate / Zoom</em>. Uses the main product photo.
+                                Visitors drag to rotate and scroll/pinch to zoom. Zero extra assets.
+                            </li>
+                            <li>
+                                <strong>360° Image Viewer</strong> &#8211; tick
+                                <em>Enable 360° Image Viewer</em> and upload photos in rotation order
+                                under <em>Sales &gt; eCommerce Media</em>. 24–36 shots (every 10–15°)
+                                give a smooth spin. Needs at least 2 images or the button stays hidden.
+                            </li>
+                            <li>
+                                <strong>Real 3D model</strong> &#8211; add one or more files in the
+                                <em>3D Models</em> list and mark one as <em>Default</em>.
+                                Full orbit, zoom and (on phones) AR placement.
+                            </li>
+                        </ol>
+
+                        <p class="mb-1"><strong>File formats (for real 3D)</strong></p>
+                        <ul class="mb-2">
+                            <li><code>.glb</code> &#8211; recommended. Single self-contained file, works everywhere.</li>
+                            <li><code>.gltf</code> &#8211; JSON variant. Only self-contained files work (no external .bin / textures).</li>
+                            <li><code>.usdz</code> &#8211; add as a second model for best AR on iPhone/iPad.</li>
+                        </ul>
+
+                        <p class="mb-1"><strong>Keep 3D files small (performance)</strong></p>
+                        <p class="mb-2">
+                            The model is downloaded in the visitor's browser. Size is the biggest
+                            factor for mobile. Aim for <strong>under 8&#160;MB</strong>.
+                            Compress before uploading:
+                            <br/>
+                            <code>npx @gltf-transform/cli optimize in.glb out.glb --compress draco</code>
+                            <br/>
+                            Or with Meshopt: <code>npx @gltf-transform/cli optimize in.glb out.glb --compress meshopt</code>
+                            <br/>
+                            Draco / Meshopt usually cuts 70–90% of size with little quality loss.
+                            Also resize textures to 1024×1024 or 2048×2048. The <em>MB</em> column
+                            and the yellow warning above flag large files. Admins can change limits in
+                            <em>Settings &gt; Technical &gt; System Parameters</em>
+                            (<code>website_product_3d.max_model_size_mb</code>,
+                            <code>website_product_3d.warn_model_size_mb</code>).
+                        </p>
+
+                        <p class="mb-1"><strong>Camera &amp; extras</strong></p>
+                        <ul class="mb-0">
+                            <li>Camera Orbit = <em>azimuth elevation distance</em>, e.g.
+                                <code>0deg 75deg 105%</code> or <code>45deg 55deg 2.5m</code>.
+                                Empty falls back to the website default.</li>
+                            <li><strong>Poster Image</strong> is shown while the model loads.
+                                If empty, the product main image is used.</li>
+                            <li>Variant-specific model: open the variant and use its
+                                <em>3D / Animation</em> tab.</li>
+                            <li>The website-level switch defaults to <strong>ON</strong> after install,
+                                so the feature is available globally. You can still turn it off per
+                                website under <em>Website &gt; Configuration &gt; Websites</em>.</li>
+                        </ul>
+                    </div>
+
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_form_view_3d" model="ir.ui.view">
+        <field name="name">product.product.form.3d</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="3D / Animation" name="variant_product_3d">
+                    <group string="Variant 3D Model (overrides template)">
+                        <field name="product_3d_enable"/>
+                        <field name="product_3d_model" filename="product_3d_model_filename"/>
+                        <field name="product_3d_model_filename" invisible="1"/>
+                        <field name="product_3d_auto_rotate"/>
+                        <field name="product_3d_ar"/>
+                    </group>
+
+                    <div class="o_product_3d_backend_preview_container mt-3 mb-3"
+                         data-product-3d-backend-preview="1"
+                         data-model-name="product.product"
+                         data-field-name="product_3d_model">
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                        <p class="mb-1">
+                            This model is optional. When it is empty, the template's default 3D
+                            model is used instead.
+                        </p>
+                        <p class="mb-0">
+                            Use it when variants look genuinely different (colour, material, size).
+                            Switching variant on the website swaps the model live, without a page
+                            reload. The same size guidance applies &#8211; keep it under 8&#160;MB.
+                        </p>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="website_form_view_product_3d" model="ir.ui.view">
+        <field name="name">website.form.product.3d</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form"/>
+        <field name="arch" type="xml">
+            <!--
+                Anchored on //sheet rather than a named group: group names in the
+                website form have changed between Odoo versions and a missing
+                anchor makes the whole module fail to install.
+            -->
+            <xpath expr="//sheet" position="inside">
+                <group string="Product 3D / 360 Viewer" name="product_3d_viewer">
+                    <field name="product_3d_viewer_enabled"/>
+                    <field name="product_3d_default_camera_orbit"
+                           invisible="not product_3d_viewer_enabled"
+                           placeholder="0deg 75deg 105%"/>
+                    <field name="product_3d_default_field_of_view"
+                           invisible="not product_3d_viewer_enabled"
+                           placeholder="30deg"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

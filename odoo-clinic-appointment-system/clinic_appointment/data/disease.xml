@@ -1,0 +1,241 @@
+<odoo>
+
+    <!-- ================= GENERAL DISEASES ================= -->
+
+    <record id="disease_1" model="clinic.disease">
+        <field name="name">Fever</field>
+        <field name="icd_code">R50</field>
+    </record>
+
+    <record id="disease_2" model="clinic.disease">
+        <field name="name">Common Cold</field>
+        <field name="icd_code">J00</field>
+    </record>
+
+    <record id="disease_3" model="clinic.disease">
+        <field name="name">Influenza</field>
+        <field name="icd_code">J10</field>
+    </record>
+
+    <record id="disease_4" model="clinic.disease">
+        <field name="name">Typhoid Fever</field>
+        <field name="icd_code">A01</field>
+    </record>
+
+    <record id="disease_5" model="clinic.disease">
+        <field name="name">Dengue Fever</field>
+        <field name="icd_code">A90</field>
+    </record>
+
+    <record id="disease_6" model="clinic.disease">
+        <field name="name">Malaria</field>
+        <field name="icd_code">B50</field>
+    </record>
+
+    <record id="disease_7" model="clinic.disease">
+        <field name="name">COVID-19</field>
+        <field name="icd_code">U07.1</field>
+    </record>
+
+    <record id="disease_8" model="clinic.disease">
+        <field name="name">Anemia</field>
+        <field name="icd_code">D64</field>
+    </record>
+
+    <record id="disease_9" model="clinic.disease">
+        <field name="name">Hypertension</field>
+        <field name="icd_code">I10</field>
+    </record>
+
+    <record id="disease_10" model="clinic.disease">
+        <field name="name">Heart Attack</field>
+        <field name="icd_code">I21</field>
+    </record>
+
+    <record id="disease_11" model="clinic.disease">
+        <field name="name">Angina</field>
+        <field name="icd_code">I20</field>
+    </record>
+
+    <record id="disease_12" model="clinic.disease">
+        <field name="name">Heart Failure</field>
+        <field name="icd_code">I50</field>
+    </record>
+
+    <record id="disease_13" model="clinic.disease">
+        <field name="name">Arrhythmia</field>
+        <field name="icd_code">I49</field>
+    </record>
+
+    <record id="disease_14" model="clinic.disease">
+        <field name="name">Coronary Artery Disease</field>
+        <field name="icd_code">I25</field>
+    </record>
+
+    <record id="disease_15" model="clinic.disease">
+        <field name="name">Migraine</field>
+        <field name="icd_code">G43</field>
+    </record>
+
+    <record id="disease_16" model="clinic.disease">
+        <field name="name">Epilepsy</field>
+        <field name="icd_code">G40</field>
+    </record>
+
+    <record id="disease_17" model="clinic.disease">
+        <field name="name">Stroke</field>
+        <field name="icd_code">I63</field>
+    </record>
+
+    <record id="disease_18" model="clinic.disease">
+        <field name="name">Parkinson Disease</field>
+        <field name="icd_code">G20</field>
+    </record>
+
+    <record id="disease_19" model="clinic.disease">
+        <field name="name">Alzheimer Disease</field>
+        <field name="icd_code">G30</field>
+    </record>
+
+    <record id="disease_20" model="clinic.disease">
+        <field name="name">Multiple Sclerosis</field>
+        <field name="icd_code">G35</field>
+    </record>
+
+    <!-- ================= RESPIRATORY ================= -->
+
+    <record id="disease_21" model="clinic.disease">
+        <field name="name">Asthma</field>
+        <field name="icd_code">J45</field>
+    </record>
+
+    <record id="disease_22" model="clinic.disease">
+        <field name="name">Pneumonia</field>
+        <field name="icd_code">J18</field>
+    </record>
+
+    <record id="disease_23" model="clinic.disease">
+        <field name="name">Bronchitis</field>
+        <field name="icd_code">J20</field>
+    </record>
+
+    <record id="disease_24" model="clinic.disease">
+        <field name="name">COPD</field>
+        <field name="icd_code">J44</field>
+    </record>
+
+    <record id="disease_25" model="clinic.disease">
+        <field name="name">Tuberculosis</field>
+        <field name="icd_code">A15</field>
+    </record>
+
+    <record id="disease_26" model="clinic.disease">
+        <field name="name">Lung Cancer</field>
+        <field name="icd_code">C34</field>
+    </record>
+
+    <!-- ================= DIGESTIVE ================= -->
+
+    <record id="disease_27" model="clinic.disease">
+        <field name="name">Gastritis</field>
+        <field name="icd_code">K29</field>
+    </record>
+
+    <record id="disease_28" model="clinic.disease">
+        <field name="name">Stomach Ulcer</field>
+        <field name="icd_code">K25</field>
+    </record>
+
+    <record id="disease_29" model="clinic.disease">
+        <field name="name">GERD</field>
+        <field name="icd_code">K21</field>
+    </record>
+
+    <record id="disease_30" model="clinic.disease">
+        <field name="name">Appendicitis</field>
+        <field name="icd_code">K35</field>
+    </record>
+
+    <record id="disease_31" model="clinic.disease">
+        <field name="name">Pancreatitis</field>
+        <field name="icd_code">K85</field>
+    </record>
+
+    <record id="disease_32" model="clinic.disease">
+        <field name="name">Gallstones</field>
+        <field name="icd_code">K80</field>
+    </record>
+
+    <!-- ================= SKIN ================= -->
+
+    <record id="disease_33" model="clinic.disease">
+        <field name="name">Acne</field>
+        <field name="icd_code">L70</field>
+    </record>
+
+    <record id="disease_34" model="clinic.disease">
+        <field name="name">Eczema</field>
+        <field name="icd_code">L30</field>
+    </record>
+
+    <record id="disease_35" model="clinic.disease">
+        <field name="name">Psoriasis</field>
+        <field name="icd_code">L40</field>
+    </record>
+
+    <record id="disease_36" model="clinic.disease">
+        <field name="name">Skin Allergy</field>
+        <field name="icd_code">L23</field>
+    </record>
+
+    <record id="disease_37" model="clinic.disease">
+        <field name="name">Fungal Infection</field>
+        <field name="icd_code">B35</field>
+    </record>
+
+    <!-- ================= BONES ================= -->
+
+    <record id="disease_38" model="clinic.disease">
+        <field name="name">Arthritis</field>
+        <field name="icd_code">M19</field>
+    </record>
+
+    <record id="disease_39" model="clinic.disease">
+        <field name="name">Osteoporosis</field>
+        <field name="icd_code">M81</field>
+    </record>
+
+    <record id="disease_40" model="clinic.disease">
+        <field name="name">Bone Fracture</field>
+        <field name="icd_code">S52</field>
+    </record>
+
+    <!-- ================= DIABETES ================= -->
+
+    <record id="disease_41" model="clinic.disease">
+        <field name="name">Diabetes Type 1</field>
+        <field name="icd_code">E10</field>
+    </record>
+
+    <record id="disease_42" model="clinic.disease">
+        <field name="name">Diabetes Type 2</field>
+        <field name="icd_code">E11</field>
+    </record>
+
+    <record id="disease_43" model="clinic.disease">
+        <field name="name">Hypothyroidism</field>
+        <field name="icd_code">E03</field>
+    </record>
+
+    <record id="disease_44" model="clinic.disease">
+        <field name="name">Hyperthyroidism</field>
+        <field name="icd_code">E05</field>
+    </record>
+
+    <record id="disease_45" model="clinic.disease">
+        <field name="name">Goiter</field>
+        <field name="icd_code">E04</field>
+    </record>
+
+
+</odoo>

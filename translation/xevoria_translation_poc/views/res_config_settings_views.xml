@@ -1,0 +1,62 @@
+<odoo>
+    <record id="res_config_settings_view_form_xevoria_translation_poc" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.xevoria.translation.poc</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Xevoria Translation" name="xevoria_translation_poc">
+                    <block title="Xevoria Product Translation POC" name="xevoria_translation_poc_settings">
+                    <setting string="Translation Provider" help="Use Mock / POC for demo without API credentials. Use Google, DeepL, Azure, or LibreTranslate for real automatic translation.">
+                        <field name="xevoria_translation_provider"/>
+                    </setting>
+                    <setting string="Translation API Key" help="Required only for Google, DeepL, Azure, or private LibreTranslate instances that need an API key.">
+                        <field name="xevoria_translation_api_key" password="True"/>
+                    </setting>
+                    <setting string="Source Language" help="Default source language for product content, for example en_US.">
+                        <field name="xevoria_translation_source_lang"/>
+                    </setting>
+                    <setting string="LibreTranslate URL" help="LibreTranslate /translate endpoint. Use https://translate.argosopentech.com/translate for quick testing or http://localhost:5000/translate for local Docker.">
+                        <field name="xevoria_libretranslate_url"/>
+                    </setting>
+                    <setting string="Protected Technical Words" help="Comma or newline separated brand names, SKU labels, model names, ports, and technical words that should not be translated.">
+                        <field name="xevoria_protected_terms"/>
+                    </setting>
+                    <setting string="Auto Translate New Products" help="Automatically creates translation queue jobs whenever a new product is created. Cron/manual queue processing performs the real translation.">
+                        <field name="xevoria_auto_translate_on_create"/>
+                    </setting>
+                    <setting string="Auto Translate Updated Products" help="Automatically creates translation queue jobs when product name, sales description, or website description is updated.">
+                        <field name="xevoria_auto_translate_on_update"/>
+                    </setting>
+
+                    <setting string="Require Review Before Publish" help="When enabled, generated translations stay in Pending Review until a user approves and publishes them.">
+                        <field name="xevoria_translation_review_required"/>
+                    </setting>
+                    <setting string="Enable Translation Queue Cron" help="Automatically process pending translation queue jobs using Odoo scheduled action.">
+                        <field name="xevoria_queue_cron_enabled"/>
+                    </setting>
+                    <setting string="Queue Batch Size" help="Maximum number of pending translation jobs processed per scheduled cron/manual dashboard run. Recommended POC value: 20.">
+                        <field name="xevoria_queue_cron_batch_size"/>
+                    </setting>
+                    <setting string="Fallback Provider Chain" help="Selected provider is tried first. Add only real fallback providers you want to use. Do not add mock in production.">
+                        <field name="xevoria_translation_fallback_providers"/>
+                    </setting>
+                    <setting string="Queue Throttle Seconds" help="Optional delay between queue jobs to avoid provider rate limits. Use 0 for no delay.">
+                        <field name="xevoria_queue_throttle_seconds"/>
+                    </setting>
+                    <setting string="Retry Backoff Minutes" help="Base retry delay for failed jobs. Delay grows exponentially per attempt.">
+                        <field name="xevoria_retry_backoff_minutes"/>
+                    </setting>
+                    <setting string="Enable Translation Memory Cache" help="Reuse identical previous translations to reduce duplicate API calls and speed up queue processing.">
+                        <field name="xevoria_translation_memory_enabled"/>
+                    </setting>
+                    <setting string="Azure Settings" help="Required only when Azure Translator is selected.">
+                        <field name="xevoria_translation_azure_region"/>
+                        <field name="xevoria_translation_azure_endpoint"/>
+                    </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

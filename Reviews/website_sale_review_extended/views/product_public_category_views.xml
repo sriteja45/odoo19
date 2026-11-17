@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Extend the existing eCommerce category form view -->
+    <record id="product_public_category_view_form_inherit" model="ir.ui.view">
+        <field name="name">product.public.category.form.extended</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="aspect_ids" widget="many2many_tags"
+                       options="{'no_create': True}"
+                       placeholder="e.g. Comfort, Battery Life…"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

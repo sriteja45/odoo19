@@ -1,0 +1,60 @@
+<odoo>
+
+    <!-- ================= List VIEW ================= -->
+
+    <record id="view_clinic_disease_tree" model="ir.ui.view">
+        <field name="name">clinic.disease.tree</field>
+        <field name="model">clinic.disease</field>
+        <field name="arch" type="xml">
+            <list string="Diseases">
+                <field name="name"/>
+                <field name="icd_code"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ================= FORM VIEW ================= -->
+
+    <record id="view_clinic_disease_form" model="ir.ui.view">
+        <field name="name">clinic.disease.form</field>
+        <field name="model">clinic.disease</field>
+        <field name="arch" type="xml">
+            <form string="Disease">
+                <sheet>
+
+                    <group>
+                        <field name="name"/>
+                        <field name="icd_code"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ================= SEARCH VIEW ================= -->
+
+    <record id="view_clinic_disease_search" model="ir.ui.view">
+        <field name="name">clinic.disease.search</field>
+        <field name="model">clinic.disease</field>
+        <field name="arch" type="xml">
+            <search string="Search Diseases">
+
+                <field name="name"/>
+                <field name="icd_code"/>
+
+            </search>
+        </field>
+    </record>
+
+
+    <!-- ================= ACTION ================= -->
+
+    <record id="action_clinic_disease" model="ir.actions.act_window">
+        <field name="name">Diseases</field>
+        <field name="res_model">clinic.disease</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

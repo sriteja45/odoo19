@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         STEP 1 — ONE coherent product-page review experience
+
+         See doc/STEP1_NATIVE_OVERRIDE.md.
+
+         Policy:
+         - Native rating.rating / rating.mixin is the source of truth for
+           averages, counts and star distribution.
+         - Verified post-delivery / token workflow is the ONLY submission path:
+             Delivered order → feedback.request → token → feedback.review
+             → moderation → rating.rating (consumed when approved)
+         - Native free-form portal.message_thread review form is disabled.
+         - Custom list adds verified badge, sort/filter, helpful votes.
+         ================================================================ -->
+
+    <!-- Force native product_comment inactive so free-form review form is
+         never shown. Stars under the title read native rating_avg/count.
+         post_init_hook also re-asserts this in case of upgrade drift. -->
+    <record id="website_sale.product_comment" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Compact rating under product title — native averages only.
+         Data is 100% native (rating_avg / rating_count from rating.mixin).
+         The native product_title star block (gated by product_comment) is
+         removed below so only this compact widget remains under the title. -->
+    <template id="product_rating_in_title"
+              inherit_id="website_sale.product_title"
+              name="Product Title: Single Rating Block (compact native data)"
+              priority="25">
+        <!-- Remove native portal_rating stars shown when product_comment is active -->
+        <xpath expr="//a[hasclass('o_product_page_reviews_link')]" position="replace"/>
+        <!-- Inject the sole title rating block (shared aggregate data) -->
+        <xpath expr="//h1" position="after">
+            <t t-call="customer_feedback.product_rating_compact"/>
+        </xpath>
+    </template>
+
+    <template id="product_rating_compact" name="Compact Product Rating (native data, custom markup)">
+        <div class="o_feedback_rating_compact d-flex align-items-center flex-wrap gap-2 mb-2 mt-1"
+             t-if="product">
+            <!-- Source of truth: rating.mixin fields only -->
+            <t t-set="avg" t-value="product.sudo().rating_avg or 0.0"/>
+            <t t-set="cnt" t-value="product.sudo().rating_count or 0"/>
+            <t t-if="cnt">
+                <div class="o_feedback_rating_static"
+                     t-att-title="'%.1f / 5' % avg">
+                    <span class="text-warning" aria-hidden="true">
+                        <t t-foreach="range(1, 6)" t-as="star">
+                            <t t-if="avg &gt;= star">&#9733;</t>
+                            <t t-elif="avg &gt;= star - 0.5">&#9733;</t>
+                            <t t-else="">&#9734;</t>
+                        </t>
+                    </span>
+                </div>
+                <span class="fw-semibold fs-6" t-esc="'%.1f' % avg"/>
+                <a href="#o_feedback_reviews"
+                   class="text-primary text-decoration-underline small ms-1"
+                   title="See verified customer reviews">
+                    (<t t-esc="'{:,}'.format(cnt)"/>
+                    <t t-if="cnt == 1"> rating</t>
+                    <t t-else=""> ratings</t>)
+                </a>
+            </t>
+            <t t-else="">
+                <span class="text-muted small">No ratings yet</span>
+            </t>
+        </div>
+    </template>
+
+    <!-- Single verified reviews section (list + sort/filter/vote).
+         Step 7: gated by customer_feedback.show_on_product_page (default True).
+         When disabled in Settings, auto-injection is skipped; the snippet can
+         still be placed manually via the Website Builder.
+         Per-page hide: snippet option o_feedback_hide_block (no functional change
+         to votes/moderation/rating bridge). -->
+    <template id="product_reviews_on_product_page"
+              inherit_id="website_sale.product"
+              name="Product Page: Verified Reviews (sole public list)"
+              priority="20">
+        <xpath expr="//div[@id='product_full_description']" position="after">
+            <t t-set="cf_show_reviews"
+               t-value="request.env['ir.config_parameter'].sudo().get_param(
+                   'customer_feedback.show_on_product_page', 'True') == 'True'"/>
+            <t t-if="cf_show_reviews">
+                <t t-call="customer_feedback.s_feedback_reviews"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- If product_comment is (re)activated, remove the entire native accordion
+         shell (#o_product_page_reviews), not only the message_thread. Prevents
+         the empty "Customer Reviews" collapse from appearing on the page. -->
+    <template id="hide_native_product_comment_section"
+              inherit_id="website_sale.product_comment"
+              name="Hide Native Customer Reviews Accordion"
+              priority="99">
+        <xpath expr="//div[hasclass('o_shop_discussion_rating')]" position="replace"/>
+    </template>
+
+</odoo>
+

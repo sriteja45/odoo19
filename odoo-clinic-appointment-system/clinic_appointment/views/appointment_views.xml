@@ -1,0 +1,597 @@
+<odoo>
+
+   
+    <!-- ===============================
+         LIST VIEW
+    ================================ -->
+    <record id="view_clinic_appointment_list" model="ir.ui.view">
+        <field name="name">clinic.appointment.list</field>
+        <field name="model">clinic.appointment</field>
+        
+        <field name="arch" type="xml">
+
+            <list string="Appointments">
+
+
+                <field name="appointment_id"/>
+                <field name="patient_name"/>
+                <field name="doctor_id"/>
+                <field name="appointment_date"/>
+                <field name="appointment_time"/>
+                <field name="token_number"/>
+                <field name="booking_by"/>
+                <field name="state"
+                    widget="badge"
+                    decoration-success="state == 'done'"
+                    decoration-danger="state == 'cancelled'"
+                    decoration-warning="state in ('confirmed','checked_in')"
+                    decoration-info="state == 'in_consultation'"
+                    decoration-muted="state == 'draft'"/>
+
+            </list>
+
+        </field>
+    </record>
+
+    <!-- ===============================
+         FORM VIEW
+    ================================ -->
+    <record id="view_clinic_appointment_form" model="ir.ui.view">
+        <field name="name">clinic.appointment.form</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+
+                <header>
+            
+                    <!-- Confirm -->
+                    <button name="action_confirm"
+                            type="object"
+                            string="Confirm"
+                            class="btn-primary"
+                            groups="clinic_appointment.group_clinic_receptionist,base.group_system,clinic_appointment.group_clinic_doctor"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_check_in"
+                            type="object"
+                            string="Check-In Patient"
+                            class="btn-secondary"
+                            groups="clinic_appointment.group_clinic_receptionist,base.group_system,clinic_appointment.group_clinic_doctor"
+                            invisible="state != 'confirmed'"/>
+
+                    <button name="action_call_token"
+                            type="object"
+                            string="Call Token"
+                            class="btn-success"
+                            groups="clinic_appointment.group_clinic_receptionist,base.group_system,clinic_appointment.group_clinic_doctor"
+                            invisible="state != 'waiting'"/>
+
+                    <button name="action_mark_waiting"
+                            type="object"
+                            string="Vitals Done"
+                            class="btn-info"
+                            groups="clinic_appointment.group_clinic_nurse,base.group_system,clinic_appointment.group_clinic_doctor"
+                            invisible="state != 'checked_in'"/>
+
+                    <!-- Cancel -->
+                    <!-- ✅ Receptionist Button -->
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            class="btn-danger"
+                            groups="clinic_appointment.group_clinic_receptionist,base.group_system"
+                            invisible="state != 'draft'"/>
+
+                    <!-- ✅ Doctor Button -->
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            class="btn-danger"
+                            groups="clinic_appointment.group_clinic_doctor"
+                            invisible="show_cancel_field"/>
+
+                    
+
+                    <!-- Start Consultation -->
+                    <button name="action_start_consultation"
+                            type="object"
+                            string="Start Consultation"
+                            class="btn-warning"
+                            groups="clinic_appointment.group_clinic_doctor,base.group_system"
+                            invisible="state != 'called'"/>
+
+                    <!-- Mark Done -->
+                    <button name="action_done"
+                            type="object"
+                            string="Mark Done"
+                            class="btn-success"
+                            groups="clinic_appointment.group_clinic_doctor,base.group_system"
+                            invisible="state != 'in_consultation'"/>
+
+                    <field name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,confirmed,checked_in,waiting,in_consultation,done,cancelled"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+
+                        <!-- Patient History -->
+                        <button name="action_view_patient_history"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-history">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Patient</span>
+                                <span class="o_stat_text">History</span>
+                            </div>
+                        </button>
+
+                        <!-- Doctor Stats -->
+                        <button class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="today_total"/>
+                                </span>
+                                <span class="o_stat_text">Today</span>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="today_done"/>
+                                </span>
+                                <span class="o_stat_text">Completed</span>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="today_pending"/>
+                                </span>
+                                <span class="o_stat_text">Pending</span>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="today_followups"/>
+                                </span>
+                                <span class="o_stat_text">Followups</span>
+                            </div>
+                        </button>
+
+                        <!-- Receptionist Stats -->
+
+                        <button class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="today_appointments"/>
+                                </span>
+                                <span class="o_stat_text">Today Appointments</span>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="today_confirmed"/>
+                                </span>
+                                <span class="o_stat_text">Confirmed</span>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="today_done_total"/>
+                                </span>
+                                <span class="o_stat_text">Completed</span>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="today_cancelled"/>
+                                </span>
+                                <span class="o_stat_text">Cancelled</span>
+                            </div>
+                        </button>
+
+                    </div>
+
+                    <group string="Patient Information">
+                        <field name="patient_id" options="{'no_create': True}"/>
+                        <field name="patient_code" readonly="1"/>
+                        <field name="patient_name"/>
+                        <field name="birth_date"/>
+                        <field name="age" readonly="1"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="token_number"/>
+                    </group>
+
+                    <group string="Appointment Details">
+                        <group col="1">
+                            <field name="specialization_id" readonly="state != 'draft'"/>
+
+                            <field name="doctor_id"
+                                readonly="state != 'draft'"
+                                domain="[('specialization_id', '=', specialization_id)]"/>
+                        </group>
+                        <group>
+                            <field name="appointment_date" readonly="state != 'draft'" options="{'min_date': (context_today()).strftime('%Y-%m-%d')}"/>
+                            <field name="slot_id" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+
+                    <group string="Cancellation Details"
+                        invisible="state not in ('draft','cancelled')">
+                        
+
+                        <field name="cancel_reason"
+                            placeholder="Enter reason for cancellation"/>
+
+                    </group>
+                    <group string="Nurse Vitals"
+                        groups="clinic_appointment.group_clinic_nurse,clinic_appointment.group_clinic_doctor"
+                        invisible="state not in ('checked_in','waiting','in_consultation')">
+
+                        <field name="bp"/>
+                        <field name="temperature"/>
+                        <field name="pulse"/>
+                        <field name="weight"/>
+                        <field name="symptoms"/>
+
+                    </group>
+                    <group string="Doctor Consultation"
+                        groups="clinic_appointment.group_clinic_doctor"
+                        invisible="state not in ('waiting','in_consultation')"
+                        col="1">
+
+                        <group  col="1">
+                            <field name="diagnosis_ids" widget="many2many_tags"
+                                options="{'no_create': False}"/>
+                        </group>
+
+                        <group string="Doctor Prescription" col="1">
+
+                            <!-- Prescription Section -->
+                            <group class="oe_subgroup" col="1">
+                                
+                                <field name="prescription"
+                                    placeholder="Enter detailed prescription here (e.g., medicine name, dose, frequency)"/>
+                            </group>
+
+                            <!-- Doctor Notes Section -->
+                            <group col="1">
+                                
+                                <field name="doctor_notes"
+                                    placeholder="Enter any additional instructions or observations"/>
+                            </group>
+
+                        </group>
+
+                        <!-- Follow-up Section -->
+                        <group class="oe_group" col="1">
+                            <field name="followup_days" placeholder="Enter number of days until follow-up"/>
+                            <field name="followup_date" readonly="1"/>
+                            
+                        </group>
+
+                        <!-- Doctor Action + Lab Test Section -->
+                        <group string="Doctor Action"
+                            groups="clinic_appointment.group_clinic_doctor"
+                            col="1">
+
+                            <!-- Next Action (Full Width) -->
+                            <group col="1">
+                                <field name="next_action" string="Next Action"/>
+                            </group>
+
+                            <!-- Medicines -->
+                            <group col="1">
+                                <field name="medicine_ids"
+                                    widget="many2many_tags"
+                                    placeholder="Select Medicines"
+                                    invisible="next_action not in ('medicine','both')"/>
+                            </group>
+
+                            <!-- Lab Tests Table -->
+                            <group col="1">
+                                <field name="lab_test_ids"
+                                    widget="one2many_list"
+                                    placeholder="Select or Add Lab Tests"
+                                    options="{'no_create': False}"
+                                    mode="list,form">
+                                    <list editable="bottom">
+                                        <field name="category"/>
+                                        <field name="test_id"/>
+                                        <field name="code"/>
+                                        <field name="price"/>
+                                        <field name="priority"/>
+                                        <field name="description"/>
+                                    </list>
+                                </field>
+                            </group>
+
+                            <!-- Button -->
+                            <group col="1">
+                                <button name="action_create_lab_test"
+                                        type="object"
+                                        string="Create Lab Test"
+                                        class="btn-primary"
+                                        invisible="next_action != 'lab' and next_action != 'both'"/>
+                            </group>
+
+                        </group>
+                    
+                    </group>
+                        
+
+                    <notebook groups="clinic_appointment.group_clinic_doctor,clinic_appointment.group_clinic_lab">
+                        <page string="Lab Reports">
+                            <field name="lab_request_ids" readonly="1">
+                            <list>
+                                <field name="name"/>
+                                <field name="request_date"/>
+                                <field name="status"/>
+                                <field name="total_amount"/>
+                            </list>
+
+                            <form string="Lab Request">
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <field name="name" readonly="1"/>
+                                            <field name="request_date" readonly="1"/>
+                                            <field name="status" readonly="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="patient_name" readonly="1"/>
+                                            <field name="doctor_id" readonly="1"/>
+                                            <field name="total_amount" readonly="1"/>
+                                        </group>
+                                    </group>
+
+                                    <field name="line_ids">
+                                        <list>
+                                            <field name="name"/>
+                                            <field name="code"/>
+                                            <field name="price"/>
+                                            <field name="status"/>
+                                            <field name="report" filename="report_filename"/>
+                                            <button name="action_view_report"
+                                                    type="object"
+                                                    string="View Report"
+                                                    class="btn-link"
+                                                    invisible="not report"/>
+                                        </list>
+
+                                        <form string="Test">
+                                            <sheet>
+                                                <group string="Test Information">
+                                                    <group>
+                                                        <field name="request_id" readonly="1"/>
+                                                        <field name="test_id" readonly="1"/>
+                                                        <field name="name" readonly="1"/>
+                                                        <field name="category" readonly="1"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="code" readonly="1"/>
+                                                        <field name="price" readonly="1"/>
+                                                        <field name="status" readonly="1"/>
+                                                    </group>
+                                                </group>
+
+                                                <group string="Report">
+                                                    <field name="report" filename="report_filename" readonly="1"/>
+                                                    <field name="report_filename" readonly="1"/>
+                                                </group>
+
+                                                <footer>
+                                                    <button name="action_view_report"
+                                                            type="object"
+                                                            string="View Report"
+                                                            class="btn-primary"
+                                                            invisible="not report"/>
+                                                    <button string="Close" special="cancel" class="btn-secondary"/>
+                                                </footer>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                </sheet>
+                            </form>
+                        </field>
+
+
+
+                        </page>
+                    </notebook>
+
+                </sheet>
+
+                <chatter/>
+
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ===============================
+         MAIN ACTION
+    ================================ -->
+    <record id="action_clinic_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- ALL APPOINMENTS -->
+    <record id="action_all_appointments" model="ir.actions.act_window">
+        <field name="name">All Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+
+        <!-- ✅ CORRECT -->
+        <field name="context">{}</field>
+
+    </record>
+
+    <!-- Today Appointments -->
+    <record id="action_today_appointments" model="ir.actions.act_window">
+        <field name="name">Today Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('appointment_date','=',context_today())]
+        </field>
+    </record>
+
+    
+
+
+    <!-- =====================================================
+                  DOCTOR FILTER ACTIONS
+    ====================================================== -->
+
+    <!-- Today Appointments -->
+    <record id="action_doctor_today_appointments" model="ir.actions.act_window">
+        <field name="name">Today's Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('appointment_date','=',context_today()),
+             ('doctor_user_id','=',uid)]
+        </field>
+    </record>
+
+
+    <!-- My Appointments -->
+    <record id="action_doctor_my_appointments" model="ir.actions.act_window">
+        <field name="name">My Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('doctor_user_id','=',uid)]
+        </field>
+    </record>
+
+
+    <!-- Completed Consultations -->
+    <record id="action_doctor_completed_appointments" model="ir.actions.act_window">
+        <field name="name">Completed Consultations</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('state','=','done'),
+             ('doctor_user_id','=',uid)]
+        </field>
+    </record>
+
+
+    <!-- Follow Ups -->
+    <record id="action_doctor_followups" model="ir.actions.act_window">
+        <field name="name">Follow-ups</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+        [
+        ('doctor_user_id','=',uid),
+        ('state','=','done'),
+        ('followup_date','!=',False)
+        ]
+        </field>
+    </record>
+
+    <!-- =====================================================
+                RECEPTIONIST ACTIONS
+    ===================================================== -->
+
+    <!-- Today Appointments -->
+    <record id="action_reception_today_appointments" model="ir.actions.act_window">
+        <field name="name">Today Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('appointment_date','=',context_today())]
+        </field>
+    </record>
+
+    <!-- All Appointments -->
+    <record id="action_reception_all_appointments" model="ir.actions.act_window">
+        <field name="name">All Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Draft Appointments (Book Appointment) -->
+    <record id="action_reception_draft_appointments" model="ir.actions.act_window">
+        <field name="name">Book Appointment</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'default_state':'draft'}</field>
+    </record>
+
+    <!-- Cancelled Appointments -->
+    <record id="action_reception_cancelled_appointments" model="ir.actions.act_window">
+        <field name="name">Cancelled Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('state','=','cancelled')]
+        </field>
+    </record>
+
+    <!-- =====================================================
+                NURSE ACTIONS
+    ===================================================== -->
+
+    <!-- Today Patients -->
+    <record id="action_nurse_today_patients" model="ir.actions.act_window">
+        <field name="name">Today Patients</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('appointment_date','=',context_today())]
+        </field>
+    </record>
+
+    <!-- Waiting Patients -->
+    <record id="action_nurse_waiting_patients" model="ir.actions.act_window">
+        <field name="name">Waiting Patients</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('appointment_date','=',context_today()),
+            ('state','=','checked_in')]
+        </field>
+    </record>
+
+    <!-- In Consultation -->
+    <record id="action_nurse_in_consultation" model="ir.actions.act_window">
+        <field name="name">In Consultation</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('state','=','in_consultation')]
+        </field>
+    </record>
+
+    <!-- Completed Today -->
+    <record id="action_nurse_completed_today" model="ir.actions.act_window">
+        <field name="name">Completed Today</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('appointment_date','=',context_today()),
+            ('state','=','done')]
+        </field>
+    </record>
+</odoo>

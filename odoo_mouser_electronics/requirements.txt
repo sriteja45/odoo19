@@ -1,0 +1,7 @@
+psycopg2-binary
+
+google-search-results
+groq
+python-dotenv
+redis
+markdown

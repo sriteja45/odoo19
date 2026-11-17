@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Root Menu -->
+    <menuitem
+        id="menu_mouser_reports_root"
+        name="Mouser Reports"
+        sequence="100"/>
+
+    <!-- Profit & Loss -->
+    <menuitem
+        id="menu_profit_loss"
+        name="Profit &amp; Loss"
+        parent="menu_mouser_reports_root"
+        action="action_profit_loss"
+        sequence="1"/>
+
+    <!-- Balance Sheet -->
+    <menuitem
+        id="menu_balance_sheet"
+        name="Balance Sheet"
+        parent="menu_mouser_reports_root"
+        action="action_balance_sheet"
+        sequence="2"/>
+
+    <!-- Executive Summary -->
+    <menuitem
+        id="menu_executive_summary"
+        name="Executive Summary"
+        parent="menu_mouser_reports_root"
+        action="action_executive_summary"
+        sequence="3"/>
+
+</odoo>

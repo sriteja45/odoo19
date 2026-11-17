@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_feedback_page" name="Feedback Form Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="py-5 bg-light">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 col-md-10">
+                                <div class="card shadow-sm border-0 p-4 rounded-3 bg-white">
+                                    <h3 class="mb-4 text-center fw-bold text-primary">Customer Feedback</h3>
+
+                                    <!-- Validation errors -->
+                                    <div class="alert alert-danger" t-if="errors">
+                                        <ul class="mb-0">
+                                            <li t-foreach="errors" t-as="error" t-esc="error"/>
+                                        </ul>
+                                    </div>
+
+                                    <form action="/submit-feedback" method="POST" enctype="multipart/form-data">
+                                        <!-- Odoo CSRF Protection -->
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                        <!-- Full Name -->
+                                        <div class="mb-3">
+                                            <label for="fullName" class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="fullName" name="fullName" required="required"
+                                                   placeholder="Jane Doe" t-att-value="form_data and form_data.get('fullName')"/>
+                                        </div>
+
+                                        <!-- Email Address -->
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
+                                            <input type="email" class="form-control" id="email" name="email" required="required"
+                                                   placeholder="jane@example.com" t-att-value="form_data and form_data.get('email')"/>
+                                        </div>
+
+                                        <!-- Rating (1 to 5 Stars) -->
+                                        <div class="mb-3">
+                                            <label class="form-label d-block fw-semibold">Rating <span class="text-danger">*</span></label>
+                                            <div class="d-flex gap-4">
+                                                <div class="form-check form-check-inline" t-foreach="[5, 4, 3, 2, 1]" t-as="rate">
+                                                    <input class="form-check-input" type="radio" name="rating" t-att-id="'star_' + str(rate)"
+                                                           t-att-value="rate" required="required"
+                                                           t-att-checked="form_data and form_data.get('rating') == str(rate) and 'checked' or None"/>
+                                                    <label class="form-check-label" t-att-for="'star_' + str(rate)">
+                                                        <t t-esc="rate"/> <i class="fa fa-star text-warning"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Summary / Description -->
+                                        <div class="mb-3">
+                                            <label for="headline" class="form-label fw-semibold">Summary / Description</label>
+                                            <input type="text" class="form-control" id="headline" name="headline"
+                                                   placeholder="Brief overview of your experience"
+                                                   t-att-value="form_data and form_data.get('headline')"/>
+                                        </div>
+
+                                        <!-- Detailed Feedback Textarea -->
+                                        <div class="mb-4">
+                                            <label for="feedback" class="form-label fw-semibold">Detailed Feedback <span class="text-danger">*</span></label>
+                                            <textarea class="form-control" id="feedback" name="feedback" rows="5" required="required"
+                                                      placeholder="Tell us more about your experience...">
+                                                <t t-esc="form_data and form_data.get('feedback')"/>
+                                            </textarea>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary btn-lg">Submit Review</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="feedback_thank_you" name="Feedback Thank You Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="py-5 bg-light">
+                    <div class="container">
+                        <div class="row justify-content-center text-center">
+                            <div class="col-lg-8 col-md-10">
+                                <div class="card shadow-sm border-0 p-5 rounded-3 bg-white">
+                                    <i class="fa fa-check-circle text-success mb-3" style="font-size: 3rem;"></i>
+                                    <h3 class="mb-3 fw-bold text-primary">Thank You<t t-if="full_name">, <t t-esc="full_name"/></t>!</h3>
+                                    <p class="mb-4">Your feedback has been submitted successfully. We appreciate you taking the time to share your experience with us.</p>
+                                    <a href="/feedback" class="btn btn-outline-primary">Submit Another Response</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

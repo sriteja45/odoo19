@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="xevoria_currency_in" model="xevoria.currency.config">
+            <field name="country_code">IN</field>
+            <field name="currency_id" ref="base.INR"/>
+        </record>
+        <record id="xevoria_currency_us" model="xevoria.currency.config">
+            <field name="country_code">US</field>
+            <field name="currency_id" ref="base.USD"/>
+        </record>
+        <record id="xevoria_currency_gb" model="xevoria.currency.config">
+            <field name="country_code">GB</field>
+            <field name="currency_id" ref="base.GBP"/>
+        </record>
+        <record id="xevoria_currency_fr" model="xevoria.currency.config">
+            <field name="country_code">FR</field>
+            <field name="currency_id" ref="base.EUR"/>
+        </record>
+        <record id="xevoria_currency_de" model="xevoria.currency.config">
+            <field name="country_code">DE</field>
+            <field name="currency_id" ref="base.EUR"/>
+        </record>
+    </data>
+</odoo>

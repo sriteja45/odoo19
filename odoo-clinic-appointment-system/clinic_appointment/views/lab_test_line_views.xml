@@ -1,0 +1,57 @@
+<odoo>
+
+    <!-- =========================================
+         LAB TEST LINE FORM VIEW
+    ========================================== -->
+    <record id="view_clinic_lab_test_line_form" model="ir.ui.view">
+        <field name="name">clinic.lab.test.line.form</field>
+        <field name="model">clinic.lab.test.line</field>
+        <field name="arch" type="xml">
+            <form string="Lab Test Line">
+                <sheet>
+                    <group string="Test Information">
+                        <group>
+                            <field name="request_id" readonly="1"/>
+                            <field name="test_id" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="category" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="code" readonly="1"/>
+                            <field name="price" readonly="1"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+
+                    <group string="Report">
+                        <field name="report" filename="report_filename"/>
+                        <field name="report_filename"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- =========================================
+         LAB TEST LINE LIST VIEW
+    ========================================== -->
+    <record id="view_clinic_lab_test_line_list" model="ir.ui.view">
+        <field name="name">clinic.lab.test.line.list</field>
+        <field name="model">clinic.lab.test.line</field>
+        <field name="arch" type="xml">
+            <list string="Lab Test Lines">
+                <field name="request_id"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="code"/>
+                <field name="price"/>
+                <field name="status"
+                       widget="badge"
+                       decoration-muted="status == 'pending'"
+                       decoration-info="status == 'processing'"
+                       decoration-success="status == 'done'"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

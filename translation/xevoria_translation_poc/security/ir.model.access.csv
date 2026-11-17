@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_xevoria_product_translation_poc_user,xevoria.product.translation.poc.user,model_xevoria_product_translation_poc,base.group_user,1,1,1,1
+access_xevoria_bulk_translation_wizard_user,xevoria.bulk.translation.wizard.user,model_xevoria_bulk_translation_wizard,base.group_user,1,1,1,1
+access_xevoria_translation_queue_user,xevoria.translation.queue.user,model_xevoria_translation_queue,base.group_user,1,1,1,1
+access_xevoria_translation_log_user,xevoria.translation.log.user,model_xevoria_translation_log,base.group_user,1,0,0,0
+access_xevoria_translation_memory_user,xevoria.translation.memory user,model_xevoria_translation_memory,base.group_user,1,1,1,1
+access_xevoria_translation_validation_wizard,xevoria.translation.validation.wizard,model_xevoria_translation_validation_wizard,base.group_user,1,1,1,1
+access_xevoria_translation_queue_dashboard_user,xevoria.translation.queue.dashboard.user,model_xevoria_translation_queue_dashboard,base.group_user,1,1,1,1

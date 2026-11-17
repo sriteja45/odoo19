@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_xevoria_translation_memory_tree" model="ir.ui.view">
+        <field name="name">xevoria.translation.memory.tree</field>
+        <field name="model">xevoria.translation.memory</field>
+        <field name="arch" type="xml">
+            <list string="Translation Memory">
+                <field name="source_lang"/>
+                <field name="target_lang"/>
+                <field name="provider"/>
+                <field name="is_html"/>
+                <field name="hit_count"/>
+                <field name="last_hit_at"/>
+                <field name="source_text"/>
+                <field name="translated_text"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_xevoria_translation_memory_form" model="ir.ui.view">
+        <field name="name">xevoria.translation.memory.form</field>
+        <field name="model">xevoria.translation.memory</field>
+        <field name="arch" type="xml">
+            <form string="Translation Memory">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="source_lang"/>
+                            <field name="target_lang"/>
+                            <field name="provider"/>
+                            <field name="is_html"/>
+                        </group>
+                        <group>
+                            <field name="source_hash" readonly="1"/>
+                            <field name="hit_count" readonly="1"/>
+                            <field name="last_hit_at" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Source">
+                            <field name="source_text"/>
+                        </page>
+                        <page string="Translation">
+                            <field name="translated_text"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_xevoria_translation_memory" model="ir.actions.act_window">
+        <field name="name">Translation Memory</field>
+        <field name="res_model">xevoria.translation.memory</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_xevoria_translation_memory"
+              name="Translation Memory"
+              parent="menu_xevoria_translation_root"
+              action="action_xevoria_translation_memory"
+              sequence="35"/>
+</odoo>

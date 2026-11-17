@@ -1,0 +1,278 @@
+/* Website Product 3D / 360 Viewer styles */
+
+.o_product_3d_toolbar {
+    .o_product_3d_toggle {
+        &.active {
+            color: var(--bs-btn-active-color);
+            background-color: var(--bs-btn-active-bg);
+            border-color: var(--bs-btn-active-border-color);
+        }
+    }
+}
+
+
+/* =========================================================
+   3D PRODUCT VIEWER
+   ========================================================= */
+
+.o_product_3d_viewer_wrapper {
+    position: relative;
+    width: 40%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #7656A8;
+    border: 1px solid #62478F;
+
+    .o_product_3d_viewer_container {
+        position: relative;
+        width: 100%;
+    }
+
+    model-viewer.o_product_3d_model_viewer {
+        width: 100%;
+        height: 280px;
+        display: block;
+        --poster-color: #7656A8;
+        background: #7656A8;
+    }
+
+    .o_product_3d_badge {
+        position: absolute;
+        top: 0.50rem;
+        left: 0.75rem;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    &.o_product_3d_error {
+        .o_product_3d_error_message {
+            display: block !important;
+        }
+    }
+}
+
+
+/* =========================================================
+   360 DEGREE PRODUCT VIEWER
+   ========================================================= */
+
+.o_product_360_viewer_wrapper {
+    position: relative;
+    width: 40%;
+
+    .o_product_360_viewer_stage {
+        position: relative;
+        width: 100%;
+        min-height: 280px;
+        overflow: hidden;
+        border: 1px solid #62478F;
+        border-radius: 0.5rem;
+        background: #7656A8;
+        cursor: grab;
+        touch-action: pan-y;
+        user-select: none;
+        outline: none;
+
+        &.is-dragging {
+            cursor: grabbing;
+        }
+
+        &:focus-visible {
+            box-shadow: 0 0 0 0.2rem rgba(118, 86, 168, 0.35);
+        }
+    }
+
+    .o_product_360_image {
+        display: block;
+        width: 100%;
+        height: 280px;
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    .o_product_360_frames {
+        display: none;
+    }
+
+    .o_product_360_hint {
+        user-select: none;
+    }
+
+    .o_product_360_loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(118, 86, 168, 0.75);
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+    }
+}
+
+
+/* =========================================================
+   SIMPLE CSS / JS ROTATE + ZOOM
+   ========================================================= */
+
+.o_product_simple_anim_wrapper {
+    position: relative;
+    width: 40%;
+
+    .o_product_simple_anim_stage {
+        position: relative;
+        width: 100%;
+        min-height: 280px;
+        overflow: hidden;
+        border: 1px solid #62478F;
+        border-radius: 0.5rem;
+        background: #7656A8;
+        cursor: grab;
+        touch-action: none;
+        user-select: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.is-dragging {
+            cursor: grabbing;
+        }
+
+        &:focus-visible {
+            box-shadow: 0 0 0 0.2rem rgba(118, 86, 168, 0.35);
+        }
+    }
+
+    .o_product_simple_anim_inner {
+        transition: transform 0.05s linear;
+        will-change: transform;
+        transform-style: preserve-3d;
+    }
+
+    .o_product_simple_anim_image {
+        display: block;
+        max-width: 100%;
+        height: 280px;
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE VIEW
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .o_product_3d_viewer_wrapper {
+        width: 100%;
+
+        model-viewer.o_product_3d_model_viewer {
+            height: 300px;
+            width: 100%;
+        }
+    }
+
+    .o_product_360_viewer_wrapper {
+        width: 100%;
+
+        .o_product_360_viewer_stage {
+            width: 100%;
+        }
+
+        .o_product_360_image {
+            width: 100%;
+            height: 280px;
+        }
+    }
+
+    .o_product_simple_anim_wrapper {
+        width: 100%;
+
+        .o_product_simple_anim_stage {
+            width: 100%;
+        }
+
+        .o_product_simple_anim_image {
+            max-width: 100%;
+            height: 280px;
+        }
+    }
+}
+
+
+/* =========================================================
+   3D VIEWER LOADING
+   ========================================================= */
+
+.o_product_3d_loading {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(118, 86, 168, 0.72);
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   3D VIEWER PROGRESS
+   ========================================================= */
+
+.o_product_3d_progress {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1.25rem;
+    z-index: 2;
+    pointer-events: none;
+
+    .o_product_3d_progress_track {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.30);
+        border-radius: 999px;
+        overflow: hidden;
+    }
+
+    .o_product_3d_progress_bar {
+        height: 100%;
+        background: #ffffff;
+        border-radius: 999px;
+        transition: width 0.15s ease;
+    }
+
+    .o_product_3d_progress_text {
+        margin-top: 0.35rem;
+        font-size: 0.50rem;
+        color: #ffffff;
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   HIDE LOADING AFTER 3D MODEL IS LOADED
+   ========================================================= */
+
+.o_product_3d_viewer_wrapper.o_product_3d_loaded .o_product_3d_loading,
+.o_product_3d_viewer_wrapper.o_product_3d_error .o_product_3d_loading {
+    display: none;
+}
+
+
+/* =========================================================
+   HIDE PROGRESS AFTER LOAD / ERROR
+   ========================================================= */
+
+.o_product_3d_viewer_wrapper.o_product_3d_loaded .o_product_3d_progress,
+.o_product_3d_viewer_wrapper.o_product_3d_error .o_product_3d_progress {
+    display: none !important;
+}

@@ -1,0 +1,303 @@
+<odoo>
+    <data>
+
+        <!-- Employee kanban (List) View -->
+        <record id="view_clinic_employee_kanban" model="ir.ui.view">
+            <field name="name">clinic.employee.kanban</field>
+            <field name="model">clinic.employee</field>
+            <field name="arch" type="xml">
+
+                <kanban class="o_kanban_small_column">
+
+                    <field name="name"/>
+                    <field name="role"/>
+                    <field name="department_id"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="image"/>
+                    <field name="image_url"/>
+                    <field name="gender"/>
+                    <field name="active"/>
+
+                    <templates>
+                        <t t-name="card">
+
+                            <div t-attf-style="
+                                background:#ffffff;
+                                border-radius:18px;
+                                padding:18px;
+                                position:relative;
+                                overflow:hidden;
+                                transition:all 0.3s ease;
+                                box-shadow:0 4px 12px rgba(0,0,0,0.06);
+
+                                border:2px solid #{record.role.raw_value == 'doctor' and '#d0e2ff' or
+                                                record.role.raw_value == 'nurse' and '#d3f9d8' or
+                                                record.role.raw_value == 'receptionist' and '#ffe3bf' or
+                                                record.role.raw_value == 'lab' and '#e5dbff' or '#dee2e6'};
+                            "
+                            onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 24px rgba(0,0,0,0.1)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'"
+                            >
+
+                                <!-- TOP BAR -->
+                                <div t-attf-style="
+                                    position:absolute;
+                                    top:0;
+                                    left:0;
+                                    width:100%;
+                                    height:5px;
+                                    border-radius:18px 18px 0 0;
+
+                                    background:linear-gradient(90deg,
+                                        #{record.role.raw_value == 'doctor' and '#4c6ef5,#d0e2ff' or
+                                        record.role.raw_value == 'nurse' and '#2f9e44,#d3f9d8' or
+                                        record.role.raw_value == 'receptionist' and '#f08c00,#ffe3bf' or
+                                        record.role.raw_value == 'lab' and '#845ef7,#e5dbff' or '#868e96,#dee2e6'});
+                                "></div>
+
+                                <!-- STATUS -->
+                                <div t-attf-style="
+                                    position:absolute;
+                                    top:12px;
+                                    right:12px;
+                                    width:10px;
+                                    height:10px;
+                                    border-radius:50%;
+                                    background:#{record.active.raw_value and '#51cf66' or '#ff6b6b'};
+                                "></div>
+
+                                <!-- HEADER -->
+                                <div style="display:flex; align-items:center; gap:14px;">
+
+                                    <!-- IMAGE -->
+                                    <div style="position:relative; width:56px; height:56px;">
+
+                                        <!-- USER IMAGE -->
+                                        <img t-if="record.image.raw_value"
+                                            t-att-src="'/web/image/clinic.employee/' + record.id.raw_value + '/image'"
+                                            t-att-alt="record.name.value or 'Employee'"
+                                            style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #dee2e6;"
+                                        />
+
+                                        <!-- DEFAULT IMAGE -->
+                                        <img t-if="!record.image.raw_value"
+                                            t-att-src="record.image_url.raw_value"
+                                            t-att-alt="record.name.value or 'Employee'"
+                                            style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #dee2e6;"
+                                        />
+
+                                        <!-- ROLE BADGE -->
+                                        <div t-attf-style="
+                                            position:absolute;
+                                            bottom:-3px;
+                                            right:-3px;
+                                            width:22px;
+                                            height:22px;
+                                            border-radius:50%;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            font-size:12px;
+                                            color:white;
+                                            border:2px solid white;
+
+                                            background:#{record.role.raw_value == 'doctor' and '#4c6ef5' or
+                                                        record.role.raw_value == 'nurse' and '#2f9e44' or
+                                                        record.role.raw_value == 'receptionist' and '#f08c00' or
+                                                        record.role.raw_value == 'lab' and '#845ef7' or '#868e96'};
+                                        ">
+
+                                            <t t-if="record.role.raw_value == 'doctor'">🩺</t>
+                                            <t t-elif="record.role.raw_value == 'nurse'">💉</t>
+                                            <t t-elif="record.role.raw_value == 'receptionist'">📋</t>
+                                            <t t-elif="record.role.raw_value == 'lab'">🧪</t>
+                                            <t t-else="">👤</t>
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- NAME -->
+                                    <div>
+                                        <div style="font-size:15px; font-weight:700; color:#2c3e50;">
+                                            <field name="name"/>
+                                        </div>
+
+                                        <span t-attf-style="
+                                            display:inline-block;
+                                            margin-top:5px;
+                                            padding:4px 12px;
+                                            font-size:11px;
+                                            border-radius:20px;
+                                            color:#495057;
+
+                                            background:#{record.role.raw_value == 'doctor' and '#d0e2ff' or
+                                                        record.role.raw_value == 'nurse' and '#d3f9d8' or
+                                                        record.role.raw_value == 'receptionist' and '#ffe3bf' or
+                                                        record.role.raw_value == 'lab' and '#e5dbff' or '#dee2e6'};
+                                        ">
+                                            <field name="role"/>
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <!-- DIVIDER -->
+                                <div style="margin:14px 0; height:1px; background:#e9ecef;"></div>
+
+                                <!-- CONTACT -->
+                                <div style="font-size:12px; color:#495057; line-height:1.6;">
+                                    📞 <field name="mobile"/><br/>
+                                    ✉️ <field name="email"/>
+                                </div>
+
+                                <!-- FOOTER -->
+                                <div style="margin-top:14px; display:flex; justify-content:space-between;">
+                                    <span style="font-size:11px; color:#868e96;">
+                                        <field name="department_id"/>
+                                    </span>
+                                    <span style="font-size:16px; color:#adb5bd;">➜</span>
+                                </div>
+
+                            </div>
+
+                        </t>
+                    </templates>
+
+                </kanban>
+            </field>
+        </record>
+
+<!-- Employee Tree (List) View -->
+        <record id="view_clinic_employee_tree" model="ir.ui.view">
+            <field name="name">clinic.employee.tree</field>
+            <field name="model">clinic.employee</field>
+            <field name="arch" type="xml">
+
+                <list string="Clinic Employees">
+                    <field name="name"/>
+                    <field name="employee_code"/>
+                    <field name="role"/>
+                    <field name="display_specialization"/>
+                    <field name="department_id" />
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="user_id" placeholder="Select or create linked internal user"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Employee Form View -->
+        <record id="view_clinic_employee_form" model="ir.ui.view">
+            <field name="name">clinic.employee.form</field>
+            <field name="model">clinic.employee</field>
+            <field name="arch" type="xml">
+                <form string="Clinic Employee">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="gender"/>
+                            <field name="employee_code"/>
+                            <field name="role"/>
+                            
+                        </group>
+                        
+                        <group string="Internal User">
+                            <field name="user_id" readonly="1"/>
+                            <button name="action_create_user"
+                                    string="Create Employee User"
+                                    type="object"
+                                    class="btn-primary"/>
+                            <field name="group_id" widget="many2many_tags" options="{'no_create': True}" readonly="1"/>
+                            <button name="action_send_invitation"
+                                    string="Send Invitation"
+                                    type="object"
+                                    class="btn-secondary"/>
+                        </group>
+
+                        <notebook>
+                            <!-- Contact Information -->
+                            <page string="Contact Information">
+                                <group>
+                                    <field name="mobile"/>
+                                    <field name="email"/>
+                                    <field name="address"/>
+                                </group>
+                            </page>
+
+                            <!-- Professional Information -->
+                            <page string="Professional Info">
+                                <group>
+                                    <field name="specialization_id" invisible="role != 'doctor'"/>
+                                    <field name="receptionist_specialization" invisible="role != 'receptionist'"/>
+                                    <field name="nurse_specialization" invisible="role != 'nurse'"/>
+                                    <field name="lab_specialization" invisible="role != 'lab'"/>
+                                    <field name="qualification"/>
+                                    <field name="experience_years"/>
+                                    <field name="license_number" invisible="role != 'doctor'"/>
+                                </group>
+                            </page>
+
+                            <!-- Work Information -->
+                            <page string="Work Info">
+                                <group>
+                                    <field name="joining_date"/>
+                                    <field name="department_id"/>
+                                </group>
+                            </page>
+
+                            <!-- Doctor Specific -->
+                            <page string="Doctor Info"  invisible="role != 'doctor' ">
+                                <group>
+                                    <field name="consultation_fee"/>
+                                    <field name="max_patients_per_day"/>
+                                    <field name="available_from"/>
+                                    <field name="available_to"/>
+                                </group>
+                            </page>
+
+                            <!-- Profile -->
+                            <page string="Profile">
+                                <group>
+                                    <field name="image" widget="image" class="oe_avatar" options="{'size':[150,150]}"/>
+                                    <field name="notes"/>
+                                </group>
+                            </page>
+
+                            <!-- Status -->
+                            <page string="Status">
+                                <group>
+                                    <field name="active"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Employee Search View -->
+        <record id="view_clinic_employee_search" model="ir.ui.view">
+            <field name="name">clinic.employee.search</field>
+            <field name="model">clinic.employee</field>
+            <field name="arch" type="xml">
+                <search string="Search Clinic Employees">
+                    <field name="name"/>
+                    <field name="employee_code"/>
+                    <field name="role"/>
+                    <field name="department_id"/>
+                    <field name="specialization_id"/>
+                    <field name="receptionist_specialization"/>
+                    <field name="nurse_specialization"/>
+                    <field name="lab_specialization"/>
+                    <field name="available_from"/>
+                    <field name="available_to"/>
+                    <field name="user_id"/> 
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

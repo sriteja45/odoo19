@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Currency switcher with automatic first-visit language/currency detection. -->
+    <template id="xevoria_language_currency_switcher_safe" inherit_id="website.layout">
+        <xpath expr="//body" position="inside">
+            <div id="xevoria_locale_nav_holder" class="xevoria-locale-nav d-none d-print-none">
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <form action="/xevoria/set_currency" method="get" class="xevoria-currency-form">
+                        <input type="hidden" name="redirect" t-att-value="request.httprequest.full_path"/>
+                        <select id="xevoria_currency_select" name="currency" class="form-select form-select-sm xevoria-currency-select" title="Currency" onchange="this.form.submit()">
+                            <option value="INR" t-att-selected="request.session.get('xevoria_currency', 'INR') == 'INR'">₹ INR</option>
+                            <option value="USD" t-att-selected="request.session.get('xevoria_currency') == 'USD'">$ USD</option>
+                            <option value="EUR" t-att-selected="request.session.get('xevoria_currency') == 'EUR'">€ EUR</option>
+                            <option value="GBP" t-att-selected="request.session.get('xevoria_currency') == 'GBP'">£ GBP</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <style type="text/css">
+                /* Keep the selected currency text readable on the teal header. */
+                #xevoria_currency_select,
+                .xevoria-currency-select {
+                    color: #ffffff !important;
+                }
+                #xevoria_currency_select option,
+                .xevoria-currency-select option {
+                    color: #000000;
+                    background-color: #ffffff;
+                }
+            </style>
+            <script type="text/javascript">
+                (function () {
+                    function hasCookie(name) {
+                        return document.cookie.split(';').some(function (item) {
+                            return item.trim().indexOf(name + '=') === 0;
+                        });
+                    }
+                    if (!hasCookie('xevoria_auto_done')) {
+                        var path = window.location.pathname || '/';
+                        if (path.indexOf('/web') !== 0 &amp;&amp; path.indexOf('/xevoria/') !== 0) {
+                            document.cookie = 'xevoria_auto_done=1; path=/; max-age=' + (60 * 60 * 24 * 30) + '; SameSite=Lax';
+                            window.location.href = '/xevoria/auto_detect?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+                            return;
+                        }
+                    }
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var widget = document.getElementById('xevoria_locale_nav_holder');
+                        var header = document.querySelector('header');
+                        if (!widget || !header) { return; }
+                        var wrapper = document.createElement('div');
+                        wrapper.className = 'xevoria-locale-item d-flex align-items-center ms-2';
+                        wrapper.appendChild(widget);
+                        var adminLink = Array.prototype.slice.call(header.querySelectorAll('a, button, .dropdown-toggle')).filter(function (el) {
+                            var text = (el.textContent || '').trim().toLowerCase();
+                            return text.indexOf('admin') !== -1 || text.indexOf('mitchell') !== -1 || text.indexOf('user') !== -1;
+                        })[0];
+                        var adminItem = adminLink ? adminLink.closest('li, .nav-item, .dropdown, div') : null;
+                        if (adminItem &amp;&amp; adminItem.parentNode) {
+                            adminItem.parentNode.insertBefore(wrapper, adminItem);
+                        } else {
+                            var contactLink = Array.prototype.slice.call(header.querySelectorAll('a, button')).filter(function (el) {
+                                return ((el.textContent || '').trim().toLowerCase().indexOf('contact') !== -1);
+                            })[0];
+                            var contactItem = contactLink ? contactLink.closest('li, .nav-item, div') : null;
+                            if (contactItem &amp;&amp; contactItem.parentNode) {
+                                contactItem.parentNode.insertBefore(wrapper, contactItem);
+                            } else {
+                                var nav = header.querySelector('.navbar-nav, nav, .o_main_nav');
+                                (nav || header).appendChild(wrapper);
+                            }
+                        }
+                        widget.classList.remove('d-none');
+                    });
+                })();
+            </script>
+        </xpath>
+    </template>
+
+</odoo>

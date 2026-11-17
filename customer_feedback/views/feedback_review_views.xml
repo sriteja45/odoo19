@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_feedback_review_list" model="ir.ui.view">
+        <field name="name">feedback.review.list</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <list string="Reviews" decoration-danger="status=='rejected'" decoration-success="status=='approved'"
+                  decoration-warning="status=='pending'" default_order="review_date desc">
+                <field name="product_id"/>
+                <field name="customer_id"/>
+                <field name="rating" widget="badge"/>
+                <field name="review_title"/>
+                <field name="rating_id" readonly="1" groups="base.group_no_one"/>
+                    <field name="status" widget="badge"/>
+                <field name="is_verified" widget="boolean_toggle"/>
+                <field name="review_date"/>
+                <field name="media_count" optional="show"/>
+                <field name="moderated_by" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_feedback_review_form" model="ir.ui.view">
+        <field name="name">feedback.review.form</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <form string="Review">
+                <header>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight"
+                            groups="customer_feedback.group_feedback_moderator"
+                            invisible="status in ('approved', 'rejected', 'hidden')"/>
+                    <button name="action_restore" string="Restore" type="object" class="oe_highlight"
+                            groups="customer_feedback.group_feedback_moderator"
+                            invisible="status not in ('rejected', 'hidden')"/>
+                    <button name="action_reject" string="Reject" type="object"
+                            groups="customer_feedback.group_feedback_moderator"
+                            invisible="status == 'rejected'"/>
+                    <button name="action_hide" string="Hide" type="object"
+                            groups="customer_feedback.group_feedback_moderator"
+                            invisible="status == 'hidden'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="pending,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="review_title" placeholder="Review title..."/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="product_id"/>
+                            <field name="request_id"/>
+                        </group>
+                        <group>
+                            <field name="rating"/>
+                            <field name="review_date"/>
+                            <field name="is_verified"/>
+                        </group>
+                    </group>
+                    <group string="Review">
+                        <field name="review_text" nolabel="1"/>
+                        <group string="Photos &amp; Videos" col="1">
+                            <field name="media_ids" nolabel="1" mode="list,kanban">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="media_type"/>
+                                    <field name="mimetype"/>
+                                    <field name="file_size"/>
+                                    <field name="status"/>
+                                    <field name="attachment_id" column_invisible="1"/>
+                                    <button name="action_approve" type="object" string="Approve"
+                                            invisible="status == 'approved'"/>
+                                    <button name="action_reject" type="object" string="Reject"
+                                            invisible="status == 'rejected'"/>
+                                </list>
+                            </field>
+                        </group>
+                    </group>
+                    <group string="Moderation Notes">
+                        <field name="moderation_notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_feedback_review_search" model="ir.ui.view">
+        <field name="name">feedback.review.search</field>
+        <field name="model">feedback.review</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="customer_id"/>
+                <field name="product_id"/>
+                <field name="review_title"/>
+                <filter string="Today" name="today"
+                        domain="[('review_date','&gt;=', context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter string="This Week" name="this_week"
+                        domain="[('review_date','&gt;=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter string="This Month" name="this_month"
+                        domain="[('review_date','&gt;=', context_today().strftime('%Y-%m-01 00:00:00'))]"/>
+                <separator/>
+                <filter string="Pending Moderation" name="pending" domain="[('status','=','pending')]"/>
+                <filter string="Approved" name="approved" domain="[('status','=','approved')]"/>
+                <filter string="Rejected" name="rejected" domain="[('status','=','rejected')]"/>
+                <separator/>
+                <filter string="5 Stars" name="five_stars" domain="[('rating','=',5)]"/>
+                <filter string="4 Stars" name="four_stars" domain="[('rating','=',4)]"/>
+                <separator/>
+                <filter string="Verified Purchase" name="verified_purchase" domain="[('is_verified','=',True)]"/>
+                <group>
+                    <filter string="Product" name="group_product" context="{'group_by':'product_id'}"/>
+                    <filter string="Customer" name="group_customer" context="{'group_by':'customer_id'}"/>
+                    <filter string="Month" name="group_month" context="{'group_by':'review_date:month'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by':'status'}"/>
+                    <filter string="Rating" name="group_rating" context="{'group_by':'rating'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_feedback_review" model="ir.actions.act_window">
+        <field name="name">Reviews</field>
+        <field name="res_model">feedback.review</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+    </record>
+
+    <record id="action_feedback_review_view_pivot" model="ir.actions.act_window.view">
+        <field name="sequence">3</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_feedback_review_pivot"/>
+        <field name="act_window_id" ref="action_feedback_review"/>
+    </record>
+
+    <record id="action_feedback_review_view_graph" model="ir.actions.act_window.view">
+        <field name="sequence">4</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_feedback_review_graph"/>
+        <field name="act_window_id" ref="action_feedback_review"/>
+    </record>
+
+    <record id="action_feedback_review_moderation" model="ir.actions.act_window">
+        <field name="name">Moderation Dashboard</field>
+        <field name="res_model">feedback.review</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('status','=','pending')]</field>
+        <field name="context">{'search_default_pending': 1}</field>
+    </record>
+</odoo>

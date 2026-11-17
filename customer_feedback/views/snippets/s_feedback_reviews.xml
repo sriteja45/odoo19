@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Odoo 19 Website Snippet: Customer Reviews
+         Steps 1–6 web-builder structure & options
+         Default = all visible → zero functional behaviour change
+         ================================================================ -->
+
+    <!-- Review cards fragment (AJAX sort/filter target).
+         All JS-required classes/ids preserved. -->
+    <template id="product_reviews_list" name="Product Reviews List (fragment)">
+        <div class="o_feedback_reviews_section" id="o_feedback_reviews"
+             t-att-data-has-more="'1' if has_more else '0'"
+             t-att-data-next-offset="next_offset or ''">
+            <t t-if="reviews">
+                <div class="o_feedback_review_list">
+                    <t t-foreach="reviews" t-as="review">
+                        <div class="o_feedback_review border-bottom py-3">
+                            <div class="text-warning o_feedback_card_stars">
+                                <t t-set="star_count" t-value="int(round(review.rating or 0))"/>
+                                <t t-esc="'&#9733;' * star_count"/>
+                                <t t-esc="'&#9734;' * (5 - star_count)"/>
+                            </div>
+
+                            <div t-if="review.review_title" class="fw-bold mt-1 o_feedback_card_title">
+                                <t t-esc="review.review_title"/>
+                            </div>
+
+                            <p t-if="review.review_text" class="mb-1 o_feedback_card_text">
+                                <t t-esc="review.review_text"/>
+                            </p>
+
+                            <t t-set="public_media" t-value="review.get_public_media()"/>
+                            <div t-if="public_media" class="o_feedback_review_media d-flex flex-wrap gap-2 my-2">
+                                <t t-foreach="public_media" t-as="media">
+                                    <t t-if="media.media_type == 'image'">
+                                        <a t-att-href="media.get_public_url()" target="_blank" rel="noopener"
+                                           class="o_feedback_media_thumb">
+                                            <img t-att-src="media.get_public_url()"
+                                                 t-att-alt="media.name or 'Review photo'"
+                                                 class="rounded border"
+                                                 style="max-height:96px;max-width:128px;object-fit:cover;"/>
+                                        </a>
+                                    </t>
+                                    <t t-else="">
+                                        <video controls="controls" preload="metadata"
+                                               class="rounded border o_feedback_media_video"
+                                               style="max-height:160px;max-width:240px;">
+                                            <source t-att-src="media.get_public_url()"
+                                                    t-att-type="media.mimetype"/>
+                                        </video>
+                                    </t>
+                                </t>
+                            </div>
+
+                            <div class="small text-muted o_feedback_card_meta">
+                                <span t-esc="review.get_display_name_public()"/>
+                                <span class="mx-1">-</span>
+                                <span t-field="review.review_date" t-options="{'widget': 'date'}"/>
+                            </div>
+
+                            <t t-set="variant_values" t-value="review.product_id.product_template_attribute_value_ids"/>
+                            <div t-if="variant_values" class="small text-muted mt-1 o_feedback_card_variant">
+                                <strong>Purchased variant:</strong>
+                                <t t-foreach="variant_values" t-as="variant_value">
+                                    <span class="me-2">
+                                        <span t-esc="variant_value.attribute_id.name"/>: <span t-esc="variant_value.name"/>
+                                    </span>
+                                </t>
+                            </div>
+
+                            <div t-if="review.is_verified" class="mt-1 o_feedback_verified_badge">
+                                <span class="badge text-bg-success">
+                                    &#10003; Verified Purchase
+                                </span>
+                            </div>
+
+                            <div class="o_feedback_vote_widget mt-2 small" t-att-data-review-id="review.id">
+                                <span class="text-muted me-2">Was this helpful?</span>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary o_feedback_vote_btn"
+                                        t-att-data-review-id="review.id"
+                                        data-vote-type="helpful">
+                                    &#128077; Helpful
+                                    (<span class="o_helpful_count" t-esc="review.helpful_count"/>)
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary o_feedback_vote_btn ms-1"
+                                        t-att-data-review-id="review.id"
+                                        data-vote-type="not_helpful">
+                                    &#128078; Not Helpful
+                                    (<span class="o_not_helpful_count" t-esc="review.not_helpful_count"/>)
+                                </button>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                <div t-if="has_more" class="text-center pt-3 o_feedback_load_more_wrap">
+                    <button type="button" class="btn btn-outline-primary o_feedback_load_more_btn"
+                            t-att-data-offset="next_offset">
+                        Load more reviews
+                    </button>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="o_feedback_no_reviews text-muted py-3">
+                    <p class="mb-0">No reviews yet.</p>
+                    <p class="mb-0">Be the first customer to review this product.</p>
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <!-- Sort/filter toolbar (outside AJAX-replaced list) -->
+    <template id="product_reviews_toolbar" name="Product Reviews Toolbar (fragment)">
+        <div class="o_feedback_reviews_toolbar d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <div class="o_feedback_star_filters d-flex flex-wrap gap-1" role="group" aria-label="Filter by rating">
+                <button type="button" t-foreach="[5, 4, 3, 2, 1]" t-as="stars"
+                        class="btn btn-sm btn-outline-secondary o_feedback_star_filter_btn"
+                        t-att-data-rating="stars">
+                    <t t-esc="stars"/>&#9733;
+                </button>
+            </div>
+            <div class="o_feedback_sort d-flex align-items-center gap-2">
+                <label for="o_feedback_sort_select" class="small text-muted mb-0">Sort by</label>
+                <select id="o_feedback_sort_select" class="form-select form-select-sm w-auto o_feedback_sort_select">
+                    <option value="newest">Newest</option>
+                    <option value="highest">Highest rated</option>
+                    <option value="lowest">Lowest rated</option>
+                </select>
+            </div>
+        </div>
+    </template>
+
+    <!-- ================================================================
+         Main snippet (Steps 1–3 + previous: more editable structure)
+         Functionality unchanged: votes, sort/filter, load-more, AJAX,
+         moderation, rating bridge, token flow all preserved.
+         ================================================================ -->
+    <template id="s_feedback_reviews" name="Customer Reviews">
+        <section class="s_feedback_reviews pt32 pb32 o_editable"
+                 data-snippet="s_feedback_reviews"
+                 data-name="Customer Reviews"
+                 data-feedback-reviews="1">
+            <div class="container">
+                <!-- Step 7: independently editable title zone. Text can be changed
+                     directly in Website Builder without touching the dynamic engine. -->
+                <div class="o_feedback_title_zone o_editable" data-feedback-slot="title">
+                    <div class="o_feedback_title_block o_editable">
+                        <h4 class="mb-3 o_feedback_section_title">Reviews</h4>
+                    </div>
+                </div>
+
+                <!-- Step 7: editable toolbar zone. The wrapper is a builder canvas,
+                     while the actual JS controls remain protected as a single unit. -->
+                <div class="o_feedback_toolbar_zone o_editable" data-feedback-slot="toolbar">
+                    <t t-if="product">
+                        <div class="o_feedback_toolbar_wrap o_not_editable">
+                            <t t-call="customer_feedback.product_reviews_toolbar"/>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- Step 7: real builder drop zone between controls and reviews.
+                     Persisted builder content is outside the AJAX replacement target. -->
+                <div class="oe_structure o_feedback_content_zone" data-feedback-slot="before-reviews"/>
+
+                <!-- Dynamic review engine. Keep this inner container protected: AJAX
+                     replaces its contents and relies on its data attributes/classes.
+                     The surrounding zone remains editable so layout/content can be
+                     composed around the live review engine without breaking it. -->
+                <div class="o_feedback_list_zone o_editable" data-feedback-slot="reviews">
+                    <div id="o_feedback_reviews_list_container"
+                         class="o_feedback_list_block o_not_editable"
+                         t-att-data-product-id="product.id if product else None">
+                    <t t-if="product">
+                        <t t-set="review_page" t-value="product.get_public_review_page(limit=20)"/>
+                        <t t-call="customer_feedback.product_reviews_list">
+                            <t t-set="reviews" t-value="review_page['reviews']"/>
+                            <t t-set="has_more" t-value="review_page['has_more']"/>
+                            <t t-set="next_offset" t-value="review_page['next_offset']"/>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <!-- Step 4: Editor / CMS placeholder (no product context).
+                             Stays o_not_editable: this preview mirrors the exact
+                             DOM the AJAX list will render on a real product page,
+                             so it must not be hand-edited or it would misrepresent
+                             the live result. -->
+                        <div class="o_feedback_editor_placeholder text-muted py-3 border border-dashed rounded px-3 o_not_editable">
+                            <p class="mb-1 fw-semibold o_feedback_section_title_hint">Customer Reviews</p>
+                            <p class="mb-1 small">Verified product reviews appear here on product pages.</p>
+                            <p class="mb-0 small">Use Customize options to hide parts, change layout, or set default sort. Auto-injection is controlled in Settings → Customer Feedback.</p>
+                            <!-- Sample skeleton for visual layout in builder only -->
+                            <div class="o_feedback_sample_cards mt-3 opacity-50" aria-hidden="true">
+                                <div class="o_feedback_review border-bottom py-2">
+                                    <div class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                                    <div class="fw-bold small">Sample review title</div>
+                                    <p class="mb-0 small">Sample review text appears here for layout preview.</p>
+                                </div>
+                                <div class="o_feedback_review border-bottom py-2">
+                                    <div class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                    <div class="fw-bold small">Another sample</div>
+                                    <p class="mb-0 small">Real reviews load automatically on product pages.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    </div>
+                </div>
+
+                <!-- Step 7: persisted builder zone after the live review engine. -->
+                <div class="oe_structure o_feedback_extra_content" data-feedback-dropzone="1" data-feedback-slot="after-reviews"/>
+            </div>
+        </section>
+    </template>
+
+    <!-- Register in Website Builder -->
+    <template id="snippets" inherit_id="website.snippets" name="Customer Feedback Snippets">
+        <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+            <t t-snippet="customer_feedback.s_feedback_reviews"
+               string="Customer Reviews"
+               group="content">
+                <keywords>reviews ratings feedback stars verified purchase customer</keywords>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

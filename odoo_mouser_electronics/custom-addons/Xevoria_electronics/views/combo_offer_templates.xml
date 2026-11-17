@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+<template
+    id="combo_offer_page"
+    name="Combo Offers">
+
+<t t-call="website.layout">
+
+<div class="container mt-5 mb-5">
+
+<h1 class="text-center mb-5">
+Combo Offers
+</h1>
+
+<div class="row">
+
+<t t-foreach="offers"
+   t-as="offer">
+
+<div class="col-lg-4 mb-4">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h4>
+<t t-esc="offer.name"/>
+</h4>
+
+<p>
+
+Products:
+
+<t t-foreach="offer.product_ids"
+   t-as="p">
+
+<span class="badge bg-primary">
+
+<t t-esc="p.name"/>
+
+</span>
+
+</t>
+
+</p>
+
+<p>
+
+Minimum Qty:
+
+<t t-esc="offer.minimum_qty"/>
+
+</p>
+
+<t t-if="offer.offer_type=='percentage'">
+
+<p>
+
+Discount:
+
+<t t-esc="offer.discount"/> %
+
+</p>
+
+</t>
+
+<t t-if="offer.offer_type=='fixed'">
+
+<p>
+
+Discount:
+
+₹ <t t-esc="offer.discount"/>
+
+</p>
+
+</t>
+
+<t t-if="offer.offer_type=='combo'">
+
+<p>
+
+Combo Price:
+
+₹ <t t-esc="offer.combo_price"/>
+
+</p>
+
+<p>
+
+Extra Discount:
+
+<t t-esc="offer.discount"/>
+
+</p>
+
+<p>
+
+Final Price:
+
+₹ <t t-esc="offer.final_price"/>
+
+</p>
+
+</t>
+
+</div>
+
+</div>
+
+</div>
+
+</t>
+
+</div>
+
+</div>
+
+</t>
+
+</template>
+
+</odoo>

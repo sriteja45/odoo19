@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_feedback_dashboard_form" model="ir.ui.view">
+        <field name="name">feedback.dashboard.form</field>
+        <field name="model">feedback.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Feedback Dashboard" create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="o_feedback_dashboard_kpis d-flex flex-wrap gap-3 mb-4">
+                        <button name="action_open_pending" type="object" class="oe_stat_button" icon="fa-clock-o">
+                            <div class="o_stat_info">
+                                <field name="pending_review_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Pending Reviews</span>
+                            </div>
+                        </button>
+                        <button name="action_open_approved" type="object" class="oe_stat_button" icon="fa-check-circle">
+                            <div class="o_stat_info">
+                                <field name="approved_review_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Approved Reviews</span>
+                            </div>
+                        </button>
+                        <button name="action_open_rejected" type="object" class="oe_stat_button" icon="fa-times-circle">
+                            <div class="o_stat_info">
+                                <field name="rejected_review_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Rejected Reviews</span>
+                            </div>
+                        </button>
+                        <button name="action_open_all_reviews" type="object" class="oe_stat_button" icon="fa-star">
+                            <div class="o_stat_info">
+                                <field name="average_rating" class="o_stat_value"/>
+                                <span class="o_stat_text">Average Rating</span>
+                            </div>
+                        </button>
+                        <button name="action_open_all_reviews" type="object" class="oe_stat_button" icon="fa-list">
+                            <div class="o_stat_info">
+                                <field name="total_review_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Total Reviews</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <group col="2">
+                        <group string="Top Rated Products">
+                            <field name="top_rated_product_ids" nolabel="1" readonly="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="rating_avg"/>
+                                    <field name="rating_count"/>
+                                </list>
+                            </field>
+                            <button name="action_open_top_rated" type="object" string="View All Top Rated"
+                                    class="btn-link"/>
+                        </group>
+                        <group string="Lowest Rated Products">
+                            <field name="lowest_rated_product_ids" nolabel="1" readonly="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="rating_avg"/>
+                                    <field name="rating_count"/>
+                                </list>
+                            </field>
+                            <button name="action_open_lowest_rated" type="object" string="View All Lowest Rated"
+                                    class="btn-link"/>
+                        </group>
+                    </group>
+
+                    <group string="Recent Reviews">
+                        <field name="recent_review_ids" nolabel="1" readonly="1">
+                            <list create="0" edit="0" delete="0">
+                                <field name="review_date"/>
+                                <field name="product_id"/>
+                                <field name="customer_id"/>
+                                <field name="rating" widget="badge"/>
+                                <field name="status" widget="badge"/>
+                            </list>
+                        </field>
+                    </group>
+
+                    <div class="mt-3">
+                        <button name="action_open_report_export" type="object"
+                                string="Export Reports (PDF / Excel)" class="btn-primary"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_feedback_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">feedback.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'create': False}</field>
+    </record>
+</odoo>

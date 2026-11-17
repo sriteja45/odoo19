@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="vendor_st" model="res.partner">
+            <field name="name">STMicroelectronics</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_nxp" model="res.partner">
+            <field name="name">NXP Semiconductors</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_ti" model="res.partner">
+            <field name="name">Texas Instruments</field>
+            <field name="supplier_rank">1</field>
+        </record> 
+
+        <record id="vendor_infineon" model="res.partner">
+            <field name="name">Infineon</field>
+            <field name="supplier_rank">1</field>
+        </record> 
+
+        <record id="vendor_microchip" model="res.partner">
+            <field name="name">Microchip</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_lava" model="res.partner">
+            <field name="name">Lava</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_lemorele" model="res.partner">
+            <field name="name">Lemorele</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_samsung" model="res.partner">
+            <field name="name">Samsung</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_lenovo" model="res.partner">
+            <field name="name">Lenovo</field>
+            <field name="supplier_rank">1</field>
+        </record> 
+
+        <record id="vendor_dell" model="res.partner">
+            <field name="name">Dell</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_asus" model="res.partner">
+            <field name="name">ASUS</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_acer" model="res.partner">
+            <field name="name">Acer</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_apple" model="res.partner">
+            <field name="name">Apple</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_generic" model="res.partner">
+            <field name="name">Generic</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="cat_storage" model="product.category">
+            <field name="name">Storage</field>
+        </record>
+
+        <record id="vendor_acwo" model="res.partner">
+            <field name="name">ACwO</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_agaro" model="res.partner">
+            <field name="name">AGARO</field>
+            <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_amazon" model="res.partner">
+            <field name="name">Amazon</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_cadlec" model="res.partner">
+            <field name="name">Cadlec</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_canon" model="res.partner">
+            <field name="name">Canon</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_emeet" model="res.partner">
+            <field name="name">eMeet</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_epson" model="res.partner">
+            <field name="name">Epson</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_fastrack" model="res.partner">
+            <field name="name">Fastrack</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_fedus" model="res.partner">
+            <field name="name">FEDUS</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_garmin" model="res.partner">
+            <field name="name">Garmin</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+
+        </record>
+
+        <record id="vendor_ikall" model="res.partner">
+            <field name="name">iKALL</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_inlight" model="res.partner">
+            <field name="name">Inlight</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_iqoo" model="res.partner">
+            <field name="name">iQOO</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_jifar" model="res.partner">
+            <field name="name">JIFAR</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_hp" model="res.partner">
+            <field name="name">HP</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        
+        <record id="vendor_logitech" model="res.partner">
+            <field name="name">Logitech</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_msi" model="res.partner">
+            <field name="name">MSI</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_oneplus" model="res.partner">
+            <field name="name">OnePlus</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+
+        </record>
+
+        <record id="vendor_oppo" model="res.partner">
+            <field name="name">OPPO</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_boat" model="res.partner">
+            <field name="name">boAt</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_gionee" model="res.partner">
+            <field name="name">Gionee</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_vivo" model="res.partner">
+            <field name="name">vivo</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_xiaomi" model="res.partner">
+            <field name="name">Xiaomi</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_google" model="res.partner">
+            <field name="name">Google</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_razor" model="res.partner">
+            <field name="name">Razor</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_sony" model="res.partner">
+            <field name="name">Sony</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_acer" model="res.partner">
+            <field name="name">Acer</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+
+        </record>
+
+        <record id="vendor_asus" model="res.partner">
+            <field name="name">ASUS</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_lenovo" model="res.partner">
+            <field name="name">Lenovo</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_haier" model="res.partner">
+            <field name="name">Haier</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_lifelong" model="res.partner">
+    
+            <field name="name">Lifelong</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_midea" model="res.partner">
+            <field name="name">Midea</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+        
+        <record id="vendor_longway" model="res.partner">
+            <field name="name">Longway</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="vendor_noise" model="res.partner">
+                <field name="name">Noise</field>
+                <field name="supplier_rank">1</field>
+        </record>
+
+        <record id="vendor_philips" model="res.partner">
+            <field name="name">Philips</field>
+            <field name="supplier_rank">1</field>
+        </record>
+        
+        <record id="vendor_prestige" model="res.partner">
+            <field name="name">Prestige</field>
+            <field name="supplier_rank">1</field>
+            <field name="company_type">company</field>
+        </record>
+        
+        
+    </data>
+</odoo>

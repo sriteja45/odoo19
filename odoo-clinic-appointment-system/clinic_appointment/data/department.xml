@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+
+        <!-- Cardiology -->
+        <record id="dep_cardiology" model="clinic.department">
+            <field name="name">Cardiology Department</field>
+        </record>
+
+        <!-- Neurology -->
+        <record id="dep_neurology" model="clinic.department">
+            <field name="name">Neurology Department</field>
+        </record>
+
+        <!-- Orthopedics -->
+        <record id="dep_orthopedics" model="clinic.department">
+            <field name="name">Orthopedic Department</field>
+        </record>
+
+        <!-- Dental -->
+        <record id="dep_dental" model="clinic.department">
+            <field name="name">Dental Department</field>
+        </record>
+
+        <!-- Radiology -->
+        <record id="dep_radiology" model="clinic.department">
+            <field name="name">Radiology Department</field>
+        </record>
+
+    </data>
+</odoo>
